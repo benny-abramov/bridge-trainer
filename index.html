@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bridge Trainer</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>♠</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="logo">♠♥♦♣</span> Bridge Trainer</div>
+    <nav class="tabs" role="tablist">
+      <button role="tab" data-tab="learn">Learn</button>
+      <button role="tab" data-tab="hcp">Count Points</button>
+      <button role="tab" data-tab="opening">Opening Bids</button>
+      <button role="tab" data-tab="play">Play a Hand</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- Learn -->
+    <section id="tab-learn" class="panel" role="tabpanel">
+      <div class="learn-layout">
+        <aside class="lesson-list" id="lesson-list" aria-label="Lessons"></aside>
+        <article class="lesson card-surface" id="lesson-body"></article>
+      </div>
+    </section>
+
+    <!-- Count points -->
+    <section id="tab-hcp" class="panel" role="tabpanel" hidden>
+      <div class="card-surface drill">
+        <div class="drill-head">
+          <div>
+            <h2>Count the high-card points</h2>
+            <p class="muted">Ace = 4, King = 3, Queen = 2, Jack = 1.</p>
+          </div>
+          <div class="stats" id="hcp-stats"></div>
+        </div>
+        <div class="hand-area" id="hcp-hand"></div>
+        <div class="answer-row">
+          <label for="hcp-input">Total HCP</label>
+          <input id="hcp-input" type="number" min="0" max="37" inputmode="numeric" autocomplete="off">
+          <button class="btn" id="hcp-check">Check</button>
+          <button class="btn secondary" id="hcp-next">New hand</button>
+        </div>
+        <div class="feedback" id="hcp-feedback" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- Opening bids -->
+    <section id="tab-opening" class="panel" role="tabpanel" hidden>
+      <div class="card-surface drill">
+        <div class="drill-head">
+          <div>
+            <h2>What would you open?</h2>
+            <p class="muted">You are the dealer. Choose your opening bid (simplified Standard American).</p>
+          </div>
+          <div class="stats" id="open-stats"></div>
+        </div>
+        <div class="hand-area" id="open-hand"></div>
+        <div class="answer-row">
+          <label class="check"><input type="checkbox" id="open-show-hcp"> Show HCP</label>
+          <span class="pill" id="open-hcp" hidden></span>
+        </div>
+        <div class="bids" id="open-bids"></div>
+        <div class="feedback" id="open-feedback" aria-live="polite"></div>
+        <button class="btn" id="open-next" hidden>Next hand →</button>
+      </div>
+    </section>
+
+    <!-- Play -->
+    <section id="tab-play" class="panel" role="tabpanel" hidden>
+      <div class="play-bar card-surface">
+        <div class="contract">
+          <div class="muted small">Contract</div>
+          <div class="contract-bid" id="play-contract"></div>
+        </div>
+        <div class="goal" id="play-goal"></div>
+        <div class="tally">
+          <div><span class="muted small">N–S</span><b id="play-ns">0</b></div>
+          <div><span class="muted small">E–W</span><b id="play-ew">0</b></div>
+          <div><span class="muted small">Still need</span><b id="play-need">0</b></div>
+        </div>
+        <div class="play-actions">
+          <button class="btn secondary" id="play-hint">Hint</button>
+          <button class="btn secondary" id="play-showall">Show all hands</button>
+          <button class="btn secondary" id="play-replay">Replay deal</button>
+          <button class="btn" id="play-new">New deal</button>
+        </div>
+      </div>
+      <div class="status" id="play-status" aria-live="polite"></div>
+
+      <div class="table">
+        <div class="seat north" id="seat-0"></div>
+        <div class="seat west" id="seat-3"></div>
+        <div class="trick-area" id="trick-area"></div>
+        <div class="seat east" id="seat-1"></div>
+        <div class="seat south" id="seat-2"></div>
+      </div>
+      <div class="last-trick small muted" id="play-last"></div>
+    </section>
+  </main>
+
+  <script src="js/cards.js"></script>
+  <script src="js/learn.js"></script>
+  <script src="js/trainers.js"></script>
+  <script src="js/play.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,203 @@
+// Beginner lessons. Each lesson is a title plus an HTML body; `tryIt` links to a practice tab.
+
+const S = suitHtml('S'), H = suitHtml('H'), D = suitHtml('D'), C = suitHtml('C');
+
+const LESSONS = [
+  {
+    title: 'What is bridge?',
+    body: `
+      <p>Bridge is a card game for <strong>four players in two partnerships</strong>.
+      Players are named after compass points: <strong>North and South</strong> are partners against
+      <strong>East and West</strong>. Partners sit opposite each other.</p>
+      <div class="compass" aria-hidden="true">
+        <span class="n">North</span><span class="w">West</span><span class="e">East</span><span class="s">South</span>
+        <span class="mid">table</span>
+      </div>
+      <p>A standard 52-card deck is dealt out completely, so everyone holds <strong>13 cards</strong>.
+      Each deal has two phases:</p>
+      <ol>
+        <li><strong>The auction</strong> — both sides bid to decide how many tricks one partnership promises to win, and which suit (if any) will be trumps.</li>
+        <li><strong>The play</strong> — the 13 tricks are played out to see whether that promise is kept.</li>
+      </ol>
+      <p>You always work with your partner: your goal is to win tricks <em>as a team</em>.</p>`,
+  },
+  {
+    title: 'Tricks',
+    body: `
+      <p>A <strong>trick</strong> is one card from each player, played in clockwise order.</p>
+      <ul>
+        <li>The first player <strong>leads</strong> any card they like.</li>
+        <li>Everyone else <strong>must follow suit</strong> — play a card of the suit that was led — if they can.</li>
+        <li>If you can't follow suit, you may play any card.</li>
+        <li>The <strong>highest card of the suit led</strong> wins the trick (Ace is high, 2 is low) — unless a trump is played.</li>
+        <li>Whoever wins the trick leads to the next one.</li>
+      </ul>
+      <div class="example">
+        <div class="example-title">Example — West leads the 5${H}</div>
+        <div class="trick-row">
+          <span>West 5${H}</span><span>North Q${H}</span><span class="win">East K${H} ✓</span><span>South 2${C}</span>
+        </div>
+        <p class="small">South has no hearts and discards a club. East's King is the highest heart, so East wins.</p>
+      </div>`,
+  },
+  {
+    title: 'Trumps and no-trump',
+    body: `
+      <p>The auction may name one suit as <strong>trumps</strong>. A trump beats every card of the other suits.</p>
+      <ul>
+        <li>If you can't follow suit, you may play a trump (<strong>ruff</strong>) to win the trick.</li>
+        <li>If more than one trump is played to a trick, the highest trump wins.</li>
+        <li>You must still follow suit if you can — you can't ruff while holding a card of the suit led.</li>
+      </ul>
+      <p>A contract in <strong>no-trump (NT)</strong> has no trump suit: the highest card of the suit led always wins.</p>
+      <div class="example">
+        <div class="example-title">Example — spades are trumps, North leads the A${D}</div>
+        <div class="trick-row">
+          <span>North A${D}</span><span class="win">East 3${S} ✓</span><span>South 4${D}</span><span>West 7${D}</span>
+        </div>
+        <p class="small">East has no diamonds and ruffs with a small trump, beating the Ace.</p>
+      </div>`,
+  },
+  {
+    title: 'The auction',
+    body: `
+      <p>Starting with the dealer, players take turns making a <strong>call</strong>: a bid, Pass, Double or Redouble.</p>
+      <p>A <strong>bid</strong> has a <em>level</em> (1–7) and a <em>strain</em> (a suit or NT).
+      The level is the number of tricks <strong>over six</strong> you promise to take:
+      bidding 1${H} promises 7 tricks with hearts as trumps; 4${S} promises 10 tricks with spades as trumps.</p>
+      <p>Strains rank from low to high:</p>
+      <div class="ranking">${C}<span>&lt;</span>${D}<span>&lt;</span>${H}<span>&lt;</span>${S}<span>&lt;</span>NT</div>
+      <p>Every bid must be <strong>higher</strong> than the one before it — either a higher level, or the same level in a higher strain.
+      After 1${H}, you could bid 1${S} or 1NT, but to show diamonds you'd need 2${D}.</p>
+      <ul>
+        <li>The auction ends when a bid is followed by <strong>three passes</strong>. The last bid becomes the <strong>contract</strong>.</li>
+        <li>The <strong>declarer</strong> is whichever player of the winning side first named the contract's strain.</li>
+        <li><strong>Double</strong> raises the stakes of the opponents' last bid; <strong>Redouble</strong> raises them again.</li>
+      </ul>`,
+  },
+  {
+    title: 'Declarer, dummy and defenders',
+    body: `
+      <p>Once the contract is set:</p>
+      <ol>
+        <li>The player on the <strong>declarer's left</strong> makes the <strong>opening lead</strong>.</li>
+        <li>The declarer's partner then lays their whole hand face up on the table. This hand is called <strong>dummy</strong>.</li>
+        <li>The declarer plays <strong>both</strong> their own cards and dummy's. Dummy's owner just watches.</li>
+        <li>The other two players are the <strong>defenders</strong>. They try to win enough tricks to defeat the contract.</li>
+      </ol>
+      <p>In this app's <em>Play a Hand</em> tab you are always South, the declarer, and you also play North's (dummy's) cards.
+      The computer defends as East and West.</p>`,
+    tryIt: 'play',
+  },
+  {
+    title: 'Counting your points',
+    body: `
+      <p>To judge how strong a hand is, count <strong>high-card points (HCP)</strong>:</p>
+      <table class="tbl">
+        <tr><th>Ace</th><th>King</th><th>Queen</th><th>Jack</th></tr>
+        <tr><td>4</td><td>3</td><td>2</td><td>1</td></tr>
+      </table>
+      <p>There are 40 HCP in the deck, so an average hand has 10.</p>
+      <p>Useful targets for the <strong>combined</strong> points of you and partner:</p>
+      <table class="tbl">
+        <tr><th>Combined HCP</th><th>You can usually make</th></tr>
+        <tr><td>25–26</td><td>Game: 3NT, 4${H} or 4${S}</td></tr>
+        <tr><td>28–29</td><td>Game in a minor: 5${C} or 5${D}</td></tr>
+        <tr><td>33</td><td>Small slam (12 tricks)</td></tr>
+        <tr><td>37</td><td>Grand slam (all 13 tricks)</td></tr>
+      </table>
+      <p>A hand's <strong>shape</strong> matters too. <strong>Balanced</strong> hands have no void, no singleton and at most one doubleton:
+      4-3-3-3, 4-4-3-2 or 5-3-3-2. These hands suit no-trump.</p>`,
+    tryIt: 'hcp',
+  },
+  {
+    title: 'Opening the bidding',
+    body: `
+      <p>The first bid is the <strong>opening bid</strong>. This app teaches a simplified <em>Standard American</em> system:</p>
+      <table class="tbl">
+        <tr><th>Your hand</th><th>Open</th></tr>
+        <tr><td>Fewer than 12 HCP (and no long suit)</td><td>Pass</td></tr>
+        <tr><td>12–21 HCP with a 5+ card major</td><td>1${H} or 1${S} (longer major; spades with 5-5)</td></tr>
+        <tr><td>12–21 HCP, no 5-card major</td><td>1${C} or 1${D} (longer minor; 1${C} with 3-3, 1${D} with 4-4)</td></tr>
+        <tr><td>15–17 HCP, balanced</td><td>1NT</td></tr>
+        <tr><td>20–21 HCP, balanced</td><td>2NT</td></tr>
+        <tr><td>22+ HCP, any shape</td><td>2${C} (strong and artificial)</td></tr>
+        <tr><td>5–10 HCP with a 6-card ${D}, ${H} or ${S} suit</td><td>Weak two: 2${D}, 2${H} or 2${S}</td></tr>
+        <tr><td>5–10 HCP with a 7-card suit</td><td>Preempt at the 3-level</td></tr>
+      </table>
+      <p><strong>Rule of 20:</strong> with 10–11 HCP, add your HCP to the number of cards in your two longest suits.
+      If the total is 20 or more, open at the 1-level anyway.</p>`,
+    tryIt: 'opening',
+  },
+  {
+    title: 'Responding to partner',
+    body: `
+      <p>When partner opens one of a suit, these simple guidelines get you started:</p>
+      <ul>
+        <li><strong>0–5 HCP:</strong> usually pass.</li>
+        <li><strong>6+ HCP:</strong> respond. Partner may still pass, so with more strength you keep bidding.</li>
+        <li><strong>Support a major:</strong> with 3+ cards in partner's major, raise it — to the 2-level with 6–10 HCP.</li>
+        <li><strong>New suit:</strong> bidding a new suit at the 1-level shows 4+ cards and 6+ HCP and asks partner to bid again.</li>
+        <li><strong>1NT response:</strong> 6–10 HCP, with no fit and no 4-card suit you can show at the 1-level.</li>
+      </ul>
+      <p>The aim of the auction is to find an <strong>8-card fit</strong> (or settle in no-trump) and the right level for your combined strength.</p>`,
+  },
+  {
+    title: 'Scoring basics',
+    body: `
+      <p>If declarer takes at least the promised number of tricks, the contract is <strong>made</strong> and declarer's side scores:</p>
+      <table class="tbl">
+        <tr><th>Strain</th><th>Points per trick bid (over six)</th></tr>
+        <tr><td>${C} ${D} minors</td><td>20</td></tr>
+        <tr><td>${H} ${S} majors</td><td>30</td></tr>
+        <tr><td>NT</td><td>40 for the first, 30 for each after</td></tr>
+      </table>
+      <ul>
+        <li>A contract worth <strong>100+</strong> trick points is a <strong>game</strong>: 3NT, 4${H}/4${S} or 5${C}/5${D}. It earns a bonus of 300 (500 when vulnerable).</li>
+        <li>Smaller contracts are <strong>part-scores</strong> and earn a 50 bonus.</li>
+        <li>A <strong>small slam</strong> (6-level) adds 500; a <strong>grand slam</strong> (7-level) adds 1000 (more when vulnerable).</li>
+        <li><strong>Overtricks</strong> score the per-trick value.</li>
+        <li>If declarer falls short, the defenders score <strong>50 per undertrick</strong> (100 vulnerable).</li>
+      </ul>
+      <p>The Play tab scores every hand as not vulnerable.</p>`,
+    tryIt: 'play',
+  },
+];
+
+const Learn = (() => {
+  let index = 0;
+
+  function render() {
+    const list = document.getElementById('lesson-list');
+    list.innerHTML = '';
+    LESSONS.forEach((lesson, i) => {
+      const btn = document.createElement('button');
+      btn.textContent = `${i + 1}. ${lesson.title}`;
+      btn.className = i === index ? 'active' : '';
+      btn.addEventListener('click', () => { index = i; render(); });
+      list.appendChild(btn);
+    });
+
+    const lesson = LESSONS[index];
+    const tryLabels = { hcp: 'Practice counting points', opening: 'Practice opening bids', play: 'Play a hand' };
+    document.getElementById('lesson-body').innerHTML = `
+      <div class="eyebrow">Lesson ${index + 1} of ${LESSONS.length}</div>
+      <h2>${lesson.title}</h2>
+      ${lesson.body}
+      ${lesson.tryIt ? `<p><button class="btn secondary" data-goto="${lesson.tryIt}">${tryLabels[lesson.tryIt]} →</button></p>` : ''}
+      <div class="lesson-nav">
+        <button class="btn secondary" id="lesson-prev" ${index === 0 ? 'disabled' : ''}>← Previous</button>
+        <button class="btn" id="lesson-next" ${index === LESSONS.length - 1 ? 'disabled' : ''}>Next →</button>
+      </div>`;
+    document.getElementById('lesson-prev').addEventListener('click', () => go(index - 1));
+    document.getElementById('lesson-next').addEventListener('click', () => go(index + 1));
+  }
+
+  function go(i) {
+    index = Math.max(0, Math.min(LESSONS.length - 1, i));
+    render();
+    document.getElementById('lesson-body').scrollIntoView({ block: 'start', behavior: 'smooth' });
+  }
+
+  return { init: render };
+})();
