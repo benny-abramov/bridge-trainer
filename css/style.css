@@ -198,6 +198,7 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 .drill-head { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
 .drill-head p { margin: 0; }
 .stats { font-size: .875rem; color: var(--muted); align-self: start; background: var(--bg); padding: .3rem .7rem; border-radius: 999px; }
+.context { margin-top: 1rem; padding: .6rem 1rem; border-radius: 10px; background: var(--accent-soft); font-size: 1.05rem; }
 .hand-area { display: flex; justify-content: center; background: var(--felt); border-radius: 12px; padding: 1.5rem 1rem; margin: 1.25rem 0; overflow-x: auto; }
 .answer-row { display: flex; align-items: center; gap: .6rem; flex-wrap: wrap; margin-bottom: 1rem; }
 .answer-row label { font-weight: 600; }

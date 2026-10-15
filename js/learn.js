@@ -134,13 +134,22 @@ const LESSONS = [
     body: `
       <p>When partner opens one of a suit, these simple guidelines get you started:</p>
       <ul>
-        <li><strong>0–5 HCP:</strong> usually pass.</li>
+        <li><strong>0–5 HCP:</strong> pass.</li>
         <li><strong>6+ HCP:</strong> respond. Partner may still pass, so with more strength you keep bidding.</li>
-        <li><strong>Support a major:</strong> with 3+ cards in partner's major, raise it — to the 2-level with 6–10 HCP.</li>
-        <li><strong>New suit:</strong> bidding a new suit at the 1-level shows 4+ cards and 6+ HCP and asks partner to bid again.</li>
-        <li><strong>1NT response:</strong> 6–10 HCP, with no fit and no 4-card suit you can show at the 1-level.</li>
       </ul>
-      <p>The aim of the auction is to find an <strong>8-card fit</strong> (or settle in no-trump) and the right level for your combined strength.</p>`,
+      <p>With 6+ HCP, choose the <strong>first</strong> of these that fits your hand:</p>
+      <table class="tbl">
+        <tr><th>Your hand</th><th>Respond</th></tr>
+        <tr><td>3+ cards in partner's major</td><td>Raise: 2 of the major with 6–10 HCP, 3 (a <em>limit raise</em>) with 11–12</td></tr>
+        <tr><td>A 4+ card suit you can bid at the 1-level</td><td>Bid it (majors before diamonds; hearts first with 4-4 in the majors)</td></tr>
+        <tr><td>Support for partner's minor (4+ ${D} or 5+ ${C})</td><td>Raise: 2 of the minor with 6–10, 3 with 11–12</td></tr>
+        <tr><td>6–10 HCP, none of the above</td><td>1NT</td></tr>
+        <tr><td>11–12 HCP, a 4+ card lower-ranking suit (5+ for ${H})</td><td>New suit at the 2-level</td></tr>
+        <tr><td>11–12 HCP, none of the above</td><td>2NT, inviting game</td></tr>
+      </table>
+      <p>The aim of the auction is to find an <strong>8-card fit</strong> (or settle in no-trump) and the right level for your combined strength.
+      With 13+ HCP you have enough for game opposite an opening bid. Those hands use more advanced bids, so the drill doesn't include them.</p>`,
+    tryIt: 'responding',
   },
   {
     title: 'Scoring basics',
@@ -179,7 +188,7 @@ const Learn = (() => {
     });
 
     const lesson = LESSONS[index];
-    const tryLabels = { hcp: 'Practice counting points', opening: 'Practice opening bids', play: 'Play a hand' };
+    const tryLabels = { hcp: 'Practice counting points', opening: 'Practice opening bids', responding: 'Practice responding', play: 'Play a hand' };
     document.getElementById('lesson-body').innerHTML = `
       <div class="eyebrow">Lesson ${index + 1} of ${LESSONS.length}</div>
       <h2>${lesson.title}</h2>

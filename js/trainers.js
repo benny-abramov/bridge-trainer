@@ -129,40 +129,99 @@ function openingBid(hand) {
   return { bid: 'P', why: `${pts} HCP is not enough to open, and you have no long suit for a preempt. Pass.` };
 }
 
-const OpeningTrainer = (() => {
+// Simplified Standard American responses to partner's 1-of-a-suit opening, for hands of 0–12 HCP.
+// `open` is the opening suit. Returns { bid, why }.
+function responseBid(hand, open) {
+  const pts = hcp(hand);
+  const len = suitLengths(hand);
+  const o = '1' + suitHtml(open);
+  const isMajor = open === 'H' || open === 'S';
+
+  if (pts < 6) {
+    return { bid: 'P', why: `${pts} HCP: with fewer than 6, pass. Even if partner has a good hand, game is unlikely.` };
+  }
+
+  // 1. Support partner's major.
+  if (isMajor && len[open] >= 3) {
+    if (pts <= 10) {
+      return { bid: '2' + open, why: `${pts} HCP and ${len[open]}-card support for partner's major: raise to 2${suitHtml(open)}. Showing an 8-card major fit comes first.` };
+    }
+    return { bid: '3' + open, why: `${pts} HCP and ${len[open]}-card support: jump to 3${suitHtml(open)}, a <em>limit raise</em>. It invites partner to bid game with a little extra.` };
+  }
+
+  // 2. Show a new 4+ card suit at the 1-level, looking for a major fit first.
+  if (open === 'C' || open === 'D') {
+    if (len.H >= 4 || len.S >= 4) {
+      const suit = len.S > len.H ? 'S' : len.H > len.S ? 'H' : len.S >= 5 ? 'S' : 'H';
+      let tie = '';
+      if (len.H === len.S) tie = len.S >= 5 ? ' With two 5-card majors, bid spades first.' : ' With four cards in both majors, bid hearts first (up the line).';
+      return { bid: '1' + suit, why: `${pts} HCP and ${len[suit]} ${SUIT_NAME[suit]}: bid 1${suitHtml(suit)}. A new suit at the 1-level shows 4+ cards and 6+ HCP, and looking for a major fit comes before raising a minor.${tie}` };
+    }
+    if (open === 'C' && len.D >= 4) {
+      return { bid: '1D', why: `${pts} HCP and ${len.D} diamonds, no 4-card major: bid 1${suitHtml('D')}. A new suit at the 1-level shows 4+ cards and asks partner to bid again.` };
+    }
+  }
+  if (open === 'H' && len.S >= 4) {
+    return { bid: '1S', why: `${pts} HCP, fewer than 3 hearts, but ${len.S} spades: bid 1${suitHtml('S')}. A new suit at the 1-level shows 4+ cards and 6+ HCP.` };
+  }
+
+  // 3. Raise partner's minor (4+ diamonds or 5+ clubs, since a minor opening can be short).
+  if ((open === 'D' && len.D >= 4) || (open === 'C' && len.C >= 5)) {
+    if (pts <= 10) {
+      return { bid: '2' + open, why: `${pts} HCP, no 4-card major and ${len[open]}-card support: raise to 2${suitHtml(open)}.` };
+    }
+    return { bid: '3' + open, why: `${pts} HCP, no 4-card major and ${len[open]}-card support: jump to 3${suitHtml(open)}, a limit raise inviting game.` };
+  }
+
+  // 4. Weak hand with nothing else to say.
+  if (pts <= 10) {
+    return { bid: '1N', why: `${pts} HCP with no fit and no new suit to show at the 1-level: respond 1NT (6–10 HCP).` };
+  }
+
+  // 5. 11–12 HCP: a new suit at the 2-level, or 2NT.
+  const twoLevel = SUITS
+    .filter(s => SUITS.indexOf(s) > SUITS.indexOf(open) && len[s] >= (s === 'H' ? 5 : 4))
+    .sort((a, b) => len[b] - len[a] || SUITS.indexOf(b) - SUITS.indexOf(a));
+  if (twoLevel.length) {
+    const s = twoLevel[0];
+    return { bid: '2' + s, why: `${pts} HCP with no fit for partner and ${len[s]} ${SUIT_NAME[s]}: bid 2${suitHtml(s)}. A new suit at the 2-level needs 11+ HCP${s === 'H' ? ' (and 5 hearts)' : ''}.` };
+  }
+  return { bid: '2N', why: `${pts} HCP with no fit and no suit to show: bid 2NT, inviting game (11–12 HCP).` };
+}
+
+// A bidding drill: show a hand (and optional context), let the player pick a bid, explain the answer.
+// Elements are looked up as `${prefix}-hand`, `${prefix}-bids`, and so on.
+function makeBidDrill({ prefix, bids, generate }) {
   const stats = makeStats();
-  const BIDS = ['P', '1C', '1D', '1H', '1S', '1N', '2C', '2D', '2H', '2S', '2N', '3C', '3D', '3H', '3S'];
-  let hand, answer, answered;
-  const $ = id => document.getElementById(id);
+  let deal, answered;
+  const $ = id => document.getElementById(`${prefix}-${id}`);
 
   function next() {
-    // Passing hands are the most common deal; skip most of them to keep practice interesting.
-    do {
-      hand = dealHands()[0];
-      answer = openingBid(hand);
-    } while (answer.bid === 'P' && Math.random() < 0.6);
+    deal = generate();
     answered = false;
-    const area = $('open-hand');
+    const area = $('hand');
     area.innerHTML = '';
-    renderFan(area, hand);
-    $('open-hcp').textContent = `${hcp(hand)} HCP`;
-    $('open-hcp').hidden = !$('open-show-hcp').checked;
-    $('open-feedback').className = 'feedback';
-    $('open-feedback').innerHTML = '';
-    $('open-next').hidden = true;
+    renderFan(area, deal.hand);
+    if (deal.context) $('context').innerHTML = deal.context;
+    $('hcp').textContent = `${hcp(deal.hand)} HCP`;
+    $('hcp').hidden = !$('show-hcp').checked;
+    $('feedback').className = 'feedback';
+    $('feedback').innerHTML = '';
+    $('next').hidden = true;
     renderBids();
   }
 
   function renderBids(chosen) {
-    const box = $('open-bids');
+    const box = $('bids');
     box.innerHTML = '';
-    for (const bid of BIDS) {
+    for (const bid of bids) {
       const btn = document.createElement('button');
       btn.className = 'bid' + (bid === 'P' ? ' pass' : '');
       btn.innerHTML = bidHtml(bid);
+      if (deal.allowed && !deal.allowed(bid)) btn.disabled = true;
       if (answered) {
         btn.disabled = true;
-        if (bid === answer.bid) btn.classList.add('correct');
+        if (bid === deal.answer.bid) btn.classList.add('correct');
         else if (bid === chosen) btn.classList.add('wrong');
       }
       btn.addEventListener('click', () => choose(bid));
@@ -173,25 +232,62 @@ const OpeningTrainer = (() => {
   function choose(bid) {
     if (answered) return;
     answered = true;
-    const correct = bid === answer.bid;
+    const correct = bid === deal.answer.bid;
     record(stats, correct);
     renderBids(bid);
-    $('open-hcp').hidden = false;
-    $('open-feedback').className = 'feedback ' + (correct ? 'good' : 'bad');
-    $('open-feedback').innerHTML =
-      `<strong>${correct ? 'Correct!' : `The suggested opening is ${bidHtml(answer.bid)}.`}</strong>` +
-      `<div>${answer.why}</div>`;
-    $('open-stats').textContent = statsText(stats);
-    $('open-next').hidden = false;
-    $('open-next').focus({ preventScroll: true });
+    $('hcp').hidden = false;
+    $('feedback').className = 'feedback ' + (correct ? 'good' : 'bad');
+    $('feedback').innerHTML =
+      `<strong>${correct ? 'Correct!' : `The suggested bid is ${bidHtml(deal.answer.bid)}.`}</strong>` +
+      `<div>${deal.answer.why}</div>`;
+    $('stats').textContent = statsText(stats);
+    $('next').hidden = false;
+    $('next').focus({ preventScroll: true });
   }
 
   function init() {
-    $('open-next').addEventListener('click', next);
-    $('open-show-hcp').addEventListener('change', e => { if (!answered) $('open-hcp').hidden = !e.target.checked; });
-    $('open-stats').textContent = statsText(stats);
+    $('next').addEventListener('click', next);
+    $('show-hcp').addEventListener('change', e => { if (!answered) $('hcp').hidden = !e.target.checked; });
+    $('stats').textContent = statsText(stats);
     next();
   }
 
   return { init };
-})();
+}
+
+// Bids are listed in auction order, so comparing indexes tells whether a bid is higher.
+const ALL_BIDS = ['P', '1C', '1D', '1H', '1S', '1N', '2C', '2D', '2H', '2S', '2N', '3C', '3D', '3H', '3S'];
+
+const OpeningTrainer = makeBidDrill({
+  prefix: 'open',
+  bids: ALL_BIDS,
+  generate() {
+    // Passing hands are the most common deal; skip most of them to keep practice interesting.
+    let hand, answer;
+    do {
+      hand = dealHands()[0];
+      answer = openingBid(hand);
+    } while (answer.bid === 'P' && Math.random() < 0.6);
+    return { hand, answer };
+  },
+});
+
+const RespondingTrainer = makeBidDrill({
+  prefix: 'resp',
+  bids: ALL_BIDS,
+  generate() {
+    const open = ['C', 'D', 'H', 'S'][Math.floor(Math.random() * 4)];
+    let hand, answer;
+    do {
+      hand = dealHands()[0];
+      answer = responseBid(hand, open);
+    } while (hcp(hand) > 12 || (answer.bid === 'P' && Math.random() < 0.7));
+    const openIndex = ALL_BIDS.indexOf('1' + open);
+    return {
+      hand,
+      answer,
+      context: `Partner opens <strong>1${suitHtml(open)}</strong>. The opponents pass. What do you respond?`,
+      allowed: bid => bid === 'P' || ALL_BIDS.indexOf(bid) > openIndex,
+    };
+  },
+});

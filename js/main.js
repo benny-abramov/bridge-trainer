@@ -1,6 +1,6 @@
 // Tab navigation and app start-up.
 
-const TABS = ['learn', 'hcp', 'opening', 'play'];
+const TABS = ['learn', 'hcp', 'opening', 'responding', 'play'];
 
 function showTab(name) {
   if (!TABS.includes(name)) name = 'learn';
@@ -22,5 +22,6 @@ window.addEventListener('hashchange', () => showTab(location.hash.slice(1)));
 Learn.init();
 HcpTrainer.init();
 OpeningTrainer.init();
+RespondingTrainer.init();
 Play.init();
 showTab(location.hash.slice(1));
