@@ -18,6 +18,7 @@
       <button role="tab" data-tab="rebid">Opener's Rebid</button>
       <button role="tab" data-tab="rrebid">Responder's Rebid</button>
       <button role="tab" data-tab="overcalls">Overcalls</button>
+      <button role="tab" data-tab="conventions">Conventions</button>
       <button role="tab" data-tab="defense">Defense</button>
       <button role="tab" data-tab="play">Play a Hand</button>
     </nav>
@@ -162,6 +163,32 @@
       </div>
     </section>
 
+    <!-- Conventions -->
+    <section id="tab-conventions" class="panel" role="tabpanel" hidden>
+      <div class="card-surface drill">
+        <div class="drill-head">
+          <div>
+            <h2>Conventions</h2>
+            <p class="muted">Practice the common conventions of the SAYC system.</p>
+          </div>
+          <div class="stats" id="conv-stats"></div>
+        </div>
+        <div class="answer-row">
+          <label for="conv-filter">Practice</label>
+          <select id="conv-filter" class="select"><option value="all">All conventions (mixed)</option></select>
+        </div>
+        <div class="context" id="conv-context"></div>
+        <div class="hand-area" id="conv-hand"></div>
+        <div class="answer-row">
+          <label class="check"><input type="checkbox" id="conv-show-hcp"> Show HCP</label>
+          <span class="pill" id="conv-hcp" hidden></span>
+        </div>
+        <div class="bids" id="conv-bids"></div>
+        <div class="feedback" id="conv-feedback" aria-live="polite"></div>
+        <button class="btn" id="conv-next" hidden>Next hand →</button>
+      </div>
+    </section>
+
     <!-- Defense -->
     <section id="tab-defense" class="panel" role="tabpanel" hidden>
       <div class="card-surface drill">
@@ -227,6 +254,7 @@
   <script src="js/learn.js"></script>
   <script src="js/trainers.js"></script>
   <script src="js/overcalls.js"></script>
+  <script src="js/conventions.js"></script>
   <script src="js/defense.js"></script>
   <script src="js/play.js"></script>
   <script src="js/main.js"></script>

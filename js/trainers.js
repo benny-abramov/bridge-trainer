@@ -507,7 +507,7 @@ function makeBidDrill({ prefix, bids, generate }) {
     next();
   }
 
-  return { init };
+  return { init, next };
 }
 
 // Bids are listed in auction order, so comparing indexes tells whether a bid is higher.

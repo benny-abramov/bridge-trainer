@@ -239,6 +239,60 @@ const LESSONS = [
     tryIt: 'overcalls',
   },
   {
+    title: 'Conventions (SAYC)',
+    body: `
+      <p>A <strong>convention</strong> is a bid with an agreed meaning that's different from its natural meaning. For example, 2${C} over partner's 1NT says nothing about clubs.
+      Both partners must know the convention. In tournaments, opponents are told about conventional bids (an <em>alert</em>).
+      These are the most common conventions in the <strong>Standard American Yellow Card (SAYC)</strong> system.</p>
+
+      <h3>Over partner's 1NT</h3>
+      <ul>
+        <li><strong>Stayman (2${C})</strong>: with 8+ HCP and a 4-card major, ask partner for a 4-card major. Partner bids 2${H} or 2${S} with one, or 2${D} with neither.</li>
+        <li><strong>Jacoby transfers (2${D}, 2${H})</strong>: with 5+ cards in a major, bid the suit just below it. Partner must bid your major. Use them with any strength.</li>
+      </ul>
+
+      <h3>Strong 2${C}</h3>
+      <p>2${C} shows 22+ HCP (or a hand with nine tricks) and is forcing. Responder bids <strong>2${D}</strong> (artificial, "waiting") with most hands.
+      With 8+ HCP and a good 5-card suit (two of the top three honors), make a positive response in it (2${H}, 2${S}, 3${C}, 3${D}). With 8+ balanced, bid 2NT.</p>
+
+      <h3>Jacoby 2NT</h3>
+      <p>Over partner's 1${H} or 1${S}, a 2NT response shows <strong>4+ card support and 13+ HCP</strong>, forcing to game. Opener then describes their hand:</p>
+      <table class="tbl">
+        <tr><th>Opener rebids</th><th>Meaning</th></tr>
+        <tr><td>New suit at the 3-level</td><td>A singleton or void in that suit</td></tr>
+        <tr><td>3 of the major</td><td>18+ HCP, no shortness</td></tr>
+        <tr><td>3NT</td><td>15–17 HCP, no shortness</td></tr>
+        <tr><td>New suit at the 4-level</td><td>A good second 5-card suit</td></tr>
+        <tr><td>4 of the major</td><td>Minimum, no shortness</td></tr>
+      </table>
+
+      <h3>Asking for aces: Blackwood and Gerber</h3>
+      <p>Before bidding a slam, check that the opponents can't take two aces. <strong>Blackwood</strong> is 4NT once a trump suit is agreed.
+      <strong>Gerber</strong> is a jump to 4${C} over partner's 1NT or 2NT.</p>
+      <table class="tbl">
+        <tr><th>Aces</th><th>Answer to Blackwood (4NT)</th><th>Answer to Gerber (4${C})</th></tr>
+        <tr><td>0 or 4</td><td>5${C}</td><td>4${D}</td></tr>
+        <tr><td>1</td><td>5${D}</td><td>4${H}</td></tr>
+        <tr><td>2</td><td>5${H}</td><td>4${S}</td></tr>
+        <tr><td>3</td><td>5${S}</td><td>4NT</td></tr>
+      </table>
+      <p>Then 5NT (after Blackwood) or 5${C} (after Gerber) asks for kings in the same way.</p>
+
+      <h3>Competitive bidding</h3>
+      <ul>
+        <li><strong>Negative double</strong>: partner opens, the opponent on your right overcalls, and you double. It isn't for penalty: it shows the unbid suits, especially an unbid major (exactly four, or five with too few points to bid it at the 2-level). SAYC plays it through 2${S}.</li>
+        <li><strong>Michaels cuebid</strong>: bidding the opponent's suit (1${C} – 2${C}) shows a 5-5 two-suiter. Over a minor it shows both majors. Over a major it shows the other major and a minor.</li>
+        <li><strong>Unusual 2NT</strong>: a jump to 2NT over their opening shows 5-5 in the two <em>lowest</em> unbid suits (the minors over a major).</li>
+      </ul>
+
+      <h3>Also part of SAYC</h3>
+      <ul>
+        <li><strong>Weak two-bids</strong> (2${D}, 2${H}, 2${S}): see the Opening Bids lesson. A 2NT response asks opener for a "feature": an ace or king outside the long suit.</li>
+        <li><strong>Fourth suit forcing</strong>: when three suits have been bid, responder's bid of the fourth suit is artificial and forces opener to keep bidding.</li>
+      </ul>`,
+    tryIt: 'conventions',
+  },
+  {
     title: 'Defense',
     body: `
       <p>When the other side wins the auction, you and partner are the <strong>defenders</strong>.
@@ -310,7 +364,7 @@ const Learn = (() => {
     });
 
     const lesson = LESSONS[index];
-    const tryLabels = { hcp: 'Practice counting points', opening: 'Practice opening bids', responding: 'Practice responding', rebid: "Practice opener's rebids", rrebid: "Practice responder's rebids", overcalls: 'Practice overcalls', defense: 'Practice opening leads', play: 'Play a hand' };
+    const tryLabels = { hcp: 'Practice counting points', opening: 'Practice opening bids', responding: 'Practice responding', rebid: "Practice opener's rebids", rrebid: "Practice responder's rebids", overcalls: 'Practice overcalls', conventions: 'Practice conventions', defense: 'Practice opening leads', play: 'Play a hand' };
     document.getElementById('lesson-body').innerHTML = `
       <div class="eyebrow">Lesson ${index + 1} of ${LESSONS.length}</div>
       <h2>${lesson.title}</h2>
