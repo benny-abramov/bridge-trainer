@@ -20,6 +20,7 @@
       <button role="tab" data-tab="overcalls">Overcalls</button>
       <button role="tab" data-tab="conventions">Conventions</button>
       <button role="tab" data-tab="defense">Defense</button>
+      <button role="tab" data-tab="advanced">Advanced</button>
       <button role="tab" data-tab="play">Play a Hand</button>
     </nav>
   </header>
@@ -213,6 +214,45 @@
       </div>
     </section>
 
+    <!-- Advanced techniques -->
+    <section id="tab-advanced" class="panel" role="tabpanel" hidden>
+      <div class="card-surface drill">
+        <div class="drill-head">
+          <h2>Advanced techniques</h2>
+          <div class="segmented" id="adv-topic" role="group" aria-label="Technique">
+            <button data-topic="squeeze">Squeezes</button>
+            <button data-topic="endplay">Endplays</button>
+          </div>
+        </div>
+        <div class="lesson-text" id="adv-intro"></div>
+      </div>
+
+      <div class="card-surface drill puzzle">
+        <div class="drill-head">
+          <h3 id="adv-title"></h3>
+          <div class="puzzle-nav">
+            <button class="btn secondary" id="adv-prev">← Previous</button>
+            <button class="btn secondary" id="adv-next">Next →</button>
+          </div>
+        </div>
+        <div class="context" id="adv-setup"></div>
+        <div class="play-actions">
+          <button class="btn secondary" id="adv-hint">Hint</button>
+          <button class="btn secondary" id="adv-reset">Reset</button>
+          <button class="btn secondary" id="adv-solution">Show solution</button>
+        </div>
+        <div class="status" id="adv-status" aria-live="polite"></div>
+        <div class="table puzzle-table">
+          <div class="seat north" id="adv-seat-0"></div>
+          <div class="seat west" id="adv-seat-3"></div>
+          <div class="trick-area" id="adv-trick"></div>
+          <div class="seat east" id="adv-seat-1"></div>
+          <div class="seat south" id="adv-seat-2"></div>
+        </div>
+        <div class="feedback" id="adv-feedback" aria-live="polite"></div>
+      </div>
+    </section>
+
     <!-- Play -->
     <section id="tab-play" class="panel" role="tabpanel" hidden>
       <div class="play-bar card-surface">
@@ -257,6 +297,7 @@
   <script src="js/conventions.js"></script>
   <script src="js/defense.js"></script>
   <script src="js/play.js"></script>
+  <script src="js/advanced.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
