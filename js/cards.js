@@ -3,10 +3,12 @@
 const SUITS = ['S', 'H', 'D', 'C']; // bridge ranking, high to low
 const DISPLAY_ORDER = ['S', 'H', 'C', 'D']; // alternate colors when showing a hand
 const SUIT_SYMBOL = { S: '♠︎', H: '♥︎', D: '♦︎', C: '♣︎' };
-const SUIT_NAME = { S: 'spades', H: 'hearts', D: 'diamonds', C: 'clubs', N: 'no-trump' };
+const SUIT_NAME = L(
+  { S: 'spades', H: 'hearts', D: 'diamonds', C: 'clubs', N: 'no-trump' },
+  { S: 'עלים', H: 'לבבות', D: 'יהלומים', C: 'תלתנים', N: 'ללא שליט' });
 const RANKS = ['2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A'];
 const HCP_VALUES = { A: 4, K: 3, Q: 2, J: 1 };
-const SEAT_NAMES = ['North', 'East', 'South', 'West'];
+const SEAT_NAMES = L(['North', 'East', 'South', 'West'], ['צפון', 'מזרח', 'דרום', 'מערב']);
 
 function makeDeck() {
   const deck = [];
@@ -62,15 +64,31 @@ function suitHtml(suit) {
   return `<span class="suit${isRed(suit) ? ' red' : ''}">${SUIT_SYMBOL[suit]}</span>`;
 }
 
+// Bids and cards keep their left-to-right form ("1♥", "K♠") inside right-to-left text.
+const ltr = html => `<bdi dir="ltr">${html}</bdi>`;
+
 // Bids are strings like 'P', '1C', '3N'.
 function bidHtml(bid) {
-  if (bid === 'P') return 'Pass';
-  if (bid === 'X') return 'Dbl';
-  return bid[0] + suitHtml(bid[1]);
+  if (bid === 'P') return L('Pass', 'פאס');
+  if (bid === 'X') return L('Dbl', 'כפל');
+  return ltr(bid[0] + suitHtml(bid[1]));
 }
 
 function cardHtml(card) {
-  return rankLabel(card.rank) + suitHtml(card.suit);
+  return ltr(rankLabel(card.rank) + suitHtml(card.suit));
+}
+
+// "spades are trumps" / "no-trump" for a contract strain ('S', 'H', 'D', 'C', or 'N' / null).
+function trumpText(strain) {
+  if (!strain || strain === 'N') return L('no-trump', 'ללא שליט');
+  return L(`${SUIT_NAME[strain]} are trumps`, `השליט: ${SUIT_NAME[strain]}`);
+}
+
+// Colors suit symbols typed directly into text, and keeps holdings like "♦A-Q" or "♠10" left-to-right.
+function colorSuits(html) {
+  const map = { '♠': 'S', '♥': 'H', '♦': 'D', '♣': 'C' };
+  return html.replace(/([♠♥♦♣])((?:10|[2-9AKQJx])(?:-(?:10|[2-9AKQJx]))*)?/g,
+    (m, sym, ranks) => (ranks ? ltr(suitHtml(map[sym]) + ranks) : suitHtml(map[sym])));
 }
 
 function createCardEl(card, { faceDown = false, gap = false } = {}) {
@@ -78,7 +96,7 @@ function createCardEl(card, { faceDown = false, gap = false } = {}) {
   el.className = 'card' + (gap ? ' gap' : '');
   if (faceDown) {
     el.classList.add('back');
-    el.setAttribute('aria-label', 'face-down card');
+    el.setAttribute('aria-label', L('face-down card', 'קלף הפוך'));
     return el;
   }
   if (isRed(card.suit)) el.classList.add('red');
@@ -86,7 +104,7 @@ function createCardEl(card, { faceDown = false, gap = false } = {}) {
     `<span class="corner"><span class="r">${rankLabel(card.rank)}</span>` +
     `<span class="s">${SUIT_SYMBOL[card.suit]}</span></span>` +
     `<span class="pip">${SUIT_SYMBOL[card.suit]}</span>`;
-  el.setAttribute('aria-label', `${rankLabel(card.rank)} of ${SUIT_NAME[card.suit]}`);
+  el.setAttribute('aria-label', L(`${rankLabel(card.rank)} of ${SUIT_NAME[card.suit]}`, `${rankLabel(card.rank)} ${SUIT_NAME[card.suit]}`));
   return el;
 }
 

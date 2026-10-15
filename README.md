@@ -4,6 +4,8 @@ A small, dependency-free web app for learning contract bridge.
 
 Open `index.html` in a browser. There is no build step or server.
 
+The app is available in **English and Hebrew**. Use the switch in the header; Hebrew uses a right-to-left layout. The choice is remembered, and links can carry it as `?lang=he`.
+
 ## Sections
 
 - **Learn**: fourteen short lessons covering tricks, trumps, the auction, declarer and dummy, point counting, opening bids, responses, opener's and responder's rebids, overcalls, SAYC conventions, defense and scoring.
@@ -23,6 +25,7 @@ Open `index.html` in a browser. There is no build step or server.
 
 | File | Purpose |
 | --- | --- |
+| `js/i18n.js` | Language selection; `L(english, hebrew)` picks the text for the current language |
 | `js/cards.js` | Deck, dealing, HCP/shape evaluation, card rendering |
 | `js/learn.js` | Lesson content and the lesson viewer |
 | `js/trainers.js` | Point-count drill, bidding rules (`openingBid`, `responseBid`, `rebidBid`, `responderRebid`), bidding drills |

@@ -214,24 +214,30 @@ const Play = (() => {
     const { level, strain } = st.contract;
     const need = level + 6;
     const made = st.tricks[0];
-    if (made < need) return { text: `Down ${need - made}`, points: -50 * (need - made) };
+    if (made < need) return { text: L(`Down ${need - made}`, `נפילה של ${need - made}`), points: -50 * (need - made) };
     const per = strain === 'C' || strain === 'D' ? 20 : 30;
     const contractPts = level * per + (strain === 'N' ? 10 : 0);
     let points = contractPts + (made - need) * per + (contractPts >= 100 ? 300 : 50);
     if (level === 6) points += 500;
     if (level === 7) points += 1000;
     const over = made - need;
-    return { text: over ? `Made with ${over} overtrick${over > 1 ? 's' : ''}` : 'Contract made exactly', points };
+    const text = over
+      ? L(`Made with ${over} overtrick${over > 1 ? 's' : ''}`, over > 1 ? `בוצע עם ${over} לקיחות עודפות` : 'בוצע עם לקיחה עודפת אחת')
+      : L('Contract made exactly', 'החוזה בוצע בדיוק');
+    return { text, points };
   }
 
   // ---------- Rendering ----------
 
-  const contractHtml = () => `${st.contract.level}${suitHtml(st.contract.strain)}`;
+  const contractHtml = () => bidHtml(st.contract.level + st.contract.strain);
+  const SEAT_SHORT = L(['N', 'E', 'S', 'W'], ['צ', 'מז', 'ד', 'מע']);
 
   function roleOf(seat) {
     return mode === 'declare'
-      ? ['Dummy — you play these cards', 'Defender (computer)', 'You — declarer', 'Defender (computer)'][seat]
-      : ['Dummy', 'Partner — defender (computer)', 'Declarer (computer)', 'You — defender'][seat];
+      ? L(['Dummy — you play these cards', 'Defender (computer)', 'You — declarer', 'Defender (computer)'],
+        ['דומם: אתם משחקים את הקלפים', 'מגן (מחשב)', 'אתם: הכרוז', 'מגן (מחשב)'])[seat]
+      : L(['Dummy', 'Partner — defender (computer)', 'Declarer (computer)', 'You — defender'],
+        ['דומם', 'השותף: מגן (מחשב)', 'כרוז (מחשב)', 'אתם: מגן'])[seat];
   }
 
   function renderSeat(seat) {
@@ -250,7 +256,7 @@ const Play = (() => {
     if (seat === 0 && !st.started && !showAll) {
       const note = document.createElement('div');
       note.className = 'muted small';
-      note.textContent = 'Dummy is revealed after the opening lead.';
+      note.textContent = L('Dummy is revealed after the opening lead.', 'הדומם ייחשף אחרי הובלת הפתיחה.');
       el.appendChild(note);
       return;
     }
@@ -283,7 +289,7 @@ const Play = (() => {
       pile.className = 'pile';
       pile.appendChild(createCardEl(null, { faceDown: true }));
       const count = document.createElement('span');
-      count.textContent = `${hand.length} card${hand.length === 1 ? '' : 's'}`;
+      count.textContent = hand.length === 1 ? L('1 card', 'קלף אחד') : L(`${hand.length} cards`, `${hand.length} קלפים`);
       pile.appendChild(count);
       el.appendChild(pile);
     }
@@ -299,15 +305,15 @@ const Play = (() => {
       const good = mode === 'declare' ? made : !made;
       const yours = mode === 'declare' ? result.points : -result.points;
       const title = mode === 'declare'
-        ? (made ? 'Well played!' : 'Contract defeated')
-        : (made ? 'Declarer made it' : 'Contract defeated: well defended!');
+        ? (made ? L('Well played!', 'משחק יפה!') : L('Contract defeated', 'החוזה נפל'))
+        : (made ? L('Declarer made it', 'הכרוז ביצע את החוזה') : L('Contract defeated: well defended!', 'החוזה נפל: הגנה יפה!'));
       center.innerHTML = `
         <div class="result ${good ? 'good' : 'bad'}">
           <div class="result-title">${title}</div>
-          <div>${contractHtml()} by South: ${st.tricks[0]} tricks</div>
+          <div>${L(`${contractHtml()} by South: ${st.tricks[0]} tricks`, `${contractHtml()} של דרום: ${st.tricks[0]} לקיחות`)}</div>
           <div>${result.text}</div>
-          <div class="result-score">${yours > 0 ? '+' : ''}${yours}</div>
-          <div class="small muted">for your side</div>
+          <div class="result-score" dir="ltr">${yours > 0 ? '+' : ''}${yours}</div>
+          <div class="small muted">${L('for your side', 'לצד שלכם')}</div>
         </div>`;
       return;
     }
@@ -327,38 +333,40 @@ const Play = (() => {
   }
 
   function statusText() {
-    if (st.done) return 'Hand complete. Deal again, or replay the same cards to try a different line.';
+    if (st.done) return L('Hand complete. Deal again, or replay the same cards to try a different line.', 'היד הסתיימה. חלקו מחדש, או שחקו שוב את אותם קלפים כדי לנסות דרך אחרת.');
     if (st.busy) {
       const w = currentWinner(st.trick).seat;
-      return `${SEAT_NAMES[w]} wins the trick${sameSide(w, yourSeat()) ? ' for your side' : ''}.`;
+      return L(`${SEAT_NAMES[w]} wins the trick${sameSide(w, yourSeat()) ? ' for your side' : ''}.`, `${SEAT_NAMES[w]} זוכה בלקיחה${sameSide(w, yourSeat()) ? ' לצד שלכם' : ''}.`);
     }
     const seat = st.turn;
-    if (!isHuman(seat)) return `${SEAT_NAMES[seat]} is thinking…`;
+    if (!isHuman(seat)) return L(`${SEAT_NAMES[seat]} is thinking…`, `${SEAT_NAMES[seat]} חושב…`);
     const mustFollow = st.trick.length && legalCards(seat)[0].suit === st.trick[0].card.suit;
     const followNote = st.trick.length
-      ? (mustFollow ? ` You must follow suit (${suitHtml(st.trick[0].card.suit)}).` : ` You have no ${SUIT_NAME[st.trick[0].card.suit]}: play any card.`)
-      : ' You are on lead: play any card.';
+      ? (mustFollow
+        ? L(` You must follow suit (${suitHtml(st.trick[0].card.suit)}).`, ` חובה לשרת (${suitHtml(st.trick[0].card.suit)}).`)
+        : L(` You have no ${SUIT_NAME[st.trick[0].card.suit]}: play any card.`, ` אין לכם ${SUIT_NAME[st.trick[0].card.suit]}: שחקו כל קלף.`))
+      : L(' You are on lead: play any card.', ' אתם מובילים: שחקו כל קלף.');
     if (mode === 'defend') {
-      if (!st.started) return 'You are on lead. Choose your <strong>opening lead</strong> (try the Hint button, or the Defense tab, for lead rules).';
-      return 'Your turn: play a card from <strong>your hand</strong> (West).' + followNote;
+      if (!st.started) return L('You are on lead. Choose your <strong>opening lead</strong> (try the Hint button, or the Defense tab, for lead rules).', 'אתם מובילים. בחרו את <strong>הובלת הפתיחה</strong> (לכללי ההובלה, נסו את כפתור הרמז או את לשונית ההגנה).');
+      return L('Your turn: play a card from <strong>your hand</strong> (West).', 'תורכם: שחקו קלף <strong>מהיד שלכם</strong> (מערב).') + followNote;
     }
-    if (seat === 2) return 'Your turn: play a card from <strong>your hand</strong> (South).' + followNote;
-    return 'Your turn: play a card from <strong>dummy</strong> (North).' + followNote;
+    if (seat === 2) return L('Your turn: play a card from <strong>your hand</strong> (South).', 'תורכם: שחקו קלף <strong>מהיד שלכם</strong> (דרום).') + followNote;
+    return L('Your turn: play a card from <strong>dummy</strong> (North).', 'תורכם: שחקו קלף <strong>מהדומם</strong> (צפון).') + followNote;
   }
 
   function render() {
     const need = st.contract.level + 6;
-    const strain = st.trump ? `${SUIT_NAME[st.trump]} are trumps` : 'no trumps';
+    const strain = trumpText(st.trump);
     $('play-contract').innerHTML = contractHtml();
     $('play-goal').textContent = mode === 'declare'
-      ? `South needs ${need} of 13 tricks, ${strain}.`
-      : `South needs ${need} tricks, ${strain}. You and East need ${14 - need} to defeat it.`;
+      ? L(`South needs ${need} of 13 tricks, ${strain}.`, `דרום צריך ${need} מתוך 13 לקיחות. ${strain}.`)
+      : L(`South needs ${need} tricks, ${strain}. You and East need ${14 - need} to defeat it.`, `דרום צריך ${need} לקיחות. ${strain}. אתם ומזרח צריכים ${14 - need} כדי להפיל את החוזה.`);
     $('play-ns').textContent = st.tricks[0];
     $('play-ew').textContent = st.tricks[1];
     $('play-need').textContent = Math.max(0, mode === 'declare' ? need - st.tricks[0] : 14 - need - st.tricks[1]);
     $('play-status').innerHTML = statusText();
     $('play-hint').disabled = st.done || st.busy || !isHuman(st.turn);
-    $('play-showall').textContent = showAll ? 'Hide hidden hands' : 'Show all hands';
+    $('play-showall').textContent = showAll ? L('Hide hidden hands', 'הסתרת הידיים הנסתרות') : L('Show all hands', 'הצגת כל הידיים');
     $('play-mode-declare').classList.toggle('active', mode === 'declare');
     $('play-mode-defend').classList.toggle('active', mode === 'defend');
     $('play-mode-declare').setAttribute('aria-pressed', mode === 'declare');
@@ -366,7 +374,7 @@ const Play = (() => {
 
     const last = $('play-last');
     last.innerHTML = st.lastTrick
-      ? 'Last trick: ' + st.lastTrick.map(t => `${SEAT_NAMES[t.seat][0]} ${cardHtml(t.card)}`).join(' · ')
+      ? L('Last trick: ', 'הלקיחה האחרונה: ') + st.lastTrick.map(t => `${SEAT_SHORT[t.seat]} ${cardHtml(t.card)}`).join(' · ')
       : '';
 
     [0, 1, 2, 3].forEach(renderSeat);

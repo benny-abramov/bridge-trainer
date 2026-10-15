@@ -9,16 +9,6 @@ function bidsAbove(last, double = false) {
   return bid => bid === 'P' || (double && bid === 'X') || CONV_ORDER.indexOf(bid) > i;
 }
 
-function auctionHtml(headers, rows, note) {
-  const cell = b => (b === '?' ? '<td class="ask">?</td>' : `<td>${b ? bidHtml(b) : ''}</td>`);
-  return `
-    <table class="auction">
-      <tr>${headers.map(h => `<th>${h}</th>`).join('')}</tr>
-      ${rows.map(r => `<tr>${r.map(cell).join('')}</tr>`).join('')}
-    </table>
-    <div>${note}</div>`;
-}
-
 const countAces = hand => hand.filter(c => c.rank === 'A').length;
 
 // ---------- Rules ----------
@@ -30,26 +20,43 @@ function respondTo1NT(hand) {
   if (len.H >= 5 || len.S >= 5) {
     const major = len.S >= len.H ? 'S' : 'H';
     const bid = major === 'H' ? '2D' : '2H';
-    const both = len.H >= 5 && len.S >= 5 ? ' With five or more in both majors, transfer to spades first.' : '';
-    return { bid, why: `<strong>Jacoby transfer.</strong> With 5+ ${SUIT_NAME[major]}, bid the suit just below: ${bidHtml(bid)}. Partner must bid 2${suitHtml(major)}, so the strong 1NT hand becomes declarer and its cards stay hidden. Transfer with any strength: with a weak hand you pass 2${suitHtml(major)}, and with more you bid again.${both}` };
+    const both = len.H >= 5 && len.S >= 5
+      ? L(' With five or more in both majors, transfer to spades first.', ' עם חמישה קלפים ומעלה בשתי העליונות, עשו קודם טרנספר לעלים.')
+      : '';
+    return { bid, why: L(
+      `<strong>Jacoby transfer.</strong> With 5+ ${SUIT_NAME[major]}, bid the suit just below: ${bidHtml(bid)}. Partner must bid ${bidHtml('2' + major)}, so the strong 1NT hand becomes declarer and its cards stay hidden. Transfer with any strength: with a weak hand you pass ${bidHtml('2' + major)}, and with more you bid again.${both}`,
+      `<strong>טרנספר של ג'ייקובי.</strong> עם 5 ${SUIT_NAME[major]} ומעלה, הכריזו את הסדרה שמתחתיה: ${bidHtml(bid)}. השותף חייב להכריז ${bidHtml('2' + major)}, כך שהיד החזקה של ה-1NT הופכת לכרוז והקלפים שלה נשארים מוסתרים. עושים טרנספר עם כל כוח: עם יד חלשה עושים פאס על ${bidHtml('2' + major)}, ועם יותר ממשיכים להכריז.${both}`) };
   }
   if ((len.H === 4 || len.S === 4) && pts >= 8) {
-    return { bid: '2C', why: `<strong>Stayman.</strong> With a 4-card major and 8+ HCP, bid 2${suitHtml('C')} to ask partner for a 4-card major. Partner answers 2${suitHtml('H')} or 2${suitHtml('S')} with one, or 2${suitHtml('D')} without. Then you can choose between the major and no-trump.` };
+    return { bid: '2C', why: L(
+      `<strong>Stayman.</strong> With a 4-card major and 8+ HCP, bid ${bidHtml('2C')} to ask partner for a 4-card major. Partner answers ${bidHtml('2H')} or ${bidHtml('2S')} with one, or ${bidHtml('2D')} without. Then you can choose between the major and no-trump.`,
+      `<strong>סטיימן.</strong> עם סדרה עליונה של 4 קלפים ו-8 נק' ומעלה, הכריזו ${bidHtml('2C')} כדי לשאול את השותף אם יש לו סדרה עליונה של 4. השותף עונה ${bidHtml('2H')} או ${bidHtml('2S')} עם סדרה כזו, או ${bidHtml('2D')} בלי. אחר כך אפשר לבחור בין הסדרה העליונה לבין ללא שליט.`) };
   }
-  if (pts <= 7) return { bid: 'P', why: `${pts} HCP with no 5-card major: opposite 15–17, game is out of reach (you need about 25 combined). Pass.` };
-  if (pts <= 9) return { bid: '2N', why: `${pts} HCP with no major to look for: raise to 2NT, inviting partner to bid 3NT with 16–17.` };
-  return { bid: '3N', why: `${pts} HCP with no major to look for: you have enough for game, so bid 3NT.` };
+  if (pts <= 7) return { bid: 'P', why: L(
+    `${pts} HCP with no 5-card major: opposite 15–17, game is out of reach (you need about 25 combined). Pass.`,
+    `${pts} נק' בלי סדרה עליונה של 5: מול 15-17, משחק מלא לא בהישג יד (צריך בערך 25 במשותף). פאס.`) };
+  if (pts <= 9) return { bid: '2N', why: L(
+    `${pts} HCP with no major to look for: raise to 2NT, inviting partner to bid 3NT with 16–17.`,
+    `${pts} נק' בלי סדרה עליונה לחפש: הגביהו ל-2NT, כדי להזמין את השותף ל-3NT עם 16-17.`) };
+  return { bid: '3N', why: L(
+    `${pts} HCP with no major to look for: you have enough for game, so bid 3NT.`,
+    `${pts} נק' בלי סדרה עליונה לחפש: יש לכם מספיק למשחק מלא, ולכן הכריזו 3NT.`) };
 }
 
 // Raising partner's 1-of-a-major opening with 4+ card support: SAYC uses 2NT as the game-forcing raise.
 function raiseMajor(hand, major) {
   const pts = hcp(hand);
-  const sh = suitHtml(major);
   if (pts >= 13) {
-    return { bid: '2N', why: `<strong>Jacoby 2NT.</strong> With 4+ card support and 13+ HCP, respond 2NT. It's a game-forcing raise of partner's major. Partner then describes their hand: a new suit at the 3-level shows a singleton or void, and 4${sh} shows a minimum.` };
+    return { bid: '2N', why: L(
+      `<strong>Jacoby 2NT.</strong> With 4+ card support and 13+ HCP, respond 2NT. It's a game-forcing raise of partner's major. Partner then describes their hand: a new suit at the 3-level shows a singleton or void, and ${bidHtml('4' + major)} shows a minimum.`,
+      `<strong>ג'ייקובי 2NT.</strong> עם תמיכה של 4 קלפים ומעלה ו-13 נק' ומעלה, השיבו 2NT. זו הגבהה של הסדרה העליונה של השותף שמחייבת עד משחק מלא. השותף מתאר אז את היד שלו: סדרה חדשה ברמת 3 מראה יחידון או חוסר, ו-${bidHtml('4' + major)} מראה מינימום.`) };
   }
-  if (pts >= 11) return { bid: '3' + major, why: `${pts} HCP with 4-card support: a limit raise to 3${sh}, inviting game. Jacoby 2NT needs 13+.` };
-  return { bid: '2' + major, why: `${pts} HCP with 4-card support: a simple raise to 2${sh}. Jacoby 2NT needs 13+.` };
+  if (pts >= 11) return { bid: '3' + major, why: L(
+    `${pts} HCP with 4-card support: a limit raise to ${bidHtml('3' + major)}, inviting game. Jacoby 2NT needs 13+.`,
+    `${pts} נק' עם תמיכה של 4 קלפים: הגבהה מגבילה ל-${bidHtml('3' + major)}, הזמנה למשחק מלא. ג'ייקובי 2NT דורש 13 ומעלה.`) };
+  return { bid: '2' + major, why: L(
+    `${pts} HCP with 4-card support: a simple raise to ${bidHtml('2' + major)}. Jacoby 2NT needs 13+.`,
+    `${pts} נק' עם תמיכה של 4 קלפים: הגבהה פשוטה ל-${bidHtml('2' + major)}. ג'ייקובי 2NT דורש 13 ומעלה.`) };
 }
 
 const BLACKWOOD = ['5C', '5D', '5H', '5S'];
@@ -57,8 +64,10 @@ const GERBER = ['4D', '4H', '4S', '4N'];
 function aceResponse(hand, steps, name, ask) {
   const aces = countAces(hand);
   const bid = steps[aces % 4];
-  const table = steps.map((b, i) => `${bidHtml(b)} = ${i === 0 ? '0 or 4' : i}`).join(', ');
-  return { bid, why: `<strong>${name}.</strong> Partner's ${ask} asks how many aces you hold. You have ${aces}, so bid ${bidHtml(bid)}. The answers go up one step at a time: ${table}.` };
+  const table = steps.map((b, i) => `${bidHtml(b)} = ${i === 0 ? L('0 or 4', '0 או 4') : i}`).join(', ');
+  return { bid, why: L(
+    `<strong>${name}.</strong> Partner's ${ask} asks how many aces you hold. You have ${aces}, so bid ${bidHtml(bid)}. The answers go up one step at a time: ${table}.`,
+    `<strong>${name}.</strong> ה-${ask} של השותף שואל כמה אסים יש לכם. יש לכם ${aces}, ולכן הכריזו ${bidHtml(bid)}. התשובות עולות במדרגה אחת בכל פעם: ${table}.`) };
 }
 
 // Two-suited overcalls over the opponents' 1-of-a-suit. Returns null unless the hand fits Michaels or Unusual 2NT.
@@ -67,16 +76,23 @@ function twoSuitedOvercall(hand, open) {
   const pair = SUITS.filter(s => s !== open && len[s] >= 5);
   if (pair.length !== 2) return null;
   const has = s => pair.includes(s);
-  const names = `${SUIT_NAME[pair[0]]} and ${SUIT_NAME[pair[1]]}`;
+  const names = L(`${SUIT_NAME[pair[0]]} and ${SUIT_NAME[pair[1]]}`, `${SUIT_NAME[pair[0]]} ו${SUIT_NAME[pair[1]]}`);
   const lowestTwo = SUITS.filter(s => s !== open).slice(-2); // the two lowest-ranking unbid suits
   if (pair.every(s => lowestTwo.includes(s))) {
-    return { bid: '2N', why: `<strong>Unusual 2NT.</strong> A jump to 2NT over their opening shows 5-5 or longer in the two <em>lowest</em> unbid suits, here ${names}. Partner picks one.` };
+    return { bid: '2N', why: L(
+      `<strong>Unusual 2NT.</strong> A jump to 2NT over their opening shows 5-5 or longer in the two <em>lowest</em> unbid suits, here ${names}. Partner picks one.`,
+      `<strong>2NT בלתי רגיל.</strong> קפיצה ל-2NT מעל הפתיחה שלהם מראה 5-5 ומעלה בשתי הסדרות <em>הנמוכות ביותר</em> שלא הוכרזו, כאן ${names}. השותף בוחר אחת מהן.`) };
   }
   const majorsOverMinor = (open === 'C' || open === 'D') && has('H') && has('S');
   const otherMajorAndMinor = (open === 'H' || open === 'S') && has(open === 'H' ? 'S' : 'H');
   if (majorsOverMinor || otherMajorAndMinor) {
-    const shows = majorsOverMinor ? 'both majors' : `the other major (${SUIT_NAME[open === 'H' ? 'S' : 'H']}) and a minor`;
-    return { bid: '2' + open, why: `<strong>Michaels cuebid.</strong> Bidding the opponents' suit, 2${suitHtml(open)}, shows 5-5 or longer in ${shows}. Here that's ${names}.` };
+    const other = SUIT_NAME[open === 'H' ? 'S' : 'H'];
+    const shows = majorsOverMinor
+      ? L('both majors', 'שתי הסדרות העליונות')
+      : L(`the other major (${other}) and a minor`, `הסדרה העליונה האחרת (${other}) וסדרה תחתונה`);
+    return { bid: '2' + open, why: L(
+      `<strong>Michaels cuebid.</strong> Bidding the opponents' suit, ${bidHtml('2' + open)}, shows 5-5 or longer in ${shows}. Here that's ${names}.`,
+      `<strong>קיו-ביד מייקלס.</strong> הכרזת הסדרה של היריבים, ${bidHtml('2' + open)}, מראה 5-5 ומעלה ב${shows}. כאן אלה ${names}.`) };
   }
   return null;
 }
@@ -86,11 +102,18 @@ function negativeDouble(hand, theirs) {
   const pts = hcp(hand);
   const other = theirs === 'H' ? 'S' : 'H';
   const n = suitLengths(hand)[other];
-  const sh = suitHtml(other);
-  if (n === 4) return { bid: 'X', why: `<strong>Negative double.</strong> After their overcall, a double by responder isn't for penalty: it shows exactly four ${SUIT_NAME[other]} (the unbid major) and 6+ HCP.` };
-  if (other === 'S') return { bid: '1S', why: `With ${n} spades you can simply bid 1${sh}. It shows 5+ spades and 6+ HCP. The negative double promises exactly four.` };
-  if (pts >= 10) return { bid: '2H', why: `With ${n} hearts and ${pts} HCP, bid 2${sh}. A new suit at the 2-level after their overcall shows 5+ cards and 10+ HCP.` };
-  return { bid: 'X', why: `<strong>Negative double.</strong> With ${n} hearts but only ${pts} HCP, you're not strong enough to bid 2${sh} (10+). Make a negative double to show hearts instead.` };
+  if (n === 4) return { bid: 'X', why: L(
+    `<strong>Negative double.</strong> After their overcall, a double by responder isn't for penalty: it shows exactly four ${SUIT_NAME[other]} (the unbid major) and 6+ HCP.`,
+    `<strong>כפל שלילי.</strong> אחרי ההתערבות שלהם, כפל של המשיב הוא לא כפל עונשין: הוא מראה בדיוק ארבעה ${SUIT_NAME[other]} (הסדרה העליונה שלא הוכרזה) ו-6 נק' ומעלה.`) };
+  if (other === 'S') return { bid: '1S', why: L(
+    `With ${n} spades you can simply bid ${bidHtml('1S')}. It shows 5+ spades and 6+ HCP. The negative double promises exactly four.`,
+    `עם ${n} עלים אפשר פשוט להכריז ${bidHtml('1S')}. ההכרזה מראה 5 עלים ומעלה ו-6 נק' ומעלה. הכפל השלילי מבטיח בדיוק ארבעה.`) };
+  if (pts >= 10) return { bid: '2H', why: L(
+    `With ${n} hearts and ${pts} HCP, bid ${bidHtml('2H')}. A new suit at the 2-level after their overcall shows 5+ cards and 10+ HCP.`,
+    `עם ${n} לבבות ו-${pts} נק', הכריזו ${bidHtml('2H')}. סדרה חדשה ברמת 2 אחרי ההתערבות שלהם מראה 5 קלפים ומעלה ו-10 נק' ומעלה.`) };
+  return { bid: 'X', why: L(
+    `<strong>Negative double.</strong> With ${n} hearts but only ${pts} HCP, you're not strong enough to bid ${bidHtml('2H')} (10+). Make a negative double to show hearts instead.`,
+    `<strong>כפל שלילי.</strong> עם ${n} לבבות אבל רק ${pts} נק', אתם לא מספיק חזקים כדי להכריז ${bidHtml('2H')} (10 ומעלה). הכפילו כפל שלילי כדי להראות את הלבבות.`) };
 }
 
 // Responding to partner's strong, artificial 2♣.
@@ -101,19 +124,27 @@ function respondTo2C(hand) {
   if (pts >= 8 && good.length) {
     const s = good.sort((a, b) => len[b] - len[a])[0];
     const bid = (s === 'H' || s === 'S' ? '2' : '3') + s;
-    return { bid, why: `<strong>Positive response.</strong> With 8+ HCP and a good 5-card suit (two of the top three honors), bid it: ${bidHtml(bid)}. Slam is now likely.` };
+    return { bid, why: L(
+      `<strong>Positive response.</strong> With 8+ HCP and a good 5-card suit (two of the top three honors), bid it: ${bidHtml(bid)}. Slam is now likely.`,
+      `<strong>תשובה חיובית.</strong> עם 8 נק' ומעלה וסדרה טובה של 5 קלפים (שניים משלושת הקלפים הגבוהים), הכריזו אותה: ${bidHtml(bid)}. עכשיו סלאם סביר.`) };
   }
   if (pts >= 8 && isBalanced(hand)) {
-    return { bid: '2N', why: `<strong>Positive response.</strong> With 8+ HCP and a balanced hand, bid 2NT.` };
+    return { bid: '2N', why: L(
+      `<strong>Positive response.</strong> With 8+ HCP and a balanced hand, bid 2NT.`,
+      `<strong>תשובה חיובית.</strong> עם 8 נק' ומעלה ויד מאוזנת, הכריזו 2NT.`) };
   }
-  return { bid: '2D', why: `<strong>2${suitHtml('D')} waiting.</strong> With anything else, respond 2${suitHtml('D')}. It's artificial and says nothing about diamonds: it just lets partner describe their big hand. Never pass 2${suitHtml('C')}.` };
+  return { bid: '2D', why: L(
+    `<strong>${bidHtml('2D')} waiting.</strong> With anything else, respond ${bidHtml('2D')}. It's artificial and says nothing about diamonds: it just lets partner describe their big hand. Never pass ${bidHtml('2C')}.`,
+    `<strong>${bidHtml('2D')} המתנה.</strong> עם כל יד אחרת, השיבו ${bidHtml('2D')}. ההכרזה מלאכותית ולא אומרת דבר על יהלומים: היא רק נותנת לשותף לתאר את היד הגדולה שלו. אף פעם אל תעשו פאס על ${bidHtml('2C')}.`) };
 }
 
 // ---------- Scenarios ----------
 
+const PARTNER_FIRST = [SEAT.partner, SEAT.right, SEAT.you, SEAT.left];
+
 const CONVENTION_SCENARIOS = {
   nt: {
-    label: 'Stayman and Jacoby transfers',
+    label: L('Stayman and Jacoby transfers', 'סטיימן וטרנספרים של ג\'ייקובי'),
     generate() {
       const [partner, , hand] = dealHands();
       if (openingBid(partner).bid !== '1N' || hcp(hand) > 15) return null;
@@ -121,49 +152,52 @@ const CONVENTION_SCENARIOS = {
       if (answer.bid === 'P' && Math.random() < 0.6) return null;
       return {
         hand, answer, allowed: bidsAbove('1N'),
-        context: auctionHtml(['Partner', 'Right', 'You', 'Left'], [['1N', 'P', '?', '']], `Partner opens 1NT: 15–17 HCP, balanced.`),
+        context: auctionHtml(PARTNER_FIRST, [['1N', 'P', '?', '']], L('Partner opens 1NT: 15–17 HCP, balanced.', 'השותף פותח 1NT: 15-17 נק\', יד מאוזנת.')),
       };
     },
   },
   j2nt: {
-    label: 'Jacoby 2NT',
+    label: L('Jacoby 2NT', 'ג\'ייקובי 2NT'),
     generate() {
       const [partner, , hand] = dealHands();
       const open = openingBid(partner).bid;
       if ((open !== '1H' && open !== '1S') || suitLengths(hand)[open[1]] < 4 || hcp(hand) < 6 || hcp(hand) > 17) return null;
       return {
         hand, answer: raiseMajor(hand, open[1]), allowed: bidsAbove(open),
-        context: auctionHtml(['Partner', 'Right', 'You', 'Left'], [[open, 'P', '?', '']], `Partner opens ${bidHtml(open)}. You have 4+ card support. How do you raise?`),
+        context: auctionHtml(PARTNER_FIRST, [[open, 'P', '?', '']],
+          L(`Partner opens ${bidHtml(open)}. You have 4+ card support. How do you raise?`, `השותף פותח ${bidHtml(open)}. יש לכם תמיכה של 4 קלפים ומעלה. איך תגביהו?`)),
       };
     },
   },
   blackwood: {
-    label: 'Blackwood',
+    label: L('Blackwood', 'בלאקווד'),
     generate() {
       const hand = dealHands()[0];
       const major = Math.random() < 0.5 ? 'H' : 'S';
       if (suitLengths(hand)[major] < 4 || hcp(hand) < 13 || hcp(hand) > 17) return null;
       return {
-        hand, answer: aceResponse(hand, BLACKWOOD, 'Blackwood', '4NT'), allowed: bidsAbove('4N'),
-        context: auctionHtml(['Partner', 'Right', 'You', 'Left'], [['1' + major, 'P', '2N', 'P'], ['4N', 'P', '?', '']],
-          `You made a Jacoby 2NT raise. Partner now bids 4NT, <strong>Blackwood</strong>, asking how many aces you hold.`),
+        hand, answer: aceResponse(hand, BLACKWOOD, L('Blackwood', 'בלאקווד'), '4NT'), allowed: bidsAbove('4N'),
+        context: auctionHtml(PARTNER_FIRST, [['1' + major, 'P', '2N', 'P'], ['4N', 'P', '?', '']],
+          L('You made a Jacoby 2NT raise. Partner now bids 4NT, <strong>Blackwood</strong>, asking how many aces you hold.',
+            'הגבהתם בג\'ייקובי 2NT. עכשיו השותף מכריז 4NT, <strong>בלאקווד</strong>, ושואל כמה אסים יש לכם.')),
       };
     },
   },
   gerber: {
-    label: 'Gerber',
+    label: L('Gerber', 'גרבר'),
     generate() {
       const hand = dealHands()[0];
       if (openingBid(hand).bid !== '1N') return null;
       return {
-        hand, answer: aceResponse(hand, GERBER, 'Gerber', '4' + suitHtml('C')), allowed: bidsAbove('4C'),
-        context: auctionHtml(['You', 'Left', 'Partner', 'Right'], [['1N', 'P', '4C', 'P'], ['?', '', '', '']],
-          `You opened 1NT. Partner jumps to 4${suitHtml('C')}, <strong>Gerber</strong>, asking how many aces you hold.`),
+        hand, answer: aceResponse(hand, GERBER, L('Gerber', 'גרבר'), bidHtml('4C')), allowed: bidsAbove('4C'),
+        context: auctionHtml([SEAT.you, SEAT.left, SEAT.partner, SEAT.right], [['1N', 'P', '4C', 'P'], ['?', '', '', '']],
+          L(`You opened 1NT. Partner jumps to ${bidHtml('4C')}, <strong>Gerber</strong>, asking how many aces you hold.`,
+            `פתחתם 1NT. השותף קופץ ל-${bidHtml('4C')}, <strong>גרבר</strong>, ושואל כמה אסים יש לכם.`)),
       };
     },
   },
   twosuit: {
-    label: 'Michaels and Unusual 2NT',
+    label: L('Michaels and Unusual 2NT', 'מייקלס ו-2NT בלתי רגיל'),
     generate() {
       const hands = dealHands();
       const open = openingBid(hands[1]).bid;
@@ -174,12 +208,13 @@ const CONVENTION_SCENARIOS = {
       if (!answer) return null;
       return {
         hand, answer, allowed: bidsAbove(open, true),
-        context: auctionHtml(['Right', 'You', 'Left', 'Partner'], [[open, '?', '', '']], `The opponent on your right opens ${bidHtml(open)}. You hold two long suits.`),
+        context: auctionHtml([SEAT.right, SEAT.you, SEAT.left, SEAT.partner], [[open, '?', '', '']],
+          L(`The opponent on your right opens ${bidHtml(open)}. You hold two long suits.`, `היריב מימינכם פותח ${bidHtml(open)}. יש לכם שתי סדרות ארוכות.`)),
       };
     },
   },
   negdbl: {
-    label: 'Negative double',
+    label: L('Negative double', 'כפל שלילי'),
     generate() {
       const [partner, , hand] = dealHands();
       const open = openingBid(partner).bid;
@@ -189,12 +224,14 @@ const CONVENTION_SCENARIOS = {
       if (len[theirs === 'H' ? 'S' : 'H'] < 4 || len[theirs] > 3 || hcp(hand) < 6 || hcp(hand) > 12) return null;
       return {
         hand, answer: negativeDouble(hand, theirs), allowed: bidsAbove('1' + theirs, true),
-        context: auctionHtml(['Partner', 'Right', 'You', 'Left'], [[open, '1' + theirs, '?', '']], `Partner opens ${bidHtml(open)} and the opponent on your right overcalls 1${suitHtml(theirs)}.`),
+        context: auctionHtml(PARTNER_FIRST, [[open, '1' + theirs, '?', '']],
+          L(`Partner opens ${bidHtml(open)} and the opponent on your right overcalls ${bidHtml('1' + theirs)}.`,
+            `השותף פותח ${bidHtml(open)} והיריב מימינכם מתערב ב-${bidHtml('1' + theirs)}.`)),
       };
     },
   },
   twoclubs: {
-    label: 'Responding to 2♣',
+    label: L('Responding to 2♣', 'תשובה ל-2♣'),
     generate() {
       const hand = dealHands()[0];
       if (hcp(hand) > 14) return null; // opposite 22+, responder can't hold much
@@ -202,7 +239,8 @@ const CONVENTION_SCENARIOS = {
       if (answer.bid === '2D' && Math.random() < 0.5) return null;
       return {
         hand, answer, allowed: bidsAbove('2C'),
-        context: auctionHtml(['Partner', 'Right', 'You', 'Left'], [['2C', 'P', '?', '']], `Partner opens 2${suitHtml('C')}: strong and artificial, 22+ HCP.`),
+        context: auctionHtml(PARTNER_FIRST, [['2C', 'P', '?', '']],
+          L(`Partner opens ${bidHtml('2C')}: strong and artificial, 22+ HCP.`, `השותף פותח ${bidHtml('2C')}: חזקה ומלאכותית, 22 נק' ומעלה.`)),
       };
     },
   },

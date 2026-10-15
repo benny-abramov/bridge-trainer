@@ -12,40 +12,52 @@ function openingLead(hand, trump) {
 
   if (!sides.length) {
     const c = groups[trump][groups[trump].length - 1];
-    return { card: c, why: `You only hold trumps, so lead your lowest: ${lbl(c)}.` };
+    return { card: c, why: L(`You only hold trumps, so lead your lowest: ${lbl(c)}.`, `יש לכם רק שליטים, ולכן הובילו את הנמוך ביותר: ${lbl(c)}.`) };
   }
 
   if (!trump) {
     const seq = sides.filter(s => touching(groups[s], 3));
     if (seq.length) {
       const c = groups[pick(seq, longest)][0];
-      return { card: c, why: `Against no-trump, lead the top of a three-card sequence: ${lbl(c)}. It pushes out declarer's higher cards without giving away a trick.` };
+      return { card: c, why: L(
+        `Against no-trump, lead the top of a three-card sequence: ${lbl(c)}. It pushes out declarer's higher cards without giving away a trick.`,
+        `נגד ללא שליט, הובילו את העליון ברצף של שלושה קלפים: ${lbl(c)}. הוא מוציא את הקלפים הגבוהים של הכרוז בלי למסור לו לקיחה.`) };
     }
     const s = pick(sides, longest);
     const c = groups[s][3];
-    return { card: c, why: `Against no-trump, lead your longest and strongest suit, ${SUIT_NAME[s]}, and lead the fourth-highest card in it (<em>fourth best</em>): ${lbl(c)}. Once the high cards are gone, your remaining small cards in the suit become winners.` };
+    return { card: c, why: L(
+      `Against no-trump, lead your longest and strongest suit, ${SUIT_NAME[s]}, and lead the fourth-highest card in it (<em>fourth best</em>): ${lbl(c)}. Once the high cards are gone, your remaining small cards in the suit become winners.`,
+      `נגד ללא שליט, הובילו מהסדרה הארוכה והחזקה ביותר שלכם, ${SUIT_NAME[s]}, את הקלף <em>הרביעי מלמעלה</em>: ${lbl(c)}. אחרי שהקלפים הגבוהים ייצאו, הקלפים הקטנים שנשארו לכם בסדרה יהפכו לזוכים.`) };
   }
 
   const trumps = groups[trump].length;
   const ak = sides.filter(s => groups[s].length >= 2 && groups[s][0].rank === 'A' && groups[s][1].rank === 'K');
   if (ak.length) {
     const c = groups[pick(ak, longest)][0];
-    return { card: c, why: `Against a suit contract, lead the ace from ace-king: ${lbl(c)}. You win the trick, see dummy, and still hold the king.` };
+    return { card: c, why: L(
+      `Against a suit contract, lead the ace from ace-king: ${lbl(c)}. You win the trick, see dummy, and still hold the king.`,
+      `נגד חוזה בשליט, הובילו את האס מתוך אס-מלך: ${lbl(c)}. אתם זוכים בלקיחה, רואים את הדומם, והמלך עדיין בידכם.`) };
   }
   const seq = sides.filter(s => groups[s][0].rank !== 'A' && touching(groups[s], 2));
   if (seq.length) {
     const c = groups[pick(seq, (a, b) => groups[b][0].value - groups[a][0].value)][0];
-    return { card: c, why: `Lead the top of touching honors: ${lbl(c)}. It's safe because it can't give declarer a cheap trick, and it helps set up a trick for your side.` };
+    return { card: c, why: L(
+      `Lead the top of touching honors: ${lbl(c)}. It's safe because it can't give declarer a cheap trick, and it helps set up a trick for your side.`,
+      `הובילו את העליון מבין הונורים צמודים: ${lbl(c)}. זו הובלה בטוחה, כי היא לא יכולה לתת לכרוז לקיחה זולה, והיא עוזרת לפתח לקיחה לצד שלכם.`) };
   }
   const single = sides.filter(s => groups[s].length === 1 && groups[s][0].value <= 10);
   if (single.length && trumps >= 2) {
     const c = groups[single[0]][0];
-    return { card: c, why: `Lead your singleton ${lbl(c)}. When the suit is played again you'll be out of it, and you can ruff with one of your ${trumps} trumps.` };
+    return { card: c, why: L(
+      `Lead your singleton ${lbl(c)}. When the suit is played again you'll be out of it, and you can ruff with one of your ${trumps} trumps.`,
+      `הובילו את היחידון ${lbl(c)}. כשהסדרה תשוחק שוב, כבר לא יהיו לכם קלפים בה, ותוכלו לחתוך באחד מ-${trumps} השליטים שלכם.`) };
   }
   const dbl = sides.filter(s => groups[s].length === 2 && groups[s][0].value <= 10);
   if (dbl.length && trumps >= 1) {
     const c = groups[dbl[0]][0];
-    return { card: c, why: `Lead the top of a small doubleton: ${lbl(c)}. If partner wins and plays the suit back, you may get to ruff the third round.` };
+    return { card: c, why: L(
+      `Lead the top of a small doubleton: ${lbl(c)}. If partner wins and plays the suit back, you may get to ruff the third round.`,
+      `הובילו את העליון מזוגון קטן: ${lbl(c)}. אם השותף יזכה ויחזיר את הסדרה, ייתכן שתוכלו לחתוך בסיבוב השלישי.`) };
   }
   const safe = sides.filter(s => groups[s].length >= 3 && groups[s][0].rank !== 'A');
   if (safe.length) {
@@ -56,27 +68,39 @@ function openingLead(hand, trump) {
       return {
         card: c,
         why: g.length >= 4
-          ? `Lead fourth best from your longest suit headed by an honor: ${lbl(c)}. Leading low keeps your honor to capture one of declarer's cards later.`
-          : `Lead low from three cards headed by an honor: ${lbl(c)}. Your honor stays behind to win a trick later.`,
+          ? L(`Lead fourth best from your longest suit headed by an honor: ${lbl(c)}. Leading low keeps your honor to capture one of declarer's cards later.`,
+            `הובילו את הרביעי מלמעלה מהסדרה הארוכה שלכם שבראשה הונור: ${lbl(c)}. הובלה נמוכה שומרת את ההונור כדי לתפוס אחד מהקלפים של הכרוז בהמשך.`)
+          : L(`Lead low from three cards headed by an honor: ${lbl(c)}. Your honor stays behind to win a trick later.`,
+            `הובילו נמוך משלושה קלפים שבראשם הונור: ${lbl(c)}. ההונור נשאר אצלכם כדי לזכות בלקיחה בהמשך.`),
       };
     }
     if (g.length >= 4) {
-      return { card: g[1], why: `Your longest safe suit has no honors. From four or more small cards, lead the second-highest: ${lbl(g[1])}. A high spot card tells partner you have nothing worth leading low from.` };
+      return { card: g[1], why: L(
+        `Your longest safe suit has no honors. From four or more small cards, lead the second-highest: ${lbl(g[1])}. A high spot card tells partner you have nothing worth leading low from.`,
+        `בסדרה הבטוחה הארוכה שלכם אין הונורים. מתוך ארבעה קלפים קטנים ומעלה, הובילו את השני מלמעלה: ${lbl(g[1])}. קלף גבוה יחסית אומר לשותף שאין לכם בסדרה משהו ששווה להוביל ממנו נמוך.`) };
     }
-    return { card: g[0], why: `Your longest safe suit has no honors, so lead the top card to tell partner you have nothing there (<em>top of nothing</em>): ${lbl(g[0])}.` };
+    return { card: g[0], why: L(
+      `Your longest safe suit has no honors, so lead the top card to tell partner you have nothing there (<em>top of nothing</em>): ${lbl(g[0])}.`,
+      `בסדרה הבטוחה הארוכה שלכם אין הונורים, ולכן הובילו את הקלף העליון כדי לומר לשותף שאין לכם שם כלום (<em>עליון מכלום</em>): ${lbl(g[0])}.`) };
   }
   if (trumps >= 2 && groups[trump][0].value <= 10) {
     const c = groups[trump][trumps - 1];
-    return { card: c, why: `Every side suit is dangerous to lead from: it would give away an ace or an honor. A small trump is the safe lead: ${lbl(c)}.` };
+    return { card: c, why: L(
+      `Every side suit is dangerous to lead from: it would give away an ace or an honor. A small trump is the safe lead: ${lbl(c)}.`,
+      `כל סדרה צדדית מסוכנת להובלה: היא הייתה מוסרת אס או הונור. שליט קטן הוא ההובלה הבטוחה: ${lbl(c)}.`) };
   }
   const aces = sides.filter(s => groups[s][0].rank === 'A');
   if (aces.length) {
     const c = groups[pick(aces, longest)][0];
-    return { card: c, why: `Against a suit contract, never lead low from a suit headed by the ace: declarer's king could win the trick and your ace might later be ruffed. With no better choice, lead the ace itself: ${lbl(c)}.` };
+    return { card: c, why: L(
+      `Against a suit contract, never lead low from a suit headed by the ace: declarer's king could win the trick and your ace might later be ruffed. With no better choice, lead the ace itself: ${lbl(c)}.`,
+      `נגד חוזה בשליט, אל תובילו נמוך מסדרה שבראשה אס: המלך של הכרוז עלול לזכות, והאס שלכם עלול להיחתך מאוחר יותר. כשאין ברירה טובה יותר, הובילו את האס עצמו: ${lbl(c)}.`) };
   }
   const s = pick(sides, longest);
   const c = groups[s][groups[s].length - 1];
-  return { card: c, why: `There's no attractive lead, so lead low from your longest side suit: ${lbl(c)}.` };
+  return { card: c, why: L(
+    `There's no attractive lead, so lead low from your longest side suit: ${lbl(c)}.`,
+    `אין הובלה אטרקטיבית, ולכן הובילו נמוך מהסדרה הצדדית הארוכה שלכם: ${lbl(c)}.`) };
 }
 
 const LeadTrainer = (() => {
@@ -88,10 +112,10 @@ const LeadTrainer = (() => {
     ({ hands: [, , , hand], contract } = Play.dealTable());
     answer = openingLead(hand, contract.strain === 'N' ? null : contract.strain);
     answered = false;
-    const strain = contract.strain === 'N' ? 'no-trump' : `${SUIT_NAME[contract.strain]} are trumps`;
-    $('lead-context').innerHTML =
-      `South is declarer in <strong>${contract.level}${suitHtml(contract.strain)}</strong> (${strain}). ` +
-      `You are West, so you make the opening lead. Click the card you would lead.`;
+    const bid = bidHtml(contract.level + contract.strain);
+    $('lead-context').innerHTML = L(
+      `South is declarer in <strong>${bid}</strong> (${trumpText(contract.strain)}). You are West, so you make the opening lead. Click the card you would lead.`,
+      `דרום הוא הכרוז בחוזה <strong>${bid}</strong> (${trumpText(contract.strain)}). אתם במערב, ולכן אתם מבצעים את הובלת הפתיחה. לחצו על הקלף שהייתם מובילים.`);
     $('lead-feedback').className = 'feedback';
     $('lead-feedback').innerHTML = '';
     $('lead-next').hidden = true;
@@ -123,11 +147,12 @@ const LeadTrainer = (() => {
     const correct = card === answer.card;
     record(stats, correct);
     renderHand(card);
-    let verdict = 'Correct!';
+    let verdict = L('Correct!', 'נכון!');
     if (!correct) {
+      const best = cardHtml(answer.card);
       verdict = card.suit === answer.card.suit
-        ? `Right suit, but the textbook card is ${cardHtml(answer.card)}.`
-        : `The textbook lead is ${cardHtml(answer.card)}.`;
+        ? L(`Right suit, but the textbook card is ${best}.`, `הסדרה נכונה, אבל הקלף לפי הספר הוא ${best}.`)
+        : L(`The textbook lead is ${best}.`, `ההובלה לפי הספר היא ${best}.`);
     }
     $('lead-feedback').className = 'feedback ' + (correct ? 'good' : 'bad');
     $('lead-feedback').innerHTML = `<strong>${verdict}</strong><div>${answer.why}</div>`;

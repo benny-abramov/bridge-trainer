@@ -176,10 +176,104 @@ const ADVANCED_TOPICS = {
   },
 };
 
-// Colors the suit symbols written directly in the text above, to match the rest of the app.
-function colorSuits(html) {
-  const map = { '♠': 'S', '♥': 'H', '♦': 'D', '♣': 'C' };
-  return html.replace(/[♠♥♦♣]/g, ch => suitHtml(map[ch]));
+// Hebrew text for the puzzles above; the hands and targets are shared.
+const ADVANCED_HE = {
+  squeeze: {
+    intro: `
+      <p><strong>לחיצה</strong> (סקוויז) מייצרת לקיחה יש מאין. אתם מממשים זוכה, ומגן ששומר על שתי סדרות נאלץ להשליך. על איזו שמירה שלא יוותר, אחד הקלפים שלכם הופך לזוכה.</p>
+      <p>לחיצה צריכה ארבעה דברים:</p>
+      <ul>
+        <li><strong>שני איומים.</strong> <em>איום</em> הוא קלף שהיה זוכה אילו השמירה בסדרה שלו הייתה נעלמת: ה-♥J שלכם כשלמגן יש ♥K-Q, או ה-♦Q שלכם כשלמגן יש את ה-♦K.</li>
+        <li><strong>מגן אחד ששומר על שני האיומים.</strong> המגן הזה הוא <em>הקורבן</em>.</li>
+        <li><strong>הספירה.</strong> לפני שהלחיצה מתחילה, אתם צריכים להיות מסוגלים לזכות בכל הלקיחות שנשארו פרט לאחת. אם יש לכם שני מפסידים, מסרו אחד קודם (<em>תיקון הספירה</em>), כדי שלקורבן לא יהיה קלף מיותר להשליך.</li>
+        <li><strong>כניסות.</strong> אחרי שהקורבן משליך, אתם עדיין צריכים להגיע לאיום שהפך לזוכה. בדרך כלל לאחד האיומים יש זוכה משלו, כמו ♥A-J.</li>
+      </ul>
+      <p>הזוכה האחרון שאתם מממשים הוא <strong>קלף הלחיצה</strong>. לחיצה <em>פוזיציונית</em> עובדת רק נגד המגן שמשליך <em>לפני</em> היד שמחזיקה את האיומים. לחיצה <em>אוטומטית</em> עובדת נגד כל אחד מהמגינים, כי ליד שמול קלף הלחיצה יש קלף מיותר להשליך.</p>
+      <p>כלל האצבע: <strong>ממשו קודם את הזוכים בסדרות האחרות, ושמרו את האיומים</strong>. אחר כך הסתכלו מה הקורבן משליך.</p>`,
+    puzzles: [
+      {
+        title: 'הלחיצה הפשוטה',
+        idea: 'מערב לבדו שומר על שתי הסדרות האדומות. תוכלו לאלץ אותו לבחור?',
+        solution: `<p>הובילו ראשון את <strong>♣A</strong>, קלף הלחיצה. מערב חייב להשליך לפני צפון:</p>
+          <ul><li>אם מערב משליך את ה-♦K, צפון שומר את ה-♦Q (שהפכה לזוכה) ומשליך את ה-♥J. עברו ל-♥A וממשו את ה-♦Q.</li>
+          <li>אם מערב משליך לב, צפון משליך את ה-♦Q. הובילו את ה-♥3 ל-♥A, ההונור האחרון של מערב נופל, וה-♥J זוכה.</li></ul>
+          <p>משחק לבבות קודם נכשל: מערב שומר שמירה בכל סדרה וזוכה בלקיחה האחרונה. הלחיצה הזו <em>פוזיציונית</em>: היא עובדת כי מערב משליך לפני צפון.</p>`,
+      },
+      {
+        title: 'הלחיצה האוטומטית',
+        idea: 'הפעם מזרח שומר על שתי הסדרות האדומות, והוא משחק אחרי צפון.',
+        solution: `<p>הובילו את <strong>♣A</strong>. לצפון יש קלף מיותר להשליך (ה-♠2), כך שהוא שומר גם את ה-♥A-J וגם את הקשר לדרום. עכשיו מזרח חייב להשליך:</p>
+          <ul><li>אם מזרח משליך את ה-♦K, ממשו את ה-♦Q של דרום (צפון משליך את ה-♥J), ואז עברו ל-♥A.</li>
+          <li>אם מזרח משליך לב, הובילו את ה-♥3 ל-♥A. ההונור של מזרח נופל וה-♥J זוכה.</li></ul>
+          <p>הלחיצה הזו <em>אוטומטית</em>: בזכות הקלף המיותר של צפון היא הייתה עובדת נגד כל אחד מהמגינים.</p>`,
+      },
+      {
+        title: 'ממשו הכול קודם',
+        idea: 'אתם צריכים את כל הלקיחות. למערב יש כמה עלים מיותרים להשליך. מה יקרה כשהם ייגמרו?',
+        solution: `<p>ממשו את <strong>♣A, ♣K ו-♣Q</strong>, ושמרו בצפון את ה-♥A-J ואת ה-♦Q. צפון משליך את שני העלים הקטנים שלו.
+          מערב יכול להשליך שני עלים, אבל על התלתן השלישי כבר אין לו קלפים מיותרים, והוא חייב לוותר על שמירה באחת הסדרות האדומות. סיימו כמו בלחיצה הפשוטה.</p>
+          <p>נגיעה מוקדמת בלבבות או ביהלומים מאפשרת למערב לשמור שמירה בכל סדרה. הריצו קודם את הסדרה הארוכה, ותנו למגן להשליך.</p>`,
+      },
+      {
+        title: 'תיקון הספירה',
+        idea: 'אתם צריכים שלוש מתוך ארבע הלקיחות האחרונות, ויש לכם מפסיד בעלים. לממש עכשיו את ה-♣A, או למסור קודם את העלה?',
+        solution: `<p>מסרו את העלה <strong>קודם</strong>: הובילו את ה-♠2. מזרח זוכה ב-♠A ונשארו לו רק תלתנים להחזיר. עכשיו ה-♣A שלכם לוחץ את מערב, שכבר אין לו את ה-♠9 כקלף מיותר.</p>
+          <p>אם תממשו את ה-♣A מיד, מערב פשוט ישליך את ה-♠9 וישמור את שתי השמירות האדומות. לחיצה עובדת רק כשאתם יכולים לזכות בכל הלקיחות שנשארו פרט לאחת. מסירת המפסיד המיותר מוקדם כדי להגיע למצב הזה נקראת <em>תיקון הספירה</em>.</p>`,
+      },
+    ],
+  },
+  endplay: {
+    intro: `
+      <p><strong>משחק סיום</strong> (אנדפליי, או <em>הכנסה</em>) מכניס מגן להובלה כשכל קלף שהוא יכול להוביל עוזר לכם. זה הפתרון כשעקיפה צפויה להיכשל.</p>
+      <p>הדפוס הנפוץ הוא <strong>ניקוי והכנסה</strong>:</p>
+      <ol>
+        <li><strong>ניקוי:</strong> ממשו או חתכו את הסדרות הצדדיות, כך שלמגן לא יישאר קלף בטוח להוביל.</li>
+        <li><strong>הכנסה:</strong> תנו למגן לקיחה שהוא חייב לזכות בה.</li>
+        <li><strong>איסוף:</strong> עכשיו הוא חייב להוביל לתוך המזלג שלכם (כמו A-Q, ששווה שתי לקיחות כשמובילים <em>אליו</em>), או לתת לכם <em>חיתוך והשלכה</em>.</li>
+      </ol>
+      <p><strong>חיתוך והשלכה</strong> קורה כשמגן מוביל סדרה ששתי הידיים שלכם ריקות בה. חותכים ביד אחת ומשליכים מפסיד מהיד השנייה. לכן, בחוזה בשליט, שומרים שליט <em>בשתי</em> הידיים לקראת משחק הסיום.</p>
+      <p>הסדר חשוב. אם תממשו מוקדם מדי את הזוכה האחרון בסדרה צדדית, המגן עלול להיפטר מהקלף שתכננתם להכניס אותו איתו (<em>שחרור</em>), או לשמור קלף בטוח להוביל.</p>`,
+    puzzles: [
+      {
+        title: 'הכנסה בסיסית',
+        idea: 'ה-♦K יושב מאחורי ה-A-Q של הדומם, ולכן עקיפה נכשלת. תוכלו לגרום למזרח להוביל לכם יהלומים?',
+        solution: `<p>הובילו את ה-<strong>♥2</strong>. הלב היחיד של מזרח הוא האס, ולכן מזרח חייב לזכות. עכשיו נשארו למזרח רק יהלומים, והוא חייב להוביל יהלום <em>לתוך</em> ה-♦A-Q של צפון.
+          צפון זוכה במלכה, מממש את האס, והשליט האחרון שלכם לוקח את הלקיחה האחרונה.</p>
+          <p>אם תעקפו ביהלומים בעצמכם, תפסידו למלך ותסיימו עם שתי לקיחות בלבד.</p>`,
+      },
+      {
+        title: 'קודם ניקוי',
+        idea: 'אותו רעיון, אבל עכשיו למזרח יש תלתן לצאת איתו. קחו ממנו קודם את דרך המילוט.',
+        solution: `<p>קודם <strong>נקו את התלתנים</strong>: הובילו את ה-♣2 ל-♣A של צפון. אחר כך הכניסו את מזרח עם ה-<strong>♥3</strong>. מזרח זוכה ב-♥A כשנשארו לו רק יהלומים, והוא חייב להוביל יהלום לתוך ה-♦A-Q.</p>
+          <p>אם תכניסו את מזרח לפני שמימשתם את ה-♣A, מזרח ייצא בבטחה עם ה-♣5, ועדיין תפסידו יהלום למלך.</p>`,
+      },
+      {
+        title: 'הכנסה בללא שליט',
+        idea: 'למערב יש את ה-♠K, וה-A-Q שלכם ביד של דרום, כך שעקיפה מצפון הייתה נכשלת. למערב יש גם את ה-♥A כקלף בודד…',
+        solution: `<p>הובילו את ה-<strong>♥3 מיד</strong>. מערב חייב לזכות ב-♥A הבודד, ואז להוביל עלה לתוך ה-♠A-Q שלכם. ה-♣A נשאר אצלכם, כך שאתם לוקחים את שלוש הלקיחות האחרונות.</p>
+          <p>אם תממשו קודם את ה-♣A, מערב יכול להשליך את ה-♥A (<em>שחרור</em>). אז מזרח זוכה בלב ומוביל יהלום, ואתם חייבים למסור לקיחה בעלים.
+          בצעו את ההכנסה לפני שהמגן מקבל הזדמנות להשליך את קלף היציאה.</p>`,
+      },
+      {
+        title: 'הכנסה עם שליט',
+        idea: 'למערב יש את השליט האחרון, ה-♠Q, וה-♦K יושב מעל ה-♦A-Q שלכם. הובלת יהלומים בעצמכם מפסידה למלך.',
+        solution: `<p>השתמשו בשליט כקלף ההכנסה: הובילו את ה-<strong>♠J</strong>. מערב חייב לזכות ב-♠Q, ואז נשארו לו רק יהלומים, כך שהוא חייב להוביל לתוך ה-♦A-Q שלכם.
+          קחו את המלכה ואת האס, ואז עברו ל-♥A של צפון ללקיחה האחרונה.</p>
+          <p>מימוש ה-♥A או ה-♦A קודם לא מזיק, כל עוד אתם מכניסים את מערב עם השליט לפני שאתם נוגעים ב-♦Q.
+          אם תובילו את ה-♦Q בעצמכם, מערב יזכה במלך, וה-♠Q של מערב עדיין ייקח לקיחה, כך שתסיימו עם שתיים בלבד.</p>`,
+      },
+    ],
+  },
+};
+
+// In Hebrew, swap in the Hebrew intro and puzzle text; the hands stay the same.
+function localizeTopics(topics, he) {
+  if (LANG !== 'he') return topics;
+  for (const [key, t] of Object.entries(he)) {
+    topics[key].intro = t.intro;
+    t.puzzles.forEach((p, i) => Object.assign(topics[key].puzzles[i], p));
+  }
+  return topics;
 }
 
 // ---------- Puzzle player ----------
@@ -261,7 +355,7 @@ function makePuzzleSection(prefix, topics) {
     const el = $('seat-' + seat);
     el.innerHTML = '';
     el.classList.toggle('to-play', !st.done && !st.busy && st.turn === seat);
-    const roles = ['Dummy (you play)', 'Defender', 'You — declarer', 'Defender'];
+    const roles = L(['Dummy (you play)', 'Defender', 'You — declarer', 'Defender'], ['דומם (אתם משחקים)', 'מגן', 'אתם: הכרוז', 'מגן']);
     const label = document.createElement('div');
     label.className = 'seat-label';
     label.innerHTML = `<strong>${SEAT_NAMES[seat]}</strong> <span>${roles[seat]}</span>`;
@@ -304,11 +398,19 @@ function makePuzzleSection(prefix, topics) {
   function statusText() {
     const p = puzzle();
     const need = Math.max(0, p.target - st.tricks[0]);
-    if (st.done) return st.tricks[0] >= p.target ? 'Solved!' : `You took ${st.tricks[0]} of the ${p.target} tricks you needed.`;
-    if (st.busy) return `${SEAT_NAMES[trickWinnerOf(st.trick, p.trump)]} wins the trick.`;
-    const warn = st.lost ? ' <span class="warn">With best defense, the target can no longer be reached. Try Reset.</span>' : '';
-    if (!isHuman(st.turn)) return `${SEAT_NAMES[st.turn]} is thinking…${warn}`;
-    return `Play a card from <strong>${st.turn === 2 ? 'your hand (South)' : 'dummy (North)'}</strong>. You still need ${need} trick${need === 1 ? '' : 's'}.${warn}`;
+    if (st.done) {
+      return st.tricks[0] >= p.target
+        ? L('Solved!', 'פתרתם!')
+        : L(`You took ${st.tricks[0]} of the ${p.target} tricks you needed.`, `לקחתם ${st.tricks[0]} מתוך ${p.target} הלקיחות שהייתם צריכים.`);
+    }
+    if (st.busy) return L(`${SEAT_NAMES[trickWinnerOf(st.trick, p.trump)]} wins the trick.`, `${SEAT_NAMES[trickWinnerOf(st.trick, p.trump)]} זוכה בלקיחה.`);
+    const warn = st.lost
+      ? ` <span class="warn">${L('With best defense, the target can no longer be reached. Try Reset.', 'מול הגנה מיטבית כבר אי אפשר להגיע ליעד. נסו להתחיל מחדש.')}</span>`
+      : '';
+    if (!isHuman(st.turn)) return L(`${SEAT_NAMES[st.turn]} is thinking…`, `${SEAT_NAMES[st.turn]} חושב…`) + warn;
+    const from = st.turn === 2 ? L('your hand (South)', 'מהיד שלכם (דרום)') : L('dummy (North)', 'מהדומם (צפון)');
+    const still = L(`You still need ${need} trick${need === 1 ? '' : 's'}.`, need === 1 ? 'נדרשת לכם עוד לקיחה אחת.' : `נדרשות לכם עוד ${need} לקיחות.`);
+    return L(`Play a card from <strong>${from}</strong>. `, `שחקו קלף <strong>${from}</strong>. `) + still + warn;
   }
 
   function render() {
@@ -319,11 +421,13 @@ function makePuzzleSection(prefix, topics) {
       b.setAttribute('aria-pressed', b.dataset.topic === topic);
     });
     $('intro').innerHTML = colorSuits(t.intro);
-    $('title').textContent = `Puzzle ${index + 1} of ${t.puzzles.length}: ${p.title}`;
-    const strain = p.trump ? `${SUIT_NAME[p.trump][0].toUpperCase() + SUIT_NAME[p.trump].slice(1)} are trumps` : 'No-trump';
-    $('setup').innerHTML =
-      `<strong>${strain}. ${SEAT_NAMES[p.leader]} to lead. You need ${p.target} of the last ${cardsLeftAtStart()} tricks.</strong> ` +
-      `The defenders can see every card and will play perfectly. ${colorSuits(p.idea)}`;
+    $('title').textContent = L(`Puzzle ${index + 1} of ${t.puzzles.length}: ${p.title}`, `חידה ${index + 1} מתוך ${t.puzzles.length}: ${p.title}`);
+    const strain = trumpText(p.trump);
+    const n = cardsLeftAtStart();
+    $('setup').innerHTML = L(
+      `<strong>${strain[0].toUpperCase() + strain.slice(1)}. ${SEAT_NAMES[p.leader]} to lead. You need ${p.target} of the last ${n} tricks.</strong> The defenders can see every card and will play perfectly. `,
+      `<strong>${strain}. ${SEAT_NAMES[p.leader]} מוביל. אתם צריכים ${p.target} מתוך ${n} הלקיחות האחרונות.</strong> המגינים רואים את כל הקלפים ומשחקים בצורה מושלמת. `) +
+      colorSuits(p.idea);
     $('prev').disabled = index === 0;
     $('next').disabled = index === t.puzzles.length - 1;
     $('hint').disabled = st.done || st.busy || !isHuman(st.turn);
@@ -333,10 +437,10 @@ function makePuzzleSection(prefix, topics) {
     if (st.done) {
       const ok = st.tricks[0] >= p.target;
       fb.className = 'feedback ' + (ok ? 'good' : 'bad');
-      fb.innerHTML = `<strong>${ok ? 'Solved!' : 'Not this time.'}</strong>${colorSuits(p.solution)}`;
+      fb.innerHTML = `<strong>${ok ? L('Solved!', 'פתרתם!') : L('Not this time.', 'לא הפעם.')}</strong>${colorSuits(p.solution)}`;
     } else if (st.showSolution) {
       fb.className = 'feedback';
-      fb.innerHTML = `<strong>Solution</strong>${colorSuits(p.solution)}`;
+      fb.innerHTML = `<strong>${L('Solution', 'הפתרון')}</strong>${colorSuits(p.solution)}`;
     } else {
       fb.className = 'feedback';
       fb.innerHTML = '';
@@ -368,4 +472,4 @@ function makePuzzleSection(prefix, topics) {
   return { init };
 }
 
-const Advanced = makePuzzleSection('adv', ADVANCED_TOPICS);
+const Advanced = makePuzzleSection('adv', localizeTopics(ADVANCED_TOPICS, ADVANCED_HE));
