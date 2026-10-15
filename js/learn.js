@@ -185,6 +185,36 @@ const LESSONS = [
     tryIt: 'rebid',
   },
   {
+    title: "Responder's second bid",
+    body: `
+      <p>After partner's rebid, you usually know enough to place the contract, or at least to say how strong you are:</p>
+      <table class="tbl">
+        <tr><th>Minimum</th><th>Invitational</th><th>Game values</th></tr>
+        <tr><td>6–10 HCP</td><td>11–12 HCP</td><td>13+ HCP</td></tr>
+      </table>
+      <p>Add your points to what partner's rebid showed. With <strong>25+</strong> combined, bid game. If game depends on whether partner is at the top of their range, invite. If not, stop.</p>
+      <p><strong>When partner invites game</strong> (for example 1${H} – 2${H} – 3${H}, or 1${S} – 1NT – 2NT):</p>
+      <ul>
+        <li>Accept with the top of your range (9–10 after a 6–10 response) by bidding game.</li>
+        <li>Decline with the bottom of your range (6–8) by passing.</li>
+      </ul>
+      <p><strong>When partner shows a minimum</strong> (a 1NT rebid, a simple raise, or rebidding their suit at the 2-level):</p>
+      <ul>
+        <li>With 6–10, pass, or sign off at the 2-level in your own 6-card suit.</li>
+        <li>With 11–12, invite: raise to the 3-level with a fit, or bid 2NT.</li>
+      </ul>
+      <p><strong>When partner shows a second suit:</strong></p>
+      <ul>
+        <li>With 4 cards in a newly shown major, raise it: to 2 with a minimum, to 3 to invite.</li>
+        <li>Otherwise give <strong>preference</strong>. With more cards in the second suit, pass it. With equal length or more in the first suit, go back to it at the cheapest level: 1${D} – 1${S} – 2${C} – <strong>2${D}</strong>.</li>
+        <li>Preference shows no extra strength. With 11–12, raise or bid 2NT to invite instead.</li>
+      </ul>
+      <p><strong>When partner shows a big hand</strong> (a 2NT rebid with 18–19, or a jump shift with 18+), bid game: 3NT, or 4 of a major when you have a fit.
+      A <strong>reverse</strong> (16+) is forcing for one round: with a minimum, rebid a 5-card suit or give preference.</p>
+      <p>The drill uses hands of 6–12 HCP. Hands with 13+ need further bidding tools, so they aren't included.</p>`,
+    tryIt: 'rrebid',
+  },
+  {
     title: 'Scoring basics',
     body: `
       <p>If declarer takes at least the promised number of tricks, the contract is <strong>made</strong> and declarer's side scores:</p>
@@ -221,7 +251,7 @@ const Learn = (() => {
     });
 
     const lesson = LESSONS[index];
-    const tryLabels = { hcp: 'Practice counting points', opening: 'Practice opening bids', responding: 'Practice responding', rebid: "Practice opener's rebids", play: 'Play a hand' };
+    const tryLabels = { hcp: 'Practice counting points', opening: 'Practice opening bids', responding: 'Practice responding', rebid: "Practice opener's rebids", rrebid: "Practice responder's rebids", play: 'Play a hand' };
     document.getElementById('lesson-body').innerHTML = `
       <div class="eyebrow">Lesson ${index + 1} of ${LESSONS.length}</div>
       <h2>${lesson.title}</h2>

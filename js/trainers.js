@@ -274,6 +274,174 @@ function responseMeaning(resp, open) {
   return `4+ ${SUIT_NAME[resp[1]]} and 6+ HCP. A new suit is forcing: you must bid again`;
 }
 
+// Responder's second bid. Partner opened `open`, you responded `resp`, partner rebid `rebid`.
+// Covers auctions after a simple raise, a 1-level new suit or 1NT; returns null for anything else.
+function responderRebid(hand, open, resp, rebid) {
+  const pts = hcp(hand);
+  const len = suitLengths(hand);
+  const isMajor = s => s === 'H' || s === 'S';
+  const rank = s => SUITS.indexOf(s); // lower index = higher-ranking suit
+  const game = s => (isMajor(s) ? '4' + s : '3N');
+  const minorNote = s => (isMajor(s) ? '' : ' With a minor-suit fit, 3NT is usually easier than 5 of a minor.');
+  const [rl, rz] = [Number(rebid[0]), rebid[1]];
+  const name = s => SUIT_NAME[s];
+  const sh = suitHtml;
+  const accept = pts >= 9;
+  const acceptWhy = (s, what) => accept
+    ? { bid: game(s), why: `You have ${pts} HCP, the top of your 6–10 range. Accept partner's invitation: bid ${bidHtml(game(s))}.${what ? ' ' + what : ''}${minorNote(s)}` }
+    : { bid: 'P', why: `You have ${pts} HCP, the bottom of your 6–10 range. Decline partner's invitation by passing.` };
+
+  if (rebid === 'P') return null;
+
+  // You raised partner's suit and partner invited game.
+  if (resp === '2' + open) {
+    return rebid === '3' + open ? acceptWhy(open) : null;
+  }
+
+  // You responded 1NT (6–10).
+  if (resp === '1N') {
+    if (rebid === '2N') {
+      return accept
+        ? { bid: '3N', why: `You have ${pts} HCP, the top of your 6–10 range. Accept partner's invitation: bid 3NT.` }
+        : { bid: 'P', why: `You have ${pts} HCP, the bottom of your 6–10 range. Decline partner's invitation by passing 2NT.` };
+    }
+    if (rebid === '2' + open) {
+      return { bid: 'P', why: `Partner's 2${sh(open)} shows a minimum opening with 6+ ${name(open)}. You've already described your 6–10 HCP, so there's nothing more to say: pass.` };
+    }
+    if (rebid === '3' + open) return acceptWhy(open);
+    if (rl === 2 && rank(rz) > rank(open)) {
+      return len[rz] > len[open]
+        ? { bid: 'P', why: `Partner has shown ${name(open)} and ${name(rz)}. You have more ${name(rz)} (${len[rz]}) than ${name(open)} (${len[open]}), so pass and play in ${name(rz)}.` }
+        : { bid: '2' + open, why: `Partner has shown ${name(open)} and ${name(rz)}. With ${len[open]} ${name(open)} and ${len[rz]} ${name(rz)}, give <em>preference</em> to partner's first suit: 2${sh(open)}. It's usually at least five cards long. This isn't extra strength, just a choice of suit.` };
+    }
+    return null;
+  }
+
+  // You responded a new suit at the 1-level (6–12 HCP).
+  if (resp[0] !== '1') return null;
+  const you = resp[1];
+  const inv = pts >= 11;
+  const strength = inv ? `You have ${pts} HCP, enough to invite game (11–12)` : `You have ${pts} HCP, a minimum response (6–10)`;
+
+  // Partner raised your suit.
+  if (rz === you) {
+    if (rl === 2) {
+      return inv
+        ? { bid: '3' + you, why: `${strength}. Partner's raise shows 12–14, so game is possible: invite with 3${sh(you)}.` }
+        : { bid: 'P', why: `${strength}. Partner's raise shows a minimum opening (12–14), so game is out of reach: pass.` };
+    }
+    if (rl === 3) {
+      return pts >= 9
+        ? { bid: game(you), why: `You have ${pts} HCP. Partner's jump raise shows 15–17 and invites game, and you have enough to accept: bid ${bidHtml(game(you))}.${minorNote(you)}` }
+        : { bid: 'P', why: `You have ${pts} HCP. Partner's jump raise invites game, but with a bare minimum you decline by passing.` };
+    }
+    return { bid: 'P', why: `Partner has bid game. With no interest in slam, pass.` };
+  }
+
+  if (rebid === '1N') {
+    if (len[you] >= 6) {
+      return inv
+        ? { bid: '3' + you, why: `${strength} and ${len[you]} ${name(you)}: jump to 3${sh(you)} to invite game with a long suit.` }
+        : { bid: '2' + you, why: `${strength} and ${len[you]} ${name(you)}: rebid 2${sh(you)}. Repeating your suit shows 6+ cards and asks partner to pass.` };
+    }
+    return inv
+      ? { bid: '2N', why: `${strength}. Partner's 1NT shows 12–14, so invite game with 2NT.` }
+      : { bid: 'P', why: `${strength}. Partner's 1NT shows 12–14, so game is out of reach and 1NT is a fine spot: pass.` };
+  }
+
+  if (rebid === '2N') {
+    if (isMajor(you) && len[you] >= 6) {
+      return { bid: '4' + you, why: `Partner's 2NT shows 18–19, so you have enough for game. With ${len[you]} ${name(you)}, bid 4${sh(you)}.` };
+    }
+    return { bid: '3N', why: `Partner's 2NT shows 18–19, so even your ${pts} HCP is enough for game: bid 3NT.` };
+  }
+
+  // Partner showed a new major at the 1-level.
+  if (rl === 1) {
+    if (len[rz] >= 4) {
+      return { bid: (inv ? '3' : '2') + rz, why: `${strength} and 4 ${name(rz)}: you've found an 8-card major fit. ${inv ? 'Jump to 3' + sh(rz) + ' to invite game.' : 'Raise to 2' + sh(rz) + '.'}` };
+    }
+    if (len[you] >= 6) {
+      return { bid: (inv ? '3' : '2') + you, why: `${strength}, no fit for partner's ${name(rz)}, and ${len[you]} ${name(you)}: ${inv ? 'jump to 3' + sh(you) + ' to invite game' : 'rebid 2' + sh(you) + ' to show 6+ cards'}.` };
+    }
+    return inv
+      ? { bid: '2N', why: `${strength} and no fit for partner's suits: bid 2NT to invite game.` }
+      : { bid: '1N', why: `${strength} and no fit for partner's suits: bid 1NT.` };
+  }
+
+  // Partner rebid their own suit.
+  if (rz === open) {
+    if (rl === 2) {
+      if (inv) {
+        if (len[open] >= 2) return { bid: '3' + open, why: `${strength} and ${len[open]} ${name(open)}. Partner has 6, so you have a fit: invite game with 3${sh(open)}.` };
+        if (len[you] >= 6) return { bid: '3' + you, why: `${strength}, a singleton in partner's suit and ${len[you]} ${name(you)}: jump to 3${sh(you)} to invite game in your long suit.` };
+        return { bid: '2N', why: `${strength} but a singleton in partner's suit: bid 2NT to invite game.` };
+      }
+      if (len[you] >= 6 && len[open] <= 1) {
+        return { bid: '2' + you, why: `${strength}, a singleton in partner's suit and ${len[you]} ${name(you)}: rebid 2${sh(you)}. It suggests playing there and asks partner to pass.` };
+      }
+      return { bid: 'P', why: `${strength}. Partner's 2${sh(open)} shows a minimum with 6+ ${name(open)}, so game is out of reach: pass.` };
+    }
+    if (isMajor(you) && len[you] >= 6 && len[open] <= 1 && pts >= 8) {
+      return { bid: '4' + you, why: `You have ${pts} HCP and ${len[you]} ${name(you)}, but only a singleton in partner's suit. Opposite partner's 15–17, your long major is worth more than its points, so bid game in it: 4${sh(you)}.` };
+    }
+    return accept
+      ? { bid: isMajor(open) && len[open] >= 2 ? '4' + open : '3N', why: `You have ${pts} HCP. Partner's jump to 3${sh(open)} shows 15–17 with a good suit and invites game, and you have enough to accept.${isMajor(open) && len[open] >= 2 ? ` With ${len[open]} ${name(open)} opposite partner's 6, bid 4${sh(open)}.` : ' Bid 3NT.'}` }
+      : { bid: 'P', why: `You have ${pts} HCP. Partner's jump invites game, but with a bare minimum you decline by passing.` };
+  }
+
+  // Jump shift: 18+ and forcing to game.
+  if (rl === 3) {
+    return isMajor(open) && len[open] >= 3
+      ? { bid: '4' + open, why: `Partner's jump shift shows 18+ HCP and forces to game. With ${len[open]}-card support for partner's major, bid game there: 4${sh(open)}.` }
+      : { bid: '3N', why: `Partner's jump shift shows 18+ HCP and forces to game. With no major fit, bid game in no-trump: 3NT.` };
+  }
+
+  // A new, lower-ranking suit at the 2-level: not forcing, 12–17.
+  if (rank(rz) > rank(open)) {
+    if (inv) {
+      if (len[rz] >= 4) return { bid: '3' + rz, why: `${strength} and ${len[rz]} ${name(rz)}: raise to 3${sh(rz)} to invite game.` };
+      if (len[open] >= 3) return { bid: '3' + open, why: `${strength} and ${len[open]} ${name(open)}: jump to 3${sh(open)} to invite game in partner's first suit.` };
+      return { bid: '2N', why: `${strength} and no clear fit: bid 2NT to invite game.` };
+    }
+    if (len[you] >= 6 && len[open] <= 2 && len[rz] <= 3) {
+      return { bid: '2' + you, why: `${strength}, no fit for partner and ${len[you]} ${name(you)}: rebid 2${sh(you)} to show 6+ cards and ask partner to pass.` };
+    }
+    return len[rz] > len[open]
+      ? { bid: 'P', why: `${strength}. You have more ${name(rz)} (${len[rz]}) than ${name(open)} (${len[open]}), so pass and play in partner's second suit.` }
+      : { bid: '2' + open, why: `${strength}. With ${len[open]} ${name(open)} and ${len[rz]} ${name(rz)}, give <em>preference</em> to partner's first suit: 2${sh(open)}. It's usually longer. This shows no extra strength.` };
+  }
+
+  // Reverse: 16+ and forcing for one round.
+  if (inv) {
+    if (isMajor(rz) && len[rz] >= 4) return { bid: '4' + rz, why: `Partner's reverse shows 16+, and your ${pts} HCP makes game certain. With 4 ${name(rz)}, bid 4${sh(rz)}.` };
+    if (isMajor(open) && len[open] >= 3) return { bid: '4' + open, why: `Partner's reverse shows 16+, and your ${pts} HCP makes game certain. With ${len[open]} ${name(open)}, bid 4${sh(open)}.` };
+    return { bid: '3N', why: `Partner's reverse shows 16+, and your ${pts} HCP makes game certain. With no major fit, bid 3NT.` };
+  }
+  if (len[you] >= 5) {
+    return { bid: '2' + you, why: `${strength}. Partner's reverse is forcing, so you must bid. With ${len[you]} ${name(you)}, rebid 2${sh(you)}, the cheapest way to show a 5+ card suit.` };
+  }
+  return { bid: '3' + open, why: `${strength}. Partner's reverse is forcing, so you must bid. Give simple preference to partner's first suit: 3${sh(open)}.` };
+}
+
+function openerRebidMeaning(open, resp, rebid) {
+  const [rl, rz] = [Number(rebid[0]), rebid[1]];
+  const rank = s => SUITS.indexOf(s);
+  if (resp === '2' + open) return '15–17 HCP, inviting game';
+  if (rebid === '1N') return '12–14 HCP and a balanced hand';
+  if (rebid === '2N') return resp === '1N' ? '18–19 HCP and a balanced hand, inviting 3NT' : '18–19 HCP and a balanced hand';
+  if (rz === resp[1] && resp !== '1N') {
+    return ['', '', '12–14 HCP and 4-card support', '15–17 HCP and 4-card support, inviting game', '18+ HCP: game'][rl];
+  }
+  if (rz === open) {
+    return rl === 2 ? '12–14 HCP and 6+ ' + SUIT_NAME[open] : '15–17 HCP and a good 6-card suit, inviting game';
+  }
+  if (rl === 1) return `4 ${SUIT_NAME[rz]}; partner hasn't shown extra strength`;
+  if (rl === 3) return `18+ HCP and 4+ ${SUIT_NAME[rz]}: a jump shift, forcing to game`;
+  if (rank(rz) > rank(open)) return `4+ ${SUIT_NAME[rz]} and 12–17 HCP; not forcing`;
+  return `16+ HCP with 4+ ${SUIT_NAME[rz]} and longer ${SUIT_NAME[open]}: a reverse, forcing for one round`;
+}
+
 // A bidding drill: show a hand (and optional context), let the player pick a bid, explain the answer.
 // Elements are looked up as `${prefix}-hand`, `${prefix}-bids`, and so on.
 function makeBidDrill({ prefix, bids, generate }) {
@@ -406,6 +574,36 @@ const RebidTrainer = makeBidDrill({
           </table>
           <div>Partner's ${bidHtml(resp)} shows ${responseMeaning(resp, open)}.</div>`,
         allowed: bid => bid === 'P' || REBID_BIDS.indexOf(bid) > respIndex,
+      };
+    }
+  },
+});
+
+const ResponderRebidTrainer = makeBidDrill({
+  prefix: 'rrebid',
+  bids: REBID_BIDS,
+  generate() {
+    for (;;) {
+      const [partner, , hand] = dealHands();
+      const opening = openingBid(partner).bid;
+      if (opening[0] !== '1' || opening[1] === 'N' || hcp(hand) > 12) continue;
+      const open = opening[1];
+      const resp = responseBid(hand, open).bid;
+      const rebid = rebidBid(partner, open, resp).bid;
+      const answer = responderRebid(hand, open, resp, rebid);
+      if (!answer || (answer.bid === 'P' && Math.random() < 0.4)) continue;
+      const rebidIndex = REBID_BIDS.indexOf(rebid);
+      return {
+        hand,
+        answer,
+        context: `
+          <table class="auction">
+            <tr><th>Partner</th><th>Right</th><th>You</th><th>Left</th></tr>
+            <tr><td>1${suitHtml(open)}</td><td>Pass</td><td>${bidHtml(resp)}</td><td>Pass</td></tr>
+            <tr><td>${bidHtml(rebid)}</td><td>Pass</td><td class="ask">?</td><td></td></tr>
+          </table>
+          <div>Partner's ${bidHtml(rebid)} shows ${openerRebidMeaning(open, resp, rebid)}.</div>`,
+        allowed: bid => bid === 'P' || REBID_BIDS.indexOf(bid) > rebidIndex,
       };
     }
   },

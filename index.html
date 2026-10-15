@@ -16,6 +16,7 @@
       <button role="tab" data-tab="opening">Opening Bids</button>
       <button role="tab" data-tab="responding">Responding</button>
       <button role="tab" data-tab="rebid">Opener's Rebid</button>
+      <button role="tab" data-tab="rrebid">Responder's Rebid</button>
       <button role="tab" data-tab="play">Play a Hand</button>
     </nav>
   </header>
@@ -112,6 +113,28 @@
         <div class="bids" id="rebid-bids"></div>
         <div class="feedback" id="rebid-feedback" aria-live="polite"></div>
         <button class="btn" id="rebid-next" hidden>Next hand →</button>
+      </div>
+    </section>
+
+    <!-- Responder's rebid -->
+    <section id="tab-rrebid" class="panel" role="tabpanel" hidden>
+      <div class="card-surface drill">
+        <div class="drill-head">
+          <div>
+            <h2>Responder's second bid</h2>
+            <p class="muted">Partner opened, you responded, partner rebid. Choose your next bid (simplified Standard American).</p>
+          </div>
+          <div class="stats" id="rrebid-stats"></div>
+        </div>
+        <div class="context" id="rrebid-context"></div>
+        <div class="hand-area" id="rrebid-hand"></div>
+        <div class="answer-row">
+          <label class="check"><input type="checkbox" id="rrebid-show-hcp"> Show HCP</label>
+          <span class="pill" id="rrebid-hcp" hidden></span>
+        </div>
+        <div class="bids" id="rrebid-bids"></div>
+        <div class="feedback" id="rrebid-feedback" aria-live="polite"></div>
+        <button class="btn" id="rrebid-next" hidden>Next hand →</button>
       </div>
     </section>
 

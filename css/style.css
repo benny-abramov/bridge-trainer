@@ -101,7 +101,7 @@ p { margin: .6rem 0; }
 }
 .brand { font-weight: 700; font-size: 1.1rem; white-space: nowrap; }
 .logo { color: var(--accent); letter-spacing: .05em; margin-right: .25rem; }
-.tabs { display: flex; gap: .25rem; overflow-x: auto; }
+.tabs { display: flex; flex-wrap: wrap; gap: .25rem; }
 .tabs button {
   border: 0;
   background: none;
@@ -338,6 +338,7 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 /* ---------- Responsive ---------- */
 
 @media (max-width: 860px) {
+  .topbar { position: static; }
   .learn-layout { grid-template-columns: 1fr; }
   .lesson-list { position: static; flex-direction: row; overflow-x: auto; padding-bottom: .25rem; }
   .lesson-list button { white-space: nowrap; }
