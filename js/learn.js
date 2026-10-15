@@ -152,6 +152,39 @@ const LESSONS = [
     tryIt: 'responding',
   },
   {
+    title: "Opener's second bid",
+    body: `
+      <p>Your opening bid covers a wide range (12–21 HCP). Your second bid, the <strong>rebid</strong>, tells partner which part of that range you hold:</p>
+      <table class="tbl">
+        <tr><th>Minimum</th><th>Medium</th><th>Maximum</th></tr>
+        <tr><td>12–14 HCP</td><td>15–17 HCP</td><td>18–21 HCP</td></tr>
+      </table>
+      <p><strong>When partner raises your suit</strong>, you already have a fit. Only the level is left to decide:</p>
+      <table class="tbl">
+        <tr><th>Partner's bid</th><th>Minimum</th><th>Medium</th><th>Maximum</th></tr>
+        <tr><td>Simple raise (6–10)</td><td>Pass</td><td>Raise again to invite</td><td>Bid game</td></tr>
+        <tr><td>Limit raise (11–12)</td><td>Pass</td><td>Bid game</td><td>Bid game</td></tr>
+      </table>
+      <p>Game in a major is 4${H}/4${S}. With a minor-suit fit, 3NT is usually easier than 5${C}/5${D}.</p>
+      <p><strong>When partner bids a new suit at the 1-level</strong>, you must bid again. Choose the first of these that fits:</p>
+      <ol>
+        <li>4-card support for partner's major: raise to 2 (minimum), 3 (medium) or 4 (maximum).</li>
+        <li>A 4-card major you can still bid at the 1-level: bid it. For example, 1${D} – 1${H} – <strong>1${S}</strong>.</li>
+        <li>Balanced: 1NT with 12–14, jump to 2NT with 18–19.</li>
+        <li>Otherwise use the unbalanced-hand rules below.</li>
+      </ol>
+      <p><strong>When partner responds 1NT</strong> (6–10, no fit): with a balanced minimum, pass. With balanced 18–19, raise to 2NT. Otherwise use the unbalanced-hand rules.</p>
+      <p><strong>Unbalanced hands:</strong></p>
+      <ul>
+        <li>With a <strong>6-card suit</strong>, rebid it: at the 2-level with a minimum, or jump to the 3-level with 15+.</li>
+        <li>With a <strong>lower-ranking second suit</strong> (4+ cards), bid it at the 2-level. With 18+, jump in it instead: a <em>jump shift</em>, forcing to game.</li>
+        <li>Bidding a <strong>higher-ranking second suit</strong> at the 2-level, as in 1${D} – 1${S} – 2${H}, is a <em>reverse</em>. It needs 16+ HCP.</li>
+        <li>With none of these, rebid your own suit at the 2-level.</li>
+      </ul>
+      <p>The drill covers these four responses: a simple raise, a limit raise, a new suit at the 1-level and 1NT.</p>`,
+    tryIt: 'rebid',
+  },
+  {
     title: 'Scoring basics',
     body: `
       <p>If declarer takes at least the promised number of tricks, the contract is <strong>made</strong> and declarer's side scores:</p>
@@ -188,7 +221,7 @@ const Learn = (() => {
     });
 
     const lesson = LESSONS[index];
-    const tryLabels = { hcp: 'Practice counting points', opening: 'Practice opening bids', responding: 'Practice responding', play: 'Play a hand' };
+    const tryLabels = { hcp: 'Practice counting points', opening: 'Practice opening bids', responding: 'Practice responding', rebid: "Practice opener's rebids", play: 'Play a hand' };
     document.getElementById('lesson-body').innerHTML = `
       <div class="eyebrow">Lesson ${index + 1} of ${LESSONS.length}</div>
       <h2>${lesson.title}</h2>

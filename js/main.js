@@ -1,6 +1,6 @@
 // Tab navigation and app start-up.
 
-const TABS = ['learn', 'hcp', 'opening', 'responding', 'play'];
+const TABS = ['learn', 'hcp', 'opening', 'responding', 'rebid', 'play'];
 
 function showTab(name) {
   if (!TABS.includes(name)) name = 'learn';
@@ -23,5 +23,6 @@ Learn.init();
 HcpTrainer.init();
 OpeningTrainer.init();
 RespondingTrainer.init();
+RebidTrainer.init();
 Play.init();
 showTab(location.hash.slice(1));
