@@ -466,10 +466,12 @@ function makeBidDrill({ prefix, bids, generate }) {
 
   function renderBids(chosen) {
     const box = $('bids');
+    const list = deal.bids || bids;
     box.innerHTML = '';
-    for (const bid of bids) {
+    box.classList.toggle('with-double', list.includes('X'));
+    for (const bid of list) {
       const btn = document.createElement('button');
-      btn.className = 'bid' + (bid === 'P' ? ' pass' : '');
+      btn.className = 'bid' + (bid === 'P' ? ' pass' : bid === 'X' ? ' dbl' : '');
       btn.innerHTML = bidHtml(bid);
       if (deal.allowed && !deal.allowed(bid)) btn.disabled = true;
       if (answered) {

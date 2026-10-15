@@ -65,6 +65,7 @@ function suitHtml(suit) {
 // Bids are strings like 'P', '1C', '3N'.
 function bidHtml(bid) {
   if (bid === 'P') return 'Pass';
+  if (bid === 'X') return 'Dbl';
   return bid[0] + suitHtml(bid[1]);
 }
 

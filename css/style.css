@@ -240,6 +240,8 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 }
 .bid:hover:not(:disabled) { border-color: var(--accent); background: var(--accent-soft); }
 .bid.pass { grid-column: 1 / -1; }
+.bids.with-double .bid.pass { grid-column: span 3; }
+.bids.with-double .bid.dbl { grid-column: span 2; }
 .bid:disabled { cursor: default; opacity: .55; }
 .bid.correct { opacity: 1; border: 2px solid var(--good); background: var(--good-soft); }
 .bid.wrong { opacity: 1; border: 2px solid var(--bad); background: var(--bad-soft); }

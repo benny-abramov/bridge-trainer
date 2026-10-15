@@ -215,6 +215,30 @@ const LESSONS = [
     tryIt: 'rrebid',
   },
   {
+    title: 'Overcalls and takeout doubles',
+    body: `
+      <p>When an opponent opens the bidding, your side can still compete. Bidding after the opponents have opened is called <strong>overcalling</strong>.
+      An overcall can win the contract, push the opponents too high, or tell partner which suit to lead.</p>
+      <p>When the opponent on your right opens one of a suit, choose the first of these that fits:</p>
+      <table class="tbl">
+        <tr><th>Your hand</th><th>Action</th></tr>
+        <tr><td>15–18 HCP, balanced, with a stopper in their suit</td><td>1NT</td></tr>
+        <tr><td>17+ HCP, too strong to overcall</td><td>Double, then bid your suit or no-trump</td></tr>
+        <tr><td>6–10 HCP and a 6-card suit</td><td><strong>Weak jump overcall</strong>: one level higher than needed (1${H} – 2${S}, 1${S} – 3${C})</td></tr>
+        <tr><td>8–16 HCP and a good 5+ card suit you can bid at the 1-level</td><td>1-level overcall</td></tr>
+        <tr><td>11–16 HCP and a good 5+ card suit at the 2-level</td><td>2-level overcall</td></tr>
+        <tr><td>12+ HCP, short in their suit, 3+ cards in every other suit</td><td><strong>Takeout double</strong></td></tr>
+        <tr><td>Anything else</td><td>Pass</td></tr>
+      </table>
+      <ul>
+        <li>A <strong>good suit</strong> has at least two of the top honors (A, K, Q, J, 10). With fewer than 12 HCP, only overcall with a good suit, because partner will usually lead it.</li>
+        <li>A <strong>stopper</strong> is a holding that will win a trick in their suit: A, K-x, Q-x-x or J-x-x-x.</li>
+        <li>A <strong>takeout double</strong> doesn't mean "I think they'll go down". It asks partner to choose a trump suit, so partner must bid even with a weak hand.</li>
+      </ul>
+      <p><strong>When partner overcalls</strong>, raise with 3+ card support, just as you would after an opening bid.</p>`,
+    tryIt: 'overcalls',
+  },
+  {
     title: 'Defense',
     body: `
       <p>When the other side wins the auction, you and partner are the <strong>defenders</strong>.
@@ -286,7 +310,7 @@ const Learn = (() => {
     });
 
     const lesson = LESSONS[index];
-    const tryLabels = { hcp: 'Practice counting points', opening: 'Practice opening bids', responding: 'Practice responding', rebid: "Practice opener's rebids", rrebid: "Practice responder's rebids", defense: 'Practice opening leads', play: 'Play a hand' };
+    const tryLabels = { hcp: 'Practice counting points', opening: 'Practice opening bids', responding: 'Practice responding', rebid: "Practice opener's rebids", rrebid: "Practice responder's rebids", overcalls: 'Practice overcalls', defense: 'Practice opening leads', play: 'Play a hand' };
     document.getElementById('lesson-body').innerHTML = `
       <div class="eyebrow">Lesson ${index + 1} of ${LESSONS.length}</div>
       <h2>${lesson.title}</h2>

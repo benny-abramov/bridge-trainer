@@ -17,6 +17,7 @@
       <button role="tab" data-tab="responding">Responding</button>
       <button role="tab" data-tab="rebid">Opener's Rebid</button>
       <button role="tab" data-tab="rrebid">Responder's Rebid</button>
+      <button role="tab" data-tab="overcalls">Overcalls</button>
       <button role="tab" data-tab="defense">Defense</button>
       <button role="tab" data-tab="play">Play a Hand</button>
     </nav>
@@ -139,6 +140,28 @@
       </div>
     </section>
 
+    <!-- Overcalls -->
+    <section id="tab-overcalls" class="panel" role="tabpanel" hidden>
+      <div class="card-surface drill">
+        <div class="drill-head">
+          <div>
+            <h2>Overcalls</h2>
+            <p class="muted">An opponent has opened. Choose your action (simplified Standard American).</p>
+          </div>
+          <div class="stats" id="over-stats"></div>
+        </div>
+        <div class="context" id="over-context"></div>
+        <div class="hand-area" id="over-hand"></div>
+        <div class="answer-row">
+          <label class="check"><input type="checkbox" id="over-show-hcp"> Show HCP</label>
+          <span class="pill" id="over-hcp" hidden></span>
+        </div>
+        <div class="bids" id="over-bids"></div>
+        <div class="feedback" id="over-feedback" aria-live="polite"></div>
+        <button class="btn" id="over-next" hidden>Next hand →</button>
+      </div>
+    </section>
+
     <!-- Defense -->
     <section id="tab-defense" class="panel" role="tabpanel" hidden>
       <div class="card-surface drill">
@@ -203,6 +226,7 @@
   <script src="js/cards.js"></script>
   <script src="js/learn.js"></script>
   <script src="js/trainers.js"></script>
+  <script src="js/overcalls.js"></script>
   <script src="js/defense.js"></script>
   <script src="js/play.js"></script>
   <script src="js/main.js"></script>
