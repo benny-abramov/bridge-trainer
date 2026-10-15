@@ -8,7 +8,7 @@ The app is available in **English and Hebrew**. Use the switch in the header; He
 
 ## Sections
 
-- **Learn**: fourteen short lessons covering tricks, trumps, the auction, declarer and dummy, point counting, opening bids, responses, opener's and responder's rebids, overcalls, SAYC conventions, defense and scoring.
+- **Learn**: sixteen short lessons covering tricks, trumps, the auction, declarer and dummy, point counting, opening bids, responses, opener's and responder's rebids, overcalls, SAYC conventions, defense, declarer play, advanced techniques and scoring.
 - **Count Points**: count the high-card points in a random hand and see the breakdown.
 - **Opening Bids**: choose an opening bid (simplified Standard American) and get an explanation.
 - **Responding**: partner opens one of a suit; choose your response with a 0–12 HCP hand and get an explanation.

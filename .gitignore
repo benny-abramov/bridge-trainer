@@ -1,0 +1,4 @@
+# Private to this machine: personal Claude Code settings and saved conversation logs
+.claude/settings.local.json
+.claude/hooks/
+conversation-log/

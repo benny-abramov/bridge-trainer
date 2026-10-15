@@ -330,6 +330,50 @@ const LESSONS_EN = [
     tryIt: 'defense',
   },
   {
+    title: 'Declarer play',
+    body: `
+      <p>As declarer you play both your own hand and dummy. Before you play to the first trick, make a plan:</p>
+      <ol>
+        <li><strong>Count your sure tricks</strong>: winners you can take without giving up the lead.</li>
+        <li><strong>Compare with the target</strong>: how many more tricks do you need?</li>
+        <li><strong>Choose how to find them</strong>, using the techniques below.</li>
+      </ol>
+      <h3>Developing suits</h3>
+      <ul>
+        <li><strong>Promotion:</strong> with K-Q-J, give up one trick to the ace and the other two cards become winners.</li>
+        <li><strong>Length:</strong> once the defenders run out of a suit, your small cards in it win too.</li>
+        <li>Develop your suit early, while you still have stoppers in the defenders' suits, and keep an entry to the long hand (sometimes by ducking a round).</li>
+      </ul>
+      <h3>Ruffing losers</h3>
+      <ul>
+        <li>In a trump contract, <strong>ruff losers in the hand with fewer trumps</strong> (usually dummy). Each ruff there is an extra trick; ruffing in the long trump hand gains nothing.</li>
+        <li>Ruff <strong>before</strong> drawing trumps, or dummy's trumps disappear. Draw trumps once the ruffs are done.</li>
+      </ul>
+      <h3>Finesses</h3>
+      <p>A finesse wins a trick with a card that isn't the highest. The rule is: <strong>lead from the opposite hand toward the card you hope will win</strong>.</p>
+      <table class="tbl">
+        <tr><th>Kind</th><th>Holding (dummy / you)</th><th>How</th></tr>
+        <tr><td>Simple finesse</td><td>A-Q / x-x</td><td>Lead toward A-Q and play the queen</td></tr>
+        <tr><td>Leading toward an honor</td><td>x-x / K-x</td><td>Lead from dummy toward the king</td></tr>
+        <tr><td>Finesse against the queen</td><td>A-K-J / x-x-x</td><td>Lead toward dummy and play the jack</td></tr>
+        <tr><td>Double finesse</td><td>A-Q-10 / x-x-x</td><td>Finesse the 10 first, then the queen</td></tr>
+        <tr><td>Ruffing finesse</td><td>A-Q-J / void</td><td>Lead the queen; ruff if covered, otherwise throw a loser</td></tr>
+      </table>
+      <p>The Declarer Play tab has practice hands for each of these.</p>`,
+    tryIt: 'declarer',
+  },
+  {
+    title: 'Advanced techniques',
+    body: `
+      <p>Once the basics feel comfortable, two techniques win tricks that look impossible.</p>
+      <h3>Squeezes</h3>
+      <p>Cash your winners until a defender who is guarding two suits has to discard one of the guards. A squeeze needs two threats, one defender guarding both, the right count (you can win all the remaining tricks but one) and entries.</p>
+      <h3>Endplays</h3>
+      <p>Strip the side suits, then throw a defender in with a trick they're forced to win. They then have to lead into your tenace (such as A-Q) or give you a ruff-sluff.</p>
+      <p>The Advanced tab explains both in more detail, with puzzles against perfect defense.</p>`,
+    tryIt: 'advanced',
+  },
+  {
     title: 'Scoring basics',
     body: `
       <p>If declarer takes at least the promised number of tricks, the contract is <strong>made</strong> and declarer's side scores:</p>
@@ -676,6 +720,50 @@ const LESSONS_HE = [
     tryIt: 'defense',
   },
   {
+    title: 'משחק הכרוז',
+    body: `
+      <p>ככרוז אתם משחקים גם את היד שלכם וגם את הדומם. לפני שאתם משחקים ללקיחה הראשונה, תכננו:</p>
+      <ol>
+        <li><strong>ספרו את הלקיחות הבטוחות</strong>: זוכים שאפשר לקחת בלי למסור את ההובלה.</li>
+        <li><strong>השוו ליעד</strong>: כמה לקיחות עוד חסרות?</li>
+        <li><strong>בחרו איך להשיג אותן</strong>, בעזרת הטכניקות שלמטה.</li>
+      </ol>
+      <h3>פיתוח סדרות</h3>
+      <ul>
+        <li><strong>קידום:</strong> עם K-Q-J, מוסרים לקיחה אחת לאס, ושני הקלפים האחרים הופכים לזוכים.</li>
+        <li><strong>אורך:</strong> אחרי שלמגינים נגמרים הקלפים בסדרה, גם הקלפים הקטנים שלכם בה זוכים.</li>
+        <li>פתחו את הסדרה מוקדם, כל עוד יש לכם עוצרים בסדרות של המגינים, ושמרו כניסה ליד הארוכה (לפעמים בוויתור על סיבוב).</li>
+      </ul>
+      <h3>חיתוך מפסידים</h3>
+      <ul>
+        <li>בחוזה בשליט, <strong>חתכו מפסידים ביד עם פחות שליטים</strong> (בדרך כלל הדומם). כל חיתוך שם הוא לקיחה נוספת; חיתוך ביד עם השליטים הארוכים לא מרוויח כלום.</li>
+        <li>חתכו <strong>לפני</strong> שאתם מוציאים שליטים, אחרת השליטים של הדומם ייעלמו. הוציאו שליטים אחרי שסיימתם לחתוך.</li>
+      </ul>
+      <h3>עקיפות</h3>
+      <p>עקיפה זוכה בלקיחה עם קלף שאינו הגבוה ביותר. הכלל: <strong>הובילו מהיד שממול לעבר הקלף שאתם מקווים שיזכה</strong>.</p>
+      <table class="tbl">
+        <tr><th>סוג</th><th>החזקה (דומם / אתם)</th><th>איך</th></tr>
+        <tr><td>עקיפה פשוטה</td><td>A-Q / x-x</td><td>הובילו לעבר A-Q ושחקו את המלכה</td></tr>
+        <tr><td>הובלה לעבר הונור</td><td>x-x / K-x</td><td>הובילו מהדומם לעבר המלך</td></tr>
+        <tr><td>עקיפה נגד המלכה</td><td>A-K-J / x-x-x</td><td>הובילו לעבר הדומם ושחקו את הנסיך</td></tr>
+        <tr><td>עקיפה כפולה</td><td>A-Q-10 / x-x-x</td><td>עקפו קודם עם ה-10, אחר כך עם המלכה</td></tr>
+        <tr><td>עקיפת חיתוך</td><td>A-Q-J / חוסר</td><td>הובילו את המלכה; חתכו אם מכסים אותה, אחרת השליכו מפסיד</td></tr>
+      </table>
+      <p>בלשונית "משחק הכרוז" יש ידיים לתרגול של כל אחד מאלה.</p>`,
+    tryIt: 'declarer',
+  },
+  {
+    title: 'טכניקות מתקדמות',
+    body: `
+      <p>כשהיסודות כבר נוחים, שתי טכניקות זוכות בלקיחות שנראות בלתי אפשריות.</p>
+      <h3>לחיצות</h3>
+      <p>ממשו זוכים עד שמגן ששומר על שתי סדרות נאלץ להשליך את אחת השמירות. לחיצה צריכה שני איומים, מגן אחד ששומר על שניהם, ספירה נכונה (אפשר לזכות בכל הלקיחות שנשארו פרט לאחת) וכניסות.</p>
+      <h3>משחקי סיום</h3>
+      <p>נקו את הסדרות הצדדיות, ואז הכניסו מגן ללקיחה שהוא חייב לזכות בה. אז הוא חייב להוביל לתוך המזלג שלכם (כמו A-Q), או לתת לכם חיתוך והשלכה.</p>
+      <p>בלשונית "טכניקות מתקדמות" יש הסבר מפורט על שתיהן, עם חידות מול הגנה מושלמת.</p>`,
+    tryIt: 'advanced',
+  },
+  {
     title: 'יסודות הניקוד',
     body: `
       <p>אם הכרוז לוקח לפחות את מספר הלקיחות שהתחייב אליו, החוזה <strong>בוצע</strong> והצד של הכרוז מקבל ניקוד:</p>
@@ -715,8 +803,8 @@ const Learn = (() => {
 
     const lesson = LESSONS[index];
     const tryLabels = L(
-      { hcp: 'Practice counting points', opening: 'Practice opening bids', responding: 'Practice responding', rebid: "Practice opener's rebids", rrebid: "Practice responder's rebids", overcalls: 'Practice overcalls', conventions: 'Practice conventions', defense: 'Practice opening leads', play: 'Play a hand' },
-      { hcp: 'תרגול ספירת נקודות', opening: 'תרגול הכרזות פתיחה', responding: 'תרגול תשובות', rebid: 'תרגול הכרזה חוזרת של הפותח', rrebid: 'תרגול הכרזה חוזרת של המשיב', overcalls: 'תרגול הכרזות התערבות', conventions: 'תרגול מוסכמות', defense: 'תרגול הובלות פתיחה', play: 'שחקו יד' });
+      { hcp: 'Practice counting points', opening: 'Practice opening bids', responding: 'Practice responding', rebid: "Practice opener's rebids", rrebid: "Practice responder's rebids", overcalls: 'Practice overcalls', conventions: 'Practice conventions', defense: 'Practice opening leads', declarer: 'Practice declarer play', advanced: 'Practice advanced techniques', play: 'Play a hand' },
+      { hcp: 'תרגול ספירת נקודות', opening: 'תרגול הכרזות פתיחה', responding: 'תרגול תשובות', rebid: 'תרגול הכרזה חוזרת של הפותח', rrebid: 'תרגול הכרזה חוזרת של המשיב', overcalls: 'תרגול הכרזות התערבות', conventions: 'תרגול מוסכמות', defense: 'תרגול הובלות פתיחה', declarer: 'תרגול משחק הכרוז', advanced: 'תרגול טכניקות מתקדמות', play: 'שחקו יד' });
     document.getElementById('lesson-body').innerHTML = `
       <div class="eyebrow">${L(`Lesson ${index + 1} of ${LESSONS.length}`, `שיעור ${index + 1} מתוך ${LESSONS.length}`)}</div>
       <h2>${lesson.title}</h2>
