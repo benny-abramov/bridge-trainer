@@ -160,6 +160,7 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 .lesson-list button:hover { background: var(--accent-soft); color: var(--text); }
 .lesson-list button.active { background: var(--accent-soft); color: var(--accent); font-weight: 600; }
 .lesson { padding: 1.5rem 1.75rem; min-width: 0; }
+.lesson h3 { margin: 1.4rem 0 .3rem; font-size: 1.1rem; }
 .eyebrow { font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--accent); }
 .lesson ul, .lesson ol { padding-left: 1.3rem; }
 .lesson li { margin: .3rem 0; }
@@ -274,6 +275,9 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 .fan .card + .card { margin-left: calc(var(--cw) * -.52); }
 .fan .card.gap { margin-left: calc(var(--cw) * -.52 + 8px); }
 
+.suit-rows { display: flex; flex-direction: column; }
+.suit-rows .fan + .fan { margin-top: calc(var(--cw) * -.75); }
+
 .card.playable { cursor: pointer; }
 .card.playable:hover, .card.playable:focus-visible { transform: translateY(-10px); box-shadow: 0 6px 12px rgba(0, 0, 0, .3); }
 .card.dim { filter: brightness(.68) saturate(.7); }
@@ -281,6 +285,16 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 .card.winner { box-shadow: 0 0 0 3px var(--hint), 0 4px 10px rgba(0, 0, 0, .35); }
 
 /* ---------- Play table ---------- */
+
+.segmented { display: inline-flex; border: 1px solid var(--accent); border-radius: 8px; overflow: hidden; }
+.segmented button { font: inherit; font-weight: 600; font-size: .9rem; padding: .4rem .85rem; border: 0; background: transparent; color: var(--accent); cursor: pointer; }
+.segmented button + button { border-left: 1px solid var(--accent); }
+.segmented button.active { background: var(--accent); color: var(--accent-text); }
+.segmented button:hover:not(.active) { background: var(--accent-soft); }
+
+.defend-cta { margin-top: 1.25rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.defend-cta p { margin: 0; max-width: 560px; }
+.card.wrong-pick { box-shadow: 0 0 0 3px var(--bad), 0 6px 12px rgba(0, 0, 0, .3); transform: translateY(-10px); }
 
 .play-bar { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem 1.5rem; padding: .9rem 1.25rem; }
 .contract-bid { font-size: 1.8rem; font-weight: 800; line-height: 1.1; }

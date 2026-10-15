@@ -1,4 +1,5 @@
-// Declarer play: you are South and also play North (dummy); the computer defends as East and West.
+// Card play. In "declare" mode you are South and also play North (dummy) against computer
+// defenders; in "defend" mode you are West, defending with a computer partner against a computer declarer.
 
 const Play = (() => {
   const AI_DELAY = 650;
@@ -6,6 +7,7 @@ const Play = (() => {
   let st = null;
   let timer = null;
   let showAll = false;
+  let mode = 'declare';
   const $ = id => document.getElementById(id);
 
   // ---------- Setting up a deal ----------
@@ -33,25 +35,24 @@ const Play = (() => {
     return { level, strain };
   }
 
-  function newDeal(replayHands) {
-    clearTimeout(timer);
-    let hands;
-    if (replayHands) {
-      hands = cloneHands(replayHands);
-    } else {
-      hands = dealHands();
-      // Give North-South the stronger cards, with South (declarer) holding the stronger hand.
-      if (hcp(hands[0]) + hcp(hands[2]) < hcp(hands[1]) + hcp(hands[3])) {
-        hands = [hands[1], hands[2], hands[3], hands[0]];
-      }
-      if (hcp(hands[0]) > hcp(hands[2])) [hands[0], hands[2]] = [hands[2], hands[0]];
+  // Deal four hands with North-South holding the stronger cards and South (declarer) the stronger hand.
+  function dealTable() {
+    let hands = dealHands();
+    if (hcp(hands[0]) + hcp(hands[2]) < hcp(hands[1]) + hcp(hands[3])) {
+      hands = [hands[1], hands[2], hands[3], hands[0]];
     }
-    const contract = chooseContract(hands[0], hands[2]);
+    if (hcp(hands[0]) > hcp(hands[2])) [hands[0], hands[2]] = [hands[2], hands[0]];
+    return { hands, contract: chooseContract(hands[0], hands[2]) };
+  }
+
+  function newDeal(replay) {
+    clearTimeout(timer);
+    const table = replay ? { hands: cloneHands(replay.hands), contract: replay.contract } : dealTable();
     st = {
-      original: cloneHands(hands),
-      hands,
-      contract,
-      trump: contract.strain === 'N' ? null : contract.strain,
+      original: { hands: cloneHands(table.hands), contract: table.contract },
+      hands: table.hands,
+      contract: table.contract,
+      trump: table.contract.strain === 'N' ? null : table.contract.strain,
       turn: 3, // West makes the opening lead (declarer's left)
       trick: [],
       lastTrick: null,
@@ -85,8 +86,9 @@ const Play = (() => {
     return trick.reduce((best, t) => (beats(t.card, best.card) ? t : best));
   }
 
-  const isHuman = seat => seat === 0 || seat === 2;
+  const isHuman = seat => (mode === 'declare' ? seat % 2 === 0 : seat === 3);
   const sameSide = (a, b) => a % 2 === b % 2;
+  const yourSeat = () => (mode === 'declare' ? 2 : 3);
 
   // ---------- Playing cards ----------
 
@@ -125,7 +127,7 @@ const Play = (() => {
     timer = setTimeout(() => playCard(st.turn, chooseCard(st.turn)), AI_DELAY);
   }
 
-  // ---------- Simple card-play strategy (used by defenders and for hints) ----------
+  // ---------- Simple card-play strategy (used by the computer and for hints) ----------
 
   const lowest = cards => cards.reduce((a, b) => (b.value < a.value ? b : a));
 
@@ -136,13 +138,18 @@ const Play = (() => {
     return groups;
   }
 
-  function chooseLead(seat) {
+  // A card is a "master" when nobody else still holds a higher card in its suit.
+  function isMaster(card, seat) {
+    return st.hands.every((h, i) => i === seat || !h.some(c => c.suit === card.suit && c.value > card.value));
+  }
+
+  // Lead from the longest suit: top of a sequence, fourth best, top of a doubleton, top of nothing.
+  function longSuitLead(seat) {
     const groups = bySuit(st.hands[seat]);
     let suits = Object.keys(groups);
     const nonTrump = suits.filter(s => s !== st.trump);
     if (nonTrump.length) suits = nonTrump;
 
-    // Top of a sequence of honors (A-K, K-Q, Q-J, J-10) is the safest lead.
     const sequences = suits.filter(s => {
       const g = groups[s];
       return g.length >= 2 && g[0].value >= 11 && g[1].value === g[0].value - 1;
@@ -152,12 +159,28 @@ const Play = (() => {
       return groups[s][0];
     }
 
-    // Otherwise lead from the longest suit: fourth-best from 4+, top of a doubleton, top of nothing.
     const s = suits.sort((a, b) => groups[b].length - groups[a].length || groups[b][0].value - groups[a][0].value)[0];
     const g = groups[s];
     if (g.length >= 4) return g[3];
     if (g.length === 2 || g[0].value < 11) return g[0];
     return g[g.length - 1];
+  }
+
+  // Declarer's side: draw trumps, then cash winners, then develop the longest suit.
+  function declarerLead(seat) {
+    const groups = bySuit(st.hands[seat]);
+    const trumps = st.trump && groups[st.trump];
+    if (trumps && st.hands[1].concat(st.hands[3]).some(c => c.suit === st.trump)) {
+      return isMaster(trumps[0], seat) ? trumps[0] : trumps[trumps.length - 1];
+    }
+    const winner = st.hands[seat].find(c => c.suit !== st.trump && isMaster(c, seat));
+    return winner || longSuitLead(seat);
+  }
+
+  function chooseLead(seat) {
+    if (seat % 2 === 0) return declarerLead(seat);
+    if (!st.started) return openingLead(st.hands[seat], st.trump).card;
+    return longSuitLead(seat);
   }
 
   function discard(legal) {
@@ -185,7 +208,7 @@ const Play = (() => {
     return winners.length ? lowest(winners) : discard(legal);
   }
 
-  // ---------- Scoring (not vulnerable) ----------
+  // ---------- Scoring (not vulnerable, from North-South's point of view) ----------
 
   function score() {
     const { level, strain } = st.contract;
@@ -206,7 +229,9 @@ const Play = (() => {
   const contractHtml = () => `${st.contract.level}${suitHtml(st.contract.strain)}`;
 
   function roleOf(seat) {
-    return ['Dummy — you play these cards', 'Defender (computer)', 'You — declarer', 'Defender (computer)'][seat];
+    return mode === 'declare'
+      ? ['Dummy — you play these cards', 'Defender (computer)', 'You — declarer', 'Defender (computer)'][seat]
+      : ['Dummy', 'Partner — defender (computer)', 'Declarer (computer)', 'You — defender'][seat];
   }
 
   function renderSeat(seat) {
@@ -233,7 +258,8 @@ const Play = (() => {
     if (isHuman(seat)) {
       const myTurn = !st.done && !st.busy && st.turn === seat;
       const legal = myTurn ? legalCards(seat) : [];
-      renderFan(el, hand, (cardEl, card) => {
+      const drawHand = seat % 2 === 0 ? renderFan : renderSuitRows; // side seats are narrow
+      drawHand(el, hand, (cardEl, card) => {
         if (!myTurn) return;
         if (legal.includes(card)) {
           cardEl.classList.add('playable');
@@ -248,6 +274,8 @@ const Play = (() => {
           cardEl.classList.add('dim');
         }
       });
+    } else if (seat === 0) {
+      renderFan(el, hand); // dummy is face up for everyone
     } else if (showAll || st.done) {
       renderCompact(el, hand);
     } else {
@@ -267,13 +295,19 @@ const Play = (() => {
 
     if (st.done) {
       const result = score();
-      const good = result.points > 0;
+      const made = result.points > 0;
+      const good = mode === 'declare' ? made : !made;
+      const yours = mode === 'declare' ? result.points : -result.points;
+      const title = mode === 'declare'
+        ? (made ? 'Well played!' : 'Contract defeated')
+        : (made ? 'Declarer made it' : 'Contract defeated: well defended!');
       center.innerHTML = `
         <div class="result ${good ? 'good' : 'bad'}">
-          <div class="result-title">${good ? 'Well played!' : 'Contract defeated'}</div>
+          <div class="result-title">${title}</div>
           <div>${contractHtml()} by South: ${st.tricks[0]} tricks</div>
           <div>${result.text}</div>
-          <div class="result-score">${good ? '+' : ''}${result.points}</div>
+          <div class="result-score">${yours > 0 ? '+' : ''}${yours}</div>
+          <div class="small muted">for your side</div>
         </div>`;
       return;
     }
@@ -293,31 +327,42 @@ const Play = (() => {
   }
 
   function statusText() {
-    if (st.done) return 'Hand complete. Deal again, or replay the same cards to try a better line.';
+    if (st.done) return 'Hand complete. Deal again, or replay the same cards to try a different line.';
     if (st.busy) {
       const w = currentWinner(st.trick).seat;
-      return `${SEAT_NAMES[w]} wins the trick${sameSide(w, 2) ? ' for your side' : ''}.`;
+      return `${SEAT_NAMES[w]} wins the trick${sameSide(w, yourSeat()) ? ' for your side' : ''}.`;
     }
     const seat = st.turn;
+    if (!isHuman(seat)) return `${SEAT_NAMES[seat]} is thinking…`;
     const mustFollow = st.trick.length && legalCards(seat)[0].suit === st.trick[0].card.suit;
     const followNote = st.trick.length
       ? (mustFollow ? ` You must follow suit (${suitHtml(st.trick[0].card.suit)}).` : ` You have no ${SUIT_NAME[st.trick[0].card.suit]}: play any card.`)
       : ' You are on lead: play any card.';
+    if (mode === 'defend') {
+      if (!st.started) return 'You are on lead. Choose your <strong>opening lead</strong> (try the Hint button, or the Defense tab, for lead rules).';
+      return 'Your turn: play a card from <strong>your hand</strong> (West).' + followNote;
+    }
     if (seat === 2) return 'Your turn: play a card from <strong>your hand</strong> (South).' + followNote;
-    if (seat === 0) return 'Your turn: play a card from <strong>dummy</strong> (North).' + followNote;
-    return `${SEAT_NAMES[seat]} is thinking…`;
+    return 'Your turn: play a card from <strong>dummy</strong> (North).' + followNote;
   }
 
   function render() {
     const need = st.contract.level + 6;
+    const strain = st.trump ? `${SUIT_NAME[st.trump]} are trumps` : 'no trumps';
     $('play-contract').innerHTML = contractHtml();
-    $('play-goal').textContent = `South needs ${need} of 13 tricks${st.trump ? `, ${SUIT_NAME[st.trump]} are trumps` : ', no trumps'}.`;
+    $('play-goal').textContent = mode === 'declare'
+      ? `South needs ${need} of 13 tricks, ${strain}.`
+      : `South needs ${need} tricks, ${strain}. You and East need ${14 - need} to defeat it.`;
     $('play-ns').textContent = st.tricks[0];
     $('play-ew').textContent = st.tricks[1];
-    $('play-need').textContent = Math.max(0, need - st.tricks[0]);
+    $('play-need').textContent = Math.max(0, mode === 'declare' ? need - st.tricks[0] : 14 - need - st.tricks[1]);
     $('play-status').innerHTML = statusText();
     $('play-hint').disabled = st.done || st.busy || !isHuman(st.turn);
-    $('play-showall').textContent = showAll ? 'Hide defenders' : 'Show all hands';
+    $('play-showall').textContent = showAll ? 'Hide hidden hands' : 'Show all hands';
+    $('play-mode-declare').classList.toggle('active', mode === 'declare');
+    $('play-mode-defend').classList.toggle('active', mode === 'defend');
+    $('play-mode-declare').setAttribute('aria-pressed', mode === 'declare');
+    $('play-mode-defend').setAttribute('aria-pressed', mode === 'defend');
 
     const last = $('play-last');
     last.innerHTML = st.lastTrick
@@ -328,10 +373,18 @@ const Play = (() => {
     renderCenter();
   }
 
+  function setMode(m) {
+    if (m === mode && st) return;
+    mode = m;
+    newDeal();
+  }
+
   function init() {
     $('play-new').addEventListener('click', () => newDeal());
     $('play-replay').addEventListener('click', () => newDeal(st.original));
     $('play-showall').addEventListener('click', () => { showAll = !showAll; render(); });
+    $('play-mode-declare').addEventListener('click', () => setMode('declare'));
+    $('play-mode-defend').addEventListener('click', () => setMode('defend'));
     $('play-hint').addEventListener('click', () => {
       if (st.done || st.busy || !isHuman(st.turn)) return;
       st.hint = chooseCard(st.turn);
@@ -340,5 +393,5 @@ const Play = (() => {
     newDeal();
   }
 
-  return { init };
+  return { init, dealTable, setMode };
 })();

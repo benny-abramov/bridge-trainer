@@ -102,6 +102,18 @@ function renderFan(container, hand, decorate) {
   return fan;
 }
 
+// Same as renderFan, but one row per suit so the hand fits in a narrow column.
+function renderSuitRows(container, hand, decorate) {
+  const rows = document.createElement('div');
+  rows.className = 'suit-rows';
+  for (const suit of DISPLAY_ORDER) {
+    const cards = hand.filter(c => c.suit === suit);
+    if (cards.length) renderFan(rows, cards, decorate);
+  }
+  container.appendChild(rows);
+  return rows;
+}
+
 // Compact one-line-per-suit view, as hands are printed in bridge columns.
 function renderCompact(container, hand) {
   const box = document.createElement('div');

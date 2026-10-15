@@ -215,6 +215,41 @@ const LESSONS = [
     tryIt: 'rrebid',
   },
   {
+    title: 'Defense',
+    body: `
+      <p>When the other side wins the auction, you and partner are the <strong>defenders</strong>.
+      To defeat a contract of, say, 4${S}, declarer needs 10 tricks, so you need <strong>4</strong>.</p>
+      <h3>The opening lead</h3>
+      <p>The player on declarer's left leads before dummy is shown, so it's the one card you choose without seeing dummy. Pick the suit first, then the card.</p>
+      <p><strong>Against no-trump</strong>, set up your long suit:</p>
+      <ul>
+        <li>With three touching honors (K-Q-J, Q-J-10), lead the top one.</li>
+        <li>Otherwise lead the <strong>fourth-highest</strong> card of your longest, strongest suit: from K-J-7-<strong>4</strong>-2, lead the 4.</li>
+      </ul>
+      <p><strong>Against a suit contract</strong>, take your tricks quickly and look for ruffs. In order of preference:</p>
+      <table class="tbl">
+        <tr><th>Holding</th><th>Lead</th></tr>
+        <tr><td>A-K-x</td><td>The <strong>A</strong></td></tr>
+        <tr><td>Touching honors: K-Q-x, Q-J-x, J-10-x</td><td>The top one</td></tr>
+        <tr><td>A small singleton (with trumps to ruff)</td><td>The singleton</td></tr>
+        <tr><td>A small doubleton: 7-3</td><td>The top: <strong>7</strong></td></tr>
+        <tr><td>An honor and 3+ cards: K-9-6-3</td><td>Fourth best: <strong>3</strong> (low from K-9-3)</td></tr>
+        <tr><td>Three small cards: 8-6-2</td><td>The top, "top of nothing": <strong>8</strong></td></tr>
+        <tr><td>Four or more small cards: 9-7-5-2</td><td>Second highest: <strong>7</strong></td></tr>
+      </table>
+      <p><strong>Avoid</strong> leading low from a suit headed by the ace against a suit contract, because declarer may win a cheap king and then ruff your ace. Also avoid leading from a doubleton honor such as K-x.
+      When every lead looks dangerous, a small trump is often safe.</p>
+      <h3>During the play</h3>
+      <ul>
+        <li><strong>Second hand low:</strong> when declarer leads toward an honor, play low and save your high cards for capturing theirs.</li>
+        <li><strong>Third hand high:</strong> when partner leads, play your highest card (or the cheaper of touching cards) to win the trick or push out declarer's.</li>
+        <li><strong>Cover an honor with an honor:</strong> if declarer leads a queen, cover it with your king. They may have to spend their ace to win it, which can promote a lower card of yours or partner's.</li>
+        <li><strong>Return partner's suit</strong> when you win a trick, unless you have something clearly better.</li>
+      </ul>
+      <p>Many partnerships also <em>signal</em>: playing a high spot card encourages partner to continue a suit, and a low one discourages.</p>`,
+    tryIt: 'defense',
+  },
+  {
     title: 'Scoring basics',
     body: `
       <p>If declarer takes at least the promised number of tricks, the contract is <strong>made</strong> and declarer's side scores:</p>
@@ -251,7 +286,7 @@ const Learn = (() => {
     });
 
     const lesson = LESSONS[index];
-    const tryLabels = { hcp: 'Practice counting points', opening: 'Practice opening bids', responding: 'Practice responding', rebid: "Practice opener's rebids", rrebid: "Practice responder's rebids", play: 'Play a hand' };
+    const tryLabels = { hcp: 'Practice counting points', opening: 'Practice opening bids', responding: 'Practice responding', rebid: "Practice opener's rebids", rrebid: "Practice responder's rebids", defense: 'Practice opening leads', play: 'Play a hand' };
     document.getElementById('lesson-body').innerHTML = `
       <div class="eyebrow">Lesson ${index + 1} of ${LESSONS.length}</div>
       <h2>${lesson.title}</h2>

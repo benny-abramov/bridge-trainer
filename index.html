@@ -17,6 +17,7 @@
       <button role="tab" data-tab="responding">Responding</button>
       <button role="tab" data-tab="rebid">Opener's Rebid</button>
       <button role="tab" data-tab="rrebid">Responder's Rebid</button>
+      <button role="tab" data-tab="defense">Defense</button>
       <button role="tab" data-tab="play">Play a Hand</button>
     </nav>
   </header>
@@ -138,9 +139,37 @@
       </div>
     </section>
 
+    <!-- Defense -->
+    <section id="tab-defense" class="panel" role="tabpanel" hidden>
+      <div class="card-surface drill">
+        <div class="drill-head">
+          <div>
+            <h2>Opening leads</h2>
+            <p class="muted">The opening lead is the one card defenders play before seeing dummy. Pick the textbook lead.</p>
+          </div>
+          <div class="stats" id="lead-stats"></div>
+        </div>
+        <div class="context" id="lead-context"></div>
+        <div class="hand-area" id="lead-hand"></div>
+        <div class="feedback" id="lead-feedback" aria-live="polite"></div>
+        <button class="btn" id="lead-next" hidden>Next hand →</button>
+      </div>
+      <div class="card-surface drill defend-cta">
+        <div>
+          <h2>Defend a full hand</h2>
+          <p class="muted">Sit West and defend with a computer partner against a computer declarer. Make the opening lead, then try to win enough tricks to defeat the contract.</p>
+        </div>
+        <button class="btn" id="defend-hand">Defend a hand →</button>
+      </div>
+    </section>
+
     <!-- Play -->
     <section id="tab-play" class="panel" role="tabpanel" hidden>
       <div class="play-bar card-surface">
+        <div class="segmented" role="group" aria-label="Your role">
+          <button id="play-mode-declare">Declare</button>
+          <button id="play-mode-defend">Defend</button>
+        </div>
         <div class="contract">
           <div class="muted small">Contract</div>
           <div class="contract-bid" id="play-contract"></div>
@@ -174,6 +203,7 @@
   <script src="js/cards.js"></script>
   <script src="js/learn.js"></script>
   <script src="js/trainers.js"></script>
+  <script src="js/defense.js"></script>
   <script src="js/play.js"></script>
   <script src="js/main.js"></script>
 </body>
