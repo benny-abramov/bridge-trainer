@@ -103,6 +103,7 @@ const LESSONS_EN = [
       <p>Useful targets for the <strong>combined</strong> points of you and partner:</p>
       <table class="tbl">
         <tr><th>Combined HCP</th><th>You can usually make</th></tr>
+        <tr><td>Less than 25</td><td>Part score</td></tr>
         <tr><td>25–26</td><td>Game: 3NT, 4${H} or 4${S}</td></tr>
         <tr><td>28–29</td><td>Game in a minor: 5${C} or 5${D}</td></tr>
         <tr><td>33</td><td>Small slam (12 tricks)</td></tr>
@@ -492,6 +493,7 @@ const LESSONS_HE = [
       <p>יעדים שימושיים לנקודות <strong>המשותפות</strong> שלכם ושל השותף:</p>
       <table class="tbl">
         <tr><th>נקודות משותפות</th><th>בדרך כלל אפשר לבצע</th></tr>
+        <tr><td>פחות מ-25</td><td>חוזה חלקי</td></tr>
         <tr><td>25-26</td><td>משחק מלא: 3NT, ${B('4H')} או ${B('4S')}</td></tr>
         <tr><td>28-29</td><td>משחק מלא בסדרה תחתונה: ${B('5C')} או ${B('5D')}</td></tr>
         <tr><td>33</td><td>סלאם קטן (12 לקיחות)</td></tr>
