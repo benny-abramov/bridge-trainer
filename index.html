@@ -19,6 +19,7 @@
       <button role="tab" data-tab="rrebid">Responder's Rebid</button>
       <button role="tab" data-tab="overcalls">Overcalls</button>
       <button role="tab" data-tab="conventions">Conventions</button>
+      <button role="tab" data-tab="declarer">Declarer Play</button>
       <button role="tab" data-tab="defense">Defense</button>
       <button role="tab" data-tab="advanced">Advanced</button>
       <button role="tab" data-tab="play">Play a Hand</button>
@@ -190,6 +191,46 @@
       </div>
     </section>
 
+    <!-- Declarer play -->
+    <section id="tab-declarer" class="panel" role="tabpanel" hidden>
+      <div class="card-surface drill">
+        <div class="drill-head">
+          <h2>Declarer play</h2>
+          <div class="segmented" id="dp-topic" role="group" aria-label="Technique">
+            <button data-topic="develop">Developing suits</button>
+            <button data-topic="ruff">Ruffing losers</button>
+            <button data-topic="finesse">Finesses</button>
+          </div>
+        </div>
+        <div class="lesson-text" id="dp-intro"></div>
+      </div>
+
+      <div class="card-surface drill puzzle">
+        <div class="drill-head">
+          <h3 id="dp-title"></h3>
+          <div class="puzzle-nav">
+            <button class="btn secondary" id="dp-prev">← Previous</button>
+            <button class="btn secondary" id="dp-next">Next →</button>
+          </div>
+        </div>
+        <div class="context" id="dp-setup"></div>
+        <div class="play-actions">
+          <button class="btn secondary" id="dp-hint">Hint</button>
+          <button class="btn secondary" id="dp-reset">Reset</button>
+          <button class="btn secondary" id="dp-solution">Show solution</button>
+        </div>
+        <div class="status" id="dp-status" aria-live="polite"></div>
+        <div class="table puzzle-table">
+          <div class="seat north" id="dp-seat-0"></div>
+          <div class="seat west" id="dp-seat-3"></div>
+          <div class="trick-area" id="dp-trick"></div>
+          <div class="seat east" id="dp-seat-1"></div>
+          <div class="seat south" id="dp-seat-2"></div>
+        </div>
+        <div class="feedback" id="dp-feedback" aria-live="polite"></div>
+      </div>
+    </section>
+
     <!-- Defense -->
     <section id="tab-defense" class="panel" role="tabpanel" hidden>
       <div class="card-surface drill">
@@ -298,6 +339,7 @@
   <script src="js/defense.js"></script>
   <script src="js/play.js"></script>
   <script src="js/advanced.js"></script>
+  <script src="js/declarer.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

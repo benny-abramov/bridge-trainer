@@ -1,5 +1,7 @@
-// Advanced techniques: hand-built squeeze and endplay puzzles. All four hands are shown, you play
-// North and South, and the defenders play perfectly using a small exhaustive (double-dummy) solver.
+// Card-play puzzles: hand-built endings where all four hands are shown, you play North and South,
+// and the defenders play perfectly using a small exhaustive (double-dummy) solver.
+// This file holds the solver, the reusable puzzle player and the Advanced (squeeze/endplay) content;
+// js/declarer.js holds the basic declarer-play content.
 
 // ---------- Double-dummy solver for small endings ----------
 
@@ -182,16 +184,16 @@ function colorSuits(html) {
 
 // ---------- Puzzle player ----------
 
-const Advanced = (() => {
+function makePuzzleSection(prefix, topics) {
   const TRICK_PAUSE = 1000;
   const AI_DELAY = 550;
-  let topic = 'squeeze';
+  let topic = Object.keys(topics)[0];
   let index = 0;
   let st = null;
   let timer = null;
-  const $ = id => document.getElementById(id);
+  const $ = id => document.getElementById(prefix + '-' + id);
 
-  const puzzle = () => ADVANCED_TOPICS[topic].puzzles[index];
+  const puzzle = () => topics[topic].puzzles[index];
   const isHuman = seat => seat % 2 === 0;
 
   function start() {
@@ -211,10 +213,6 @@ const Advanced = (() => {
     };
     render();
     schedule();
-  }
-
-  function cardsLeft() {
-    return st.hands.reduce((n, h) => n + h.length, 0) + st.trick.length;
   }
 
   // Best cards for `seat` right now: max for North-South, min for the defenders.
@@ -260,7 +258,7 @@ const Advanced = (() => {
   }
 
   function renderSeat(seat) {
-    const el = $('adv-seat-' + seat);
+    const el = $('seat-' + seat);
     el.innerHTML = '';
     el.classList.toggle('to-play', !st.done && !st.busy && st.turn === seat);
     const roles = ['Dummy (you play)', 'Defender', 'You — declarer', 'Defender'];
@@ -287,7 +285,7 @@ const Advanced = (() => {
   }
 
   function renderCenter() {
-    const center = $('adv-trick');
+    const center = $('trick');
     center.innerHTML = '';
     const winner = st.trick.length === 4 ? trickWinnerOf(st.trick, puzzle().trump) : null;
     ['north', 'east', 'south', 'west'].forEach((pos, seat) => {
@@ -314,24 +312,24 @@ const Advanced = (() => {
   }
 
   function render() {
-    const t = ADVANCED_TOPICS[topic];
+    const t = topics[topic];
     const p = puzzle();
-    document.querySelectorAll('#adv-topic button').forEach(b => {
+    document.querySelectorAll(`#${prefix}-topic button`).forEach(b => {
       b.classList.toggle('active', b.dataset.topic === topic);
       b.setAttribute('aria-pressed', b.dataset.topic === topic);
     });
-    $('adv-intro').innerHTML = colorSuits(t.intro);
-    $('adv-title').textContent = `Puzzle ${index + 1} of ${t.puzzles.length}: ${p.title}`;
+    $('intro').innerHTML = colorSuits(t.intro);
+    $('title').textContent = `Puzzle ${index + 1} of ${t.puzzles.length}: ${p.title}`;
     const strain = p.trump ? `${SUIT_NAME[p.trump][0].toUpperCase() + SUIT_NAME[p.trump].slice(1)} are trumps` : 'No-trump';
-    $('adv-setup').innerHTML =
+    $('setup').innerHTML =
       `<strong>${strain}. ${SEAT_NAMES[p.leader]} to lead. You need ${p.target} of the last ${cardsLeftAtStart()} tricks.</strong> ` +
       `The defenders can see every card and will play perfectly. ${colorSuits(p.idea)}`;
-    $('adv-prev').disabled = index === 0;
-    $('adv-next').disabled = index === t.puzzles.length - 1;
-    $('adv-hint').disabled = st.done || st.busy || !isHuman(st.turn);
-    $('adv-status').innerHTML = statusText();
+    $('prev').disabled = index === 0;
+    $('next').disabled = index === t.puzzles.length - 1;
+    $('hint').disabled = st.done || st.busy || !isHuman(st.turn);
+    $('status').innerHTML = statusText();
 
-    const fb = $('adv-feedback');
+    const fb = $('feedback');
     if (st.done) {
       const ok = st.tricks[0] >= p.target;
       fb.className = 'feedback ' + (ok ? 'good' : 'bad');
@@ -353,13 +351,13 @@ const Advanced = (() => {
   }
 
   function init() {
-    document.querySelectorAll('#adv-topic button').forEach(b =>
+    document.querySelectorAll(`#${prefix}-topic button`).forEach(b =>
       b.addEventListener('click', () => { topic = b.dataset.topic; index = 0; start(); }));
-    $('adv-prev').addEventListener('click', () => { index--; start(); });
-    $('adv-next').addEventListener('click', () => { index++; start(); });
-    $('adv-reset').addEventListener('click', start);
-    $('adv-solution').addEventListener('click', () => { st.showSolution = true; render(); });
-    $('adv-hint').addEventListener('click', () => {
+    $('prev').addEventListener('click', () => { index--; start(); });
+    $('next').addEventListener('click', () => { index++; start(); });
+    $('reset').addEventListener('click', start);
+    $('solution').addEventListener('click', () => { st.showSolution = true; render(); });
+    $('hint').addEventListener('click', () => {
       if (st.done || st.busy || !isHuman(st.turn)) return;
       st.hint = bestCards(st.turn)[0];
       render();
@@ -368,4 +366,6 @@ const Advanced = (() => {
   }
 
   return { init };
-})();
+}
+
+const Advanced = makePuzzleSection('adv', ADVANCED_TOPICS);

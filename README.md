@@ -14,6 +14,7 @@ Open `index.html` in a browser. There is no build step or server.
 - **Responder's Rebid**: partner opened, you responded and partner rebid; choose your second bid and get an explanation.
 - **Overcalls**: an opponent opens; choose between passing, an overcall, a weak jump overcall, 1NT or a takeout double.
 - **Conventions**: practice the common SAYC conventions (Stayman, Jacoby transfers, Jacoby 2NT, Blackwood, Gerber, Michaels, Unusual 2NT, negative doubles and responses to 2♣), one at a time or mixed.
+- **Declarer Play**: basic card-play technique (developing suits, ruffing losers in the short hand, and five kinds of finesse), with an explanation and puzzles for each.
 - **Defense**: an opening-lead drill (pick the textbook lead against a suit or no-trump contract), and a link to defend a full hand.
 - **Advanced**: squeezes and endplays. Each has an explanation and hand-built puzzles in which you play North-South against perfect (double-dummy) defense.
 - **Play a Hand**: either declare as South (playing dummy's cards too) against computer defenders, or defend as West with a computer partner against a computer declarer. It includes hints, replaying the same deal, and non-vulnerable scoring.
@@ -29,6 +30,7 @@ Open `index.html` in a browser. There is no build step or server.
 | `js/conventions.js` | SAYC convention rules and the conventions drill |
 | `js/defense.js` | Opening-lead rules (`openingLead`) and the opening-lead drill |
 | `js/play.js` | Contract selection, play rules, declare/defend modes, computer play, scoring |
-| `js/advanced.js` | Squeeze and endplay puzzles, and a small double-dummy solver for the defenders |
-| `js/main.js` | Tab navigation (`#learn`, `#hcp`, `#opening`, `#responding`, `#rebid`, `#rrebid`, `#overcalls`, `#conventions`, `#defense`, `#advanced`, `#play`) |
+| `js/advanced.js` | Double-dummy solver, the reusable card-play puzzle player, and the squeeze and endplay puzzles |
+| `js/declarer.js` | Declarer-play puzzles: developing suits, ruffing losers, finesses |
+| `js/main.js` | Tab navigation (`#learn`, `#hcp`, `#opening`, `#responding`, `#rebid`, `#rrebid`, `#overcalls`, `#conventions`, `#declarer`, `#defense`, `#advanced`, `#play`) |
 | `css/style.css` | Styles, with light and dark themes |

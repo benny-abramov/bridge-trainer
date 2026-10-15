@@ -380,6 +380,8 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 @media (max-width: 560px) {
   :root { --cw: 42px; }
   .lesson, .drill { padding: 1.1rem 1rem; }
+  .tbl { display: block; overflow-x: auto; font-size: .85rem; }
+  .tbl th, .tbl td { padding: .3rem .4rem; }
   .card .corner { left: 3px; }
   .fan .card + .card { margin-left: calc(var(--cw) * -.58); }
   .fan .card.gap { margin-left: calc(var(--cw) * -.58 + 6px); }
