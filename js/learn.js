@@ -78,6 +78,26 @@ const LESSONS_EN = [
       </ul>`,
   },
   {
+    title: 'Scoring basics',
+    body: `
+      <p>If declarer takes at least the promised number of tricks, the contract is <strong>made</strong> and declarer's side scores:</p>
+      <table class="tbl">
+        <tr><th>Strain</th><th>Points per trick bid (over six)</th></tr>
+        <tr><td>${C} ${D} minors</td><td>20</td></tr>
+        <tr><td>${H} ${S} majors</td><td>30</td></tr>
+        <tr><td>NT</td><td>40 for the first, 30 for each after</td></tr>
+      </table>
+      <ul>
+        <li>A contract worth <strong>100+</strong> trick points is a <strong>game</strong>: 3NT, 4${H}/4${S} or 5${C}/5${D}. It earns a bonus of 300 (500 when vulnerable).</li>
+        <li>Smaller contracts are <strong>part-scores</strong> and earn a 50 bonus.</li>
+        <li>A <strong>small slam</strong> (6-level) adds 500; a <strong>grand slam</strong> (7-level) adds 1000 (more when vulnerable).</li>
+        <li><strong>Overtricks</strong> score the per-trick value.</li>
+        <li>If declarer falls short, the defenders score <strong>50 per undertrick</strong> (100 vulnerable).</li>
+      </ul>
+      <p>The Play tab scores every hand as not vulnerable.</p>`,
+    tryIt: 'play',
+  },
+  {
     title: 'Declarer, dummy and defenders',
     body: `
       <p>Once the contract is set:</p>
@@ -374,26 +394,6 @@ const LESSONS_EN = [
       <p>The Advanced tab explains both in more detail, with puzzles against perfect defense.</p>`,
     tryIt: 'advanced',
   },
-  {
-    title: 'Scoring basics',
-    body: `
-      <p>If declarer takes at least the promised number of tricks, the contract is <strong>made</strong> and declarer's side scores:</p>
-      <table class="tbl">
-        <tr><th>Strain</th><th>Points per trick bid (over six)</th></tr>
-        <tr><td>${C} ${D} minors</td><td>20</td></tr>
-        <tr><td>${H} ${S} majors</td><td>30</td></tr>
-        <tr><td>NT</td><td>40 for the first, 30 for each after</td></tr>
-      </table>
-      <ul>
-        <li>A contract worth <strong>100+</strong> trick points is a <strong>game</strong>: 3NT, 4${H}/4${S} or 5${C}/5${D}. It earns a bonus of 300 (500 when vulnerable).</li>
-        <li>Smaller contracts are <strong>part-scores</strong> and earn a 50 bonus.</li>
-        <li>A <strong>small slam</strong> (6-level) adds 500; a <strong>grand slam</strong> (7-level) adds 1000 (more when vulnerable).</li>
-        <li><strong>Overtricks</strong> score the per-trick value.</li>
-        <li>If declarer falls short, the defenders score <strong>50 per undertrick</strong> (100 vulnerable).</li>
-      </ul>
-      <p>The Play tab scores every hand as not vulnerable.</p>`,
-    tryIt: 'play',
-  },
 ];
 
 const LESSONS_HE = [
@@ -466,6 +466,26 @@ const LESSONS_HE = [
         <li><strong>הכרוז</strong> הוא השחקן מהצד הזוכה שהיה הראשון להכריז את זן החוזה.</li>
         <li><strong>כפל</strong> מעלה את הסיכון בהכרזה האחרונה של היריבים; <strong>כפל חוזר</strong> מעלה אותו שוב.</li>
       </ul>`,
+  },
+  {
+    title: 'יסודות הניקוד',
+    body: `
+      <p>אם הכרוז לוקח לפחות את מספר הלקיחות שהתחייב אליו, החוזה <strong>בוצע</strong> והצד של הכרוז מקבל ניקוד:</p>
+      <table class="tbl">
+        <tr><th>זן</th><th>נקודות לכל לקיחה מוכרזת (מעבר לשש)</th></tr>
+        <tr><td>${C} ${D} סדרות תחתונות</td><td>20</td></tr>
+        <tr><td>${H} ${S} סדרות עליונות</td><td>30</td></tr>
+        <tr><td>NT</td><td>40 לראשונה, 30 לכל אחת אחריה</td></tr>
+      </table>
+      <ul>
+        <li>חוזה ששווה <strong>100 נקודות לקיחה ומעלה</strong> הוא <strong>משחק מלא</strong>: 3NT, ${B('4H')} או ${B('4S')}, ${B('5C')} או ${B('5D')}. הוא מזכה בבונוס של 300 (500 כשפגיעים).</li>
+        <li>חוזים קטנים יותר הם <strong>חוזים חלקיים</strong> ומזכים בבונוס של 50.</li>
+        <li><strong>סלאם קטן</strong> (רמת 6) מוסיף 500, ו<strong>סלאם גדול</strong> (רמת 7) מוסיף 1000 (יותר כשפגיעים).</li>
+        <li><strong>לקיחות עודפות</strong> מקבלות את ערך הלקיחה.</li>
+        <li>אם הכרוז לא מגיע ליעד, המגינים מקבלים <strong>50 על כל לקיחה חסרה</strong> (100 כשפגיעים).</li>
+      </ul>
+      <p>בלשונית "שחקו יד" כל יד מנוקדת כלא פגיעה.</p>`,
+    tryIt: 'play',
   },
   {
     title: 'כרוז, דומם ומגינים',
@@ -764,26 +784,6 @@ const LESSONS_HE = [
       <p>נקו את הסדרות הצדדיות, ואז הכניסו מגן ללקיחה שהוא חייב לזכות בה. אז הוא חייב להוביל לתוך המזלג שלכם (כמו A-Q), או לתת לכם חיתוך והשלכה.</p>
       <p>בלשונית "טכניקות מתקדמות" יש הסבר מפורט על שתיהן, עם חידות מול הגנה מושלמת.</p>`,
     tryIt: 'advanced',
-  },
-  {
-    title: 'יסודות הניקוד',
-    body: `
-      <p>אם הכרוז לוקח לפחות את מספר הלקיחות שהתחייב אליו, החוזה <strong>בוצע</strong> והצד של הכרוז מקבל ניקוד:</p>
-      <table class="tbl">
-        <tr><th>זן</th><th>נקודות לכל לקיחה מוכרזת (מעבר לשש)</th></tr>
-        <tr><td>${C} ${D} סדרות תחתונות</td><td>20</td></tr>
-        <tr><td>${H} ${S} סדרות עליונות</td><td>30</td></tr>
-        <tr><td>NT</td><td>40 לראשונה, 30 לכל אחת אחריה</td></tr>
-      </table>
-      <ul>
-        <li>חוזה ששווה <strong>100 נקודות לקיחה ומעלה</strong> הוא <strong>משחק מלא</strong>: 3NT, ${B('4H')} או ${B('4S')}, ${B('5C')} או ${B('5D')}. הוא מזכה בבונוס של 300 (500 כשפגיעים).</li>
-        <li>חוזים קטנים יותר הם <strong>חוזים חלקיים</strong> ומזכים בבונוס של 50.</li>
-        <li><strong>סלאם קטן</strong> (רמת 6) מוסיף 500, ו<strong>סלאם גדול</strong> (רמת 7) מוסיף 1000 (יותר כשפגיעים).</li>
-        <li><strong>לקיחות עודפות</strong> מקבלות את ערך הלקיחה.</li>
-        <li>אם הכרוז לא מגיע ליעד, המגינים מקבלים <strong>50 על כל לקיחה חסרה</strong> (100 כשפגיעים).</li>
-      </ul>
-      <p>בלשונית "שחקו יד" כל יד מנוקדת כלא פגיעה.</p>`,
-    tryIt: 'play',
   },
 ];
 
