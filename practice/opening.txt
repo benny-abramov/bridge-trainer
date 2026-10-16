@@ -48,38 +48,34 @@ Explanation: Balanced with 20 HCP: open 2NT.
 הסבר: יד מאוזנת עם 20 נק': פתחו 2NT.
 
 Hand: S K93  H AQ5  D AJ74  C A62
-Answer: 1NT
-Explanation: Balanced with 18 HCP: the hand is too strong for 1NT opening, so open 1D (better minor). If partner responds, we shall jump to 2NT to describe 18-19 balanced
-הסבר: יד מאוזנת עם 18 נק': היד חזקה מדי לפתיחה של 1NT, ולכן פתחו 1♦ (הסדרה התחתונה הטובה יותר). אם השותף משיב, נקפוץ ל-2NT כדי לתאר יד מאוזנת של 18-19.
+Answer: 1D
+Explanation: Balanced with 18 HCP: the hand is too strong for 1NT opening, so open 1D (better minor). If partner responds, jump to 2NT to describe 18-19 balanced
+הסבר: יד מאוזנת עם 18 נק': היד חזקה מדי לפתיחה של 1NT, ולכן פתחו 1♦ (הסדרה התחתונה הטובה יותר). אם השותף משיב, קפצו ל-2NT כדי לתאר יד מאוזנת של 18-19.
 
-# TO FIX: this hand has 15 cards, not 13. Correct it and remove the # marks.
-# Hand: S K932 H Q1052 D KJ74 C K62
-# Answer: 1D
-# Explanation: Major opening require 5 cards, so with 12 HCP open your better minor, 1D
-# הסבר: פתיחה בסדרה עליונה דורשת 5 קלפים, ולכן עם 12 נק' פתחו בסדרה התחתונה הטובה יותר, 1♦.
+Hand: S K932 H A10 D KJ74 C K62
+Answer: 1D
+Explanation: Major opening require 5 cards, so with 12 HCP open your better minor, 1D
+הסבר: פתיחה בסדרה עליונה דורשת 5 קלפים, ולכן עם 12 נק' פתחו בסדרה התחתונה הטובה יותר, 1♦.
 
-# TO FIX: this hand has 14 cards, not 13. Correct it and remove the # marks.
-# Hand: S K932 H Q1052 D KJ7 C K62
-# Answer: 1D
-# Explanation: Major opening require 5 cards, so with 12 HCP open your better minor, 1D
-# הסבר: פתיחה בסדרה עליונה דורשת 5 קלפים, ולכן עם 12 נק' פתחו בסדרה התחתונה הטובה יותר, 1♦.
+Hand: S K932 H Q1052 D KJ7 C K6
+Answer: 1D
+Explanation: Major opening require 5 cards, so with 12 HCP open your better minor, 1D
+הסבר: פתיחה בסדרה עליונה דורשת 5 קלפים, ולכן עם 12 נק' פתחו בסדרה התחתונה הטובה יותר, 1♦.
 
-# TO FIX: this hand has 14 cards, not 13. Correct it and remove the # marks.
-# Hand: S K932 H Q1052 D KJ7 C K76
-# Answer: 1C
-# Explanation: With 3 cards in both minors and no 5 card major, open 1C
-# הסבר: עם 3 קלפים בשתי הסדרות התחתונות ובלי סדרה עליונה של 5 קלפים, פתחו 1♣.
+Hand: S K932 H Q105 D KJ7 C K76
+Answer: 1C
+Explanation: With 3 cards in both minors and no 5 card major, open 1C
+הסבר: עם 3 קלפים בשתי הסדרות התחתונות ובלי סדרה עליונה של 5 קלפים, פתחו 1♣.
 
 Hand: S K9 H Q105 D KJ72 C K762
 Answer: 1D
 Explanation: With 4 cards in both minors open 1D
 הסבר: עם 4 קלפים בשתי הסדרות התחתונות, פתחו 1♦.
 
-# TO FIX: this hand has 14 cards, not 13. Correct it and remove the # marks.
-# Hand: S AK9 H AQ105 D AKJ72 C K7
-# Answer: 2C
-# Explanation: With more than 21 HCP, open 2C, artificial bid that does not promise clubs, just strength
-# הסבר: עם יותר מ-21 נק', פתחו 2♣: הכרזה מלאכותית שלא מבטיחה תלתנים, רק כוח.
+Hand: S AK9 H AQ105 D AKJ7 C K7
+Answer: 2C
+Explanation: With more than 21 HCP, open 2C, artificial bid that does not promise clubs, just strength
+הסבר: עם יותר מ-21 נק', פתחו 2♣: הכרזה מלאכותית שלא מבטיחה תלתנים, רק כוח.
 
 Hand: S 102 H AQ108753 D 32 C 98
 Answer: 3H

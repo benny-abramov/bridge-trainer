@@ -41,10 +41,37 @@ const PRACTICE = {
   {
    "hand": "S:K93 H:AQ5 D:AJ74 C:A62",
    "auction": [],
-   "answer": "1N",
+   "answer": "1D",
    "why": {
-    "en": "Balanced with 18 HCP: the hand is too strong for 1NT opening, so open 1D (better minor). If partner responds, we shall jump to 2NT to describe 18-19 balanced",
-    "he": "יד מאוזנת עם 18 נק': היד חזקה מדי לפתיחה של 1NT, ולכן פתחו 1♦ (הסדרה התחתונה הטובה יותר). אם השותף משיב, נקפוץ ל-2NT כדי לתאר יד מאוזנת של 18-19."
+    "en": "Balanced with 18 HCP: the hand is too strong for 1NT opening, so open 1D (better minor). If partner responds, jump to 2NT to describe 18-19 balanced",
+    "he": "יד מאוזנת עם 18 נק': היד חזקה מדי לפתיחה של 1NT, ולכן פתחו 1♦ (הסדרה התחתונה הטובה יותר). אם השותף משיב, קפצו ל-2NT כדי לתאר יד מאוזנת של 18-19."
+   }
+  },
+  {
+   "hand": "S:K932 H:AT D:KJ74 C:K62",
+   "auction": [],
+   "answer": "1D",
+   "why": {
+    "en": "Major opening require 5 cards, so with 12 HCP open your better minor, 1D",
+    "he": "פתיחה בסדרה עליונה דורשת 5 קלפים, ולכן עם 12 נק' פתחו בסדרה התחתונה הטובה יותר, 1♦."
+   }
+  },
+  {
+   "hand": "S:K932 H:QT52 D:KJ7 C:K6",
+   "auction": [],
+   "answer": "1D",
+   "why": {
+    "en": "Major opening require 5 cards, so with 12 HCP open your better minor, 1D",
+    "he": "פתיחה בסדרה עליונה דורשת 5 קלפים, ולכן עם 12 נק' פתחו בסדרה התחתונה הטובה יותר, 1♦."
+   }
+  },
+  {
+   "hand": "S:K932 H:QT5 D:KJ7 C:K76",
+   "auction": [],
+   "answer": "1C",
+   "why": {
+    "en": "With 3 cards in both minors and no 5 card major, open 1C",
+    "he": "עם 3 קלפים בשתי הסדרות התחתונות ובלי סדרה עליונה של 5 קלפים, פתחו 1♣."
    }
   },
   {
@@ -54,6 +81,15 @@ const PRACTICE = {
    "why": {
     "en": "With 4 cards in both minors open 1D",
     "he": "עם 4 קלפים בשתי הסדרות התחתונות, פתחו 1♦."
+   }
+  },
+  {
+   "hand": "S:AK9 H:AQT5 D:AKJ7 C:K7",
+   "auction": [],
+   "answer": "2C",
+   "why": {
+    "en": "With more than 21 HCP, open 2C, artificial bid that does not promise clubs, just strength",
+    "he": "עם יותר מ-21 נק', פתחו 2♣: הכרזה מלאכותית שלא מבטיחה תלתנים, רק כוח."
    }
   },
   {
