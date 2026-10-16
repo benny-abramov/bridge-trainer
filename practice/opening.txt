@@ -25,3 +25,24 @@
 # Hand: S K93  H AQ5  D KJ74  C Q62
 # Answer: 1NT
 # Explanation: Balanced with 15 HCP: open 1NT.
+=== Opening Bids ===
+
+Hand: S AKJ52  H K74  D Q3  C J82
+Answer: 1S
+Explanation: 13 HCP and five spades. With a 5-card major, open 1 of it.
+הסבר: 13 נק' וחמישה עלים. עם סדרה עליונה של 5 קלפים, פתחו באחת בה.
+
+Hand: S K93  H AQ5  D KJ74  C Q62
+Answer: 1NT
+Explanation: Balanced with 15 HCP: open 1NT.
+הסבר: יד מאוזנת עם 15 נק': פתחו 1NT.
+
+# This hand is for the Opener's Rebid drill (its auction has bids before your turn). To use it,
+# move it to practice/opener-rebid.txt, fill in the explanation, and remove the # marks.
+# === Opener's Rebid ===
+#
+# Hand: S A4  H KQ1062  D K73  C Q85
+# Auction: 1H P 1S P ?
+# Answer: 2H
+# Explanation: …
+# הסבר: …
