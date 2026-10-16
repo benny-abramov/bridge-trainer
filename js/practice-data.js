@@ -8,7 +8,7 @@ const PRACTICE = {
    "answer": "1S",
    "why": {
     "en": "14 HCP and five spades. With a 5-card major, open 1 of it.",
-    "he": "13 נק' וחמישה עלים. עם סדרה עליונה של 5 קלפים, פתחו באחת בה."
+    "he": "14 נק' וחמישה עלים. עם סדרה עליונה של 5 קלפים, פתחו באחת בה."
    }
   },
   {

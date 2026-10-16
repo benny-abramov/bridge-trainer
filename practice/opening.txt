@@ -30,7 +30,7 @@
 Hand: S AKJ52  H K74  D Q3  C J82
 Answer: 1S
 Explanation: 14 HCP and five spades. With a 5-card major, open 1 of it.
-הסבר: 13 נק' וחמישה עלים. עם סדרה עליונה של 5 קלפים, פתחו באחת בה.
+הסבר: 14 נק' וחמישה עלים. עם סדרה עליונה של 5 קלפים, פתחו באחת בה.
 
 Hand: S K93  H AQ5  D KJ74  C Q62
 Answer: 1NT
