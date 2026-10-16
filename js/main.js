@@ -19,6 +19,7 @@ document.addEventListener('click', e => {
 });
 window.addEventListener('hashchange', () => showTab(location.hash.slice(1)));
 
+Sound.init();
 Learn.init();
 HcpTrainer.init();
 OpeningTrainer.init();

@@ -105,6 +105,8 @@ p { margin: .6rem 0; }
 .lang-switch button { font: inherit; font-size: .8rem; font-weight: 600; padding: .2rem .65rem; border: 0; background: none; color: var(--muted); cursor: pointer; }
 .lang-switch button:hover:not(.active) { background: var(--accent-soft); color: var(--text); }
 .lang-switch button.active { background: var(--accent); color: var(--accent-text); }
+.sound-toggle { font: inherit; font-size: 1rem; line-height: 1; padding: .25rem .5rem; border: 1px solid var(--border); border-radius: 999px; background: none; cursor: pointer; }
+.sound-toggle:hover { background: var(--accent-soft); }
 .tabs { display: flex; flex-wrap: wrap; gap: .25rem; }
 .tabs button {
   border: 0;

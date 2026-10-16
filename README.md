@@ -29,6 +29,7 @@ The app is available in **English and Hebrew**. Use the switch in the header; He
 
 | File | Purpose |
 | --- | --- |
+| `js/sound.js` | Card-play sound (generated in the browser) and the sound on/off button |
 | `js/i18n.js` | Language selection; `L(english, hebrew)` picks the text for the current language |
 | `js/cards.js` | Deck, dealing, HCP/shape evaluation, card rendering |
 | `js/learn.js` | Lesson content and the lesson viewer |

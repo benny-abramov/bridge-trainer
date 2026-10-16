@@ -97,6 +97,7 @@ const Play = (() => {
     const hand = st.hands[seat];
     hand.splice(hand.indexOf(card), 1);
     st.trick.push({ seat, card });
+    Sound.cardPlayed();
     st.started = true;
     st.hint = null;
 

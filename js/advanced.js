@@ -348,6 +348,7 @@ function makePuzzleSection(prefix, topics) {
     if (st.done || st.busy || seat !== st.turn) return;
     st.hands[seat] = st.hands[seat].filter(c => c !== card);
     st.trick.push({ seat, card });
+    Sound.cardPlayed();
     st.hint = null;
     if (st.trick.length < 4) {
       st.turn = (seat + 1) % 4;

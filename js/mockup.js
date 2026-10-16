@@ -77,6 +77,7 @@
     moves = moves.slice(0, pos);
     moves.push({ seat, key: keyOf(card) });
     pos++;
+    Sound.cardPlayed();
     hint = null;
     render();
     schedule();
@@ -289,6 +290,8 @@
     hint = bestCard(s);
     render();
   });
+
+  Sound.init();
 
   // Start from ?p=N (1-based) if given, e.g. mockup.html?p=12
   const start = Number(new URLSearchParams(location.search).get('p')) || 1;
