@@ -23,7 +23,7 @@ The app is available in **English and Hebrew**. Use the switch in the header; He
 
 ## Preview: diagram-style puzzles
 
-[`mockup.html`](mockup.html) shows the card-play puzzles in a hand-diagram style (text hands, trick chips, step back/forward, trick counters and a traffic light). It's a separate page for comparison and doesn't change the main app. Open a specific puzzle with `mockup.html?p=12`.
+[`mockup.html`](mockup.html) shows the card-play puzzles in a hand-diagram style (text hands, trick chips, step back/forward, trick counters and trick slots that show tricks won, still possible, or lost through a mistake). It's a separate page for comparison and doesn't change the main app. Open a specific puzzle with `mockup.html?p=12`.
 
 ## Code layout
 

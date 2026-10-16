@@ -1,5 +1,5 @@
 // Preview of a "hand diagram" style for the card-play puzzles: text hands, trick chips, a contract chip,
-// step back/forward, trick counters and a traffic light. Reuses the puzzle data and solver from
+// step back/forward, trick counters and trick slots. Reuses the puzzle data and solver from
 // js/advanced.js and js/declarer.js.
 
 (() => {
@@ -24,7 +24,7 @@
   }
 
   let index = 0;
-  let puzzle, solver;
+  let puzzle, solver, bestAtStart;
   let moves = []; // every card played so far: { seat, key }
   let pos = 0;    // how many of `moves` are currently applied (less than moves.length after stepping back)
   let timer = null;
@@ -65,6 +65,7 @@
     solver = makeSolver(puzzle.trump);
     moves = [];
     pos = 0;
+    bestAtStart = positionAfter(0).possible;
     showSolution = false;
     hint = null;
     render();
@@ -207,11 +208,25 @@
     $('ns').textContent = s.tricks[0];
     $('ew').textContent = s.tricks[1];
 
-    // Traffic light: green while the target is still reachable with best play, red once it isn't.
+    // Trick slots, one per trick: won, still winnable with best play, lost through a mistake,
+    // or a trick the defenders were always going to take.
     const onTrack = s.possible >= target;
-    const light = $('light');
-    light.className = 'light ' + (onTrack ? 'go' : 'stop') + (s.done ? ' done' : '');
-    light.setAttribute('aria-label', onTrack ? L('On track', 'בדרך הנכונה') : L('The target can no longer be reached', 'כבר אי אפשר להגיע ליעד'));
+    const lost = bestAtStart - s.possible;
+    const kinds = [
+      ...Array(s.tricks[0]).fill('won'),
+      ...Array(s.possible - s.tricks[0]).fill('open'),
+      ...Array(lost).fill('lost'),
+      ...Array(total - bestAtStart).fill('theirs'),
+    ];
+    const marks = { won: '●', open: '○', lost: '✕', theirs: '–' };
+    $('slots').innerHTML = kinds.map(k => `<span class="slot-mark ${k}">${marks[k]}</span>`).join('');
+    $('slots').setAttribute('aria-label', L(
+      `${s.tricks[0]} won, ${s.possible - s.tricks[0]} still possible, ${lost} lost through a mistake`,
+      `${s.tricks[0]} נלקחו, ${s.possible - s.tricks[0]} עדיין אפשריות, ${lost} אבדו בגלל טעות`));
+    $('need').textContent = L(`Need ${target} of ${total}`, `נדרשות ${target} מתוך ${total}`);
+    $('legend').innerHTML = L(
+      '<b class="won">●</b> won · <b class="open">○</b> still possible · <b class="lost">✕</b> lost by a mistake · <b class="theirs">–</b> the defenders\' trick',
+      '<b class="won">●</b> נלקחה · <b class="open">○</b> עדיין אפשרית · <b class="lost">✕</b> אבדה בגלל טעות · <b class="theirs">–</b> לקיחה של המגינים');
 
     $('back').disabled = !moves.slice(0, pos).some(m => isHuman(m.seat));
     $('fwd').disabled = pos >= moves.length;
@@ -225,7 +240,8 @@
 
     let status;
     if (s.done) status = s.tricks[0] >= target ? L('Solved!', 'פתרתם!') : L(`You took ${s.tricks[0]} of the ${target} tricks you needed.`, `לקחתם ${s.tricks[0]} מתוך ${target} הלקיחות שהייתם צריכים.`);
-    else if (!onTrack) status = L('The light is red: with best defense the target can no longer be reached. Step back or play again.', 'הרמזור אדום: מול הגנה מיטבית כבר אי אפשר להגיע ליעד. חזרו צעד אחורה או שחקו שוב.');
+    else if (!onTrack) status = L('A mistake cost a trick (✕), so the target can no longer be reached. Step back or play again.', 'טעות עלתה בלקיחה (✕), וכבר אי אפשר להגיע ליעד. חזרו צעד אחורה או שחקו שוב.');
+    else if (lost > 0) status = L('A mistake cost a trick (✕), but you can still reach the target.', 'טעות עלתה בלקיחה (✕), אבל עדיין אפשר להגיע ליעד.');
     else if (isHuman(s.turn)) status = L(`Play a card from ${s.turn === 2 ? 'your hand (South)' : 'dummy (North)'}.`, `שחקו קלף ${s.turn === 2 ? 'מהיד שלכם (דרום)' : 'מהדומם (צפון)'}.`);
     else status = L(`${SEAT_NAMES[s.turn]} is thinking…`, `${SEAT_NAMES[s.turn]} חושב…`);
     $('status').innerHTML = status;

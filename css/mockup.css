@@ -187,29 +187,36 @@
 .round:disabled { opacity: .4; cursor: default; }
 .round .arrow { display: inline-block; }
 
-.play-panel { display: grid; grid-template-columns: auto auto; grid-template-rows: auto auto; gap: 8px; align-items: center; }
+.play-panel { display: grid; grid-template-columns: auto 1fr; gap: 10px 8px; align-items: center; }
 .step-buttons { display: flex; gap: 8px; }
-.counters { grid-row: 2; display: flex; }
+.counters { display: flex; justify-self: end; }
 .counters div { display: flex; flex-direction: column; align-items: center; }
 .counters span { font-size: .75rem; background: linear-gradient(#f4f1d7, #d8d3a6); color: #111; padding: 0 8px; border: 1px solid #b9b48a; }
 .counters b { font-size: 1.5rem; background: linear-gradient(#f4f1d7, #d8d3a6); color: #111; width: 100%; text-align: center; border: 1px solid #b9b48a; border-top: 0; }
 
-.light {
-  grid-row: 1 / span 2;
-  grid-column: 2;
-  justify-self: end;
+/* Trick slots: one per trick in the puzzle. */
+.slots-box { grid-column: 1 / -1; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.slots { display: flex; gap: 6px; direction: ltr; }
+.slot-mark {
+  width: 28px;
+  height: 28px;
   display: flex;
-  flex-direction: column;
-  gap: 6px;
-  padding: 7px;
-  background: #444;
-  border-radius: 10px;
-  border: 2px solid #aaa;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1;
 }
-.lamp { width: 30px; height: 30px; border-radius: 50%; background: #2b2b2b; box-shadow: inset 0 2px 4px rgba(0, 0, 0, .6); }
-.light.stop .lamp.red { background: radial-gradient(circle at 40% 35%, #ff8a80, #d50000); box-shadow: 0 0 10px #ff5252; }
-.light.go .lamp.green { background: radial-gradient(circle at 40% 35%, #b9f6ca, #00a83e); box-shadow: 0 0 10px #69f0ae; }
-.light.go.done .lamp.green::after { content: "✓"; display: flex; justify-content: center; align-items: center; height: 100%; color: #fff; font-weight: 800; }
+.slot-mark.won { background: #fff; color: #2f7d32; font-size: 1.5rem; }
+.slot-mark.open { border: 2px solid #fff; color: transparent; }
+.slot-mark.lost { background: #fff; color: #c62828; border: 2px solid #c62828; }
+.slot-mark.theirs { color: rgba(255, 255, 255, .7); font-size: 1.4rem; }
+.slots-need { font-size: .8rem; color: #fff; }
+.slots-legend { font-size: .8rem; color: var(--muted); margin: 0 0 .6rem; }
+.slots-legend b { font-weight: 800; }
+.slots-legend .won { color: var(--good); }
+.slots-legend .lost { color: var(--bad); }
 
 /* ---------- Side panel ---------- */
 
@@ -268,7 +275,5 @@
   .info-table th, .info-table td { min-width: 0; padding: 3px 5px; font-size: .85rem; }
   .info-table table { border-spacing: 2px; }
   .panel { padding: 8px; max-width: none; }
-  .play-panel { grid-template-columns: auto 1fr auto; grid-template-rows: auto; }
-  .counters { grid-row: 1; grid-column: 2; justify-content: center; }
-  .light { grid-row: 1; grid-column: 3; flex-direction: row; }
+  .play-panel { grid-template-columns: auto 1fr; }
 }
