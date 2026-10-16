@@ -1,0 +1,26 @@
+# Your practice hands for Responding
+#
+# When this file has at least one hand, the Responding drill shows these hands, in this order,
+# instead of random ones. Lines starting with # are ignored.
+# After editing, run from the project folder:   python tools/import_practice.py
+#
+# Each hand starts with a "Hand:" line. The fields:
+#   Hand:         the 13 cards, e.g.  S AKJ52  H K74  D Q3  C J82   (10 or T for ten, - for a void)
+#   Dealer:       who dealt, N, E, S or W                       (optional: helps line up the auction)
+#   Auction:      the calls so far, ending with ? for your turn. Bids like 1S or 2NT,
+#                 P for pass, X for double, XX for redouble.
+#   Answer:       the right call: 1S, 2NT, P, X ...
+#   Explanation:  shown with the answer, in English            (optional)
+#   הסבר:          shown with the answer, in Hebrew             (optional; with only one of the two,
+#                 it's shown in both languages)
+#   Note:         shown above the hand, in English               (optional)
+#   הערה:          shown above the hand, in Hebrew              (optional)
+# A field can continue on the next lines; for example, write four calls per line in an auction.
+#
+# Examples (remove the # at the start of the lines to use them):
+#
+# Hand: S Q1084  H 92  D K763  C J54
+# Auction: 1H P ?
+# Answer: 1S
+# Explanation: 6 HCP and four spades: show the new suit at the 1-level.
+# הסבר: 6 נק' וארבעה עלים: הראו את הסדרה החדשה ברמת 1.

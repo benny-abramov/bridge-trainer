@@ -83,6 +83,7 @@ const OVERCALL_BIDS = ['P', 'X', ...ALL_BIDS.slice(1)];
 
 const OvercallTrainer = makeBidDrill({
   prefix: 'over',
+  practice: 'overcalls',
   bids: OVERCALL_BIDS,
   generate() {
     for (;;) {

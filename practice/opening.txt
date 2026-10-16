@@ -1,0 +1,27 @@
+# Your practice hands for Opening Bids
+#
+# When this file has at least one hand, the Opening Bids drill shows these hands, in this order,
+# instead of random ones. Lines starting with # are ignored.
+# After editing, run from the project folder:   python tools/import_practice.py
+#
+# Each hand starts with a "Hand:" line. The fields:
+#   Hand:         the 13 cards, e.g.  S AKJ52  H K74  D Q3  C J82   (10 or T for ten, - for a void)
+#   Auction:      (optional) passes before your turn, e.g.  P P ?   for a third-seat opening
+#   Answer:       the right call: 1S, 2NT, P, X ...
+#   Explanation:  shown with the answer, in English            (optional)
+#   הסבר:          shown with the answer, in Hebrew             (optional; with only one of the two,
+#                 it's shown in both languages)
+#   Note:         shown above the hand, in English               (optional)
+#   הערה:          shown above the hand, in Hebrew              (optional)
+# A field can continue on the next lines; for example, write four calls per line in an auction.
+#
+# Examples (remove the # at the start of the lines to use them):
+#
+# Hand: S AKJ52  H K74  D Q3  C J82
+# Answer: 1S
+# Explanation: 14 HCP and five spades: with a 5-card major, open 1 of it.
+# הסבר: 14 נק' וחמישה עלים: עם סדרה עליונה של 5 קלפים, פתחו באחת בה.
+#
+# Hand: S K93  H AQ5  D KJ74  C Q62
+# Answer: 1NT
+# Explanation: Balanced with 15 HCP: open 1NT.

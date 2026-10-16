@@ -21,6 +21,16 @@ The app is available in **English and Hebrew**. Use the switch in the header; He
 - **Advanced**: squeezes and endplays. Each has an explanation and hand-built puzzles in which you play North-South against perfect (double-dummy) defense.
 - **Play a Hand**: either declare as South (playing dummy's cards too) against computer defenders, or defend as West with a computer partner against a computer declarer. It includes hints, replaying the same deal, and non-vulnerable scoring.
 
+## Your own practice hands
+
+The Count Points, Opening Bids, Responding, Opener's Rebid, Responder's Rebid and Overcalls drills can use your own hands, answers and explanations instead of random deals:
+
+1. Write the hands in the matching file in [`practice/`](practice/). Each file explains the format at the top and has examples you can uncomment.
+2. Run `python tools/import_practice.py` from the project folder. It checks every hand (13 cards, no duplicates, a legal auction and answer) and writes `js/practice-data.js`. If anything is wrong, it lists each problem with its file and line and writes nothing.
+3. Open `index.html` to try them, then commit and push.
+
+A drill with hands in its file shows only those hands, in your order, and starts again after the last one. A drill whose file has no hands keeps its random deals.
+
 ## Preview: diagram-style puzzles
 
 [`mockup.html`](mockup.html) shows the card-play puzzles in a hand-diagram style (text hands, trick chips, step back/forward, trick counters and trick slots that show tricks won, still possible, or lost through a mistake). It's a separate page for comparison and doesn't change the main app. Open a specific puzzle with `mockup.html?p=12`.
@@ -29,6 +39,7 @@ The app is available in **English and Hebrew**. Use the switch in the header; He
 
 | File | Purpose |
 | --- | --- |
+| `practice/*.txt`, `tools/import_practice.py`, `js/practice-data.js` | Your own practice hands: the text files, the importer, and the data it generates |
 | `js/sound.js` | Card-play sound (generated in the browser) and the sound on/off button |
 | `js/i18n.js` | Language selection; `L(english, hebrew)` picks the text for the current language |
 | `js/cards.js` | Deck, dealing, HCP/shape evaluation, card rendering |

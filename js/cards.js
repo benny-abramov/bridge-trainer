@@ -35,6 +35,16 @@ function dealHands() {
   return [0, 1, 2, 3].map(i => sortHand(deck.slice(i * 13, i * 13 + 13)));
 }
 
+// 'S:AKJ52 H:K74 D:Q3 C:J82' -> sorted cards (10 is written T).
+function parseHand(spec) {
+  const cards = [];
+  for (const part of spec.split(' ')) {
+    const [suit, ranks] = part.split(':');
+    for (const rank of ranks) cards.push({ suit, rank, value: RANKS.indexOf(rank) + 2 });
+  }
+  return sortHand(cards);
+}
+
 function hcp(hand) {
   return hand.reduce((sum, c) => sum + (HCP_VALUES[c.rank] || 0), 0);
 }
@@ -71,6 +81,7 @@ const ltr = html => `<bdi dir="ltr">${html}</bdi>`;
 function bidHtml(bid) {
   if (bid === 'P') return L('Pass', 'פאס');
   if (bid === 'X') return L('Dbl', 'כפל');
+  if (bid === 'XX') return L('Rdbl', 'כפל חוזר');
   return ltr(bid[0] + suitHtml(bid[1]));
 }
 

@@ -57,16 +57,6 @@ function makeSolver(trump) {
   return { search, after };
 }
 
-// 'H:AJ D:Q' -> sorted cards
-function parseHand(spec) {
-  const cards = [];
-  for (const part of spec.split(' ')) {
-    const [suit, ranks] = part.split(':');
-    for (const rank of ranks) cards.push({ suit, rank, value: RANKS.indexOf(rank) + 2 });
-  }
-  return sortHand(cards);
-}
-
 // ---------- Content ----------
 
 const ADVANCED_TOPICS = {

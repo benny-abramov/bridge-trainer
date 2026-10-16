@@ -22,11 +22,23 @@ const hcpText = n => L(`${n} HCP`, `${n} נק'`);
 
 const HcpTrainer = (() => {
   const stats = makeStats();
-  let hand, answered;
+  let hand, answered, item = null, practiceIndex = 0;
   const $ = id => document.getElementById(id);
 
   function next() {
-    hand = dealHands()[0];
+    const list = practiceHands('points');
+    const context = $('hcp-context');
+    if (list.length) {
+      const i = practiceIndex++ % list.length;
+      item = list[i];
+      hand = parseHand(item.hand);
+      context.innerHTML = practiceCounter(i + 1, list.length) + (item.note ? `<div>${practiceText(item.note)}</div>` : '');
+    } else {
+      item = null;
+      hand = dealHands()[0];
+      context.innerHTML = '';
+    }
+    context.hidden = !item;
     answered = false;
     const area = $('hcp-hand');
     area.innerHTML = '';
@@ -53,14 +65,16 @@ const HcpTrainer = (() => {
       $('hcp-feedback').textContent = L('Type a number first.', 'הקלידו קודם מספר.');
       return;
     }
-    const correct = Number(raw) === hcp(hand);
+    const expected = item && item.points != null ? item.points : hcp(hand);
+    const correct = Number(raw) === expected;
     record(stats, correct);
     answered = true;
     $('hcp-input').disabled = true;
     const bal = isBalanced(hand);
     $('hcp-feedback').className = 'feedback ' + (correct ? 'good' : 'bad');
     $('hcp-feedback').innerHTML =
-      `<strong>${correct ? L('Correct!', 'נכון!') : L(`Not quite — it's ${hcp(hand)}.`, `לא בדיוק: התשובה היא ${hcp(hand)}.`)}</strong>` +
+      `<strong>${correct ? L('Correct!', 'נכון!') : L(`Not quite — it's ${expected}.`, `לא בדיוק: התשובה היא ${expected}.`)}</strong>` +
+      (item && item.why ? `<div>${practiceText(item.why)}</div>` : '') +
       `<div class="breakdown" dir="ltr">${breakdown()}</div>` +
       `<div class="small">${L(`This hand is <b>${bal ? 'balanced' : 'unbalanced'}</b>.`, `היד הזו <b>${bal ? 'מאוזנת' : 'לא מאוזנת'}</b>.`)}</div>`;
     $('hcp-stats').textContent = statsText(stats);
@@ -642,20 +656,85 @@ function auctionHtml(headers, rows, note) {
 
 const SEAT = L({ you: 'You', left: 'Left', partner: 'Partner', right: 'Right' }, { you: 'אתם', left: 'משמאל', partner: 'השותף', right: 'מימין' });
 
+// ---------- Your own practice hands ----------
+
+// js/practice-data.js (generated from practice/*.txt by tools/import_practice.py) can hold hands for
+// each drill. A drill that has some uses them, in order, instead of random deals.
+const practiceHands = key => (typeof PRACTICE !== 'undefined' && PRACTICE[key]) || [];
+const practiceText = t => (t ? L(t.en || t.he, t.he || t.en) : '');
+const practiceCounter = (n, total) => `<div class="practice-count">${L(`Hand ${n} of ${total}`, `יד ${n} מתוך ${total}`)}</div>`;
+const bidRank = bid => (Number(bid[0]) - 1) * 5 + 'CDHSN'.indexOf(bid[1]);
+const isBid = call => /^\d/.test(call);
+
+// The bidding box for a drill's own hands: its usual levels, plus whatever the answers need.
+function practiceGrid(defaultBids, list) {
+  const level = call => (isBid(call) ? Number(call[0]) : 0);
+  const maxLevel = Math.max(...defaultBids.map(level), ...list.map(h => level(h.answer)));
+  const grid = ['P'];
+  if (defaultBids.includes('X') || list.some(h => h.answer === 'X' || h.answer === 'XX')) grid.push('X');
+  if (list.some(h => h.answer === 'XX')) grid.push('XX');
+  for (let l = 1; l <= maxLevel; l++) for (const s of 'CDHSN') grid.push(l + s);
+  return grid;
+}
+
+// Turn one of your hands into a drill deal: auction table, legal calls, your answer and explanation.
+function practiceDeal(item, n, total, bids) {
+  const calls = item.auction.slice(0, -1); // the auction ends with '?', your turn
+  const k = calls.length;
+  const rel = i => (((i - k) % 4) + 4) % 4; // seat of call i: 0 you, 1 left, 2 partner, 3 right
+  const names = [SEAT.you, SEAT.left, SEAT.partner, SEAT.right];
+  const note = practiceText(item.note);
+  let context = practiceCounter(n, total);
+  if (item.auction.length) {
+    const rows = [];
+    for (let i = 0; i < item.auction.length; i += 4) rows.push([...item.auction.slice(i, i + 4), '', '', ''].slice(0, 4));
+    context += auctionHtml([0, 1, 2, 3].map(j => names[rel(j)]), rows, note);
+  } else if (note) {
+    context += `<div>${note}</div>`;
+  }
+  const lastBid = calls.reduce((j, c, i) => (isBid(c) ? i : j), -1);
+  const lastAction = calls.reduce((j, c, i) => (c !== 'P' ? i : j), -1);
+  const byOpponent = i => rel(i) % 2 === 1;
+  const canDouble = lastAction >= 0 && isBid(calls[lastAction]) && byOpponent(lastAction);
+  const canRedouble = lastAction >= 0 && calls[lastAction] === 'X' && byOpponent(lastAction);
+  return {
+    hand: parseHand(item.hand),
+    answer: { bid: item.answer, why: practiceText(item.why) },
+    context,
+    bids,
+    allowed: bid => bid === 'P' || (bid === 'X' && canDouble) || (bid === 'XX' && canRedouble)
+      || (isBid(bid) && (lastBid < 0 || bidRank(bid) > bidRank(calls[lastBid]))),
+  };
+}
+
 // A bidding drill: show a hand (and optional context), let the player pick a bid, explain the answer.
 // Elements are looked up as `${prefix}-hand`, `${prefix}-bids`, and so on.
-function makeBidDrill({ prefix, bids, generate }) {
+function makeBidDrill({ prefix, bids, generate, practice }) {
   const stats = makeStats();
   let deal, answered;
+  let practiceIndex = 0, practiceBids = null;
+
+  // Your own hands, in order, when the drill has any; otherwise a random deal.
+  function nextDeal() {
+    const list = practiceHands(practice);
+    if (!list.length) return generate();
+    practiceBids = practiceBids || practiceGrid(bids, list);
+    const i = practiceIndex++ % list.length;
+    return practiceDeal(list[i], i + 1, list.length, practiceBids);
+  }
   const $ = id => document.getElementById(`${prefix}-${id}`);
 
   function next() {
-    deal = generate();
+    deal = nextDeal();
     answered = false;
     const area = $('hand');
     area.innerHTML = '';
     renderFan(area, deal.hand);
-    if (deal.context) $('context').innerHTML = deal.context;
+    const context = $('context');
+    if (context) {
+      context.innerHTML = deal.context || '';
+      context.hidden = !deal.context;
+    }
     $('hcp').textContent = hcpText(hcp(deal.hand));
     $('hcp').hidden = !$('show-hcp').checked;
     $('feedback').className = 'feedback';
@@ -669,9 +748,10 @@ function makeBidDrill({ prefix, bids, generate }) {
     const list = deal.bids || bids;
     box.innerHTML = '';
     box.classList.toggle('with-double', list.includes('X'));
+    box.classList.toggle('with-redouble', list.includes('XX'));
     for (const bid of list) {
       const btn = document.createElement('button');
-      btn.className = 'bid' + (bid === 'P' ? ' pass' : bid === 'X' ? ' dbl' : '');
+      btn.className = 'bid' + (bid === 'P' ? ' pass' : bid === 'X' ? ' dbl' : bid === 'XX' ? ' rdbl' : '');
       btn.innerHTML = bh(bid);
       if (deal.allowed && !deal.allowed(bid)) btn.disabled = true;
       if (answered) {
@@ -715,6 +795,7 @@ const ALL_BIDS = ['P', '1C', '1D', '1H', '1S', '1N', '2C', '2D', '2H', '2S', '2N
 
 const OpeningTrainer = makeBidDrill({
   prefix: 'open',
+  practice: 'opening',
   bids: ALL_BIDS,
   generate() {
     // Passing hands are the most common deal; skip most of them to keep practice interesting.
@@ -729,6 +810,7 @@ const OpeningTrainer = makeBidDrill({
 
 const RespondingTrainer = makeBidDrill({
   prefix: 'resp',
+  practice: 'responding',
   bids: ALL_BIDS,
   generate() {
     const open = ['C', 'D', 'H', 'S'][Math.floor(Math.random() * 4)];
@@ -753,6 +835,7 @@ const REBID_BIDS = [...ALL_BIDS, '3N', '4C', '4D', '4H', '4S'];
 
 const RebidTrainer = makeBidDrill({
   prefix: 'rebid',
+  practice: 'openerRebid',
   bids: REBID_BIDS,
   generate() {
     // Deal a full table so partner's response comes from a real hand.
@@ -780,6 +863,7 @@ const RebidTrainer = makeBidDrill({
 
 const ResponderRebidTrainer = makeBidDrill({
   prefix: 'rrebid',
+  practice: 'responderRebid',
   bids: REBID_BIDS,
   generate() {
     for (;;) {

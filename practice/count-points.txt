@@ -1,0 +1,22 @@
+# Your practice hands for Count Points
+#
+# When this file has at least one hand, the Count Points drill shows these hands, in this order,
+# instead of random ones. Lines starting with # are ignored.
+# After editing, run from the project folder:   python tools/import_practice.py
+#
+# Each hand starts with a "Hand:" line. The fields:
+#   Hand:         the 13 cards, e.g.  S AKJ52  H K74  D Q3  C J82   (10 or T for ten, - for a void)
+#   Answer:       the number of points                          (optional: if left out, the app
+#                 counts the high-card points itself)
+#   Explanation:  shown with the answer, in English            (optional)
+#   הסבר:          shown with the answer, in Hebrew             (optional; with only one of the two,
+#                 it's shown in both languages)
+#   Note:         shown above the hand, in English               (optional)
+#   הערה:          shown above the hand, in Hebrew              (optional)
+# A field can continue on the next lines; for example, write four calls per line in an auction.
+#
+# Examples (remove the # at the start of the lines to use them):
+#
+# Hand: S AKJ52  H K74  D Q3  C J82
+# Explanation: Ace 4 + King 3 + Jack 1 in spades, King 3 in hearts, Queen 2, Jack 1: 14.
+# הסבר: אס 4 + מלך 3 + נסיך 1 בעלים, מלך 3 בלבבות, מלכה 2, נסיך 1: סה"כ 14.
