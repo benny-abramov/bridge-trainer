@@ -21,6 +21,10 @@ The app is available in **English and Hebrew**. Use the switch in the header; He
 - **Advanced**: squeezes and endplays. Each has an explanation and hand-built puzzles in which you play North-South against perfect (double-dummy) defense.
 - **Play a Hand**: either declare as South (playing dummy's cards too) against computer defenders, or defend as West with a computer partner against a computer declarer. It includes hints, replaying the same deal, and non-vulnerable scoring.
 
+## Preview: diagram-style puzzles
+
+[`mockup.html`](mockup.html) shows the card-play puzzles in a hand-diagram style (text hands, trick chips, step back/forward, trick counters and a traffic light). It's a separate page for comparison and doesn't change the main app. Open a specific puzzle with `mockup.html?p=12`.
+
 ## Code layout
 
 | File | Purpose |
@@ -35,5 +39,6 @@ The app is available in **English and Hebrew**. Use the switch in the header; He
 | `js/play.js` | Contract selection, play rules, declare/defend modes, computer play, scoring |
 | `js/advanced.js` | Double-dummy solver, the reusable card-play puzzle player, and the squeeze and endplay puzzles |
 | `js/declarer.js` | Declarer-play puzzles: developing suits, ruffing losers, finesses |
+| `mockup.html`, `js/mockup.js`, `css/mockup.css` | The diagram-style preview page |
 | `js/main.js` | Tab navigation (`#learn`, `#hcp`, `#opening`, `#responding`, `#rebid`, `#rrebid`, `#overcalls`, `#conventions`, `#declarer`, `#defense`, `#advanced`, `#play`) |
 | `css/style.css` | Styles, with light and dark themes |

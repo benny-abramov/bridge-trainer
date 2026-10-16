@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bridge Trainer: diagram-style preview</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>♠</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/mockup.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo" dir="ltr">♠♥♦♣</span> <span data-he="מאמן ברידג': תצוגה מקדימה">Bridge Trainer: preview</span>
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button data-lang="en" lang="en">English</button>
+        <button data-lang="he" lang="he">עברית</button>
+      </div>
+    </div>
+    <a class="back-link" href="index.html#declarer" data-he="→ חזרה לאפליקציה">← Back to the app</a>
+  </header>
+
+  <main class="mk">
+    <p class="mk-note" data-he="זוהי תצוגה מקדימה של סגנון חדש לחידות משחק הקלפים. החידות, הפותר וההסברים זהים לאלה שבאפליקציה.">
+      This is a preview of a new style for the card-play puzzles. The puzzles, solver and explanations are the same as in the app.</p>
+
+    <div class="mk-board">
+      <div class="felt">
+        <div class="compass-box" id="mk-compass" aria-hidden="true"></div>
+        <div class="hand north" id="mk-seat-0"></div>
+        <div class="info-table" id="mk-info"></div>
+
+        <div class="hand west" id="mk-seat-3"></div>
+        <div class="trick" id="mk-trick"></div>
+        <div class="hand east" id="mk-seat-1"></div>
+
+        <div class="panel nav-panel">
+          <label for="mk-select" class="visually-hidden" data-he="בחירת חידה">Choose a puzzle</label>
+          <select id="mk-select" class="mk-select"></select>
+          <div class="nav-buttons">
+            <button class="round" id="mk-prev" aria-label="Previous puzzle" data-he-label="החידה הקודמת"><span class="arrow">←</span></button>
+            <span class="nav-label" data-he="הקודמת · הבאה">Previous · Next</span>
+            <button class="round" id="mk-next" aria-label="Next puzzle" data-he-label="החידה הבאה"><span class="arrow">→</span></button>
+          </div>
+        </div>
+        <div class="south-wrap">
+          <div class="contract-chip" id="mk-contract"></div>
+          <div class="hand south" id="mk-seat-2"></div>
+        </div>
+        <div class="panel play-panel">
+          <div class="step-buttons">
+            <button class="round small" id="mk-back" aria-label="Step back" data-he-label="צעד אחורה"><span class="arrow">⏪</span></button>
+            <button class="round small" id="mk-fwd" aria-label="Step forward" data-he-label="צעד קדימה"><span class="arrow">⏩</span></button>
+          </div>
+          <div class="counters">
+            <div><span data-he="צ-ד">N-S</span><b id="mk-ns">0</b></div>
+            <div><span data-he="מז-מע">E-W</span><b id="mk-ew">0</b></div>
+          </div>
+          <div class="light" id="mk-light" role="img" aria-label="On track"><span class="lamp red"></span><span class="lamp green"></span></div>
+        </div>
+      </div>
+
+      <aside class="side">
+        <div class="side-buttons">
+          <button class="pill-btn" id="mk-hide">Hide hands</button>
+          <button class="pill-btn" id="mk-hint" data-he="רמז">Hint</button>
+          <button class="pill-btn" id="mk-solution" data-he="פתרון">Solution</button>
+          <button class="pill-btn" id="mk-replay" data-he="שחקו שוב">Play again</button>
+        </div>
+        <h2 id="mk-title"></h2>
+        <p class="mk-idea" id="mk-idea"></p>
+        <div class="mk-status" id="mk-status" aria-live="polite"></div>
+        <div class="feedback" id="mk-feedback" aria-live="polite"></div>
+      </aside>
+    </div>
+  </main>
+
+  <script src="js/i18n.js"></script>
+  <script src="js/cards.js"></script>
+  <script src="js/advanced.js"></script>
+  <script src="js/declarer.js"></script>
+  <script src="js/mockup.js"></script>
+</body>
+</html>
