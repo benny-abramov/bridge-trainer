@@ -52,8 +52,8 @@ const PRACTICE = {
    "auction": [],
    "answer": "1D",
    "why": {
-    "en": "Major opening require 5 cards, so with 12 HCP open your better minor, 1D",
-    "he": "פתיחה בסדרה עליונה דורשת 5 קלפים, ולכן עם 12 נק' פתחו בסדרה התחתונה הטובה יותר, 1♦."
+    "en": "Major opening require 5 cards, so with 14 HCP open your better minor, 1D",
+    "he": "פתיחה בסדרה עליונה דורשת 5 קלפים, ולכן עם 14 נק' פתחו בסדרה התחתונה הטובה יותר, 1♦."
    }
   },
   {

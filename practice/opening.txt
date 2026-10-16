@@ -54,8 +54,8 @@ Explanation: Balanced with 18 HCP: the hand is too strong for 1NT opening, so op
 
 Hand: S K932 H A10 D KJ74 C K62
 Answer: 1D
-Explanation: Major opening require 5 cards, so with 12 HCP open your better minor, 1D
-הסבר: פתיחה בסדרה עליונה דורשת 5 קלפים, ולכן עם 12 נק' פתחו בסדרה התחתונה הטובה יותר, 1♦.
+Explanation: Major opening require 5 cards, so with 14 HCP open your better minor, 1D
+הסבר: פתיחה בסדרה עליונה דורשת 5 קלפים, ולכן עם 14 נק' פתחו בסדרה התחתונה הטובה יותר, 1♦.
 
 Hand: S K932 H Q1052 D KJ7 C K6
 Answer: 1D
