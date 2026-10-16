@@ -311,6 +311,31 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 .puzzle .feedback ul { margin: .4rem 0; padding-inline-start: 1.2rem; }
 .warn { color: var(--bad); font-weight: 600; }
 
+/* Trick slots in the puzzles: won, still possible, lost through a mistake, the defenders' trick. */
+.trick-slots { display: flex; flex-wrap: wrap; align-items: center; gap: .35rem .7rem; margin: -.3rem .25rem .9rem; }
+.ts-label { font-weight: 600; }
+.ts-row { display: inline-flex; gap: 6px; } /* follows the reading direction: the first trick is read first */
+.ts-need { color: var(--muted); font-size: .9rem; }
+.ts-legend { flex-basis: 100%; font-size: .8rem; color: var(--muted); }
+.ts-mark {
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: .85rem;
+  font-weight: 800;
+  line-height: 1;
+  vertical-align: middle;
+}
+.ts-mark.won { background: var(--accent); }
+.ts-mark.open { border: 2px solid var(--accent); }
+.ts-mark.lost { border: 2px solid var(--bad); color: var(--bad); }
+.ts-mark.theirs { color: var(--muted); font-size: 1.2rem; }
+.ts-legend .ts-mark { width: 13px; height: 13px; font-size: .55rem; border-width: 1.5px; margin-inline-end: 2px; }
+.ts-legend .ts-mark.theirs { font-size: .9rem; }
+
 .defend-cta { margin-top: 1.25rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
 .defend-cta p { margin: 0; max-width: 560px; }
 .card.wrong-pick { box-shadow: 0 0 0 3px var(--bad), 0 6px 12px rgba(0, 0, 0, .3); transform: translateY(-10px); }

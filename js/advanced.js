@@ -276,6 +276,25 @@ function localizeTopics(topics, he) {
   return topics;
 }
 
+// ---------- Trick slots ----------
+
+// One mark per trick in the puzzle: won, still winnable with best play, lost through a mistake,
+// or a trick the defenders were always going to take.
+const slotMark = kind => `<span class="ts-mark ${kind}">${kind === 'lost' ? '✕' : kind === 'theirs' ? '–' : ''}</span>`;
+
+function trickSlotsHtml(won, possible, best, total) {
+  return [
+    ...Array(won).fill('won'),
+    ...Array(possible - won).fill('open'),
+    ...Array(best - possible).fill('lost'),
+    ...Array(total - best).fill('theirs'),
+  ].map(slotMark).join('');
+}
+
+const TRICK_SLOTS_LEGEND = L(
+  `${slotMark('won')} won · ${slotMark('open')} still possible · ${slotMark('lost')} lost by a mistake · ${slotMark('theirs')} the defenders' trick`,
+  `${slotMark('won')} נלקחה · ${slotMark('open')} עדיין אפשרית · ${slotMark('lost')} אבדה בגלל טעות · ${slotMark('theirs')} לקיחה של המגינים`);
+
 // ---------- Puzzle player ----------
 
 function makePuzzleSection(prefix, topics) {
@@ -301,10 +320,11 @@ function makePuzzleSection(prefix, topics) {
       busy: false,
       done: false,
       hint: null,
-      lost: false,
       solver: makeSolver(p.trump),
       showSolution: false,
     };
+    updatePossible();
+    st.bestAtStart = st.possible;
     render();
     schedule();
   }
@@ -317,6 +337,13 @@ function makePuzzleSection(prefix, topics) {
     return legal.filter((c, i) => values[i] === target);
   }
 
+  // Most tricks North-South can still end up with if both sides play perfectly from here.
+  function updatePossible() {
+    const trick = st.trick.length === 4 ? [] : st.trick;
+    const finished = st.hands.every(h => !h.length);
+    st.possible = st.tricks[0] + (finished ? 0 : st.solver.search(st.hands, trick, st.turn));
+  }
+
   function playCard(seat, card) {
     if (st.done || st.busy || seat !== st.turn) return;
     st.hands[seat] = st.hands[seat].filter(c => c !== card);
@@ -324,6 +351,7 @@ function makePuzzleSection(prefix, topics) {
     st.hint = null;
     if (st.trick.length < 4) {
       st.turn = (seat + 1) % 4;
+      updatePossible();
       render();
       schedule();
       return;
@@ -332,12 +360,12 @@ function makePuzzleSection(prefix, topics) {
     st.tricks[w % 2]++;
     st.turn = w;
     st.busy = true;
+    updatePossible();
     render();
     timer = setTimeout(() => {
       st.trick = [];
       st.busy = false;
       if (!st.hands[w].length) st.done = true;
-      else if (st.tricks[0] + st.solver.search(st.hands, [], w) < puzzle().target) st.lost = true;
       render();
       schedule();
     }, TRICK_PAUSE);
@@ -404,9 +432,12 @@ function makePuzzleSection(prefix, topics) {
         : L(`You took ${st.tricks[0]} of the ${p.target} tricks you needed.`, `לקחתם ${st.tricks[0]} מתוך ${p.target} הלקיחות שהייתם צריכים.`);
     }
     if (st.busy) return L(`${SEAT_NAMES[trickWinnerOf(st.trick, p.trump)]} wins the trick.`, `${SEAT_NAMES[trickWinnerOf(st.trick, p.trump)]} זוכה בלקיחה.`);
-    const warn = st.lost
-      ? ` <span class="warn">${L('With best defense, the target can no longer be reached. Try Reset.', 'מול הגנה מיטבית כבר אי אפשר להגיע ליעד. נסו להתחיל מחדש.')}</span>`
-      : '';
+    let warn = '';
+    if (st.possible < p.target) {
+      warn = ` <span class="warn">${L('A mistake cost a trick (✕), so the target can no longer be reached. Try Reset.', 'טעות עלתה בלקיחה (✕), וכבר אי אפשר להגיע ליעד. נסו להתחיל מחדש.')}</span>`;
+    } else if (st.possible < st.bestAtStart) {
+      warn = ` <span class="warn">${L('A mistake cost a trick (✕), but you can still reach the target.', 'טעות עלתה בלקיחה (✕), אבל עדיין אפשר להגיע ליעד.')}</span>`;
+    }
     if (!isHuman(st.turn)) return L(`${SEAT_NAMES[st.turn]} is thinking…`, `${SEAT_NAMES[st.turn]} חושב…`) + warn;
     const from = st.turn === 2 ? L('your hand (South)', 'מהיד שלכם (דרום)') : L('dummy (North)', 'מהדומם (צפון)');
     const still = L(`You still need ${need} trick${need === 1 ? '' : 's'}.`, need === 1 ? 'נדרשת לכם עוד לקיחה אחת.' : `נדרשות לכם עוד ${need} לקיחות.`);
@@ -432,6 +463,13 @@ function makePuzzleSection(prefix, topics) {
     $('next').disabled = index === t.puzzles.length - 1;
     $('hint').disabled = st.done || st.busy || !isHuman(st.turn);
     $('status').innerHTML = statusText();
+
+    $('slots').innerHTML = trickSlotsHtml(st.tricks[0], st.possible, st.bestAtStart, n);
+    $('slots').setAttribute('aria-label', L(
+      `${st.tricks[0]} won, ${st.possible - st.tricks[0]} still possible, ${st.bestAtStart - st.possible} lost through a mistake`,
+      `${st.tricks[0]} נלקחו, ${st.possible - st.tricks[0]} עדיין אפשריות, ${st.bestAtStart - st.possible} אבדו בגלל טעות`));
+    $('need').textContent = L(`need ${p.target} of ${n}`, `נדרשות ${p.target} מתוך ${n}`);
+    $('legend').innerHTML = TRICK_SLOTS_LEGEND;
 
     const fb = $('feedback');
     if (st.done) {
