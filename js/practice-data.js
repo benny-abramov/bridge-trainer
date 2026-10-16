@@ -3,6 +3,15 @@
 const PRACTICE = {
  "opening": [
   {
+   "hand": "S:AK87 H:K742 D:32 C:532",
+   "auction": [],
+   "answer": "P",
+   "why": {
+    "en": "10 HCP is not enough to open the bidding, so pass",
+    "he": "10 נק' לא מספיקות לפתיחת המכרז, ולכן פאס."
+   }
+  },
+  {
    "hand": "S:AKJ52 H:K74 D:Q3 C:J82",
    "auction": [],
    "answer": "1S",
@@ -18,6 +27,60 @@ const PRACTICE = {
    "why": {
     "en": "Balanced with 15 HCP: open 1NT.",
     "he": "יד מאוזנת עם 15 נק': פתחו 1NT."
+   }
+  },
+  {
+   "hand": "S:AK9 H:AQ5 D:AJ74 C:Q62",
+   "auction": [],
+   "answer": "2N",
+   "why": {
+    "en": "Balanced with 20 HCP: open 2NT.",
+    "he": "יד מאוזנת עם 20 נק': פתחו 2NT."
+   }
+  },
+  {
+   "hand": "S:K93 H:AQ5 D:AJ74 C:A62",
+   "auction": [],
+   "answer": "1N",
+   "why": {
+    "en": "Balanced with 18 HCP: the hand is too strong for 1NT opening, so open 1D (better minor). If partner responds, we shall jump to 2NT to describe 18-19 balanced",
+    "he": "יד מאוזנת עם 18 נק': היד חזקה מדי לפתיחה של 1NT, ולכן פתחו 1♦ (הסדרה התחתונה הטובה יותר). אם השותף משיב, נקפוץ ל-2NT כדי לתאר יד מאוזנת של 18-19."
+   }
+  },
+  {
+   "hand": "S:K9 H:QT5 D:KJ72 C:K762",
+   "auction": [],
+   "answer": "1D",
+   "why": {
+    "en": "With 4 cards in both minors open 1D",
+    "he": "עם 4 קלפים בשתי הסדרות התחתונות, פתחו 1♦."
+   }
+  },
+  {
+   "hand": "S:T2 H:AQT8753 D:32 C:98",
+   "auction": [],
+   "answer": "3H",
+   "why": {
+    "en": "With 7 cards in a suit and 5-10 HCP, open 3 in the suit, preemptive bid",
+    "he": "עם 7 קלפים בסדרה ו-5-10 נק', פתחו ב-3 בסדרה: הכרזת חסימה."
+   }
+  },
+  {
+   "hand": "S:76 H:AQJT8753 D:3 C:98",
+   "auction": [],
+   "answer": "4H",
+   "why": {
+    "en": "With 8 cards in a suit and 5-10 HCP, open 4 in the suit, preemptive bid",
+    "he": "עם 8 קלפים בסדרה ו-5-10 נק', פתחו ב-4 בסדרה: הכרזת חסימה."
+   }
+  },
+  {
+   "hand": "S:AKJ76 H:K987 D:32 C:54",
+   "auction": [],
+   "answer": "1S",
+   "why": {
+    "en": "With only 11 HCP, but 54 in S and H, open 1S",
+    "he": "עם 11 נק' בלבד, אבל 5-4 בעלים ובלבבות, פתחו 1♠."
    }
   }
  ]
