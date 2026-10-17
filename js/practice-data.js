@@ -482,6 +482,195 @@ const PRACTICE = {
    }
   }
  ],
+ "responderRebid": [
+  {
+   "hand": "S:JT6 H:Q85 D:QT72 C:Q92",
+   "auction": [
+    "1H",
+    "P",
+    "2H",
+    "P",
+    "3H",
+    "P",
+    "?"
+   ],
+   "answer": "P",
+   "why": {
+    "en": "Partner invites game, but we have the lower range (6-8 of the 6-10 range), decline and pass",
+    "he": "השותף מזמין למשחק מלא, אבל יש לכם את החלק הנמוך של הטווח (6-8 מתוך 6-10), ולכן דחו את ההזמנה והכריזו פאס."
+   }
+  },
+  {
+   "hand": "S:JT6 H:Q85 D:AT72 C:Q92",
+   "auction": [
+    "1H",
+    "P",
+    "2H",
+    "P",
+    "3H",
+    "P",
+    "?"
+   ],
+   "answer": "4H",
+   "why": {
+    "en": "Partner invites game, and we have the upper range (9-10 of the 6-10 range), so accept and bid game",
+    "he": "השותף מזמין למשחק מלא, ויש לכם את החלק העליון של הטווח (9-10 מתוך 6-10), ולכן קבלו את ההזמנה והכריזו משחק מלא."
+   }
+  },
+  {
+   "hand": "S:JT62 H:Q8 D:AT72 C:Q93",
+   "auction": [
+    "1H",
+    "P",
+    "1S",
+    "P",
+    "1N",
+    "P",
+    "?"
+   ],
+   "answer": "P",
+   "why": {
+    "en": "Partner does not have support for our suit, and has 12-14 HCP range. There is no chance for game so we have to pass and try to make part score at the lowest possible level",
+    "he": "לשותף אין תמיכה בסדרה שלכם, ויש לו 12-14 נק'. אין סיכוי למשחק מלא, ולכן הכריזו פאס ונסו לבצע חוזה חלקי ברמה הנמוכה ביותר."
+   }
+  },
+  {
+   "hand": "S:J962 H:Q8 D:AK72 C:Q93",
+   "auction": [
+    "1H",
+    "P",
+    "1S",
+    "P",
+    "1N",
+    "P",
+    "?"
+   ],
+   "answer": "2N",
+   "why": {
+    "en": "Partner has 12-14 range, so with 12 HCP invite 3NT. Partner will pass with a minimum and raise to 3NT with maximum",
+    "he": "לשותף יש 12-14 נק', ולכן עם 12 נק' הזמינו ל-3NT. השותף יכריז פאס עם מינימום ויעלה ל-3NT עם מקסימום."
+   }
+  },
+  {
+   "hand": "S:QJ9632 H:Q8 D:J2 C:932",
+   "auction": [
+    "1H",
+    "P",
+    "1S",
+    "P",
+    "1N",
+    "P",
+    "?"
+   ],
+   "answer": "2S",
+   "why": {
+    "en": "Partner has 12-14 range with balanced hand, so 2S is a better contract than 1NT with at least 8 card spade fit",
+    "he": "לשותף יש 12-14 נק' ויד מאוזנת, ולכן 2S הוא חוזה טוב יותר מ-1NT, עם התאמה של 8 קלפים לפחות בספייד."
+   }
+  },
+  {
+   "hand": "S:KJ9632 H:Q8 D:K2 C:Q32",
+   "auction": [
+    "1H",
+    "P",
+    "1S",
+    "P",
+    "1N",
+    "P",
+    "?"
+   ],
+   "answer": "3S",
+   "why": {
+    "en": "Partner has 12-14 range with balanced hand, so we have at least 8 card spade fit. With 11 HCP invite game. Partner will pass with minimum and raise to 4S with maximum",
+    "he": "לשותף יש 12-14 נק' ויד מאוזנת, ולכן יש לכם התאמה של 8 קלפים לפחות בספייד. עם 11 נק' הזמינו למשחק מלא. השותף יכריז פאס עם מינימום ויעלה ל-4S עם מקסימום."
+   }
+  },
+  {
+   "hand": "S:AQ9632 H:Q8 D:K2 C:Q32",
+   "auction": [
+    "1H",
+    "P",
+    "1S",
+    "P",
+    "1N",
+    "P",
+    "?"
+   ],
+   "answer": "4S",
+   "why": {
+    "en": "Partner has 12-14 range with balanced hand, so we have at least 8 card spade fit. With 13 HCP bid game",
+    "he": "לשותף יש 12-14 נק' ויד מאוזנת, ולכן יש לכם התאמה של 8 קלפים לפחות בספייד. עם 13 נק' הכריזו משחק מלא."
+   }
+  },
+  {
+   "hand": "S:AQ96 H:Q8 D:32 C:98732",
+   "auction": [
+    "1H",
+    "P",
+    "1S",
+    "P",
+    "2D",
+    "P",
+    "?"
+   ],
+   "answer": "2H",
+   "why": {
+    "en": "Partner has 5 hearts and 4+ diamonds. Give preference to the H suit",
+    "he": "לשותף יש 5 קלפי הארט ו-4 קלפי דיאמונד ומעלה. הראו העדפה לסדרת ההארט."
+   }
+  },
+  {
+   "hand": "S:AQ96 H:Q8 D:K932 C:987",
+   "auction": [
+    "1H",
+    "P",
+    "1S",
+    "P",
+    "2D",
+    "P",
+    "?"
+   ],
+   "answer": "3D",
+   "why": {
+    "en": "Partner has 5 hearts and 4+ diamonds. There is a chance for game if partner has the upper range of his bid, so raise the diamond suit",
+    "he": "לשותף יש 5 קלפי הארט ו-4 קלפי דיאמונד ומעלה. יש סיכוי למשחק מלא אם לשותף יש את החלק העליון של הטווח שלו, ולכן תמכו בדיאמונד."
+   }
+  },
+  {
+   "hand": "S:AQ96 H:Q8 D:T93 C:QJ82",
+   "auction": [
+    "1H",
+    "P",
+    "1S",
+    "P",
+    "2D",
+    "P",
+    "?"
+   ],
+   "answer": "2N",
+   "why": {
+    "en": "Partner has 5 hearts and 4+ diamonds. We have invitational hand (11-12 HCP opposite an opening bid) and stopper in the fourth suit (unbid suit) - bid 2NT inviting 3NT",
+    "he": "לשותף יש 5 קלפי הארט ו-4 קלפי דיאמונד ומעלה. יש לכם יד מזמינה (11-12 נק' מול הכרזת פתיחה) ועוצר בסדרה הרביעית (הסדרה שלא הוכרזה), ולכן הכריזו 2NT כהזמנה ל-3NT."
+   }
+  },
+  {
+   "hand": "S:AQ96 H:Q8 D:Q93 C:QJ82",
+   "auction": [
+    "1H",
+    "P",
+    "1S",
+    "P",
+    "2D",
+    "P",
+    "?"
+   ],
+   "answer": "3N",
+   "why": {
+    "en": "Partner has 5 hearts and 4+ diamonds. We have game values (13 HCP opposite an opening bid) and stopper in the fourth suit (unbid suit) - bid 3NT (game)",
+    "he": "לשותף יש 5 קלפי הארט ו-4 קלפי דיאמונד ומעלה. יש לכם מספיק למשחק מלא (13 נק' מול הכרזת פתיחה) ועוצר בסדרה הרביעית (הסדרה שלא הוכרזה), ולכן הכריזו 3NT (משחק מלא)."
+   }
+  }
+ ],
  "overcalls": [
   {
    "hand": "S:J8432 H:A62 D:73 C:952",
