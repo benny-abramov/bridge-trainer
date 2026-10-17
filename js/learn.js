@@ -197,7 +197,7 @@ const LESSONS_EN = [
         <tr><td>A 4+ card suit you can bid at the 1-level</td><td>Bid it (majors before diamonds; hearts first with 4-4 in the majors)</td></tr>
         <tr><td>Support for partner's minor (4+ ${D} or 5+ ${C})</td><td>Raise: 2 of the minor with 6–10, 3 with 11–12</td></tr>
         <tr><td>6–10 HCP, none of the above</td><td>1NT</td></tr>
-        <tr><td>11–12 HCP, a 4+ card lower-ranking suit (5+ for ${H})</td><td>New suit at the 2-level</td></tr>
+        <tr><td>11+ HCP, a 4+ card lower-ranking suit (5+ for ${H})</td><td>New suit at the 2-level</td></tr>
         <tr><td>11–12 HCP, none of the above</td><td>2NT, inviting game</td></tr>
         <tr><td>13–15 HCP, none of the above</td><td>3NT, bidding game</td></tr>
       </table>
@@ -592,7 +592,7 @@ const LESSONS_HE = [
         <tr><td>סדרה של 4 קלפים ומעלה שאפשר להכריז ברמת 1</td><td>הכריזו אותה (סדרות מייגור לפני דיאמונד; הארט קודם עם 4-4 בסדרות המייגור)</td></tr>
         <tr><td>תמיכה בסדרת המיינור של השותף (4 ומעלה ב-${D} או 5 ומעלה ב-${C})</td><td>תמיכה: ל-2 עם 6-10, ל-3 עם 11-12</td></tr>
         <tr><td>6-10 נק', אף אחד מאלה</td><td>1NT</td></tr>
-        <tr><td>11-12 נק', סדרה נמוכה יותר של 4 קלפים ומעלה (5 ומעלה ב-${H})</td><td>סדרה חדשה ברמת 2</td></tr>
+        <tr><td>11 נק' ומעלה, סדרה נמוכה יותר של 4 קלפים ומעלה (5 ומעלה ב-${H})</td><td>סדרה חדשה ברמת 2</td></tr>
         <tr><td>11-12 נק', אף אחד מאלה</td><td>2NT, הזמנה למשחק מלא</td></tr>
         <tr><td>13-15 נק', אף אחד מאלה</td><td>3NT, הכרזת משחק מלא</td></tr>
       </table>
