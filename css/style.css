@@ -312,6 +312,10 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 .puzzle-nav .btn, .puzzle .play-actions .btn { padding: .35rem .8rem; font-size: .9rem; }
 .puzzle .play-actions { margin-top: .9rem; }
 .table.puzzle-table { min-height: 0; margin-bottom: 1rem; }
+.deal-table { margin-top: .5rem; }
+.deal-table .seat { min-height: 9.5rem; justify-content: flex-start; }
+.deal-center { grid-area: c; max-width: 240px; text-align: center; font-size: .9rem; line-height: 1.4; }
+[dir="rtl"] .deal-center { direction: rtl; }
 .puzzle .feedback ul { margin: .4rem 0; padding-inline-start: 1.2rem; }
 .warn { color: var(--bad); font-weight: 600; }
 

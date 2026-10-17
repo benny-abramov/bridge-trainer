@@ -16,7 +16,9 @@ const LESSONS_EN = [
         <span class="mid">table</span>
       </div>
       <p>A standard 52-card deck is dealt out completely, so everyone holds <strong>13 cards</strong>.
-      Each deal has two phases:</p>
+      Press the button to watch a deal: the dealer gives out one card at a time, clockwise.</p>
+      <div class="deal-demo"></div>
+      <p>Each deal has two phases:</p>
       <ol>
         <li><strong>The auction</strong> — both sides bid to decide how many tricks one partnership promises to win, and which suit (if any) will be trumps.</li>
         <li><strong>The play</strong> — the 13 tricks are played out to see whether that promise is kept.</li>
@@ -406,7 +408,9 @@ const LESSONS_HE = [
         <span class="n">צפון</span><span class="w">מערב</span><span class="e">מזרח</span><span class="s">דרום</span>
         <span class="mid">שולחן</span>
       </div>
-      <p>חפיסה רגילה של 52 קלפים מחולקת כולה, כך שלכל שחקן יש <strong>13 קלפים</strong>. לכל חלוקה שני שלבים:</p>
+      <p>חפיסה רגילה של 52 קלפים מחולקת כולה, כך שלכל שחקן יש <strong>13 קלפים</strong>. לחצו על הכפתור כדי לראות חלוקה: המחלק נותן קלף אחד בכל פעם, לפי כיוון השעון.</p>
+      <div class="deal-demo"></div>
+      <p>לכל חלוקה שני שלבים:</p>
       <ol>
         <li><strong>המכרז</strong>: שני הצדדים מכריזים כדי לקבוע כמה לקיחות זוג אחד מתחייב לקחת, ואיזו סדרה (אם בכלל) תהיה השליט.</li>
         <li><strong>המשחק</strong>: משחקים את 13 הלקיחות כדי לראות אם ההתחייבות מתקיימת.</li>
@@ -789,6 +793,70 @@ const LESSONS_HE = [
 
 const LESSONS = L(LESSONS_EN, LESSONS_HE);
 
+// The "watch a deal" example in the first lesson: deals a shuffled deck one card at a time,
+// clockwise from the dealer's left, and shows all four hands.
+const DealDemo = (() => {
+  let timer = null, dealer = 3;
+
+  function mount(box) {
+    clearTimeout(timer);
+    box.innerHTML = `<p><button class="btn" type="button">${L('Deal a hand', 'חלקו יד')}</button></p>`;
+    box.querySelector('button').addEventListener('click', () => deal(box));
+  }
+
+  function deal(box) {
+    clearTimeout(timer);
+    dealer = (dealer + 1) % 4;
+    box.innerHTML = `
+      <div class="table puzzle-table deal-table">
+        ${[0, 3, 1, 2].map(s => `<div class="seat ${['north', 'east', 'south', 'west'][s]}" data-seat="${s}"></div>`).join('')}
+        <div class="deal-center"></div>
+      </div>
+      <p><button class="btn" type="button" disabled>${L('Next hand →', 'היד הבאה ←')}</button></p>`;
+    const next = box.querySelector('button');
+    next.addEventListener('click', () => deal(box));
+    const center = box.querySelector('.deal-center');
+    const seats = [0, 1, 2, 3].map(s => box.querySelector(`[data-seat="${s}"]`));
+    const deck = shuffle(makeDeck());
+    const hands = [[], [], [], []];
+    const show = seat => {
+      const el = seats[seat];
+      el.innerHTML = `<div class="seat-label"><strong>${SEAT_NAMES[seat]}</strong>${seat === dealer ? ` <span>${L('(dealer)', '(מחלק)')}</span>` : ''}</div>`;
+      if (hands[seat].length) renderSuitRows(el, sortHand(hands[seat]));
+      el.insertAdjacentHTML('beforeend', `<div class="muted">${L(`${hands[seat].length} cards`, `${hands[seat].length} קלפים`)}</div>`);
+    };
+    center.innerHTML = L(
+      `${SEAT_NAMES[dealer]} deals, starting with the player on the left.`,
+      `${SEAT_NAMES[dealer]} מחלק, החל מהשחקן משמאלו.`);
+    [0, 1, 2, 3].forEach(show);
+    const finish = () => {
+      center.innerHTML = L(
+        `All 52 cards are dealt: 13 each. Every deal is different; the dealer moves one seat clockwise for the next hand.`,
+        `כל 52 הקלפים חולקו: 13 לכל שחקן. כל חלוקה שונה, ובחלוקה הבאה המחלק עובר מקום אחד בכיוון השעון.`);
+      next.disabled = false;
+      next.focus({ preventScroll: true });
+    };
+    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      deck.forEach((card, i) => hands[(dealer + 1 + i) % 4].push(card));
+      [0, 1, 2, 3].forEach(show);
+      finish();
+      return;
+    }
+    let i = 0;
+    const step = () => {
+      if (!box.isConnected) return;
+      const seat = (dealer + 1 + i) % 4;
+      hands[seat].push(deck[i++]);
+      show(seat);
+      if (i < 52) timer = setTimeout(step, 45);
+      else finish();
+    };
+    timer = setTimeout(step, 300);
+  }
+
+  return { mount };
+})();
+
 const Learn = (() => {
   let index = 0;
 
@@ -816,6 +884,8 @@ const Learn = (() => {
         <button class="btn secondary" id="lesson-prev" ${index === 0 ? 'disabled' : ''}>${L('← Previous', '→ הקודם')}</button>
         <button class="btn" id="lesson-next" ${index === LESSONS.length - 1 ? 'disabled' : ''}>${L('Next →', 'הבא ←')}</button>
       </div>`;
+    const demo = document.querySelector('#lesson-body .deal-demo');
+    if (demo) DealDemo.mount(demo);
     document.getElementById('lesson-prev').addEventListener('click', () => go(index - 1));
     document.getElementById('lesson-next').addEventListener('click', () => go(index + 1));
   }
