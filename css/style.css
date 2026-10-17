@@ -147,6 +147,7 @@ main { max-width: 1040px; margin: 0 auto; padding: 1.25rem 16px 3rem; }
 .btn.secondary { background: transparent; color: var(--accent); }
 .btn.secondary:hover:not(:disabled) { background: var(--accent-soft); }
 .btn:disabled { opacity: .45; cursor: default; }
+.drill-nav { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; }
 button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px solid var(--hint); outline-offset: 2px; }
 
 /* ---------- Learn ---------- */

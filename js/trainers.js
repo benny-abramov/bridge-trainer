@@ -711,8 +711,11 @@ function practiceDeal(item, n, total, bids) {
 // Elements are looked up as `${prefix}-hand`, `${prefix}-bids`, and so on.
 function makeBidDrill({ prefix, bids, generate, practice }) {
   const stats = makeStats();
-  let deal, answered;
+  // Every hand shown so far, with the bid you chose (null until you answer); `pos` is the one on screen.
+  const history = [];
+  let pos = -1;
   let practiceIndex = 0, practiceBids = null;
+  const current = () => history[pos];
 
   // Your own hands, in order, when the drill has any; otherwise a random deal.
   function nextDeal() {
@@ -724,9 +727,26 @@ function makeBidDrill({ prefix, bids, generate, practice }) {
   }
   const $ = id => document.getElementById(`${prefix}-${id}`);
 
+  // Go forward: to the next hand you've already seen, or to a new one.
   function next() {
-    deal = nextDeal();
-    answered = false;
+    if (pos === history.length - 1) history.push({ deal: nextDeal(), chosen: null });
+    pos++;
+    show();
+  }
+
+  function prev() {
+    if (pos > 0) { pos--; show(); }
+  }
+
+  // Always a new hand, even when you're looking at an earlier one (e.g. after changing the convention).
+  function newHand() {
+    pos = history.length - 1;
+    next();
+  }
+
+  // Draw the current hand; a hand you already answered comes back with its answer shown.
+  function show() {
+    const { deal, chosen } = current();
     const area = $('hand');
     area.innerHTML = '';
     renderFan(area, deal.hand);
@@ -736,14 +756,20 @@ function makeBidDrill({ prefix, bids, generate, practice }) {
       context.hidden = !deal.context;
     }
     $('hcp').textContent = hcpText(hcp(deal.hand));
-    $('hcp').hidden = !$('show-hcp').checked;
-    $('feedback').className = 'feedback';
-    $('feedback').innerHTML = '';
-    $('next').hidden = true;
-    renderBids();
+    $('prev').disabled = pos === 0;
+    if (chosen) {
+      showResult();
+    } else {
+      $('hcp').hidden = !$('show-hcp').checked;
+      $('feedback').className = 'feedback';
+      $('feedback').innerHTML = '';
+      $('next').hidden = true;
+      renderBids();
+    }
   }
 
-  function renderBids(chosen) {
+  function renderBids() {
+    const { deal, chosen } = current();
     const box = $('bids');
     const list = deal.bids || bids;
     box.innerHTML = '';
@@ -754,7 +780,7 @@ function makeBidDrill({ prefix, bids, generate, practice }) {
       btn.className = 'bid' + (bid === 'P' ? ' pass' : bid === 'X' ? ' dbl' : bid === 'XX' ? ' rdbl' : '');
       btn.innerHTML = bh(bid);
       if (deal.allowed && !deal.allowed(bid)) btn.disabled = true;
-      if (answered) {
+      if (chosen) {
         btn.disabled = true;
         if (bid === deal.answer.bid) btn.classList.add('correct');
         else if (bid === chosen) btn.classList.add('wrong');
@@ -765,30 +791,38 @@ function makeBidDrill({ prefix, bids, generate, practice }) {
   }
 
   function choose(bid) {
-    if (answered) return;
-    answered = true;
-    const correct = bid === deal.answer.bid;
+    const entry = current();
+    if (entry.chosen) return;
+    entry.chosen = bid;
+    const correct = bid === entry.deal.answer.bid;
     record(stats, correct);
     if (correct) Sound.correct();
-    renderBids(bid);
+    $('stats').textContent = statsText(stats);
+    showResult();
+    $('next').focus({ preventScroll: true });
+  }
+
+  function showResult() {
+    const { deal, chosen } = current();
+    const correct = chosen === deal.answer.bid;
+    renderBids();
     $('hcp').hidden = false;
     $('feedback').className = 'feedback ' + (correct ? 'good' : 'bad');
     $('feedback').innerHTML =
       `<strong>${correct ? L('Correct!', 'נכון!') : L(`The suggested bid is ${bh(deal.answer.bid)}.`, `ההכרזה המומלצת היא ${bh(deal.answer.bid)}.`)}</strong>` +
       `<div>${deal.answer.why}</div>`;
-    $('stats').textContent = statsText(stats);
     $('next').hidden = false;
-    $('next').focus({ preventScroll: true });
   }
 
   function init() {
     $('next').addEventListener('click', next);
-    $('show-hcp').addEventListener('change', e => { if (!answered) $('hcp').hidden = !e.target.checked; });
+    $('prev').addEventListener('click', prev);
+    $('show-hcp').addEventListener('change', e => { if (!current().chosen) $('hcp').hidden = !e.target.checked; });
     $('stats').textContent = statsText(stats);
     next();
   }
 
-  return { init, next };
+  return { init, next: newHand };
 }
 
 // Bids are listed in auction order, so comparing indexes tells whether a bid is higher.
