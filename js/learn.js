@@ -816,6 +816,7 @@ const DealDemo = (() => {
       <p><button class="btn" type="button" disabled>${L('Next hand →', 'היד הבאה ←')}</button></p>`;
     const next = box.querySelector('button');
     next.addEventListener('click', () => deal(box, false));
+    box.querySelector('.deal-table').scrollIntoView({ block: 'nearest', behavior: 'smooth' });
     const center = box.querySelector('.deal-center');
     const seats = [0, 1, 2, 3].map(s => box.querySelector(`[data-seat="${s}"]`));
     const deck = shuffle(makeDeck());
