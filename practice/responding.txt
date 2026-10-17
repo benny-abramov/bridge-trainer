@@ -60,3 +60,57 @@ Auction: 1C P ?
 Answer: 3C
 Explanation: 11 HCP and a clubs suit - support partner's clubs to the 3 level
 הסבר: 11 נק' וסדרת קלאב: תמכו בקלאב של השותף ברמת 3.
+
+Hand: S K1032  H 83  D 9632  C K98
+Auction: 1NT P ?
+Answer: Pass
+Explanation: Opposite 15-17 HCP opener, the combined point count is below game, so stay as low as possible
+הסבר: מול פותח עם 15-17 נק', סך הנקודות המשותף לא מספיק למשחק מלא, ולכן הישארו ברמה הנמוכה ביותר.
+
+Hand: S K1032  H 83  D A632  C K98
+Auction: 1NT P ?
+Answer: 2C
+Explanation: Stayman convention, asking opener to bid 4 card major suit
+הסבר: סטיימן, ששואל את הפותח אם יש לו סדרת מייגור של 4 קלפים.
+
+Hand: S K103  H A83  D J32 C J1098 
+Auction: 1NT P ?
+Answer: 2NT
+Explanation: 2NT invites opener to bid 3NT with a maximum (pass with a minimum)
+הסבר: 2NT מזמינה את הפותח להכריז 3NT עם מקסימום (ופאס עם מינימום).
+
+Hand: S K103  H A83  D J32 C Q1098 
+Auction: 1NT P ?
+Answer: 3NT
+Explanation: with 10 HCP opposite opener's 15-17 HCP, at least 25 HCP combined points is enough for game
+הסבר: עם 10 נק' מול 15-17 נק' של הפותח, יש לכם יחד לפחות 25 נק', וזה מספיק למשחק מלא.
+
+Hand: S J10943  H 983  D 32 C 987 
+Auction: 1NT P ?
+Answer: 2H
+Explanation: Transfer bid to 2S. If we pass, 1NT will almost certainly fail as opponents have more HCP. After partner completes the transfer, we intend to pass.
+הסבר: טרנספר ל-2S. אם תכריזו פאס, 1NT כמעט בטוח ייכשל, כי ליריבים יש יותר נקודות. אחרי שהשותף ישלים את הטרנספר, הכריזו פאס.
+
+Hand: S KJ1094  H AJ8  D 32 C 987 
+Auction: 1NT P ?
+Answer: 2H
+Explanation: Transfer bid to 2S showing 5 spades. After partner completes the transfer we intend to bid 2NT inviting game, either in 2NT or spades
+הסבר: טרנספר ל-2S, שמראה 5 קלפי ספייד. אחרי שהשותף ישלים את הטרנספר, הכריזו 2NT כהזמנה למשחק מלא, בללא שליט או בספייד.
+
+Hand: S KJ1094  H A98  D 32 C Q87 
+Auction: 1NT P ?
+Answer: 2H
+Explanation: Transfer bid to 2S showing 5 spades. After partner completes the transfer we intend to bid 3NT, and partner will bid 4 spades with 3 card support, or pass with 2 cards
+הסבר: טרנספר ל-2S, שמראה 5 קלפי ספייד. אחרי שהשותף ישלים את הטרנספר, הכריזו 3NT. השותף יכריז 4 ספייד עם 3 קלפי תמיכה, או פאס עם 2 קלפים.
+
+Hand: S QJ10942  H A98  D 32 C J8 
+Auction: 1NT P ?
+Answer: 2H
+Explanation: Transfer bid to 2S, intending to invite with 3S over partner's 2S response
+הסבר: טרנספר ל-2S, ואחרי תשובת 2S של השותף הזמינו עם 3S.
+
+Hand: S KJ10942  H A98  D 32 C Q8 
+Auction: 1NT P ?
+Answer: 4H
+Explanation: Transfer bid to 4S showing 6 spades, as we are assured to have at least 8 card spade fit with partner's balanced hand, and with 10 HCP we have enough strength to bid game
+הסבר: טרנספר ל-4S, שמראה 6 קלפי ספייד. מול היד המאוזנת של השותף מובטחת התאמה של 8 קלפים לפחות בספייד, ועם 10 נק' יש מספיק כוח למשחק מלא.

@@ -211,6 +211,123 @@ const PRACTICE = {
     "en": "11 HCP and a clubs suit - support partner's clubs to the 3 level",
     "he": "11 נק' וסדרת קלאב: תמכו בקלאב של השותף ברמת 3."
    }
+  },
+  {
+   "hand": "S:KT32 H:83 D:9632 C:K98",
+   "auction": [
+    "1N",
+    "P",
+    "?"
+   ],
+   "answer": "P",
+   "why": {
+    "en": "Opposite 15-17 HCP opener, the combined point count is below game, so stay as low as possible",
+    "he": "מול פותח עם 15-17 נק', סך הנקודות המשותף לא מספיק למשחק מלא, ולכן הישארו ברמה הנמוכה ביותר."
+   }
+  },
+  {
+   "hand": "S:KT32 H:83 D:A632 C:K98",
+   "auction": [
+    "1N",
+    "P",
+    "?"
+   ],
+   "answer": "2C",
+   "why": {
+    "en": "Stayman convention, asking opener to bid 4 card major suit",
+    "he": "סטיימן, ששואל את הפותח אם יש לו סדרת מייגור של 4 קלפים."
+   }
+  },
+  {
+   "hand": "S:KT3 H:A83 D:J32 C:JT98",
+   "auction": [
+    "1N",
+    "P",
+    "?"
+   ],
+   "answer": "2N",
+   "why": {
+    "en": "2NT invites opener to bid 3NT with a maximum (pass with a minimum)",
+    "he": "2NT מזמינה את הפותח להכריז 3NT עם מקסימום (ופאס עם מינימום)."
+   }
+  },
+  {
+   "hand": "S:KT3 H:A83 D:J32 C:QT98",
+   "auction": [
+    "1N",
+    "P",
+    "?"
+   ],
+   "answer": "3N",
+   "why": {
+    "en": "with 10 HCP opposite opener's 15-17 HCP, at least 25 HCP combined points is enough for game",
+    "he": "עם 10 נק' מול 15-17 נק' של הפותח, יש לכם יחד לפחות 25 נק', וזה מספיק למשחק מלא."
+   }
+  },
+  {
+   "hand": "S:JT943 H:983 D:32 C:987",
+   "auction": [
+    "1N",
+    "P",
+    "?"
+   ],
+   "answer": "2H",
+   "why": {
+    "en": "Transfer bid to 2S. If we pass, 1NT will almost certainly fail as opponents have more HCP. After partner completes the transfer, we intend to pass.",
+    "he": "טרנספר ל-2S. אם תכריזו פאס, 1NT כמעט בטוח ייכשל, כי ליריבים יש יותר נקודות. אחרי שהשותף ישלים את הטרנספר, הכריזו פאס."
+   }
+  },
+  {
+   "hand": "S:KJT94 H:AJ8 D:32 C:987",
+   "auction": [
+    "1N",
+    "P",
+    "?"
+   ],
+   "answer": "2H",
+   "why": {
+    "en": "Transfer bid to 2S showing 5 spades. After partner completes the transfer we intend to bid 2NT inviting game, either in 2NT or spades",
+    "he": "טרנספר ל-2S, שמראה 5 קלפי ספייד. אחרי שהשותף ישלים את הטרנספר, הכריזו 2NT כהזמנה למשחק מלא, בללא שליט או בספייד."
+   }
+  },
+  {
+   "hand": "S:KJT94 H:A98 D:32 C:Q87",
+   "auction": [
+    "1N",
+    "P",
+    "?"
+   ],
+   "answer": "2H",
+   "why": {
+    "en": "Transfer bid to 2S showing 5 spades. After partner completes the transfer we intend to bid 3NT, and partner will bid 4 spades with 3 card support, or pass with 2 cards",
+    "he": "טרנספר ל-2S, שמראה 5 קלפי ספייד. אחרי שהשותף ישלים את הטרנספר, הכריזו 3NT. השותף יכריז 4 ספייד עם 3 קלפי תמיכה, או פאס עם 2 קלפים."
+   }
+  },
+  {
+   "hand": "S:QJT942 H:A98 D:32 C:J8",
+   "auction": [
+    "1N",
+    "P",
+    "?"
+   ],
+   "answer": "2H",
+   "why": {
+    "en": "Transfer bid to 2S, intending to invite with 3S over partner's 2S response",
+    "he": "טרנספר ל-2S, ואחרי תשובת 2S של השותף הזמינו עם 3S."
+   }
+  },
+  {
+   "hand": "S:KJT942 H:A98 D:32 C:Q8",
+   "auction": [
+    "1N",
+    "P",
+    "?"
+   ],
+   "answer": "4H",
+   "why": {
+    "en": "Transfer bid to 4S showing 6 spades, as we are assured to have at least 8 card spade fit with partner's balanced hand, and with 10 HCP we have enough strength to bid game",
+    "he": "טרנספר ל-4S, שמראה 6 קלפי ספייד. מול היד המאוזנת של השותף מובטחת התאמה של 8 קלפים לפחות בספייד, ועם 10 נק' יש מספיק כוח למשחק מלא."
+   }
   }
  ],
  "openerRebid": [
@@ -362,6 +479,128 @@ const PRACTICE = {
    "why": {
     "en": "17 HCP with 5-4 in D and H: bid H (reverse bid - as hearts are higher than diamonds).",
     "he": "17 נק' עם 5-4 בדיאמונד ובהארט: הכריזו הארט (הכרזת ריברס, כי הארט גבוה מדיאמונד)."
+   }
+  }
+ ],
+ "overcalls": [
+  {
+   "hand": "S:J8432 H:A62 D:73 C:952",
+   "auction": [
+    "1D",
+    "?"
+   ],
+   "answer": "P",
+   "why": {
+    "en": "Not enough HCP or good suit for overcall",
+    "he": ""
+   }
+  },
+  {
+   "hand": "S:KQJ84 H:A62 D:73 C:952",
+   "auction": [
+    "1D",
+    "?"
+   ],
+   "answer": "1S",
+   "why": {
+    "en": "Overcall with 1S with 5 card suit",
+    "he": ""
+   }
+  },
+  {
+   "hand": "S:984 H:AQ962 D:73 C:K95",
+   "auction": [
+    "1S",
+    "?"
+   ],
+   "answer": "P",
+   "why": {
+    "en": "Not enough HCP or good suit for overcall at the 2 level",
+    "he": ""
+   }
+  },
+  {
+   "hand": "S:984 H:AQJ96 D:K3 C:K95",
+   "auction": [
+    "1S",
+    "?"
+   ],
+   "answer": "2H",
+   "why": {
+    "en": "Enough HCP and good suit for overcall at the 2 level",
+    "he": ""
+   }
+  },
+  {
+   "hand": "S:9 H:AQJ9 D:K983 C:K952",
+   "auction": [
+    "1S",
+    "?"
+   ],
+   "answer": "X",
+   "why": {
+    "en": "Takeout double, asking partner to bid his best suit",
+    "he": ""
+   }
+  },
+  {
+   "hand": "S:A32 H:AQJ932 D:K9 C:A9",
+   "auction": [
+    "1C",
+    "?"
+   ],
+   "answer": "X",
+   "why": {
+    "en": "The hand is too strong for simple 1H overcall, so we bid double and then intend to bid hearts over any reponse from partner. This kind of double is called \"big double\"",
+    "he": ""
+   }
+  },
+  {
+   "hand": "S:AQ2 H:AQJ9 D:K9 C:J932",
+   "auction": [
+    "1S",
+    "?"
+   ],
+   "answer": "1N",
+   "why": {
+    "en": "With 15-18 HCP and stopper in opponents suit, bid 1NT",
+    "he": ""
+   }
+  },
+  {
+   "hand": "S:32 H:AQJ932 D:T9 C:J93",
+   "auction": [
+    "1C",
+    "?"
+   ],
+   "answer": "2H",
+   "why": {
+    "en": "Weak jump overcall, showing 6 cards and 6-10 HCP",
+    "he": ""
+   }
+  },
+  {
+   "hand": "S:32 H:AQJT932 D:T9 C:J9",
+   "auction": [
+    "1C",
+    "?"
+   ],
+   "answer": "3H",
+   "why": {
+    "en": "Preemptive bid at the 3 level, showing 7 cards and 6-10 HCP",
+    "he": ""
+   }
+  },
+  {
+   "hand": "S:3 H:AQJT9832 D:T9 C:J9",
+   "auction": [
+    "1C",
+    "?"
+   ],
+   "answer": "4H",
+   "why": {
+    "en": "Preemptive bid at the 4 level, showing 8 cards",
+    "he": ""
    }
   }
  ]

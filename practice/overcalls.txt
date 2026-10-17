@@ -20,8 +20,52 @@
 #
 # Examples (remove the # at the start of the lines to use them):
 #
-# Hand: S KQJ84  H A62  D 73  C 952
-# Auction: 1D ?
-# Answer: 1S
-# Explanation: 10 HCP and a good five-card spade suit: overcall 1S.
-# הסבר: 10 נק' וסדרת ספייד טובה של חמישה קלפים: התערבו ב-1♠.
+Hand: S J8432  H A62  D 73  C 952
+Auction: 1D ?
+Answer: Pass
+Explanation: Not enough HCP or good suit for overcall
+
+Hand: S KQJ84  H A62  D 73  C 952
+Auction: 1D ?
+Answer: 1S
+Explanation: Overcall with 1S with 5 card suit
+
+Hand: S 984  H AQ962  D 73  C K95
+Auction: 1S ?
+Answer: Pass 
+Explanation: Not enough HCP or good suit for overcall at the 2 level
+
+Hand: S 984  H AQJ96  D K3  C K95
+Auction: 1S ?
+Answer: 2H 
+Explanation: Enough HCP and good suit for overcall at the 2 level
+
+Hand: S 9  H AQJ9  D K983  C K952
+Auction: 1S ?
+Answer: X
+Explanation: Takeout double, asking partner to bid his best suit
+
+Hand: S A32  H AQJ932  D K9  C A9
+Auction: 1C ?
+Answer: X
+Explanation: The hand is too strong for simple 1H overcall, so we bid double and then intend to bid hearts over any reponse from partner. This kind of double is called "big double"
+
+Hand: S AQ2  H AQJ9  D K9  C J932
+Auction: 1S ?
+Answer: 1NT
+Explanation: With 15-18 HCP and stopper in opponents suit, bid 1NT
+
+Hand: S 32  H AQJ932  D 109  C J93
+Auction: 1C ?
+Answer: 2H
+Explanation: Weak jump overcall, showing 6 cards and 6-10 HCP
+
+Hand: S 32  H AQJ10932  D 109  C J9
+Auction: 1C ?
+Answer: 3H
+Explanation: Preemptive bid at the 3 level, showing 7 cards and 6-10 HCP
+
+Hand: S 3  H AQJ109832  D 109  C J9
+Auction: 1C ?
+Answer: 4H
+Explanation: Preemptive bid at the 4 level, showing 8 cards
