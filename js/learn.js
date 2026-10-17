@@ -4,6 +4,33 @@ const S = suitHtml('S'), H = suitHtml('H'), D = suitHtml('D'), C = suitHtml('C')
 const B = bidHtml;
 const cardText = (rank, suit) => ltr(rank + suit);
 
+// The strain ranking in the auction lesson: a rising ladder of five tiles. Pointing at (or tapping)
+// a tile highlights it and explains it in the caption below.
+const STRAIN_NOTES = {
+  C: L('Clubs: rank 1, the lowest strain. A minor suit.', 'קלאב: דרגה 1, סוג ההכרזה הנמוך ביותר. סדרת מיינור.'),
+  D: L('Diamonds: rank 2. A minor suit.', 'דיאמונד: דרגה 2. סדרת מיינור.'),
+  H: L('Hearts: rank 3. A major suit.', 'הארט: דרגה 3. סדרת מייגור.'),
+  S: L('Spades: rank 4, the highest suit. A major suit.', 'ספייד: דרגה 4, הסדרה הגבוהה ביותר. סדרת מייגור.'),
+  N: L(`No trump: rank 5, above every suit, so ${bidHtml('1N')} outbids ${bidHtml('1S')}.`, `ללא שליט: דרגה 5, מעל כל הסדרות, ולכן ${bidHtml('1N')} גבוהה מ-${bidHtml('1S')}.`),
+};
+const STRAIN_HINT = L('Point at a strain, or tap it, to see where it ranks.', 'העבירו את העכבר מעל סוג הכרזה, או הקישו עליו, כדי לראות את הדרגה שלו.');
+
+function strainLadder() {
+  const steps = ['C', 'D', 'H', 'S', 'N'].map((k, i) => `
+    <div class="step" style="--i:${i}" tabindex="0" role="listitem" data-strain="${k}" aria-label="${STRAIN_NOTES[k].replace(/<[^>]*>/g, '')}">
+      <div class="step-name">${k === 'N' ? L('No trump', 'ללא שליט') : SUIT_NAME[k][0].toUpperCase() + SUIT_NAME[k].slice(1)}</div>
+      <div class="step-tile">${k === 'N' ? '<span class="nt">NT</span>' : suitHtml(k)}<small>${L('Rank', 'דרגה')} ${i + 1}</small></div>
+    </div>`).join('');
+  return `
+    <div class="ladder" role="list" aria-label="${L('Strains from lowest to highest', 'סוגי ההכרזה מהנמוך לגבוה')}">
+      <svg class="ladder-line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><line x1="10" y1="72" x2="90" y2="22" vector-effect="non-scaling-stroke"/></svg>
+      ${steps}
+      <span class="ladder-end low">${L('Lowest', 'הנמוך ביותר')}</span>
+      <span class="ladder-end high">${L('Highest', 'הגבוה ביותר')}</span>
+    </div>
+    <p class="ladder-caption muted" aria-live="polite">${STRAIN_HINT}</p>`;
+}
+
 const LESSONS_EN = [
   {
     title: 'What is bridge?',
@@ -70,7 +97,7 @@ const LESSONS_EN = [
       The level is the number of tricks <strong>over six</strong> you promise to take:
       bidding 1${H} promises 7 tricks with hearts as trumps; 4${S} promises 10 tricks with spades as trumps.</p>
       <p>Strains rank from low to high:</p>
-      <div class="ranking">${C}<span>&lt;</span>${D}<span>&lt;</span>${H}<span>&lt;</span>${S}<span>&lt;</span>NT</div>
+      ${strainLadder()}
       <p>Every bid must be <strong>higher</strong> than the one before it — either a higher level, or the same level in a higher strain.
       After 1${H}, you could bid 1${S} or 1NT, but to show diamonds you'd need 2${D}.</p>
       <ul>
@@ -462,7 +489,7 @@ const LESSONS_HE = [
       הרמה היא מספר הלקיחות <strong>מעבר לשש</strong> שאתם מתחייבים לקחת:
       ${B('1H')} מתחייבת ל-7 לקיחות עם הארט כשליט, ו-${B('4S')} מתחייבת ל-10 לקיחות עם ספייד כשליט.</p>
       <p>סדר סוגי ההכרזה, מהנמוך לגבוה:</p>
-      <div class="ranking">${C}<span>&lt;</span>${D}<span>&lt;</span>${H}<span>&lt;</span>${S}<span>&lt;</span>NT</div>
+      ${strainLadder()}
       <p>כל הכרזה חייבת להיות <strong>גבוהה</strong> מקודמתה: ברמה גבוהה יותר, או באותה רמה בסוג הכרזה גבוה יותר.
       אחרי ${B('1H')} אפשר להכריז ${B('1S')} או 1NT, אבל כדי להראות דיאמונד צריך ${B('2D')}.</p>
       <ul>
@@ -886,6 +913,26 @@ const Learn = (() => {
         <button class="btn secondary" id="lesson-prev" ${index === 0 ? 'disabled' : ''}>${L('← Previous', '→ הקודם')}</button>
         <button class="btn" id="lesson-next" ${index === LESSONS.length - 1 ? 'disabled' : ''}>${L('Next →', 'הבא ←')}</button>
       </div>`;
+    document.querySelectorAll('#lesson-body .ladder').forEach(ladder => {
+      const caption = ladder.nextElementSibling;
+      ladder.querySelectorAll('.step').forEach(step => {
+        const show = () => {
+          caption.innerHTML = STRAIN_NOTES[step.dataset.strain];
+          ladder.querySelectorAll('.step').forEach(x => x.classList.toggle('active', x === step));
+          ladder.classList.add('has-active');
+        };
+        step.addEventListener('mouseenter', show);
+        step.addEventListener('focus', show);
+      });
+      const reset = () => {
+        if (ladder.contains(document.activeElement)) return;
+        caption.innerHTML = STRAIN_HINT;
+        ladder.classList.remove('has-active');
+        ladder.querySelectorAll('.step').forEach(x => x.classList.remove('active'));
+      };
+      ladder.addEventListener('mouseleave', reset);
+      ladder.addEventListener('focusout', () => setTimeout(reset));
+    });
     const demo = document.querySelector('#lesson-body .deal-demo');
     if (demo) DealDemo.mount(demo);
     document.getElementById('lesson-prev').addEventListener('click', () => go(index - 1));
