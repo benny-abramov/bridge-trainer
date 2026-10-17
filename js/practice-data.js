@@ -161,7 +161,20 @@ const PRACTICE = {
    }
   },
   {
-   "hand": "S:QT H:AK832 D:K62 C:985",
+   "hand": "S:QT H:A9832 D:K62 C:985",
+   "auction": [
+    "1S",
+    "P",
+    "?"
+   ],
+   "answer": "1N",
+   "why": {
+    "en": "9 HCP and a heart suit - since we have less than 11 HCP we must bid 1NT and hope we can bid hearts later",
+    "he": "9 נק' וסדרת הארט. יש לכם פחות מ-11 נק', ולכן הכריזו 1NT, בתקווה להראות את ההארט בהמשך."
+   }
+  },
+  {
+   "hand": "S:QT H:AK832 D:Q62 C:985",
    "auction": [
     "1S",
     "P",
@@ -169,8 +182,8 @@ const PRACTICE = {
    ],
    "answer": "2H",
    "why": {
-    "en": "11 HCP and a heart suit - we can bid at the 2 level",
-    "he": "11 נק' וסדרת הארט: אפשר להכריז אותה ברמת 2."
+    "en": "11 HCP and a heart suit - bid the suit at the 2 level",
+    "he": "11 נק' וסדרת הארט: הכריזו את הסדרה ברמת 2."
    }
   },
   {
