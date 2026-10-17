@@ -769,6 +769,7 @@ function makeBidDrill({ prefix, bids, generate, practice }) {
     answered = true;
     const correct = bid === deal.answer.bid;
     record(stats, correct);
+    if (correct) Sound.correct();
     renderBids(bid);
     $('hcp').hidden = false;
     $('feedback').className = 'feedback ' + (correct ? 'good' : 'bad');

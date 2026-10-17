@@ -1,19 +1,26 @@
-// Card-play sound and the sound on/off button. The sound is generated with the Web Audio API
-// (a short, filtered burst of noise, like a card landing on the table), so there is no audio file.
+// Card-play and correct-answer sounds, and the sound on/off button. The sounds are generated with
+// the Web Audio API (a filtered burst of noise for a card, a rising chime for a right answer), so
+// there are no audio files.
 
 const Sound = (() => {
   let on = true;
   try { on = localStorage.getItem('bridge-sound') !== 'off'; } catch { /* storage may be blocked */ }
   let ctx = null;
 
-  function cardPlayed() {
-    if (!on) return;
+  // The shared audio context, or null when sound is off or unavailable.
+  function audio() {
+    if (!on) return null;
     const AudioCtx = window.AudioContext || window.webkitAudioContext;
-    if (!AudioCtx) return;
+    if (!AudioCtx) return null;
+    ctx = ctx || new AudioCtx();
+    // Browsers start audio suspended until the page has been clicked; resuming is harmless otherwise.
+    if (ctx.state === 'suspended') ctx.resume();
+    return ctx;
+  }
+
+  function cardPlayed() {
     try {
-      ctx = ctx || new AudioCtx();
-      // Browsers start audio suspended until the page has been clicked; resuming is harmless otherwise.
-      if (ctx.state === 'suspended') ctx.resume();
+      if (!audio()) return;
       const length = Math.floor(ctx.sampleRate * 0.08);
       const buffer = ctx.createBuffer(1, length, ctx.sampleRate);
       const data = buffer.getChannelData(0);
@@ -29,6 +36,27 @@ const Sound = (() => {
       source.connect(filter).connect(gain).connect(ctx.destination);
       source.start();
     } catch { /* no audio available: play silently */ }
+  }
+
+  // A short, bright three-note rising chime (C–E–G) for a correct answer.
+  function correct() {
+    try {
+      if (!audio()) return;
+      const start = ctx.currentTime;
+      [1046.5, 1318.5, 1568].forEach((freq, i) => {
+        const t = start + i * 0.09;
+        const osc = ctx.createOscillator();
+        osc.type = 'sine';
+        osc.frequency.value = freq;
+        const gain = ctx.createGain();
+        gain.gain.setValueAtTime(0, t);
+        gain.gain.linearRampToValueAtTime(0.18, t + 0.015);
+        gain.gain.exponentialRampToValueAtTime(0.001, t + 0.4);
+        osc.connect(gain).connect(ctx.destination);
+        osc.start(t);
+        osc.stop(t + 0.45);
+      });
+    } catch { /* no audio available: stay silent */ }
   }
 
   function update(btn) {
@@ -51,5 +79,5 @@ const Sound = (() => {
     });
   }
 
-  return { cardPlayed, init };
+  return { cardPlayed, correct, init };
 })();
