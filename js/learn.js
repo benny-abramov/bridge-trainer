@@ -801,10 +801,11 @@ const DealDemo = (() => {
   function mount(box) {
     clearTimeout(timer);
     box.innerHTML = `<p><button class="btn" type="button">${L('Deal a hand', 'חלקו יד')}</button></p>`;
-    box.querySelector('button').addEventListener('click', () => deal(box));
+    box.querySelector('button').addEventListener('click', () => deal(box, true));
   }
 
-  function deal(box) {
+  // The first deal is animated so you can watch it; "Next hand" shows the new hands at once.
+  function deal(box, animate) {
     clearTimeout(timer);
     dealer = (dealer + 1) % 4;
     box.innerHTML = `
@@ -814,7 +815,7 @@ const DealDemo = (() => {
       </div>
       <p><button class="btn" type="button" disabled>${L('Next hand →', 'היד הבאה ←')}</button></p>`;
     const next = box.querySelector('button');
-    next.addEventListener('click', () => deal(box));
+    next.addEventListener('click', () => deal(box, false));
     const center = box.querySelector('.deal-center');
     const seats = [0, 1, 2, 3].map(s => box.querySelector(`[data-seat="${s}"]`));
     const deck = shuffle(makeDeck());
@@ -836,7 +837,7 @@ const DealDemo = (() => {
       next.disabled = false;
       next.focus({ preventScroll: true });
     };
-    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    if (!animate || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) {
       deck.forEach((card, i) => hands[(dealer + 1 + i) % 4].push(card));
       [0, 1, 2, 3].forEach(show);
       finish();
@@ -848,10 +849,10 @@ const DealDemo = (() => {
       const seat = (dealer + 1 + i) % 4;
       hands[seat].push(deck[i++]);
       show(seat);
-      if (i < 52) timer = setTimeout(step, 45);
+      if (i < 52) timer = setTimeout(step, 15);
       else finish();
     };
-    timer = setTimeout(step, 300);
+    timer = setTimeout(step, 150);
   }
 
   return { mount };
