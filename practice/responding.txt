@@ -19,8 +19,58 @@
 #
 # Examples (remove the # at the start of the lines to use them):
 #
+Hand: S Q1084  H 92  D K763  C J54
+Auction: 1H P ?
+Answer: 1S
+Explanation: 6 HCP and four spades: show the new suit at the 1-level.
+הסבר: 6 נק' וארבעה ספייד: הראו את הסדרה החדשה ברמת 1.
+
+# TO FIX: the lines below repeat the first hand (lines 33-36 have no "Hand:" line).
+# Delete them, or remove the # signs if you want the hand twice.
 # Hand: S Q1084  H 92  D K763  C J54
 # Auction: 1H P ?
 # Answer: 1S
 # Explanation: 6 HCP and four spades: show the new suit at the 1-level.
+
+# Auction: 1H P ?
+# Answer: 1S
+# Explanation: 6 HCP and four spades: show the new suit at the 1-level.
 # הסבר: 6 נק' וארבעה ספייד: הראו את הסדרה החדשה ברמת 1.
+
+Hand: S Q108  H 92  D K763  C J542
+Auction: 1S P ?
+Answer: 2S
+Explanation: 6 HCP and 3 cards in opener's major: support to the 2 level
+הסבר: 6 נק' ו-3 קלפים בסדרת המייגור של הפותח: תמכו ברמת 2.
+
+Hand: S Q108  H A32  D KQ6  C 9854
+Auction: 1S P ?
+Answer: 3S
+Explanation: 11 HCP and 3 cards in opener's major: support to the 3 level - invitation to 4S
+הסבר: 11 נק' ו-3 קלפים בסדרת המייגור של הפותח: תמכו ברמת 3, הזמנה ל-4S.
+
+# TO FIX: this hand has 14 cards (S 2, H 5, D 3, C 4). Remove one card, then delete the # signs.
+# Hand: S Q10  H A9832  D K62  C 9854
+# Auction: 1S P ?
+# Answer: 1NT
+# Explanation: 9 HCP and a heart suit - since we have less than 11 HCP we must bid 1NT and hope we can bid hearts later
+# הסבר: 9 נק' וסדרת הארט. יש לכם פחות מ-11 נק', ולכן הכריזו 1NT, בתקווה להראות את ההארט בהמשך.
+
+# CHECK: the explanation says 11 HCP, but this hand has 12 (Q=2, A+K=7, K=3).
+Hand: S Q10  H AK832  D K62  C 985
+Auction: 1S P ?
+Answer: 2H
+Explanation: 11 HCP and a heart suit - we can bid at the 2 level
+הסבר: 11 נק' וסדרת הארט: אפשר להכריז אותה ברמת 2.
+
+Hand: S J102  H 83  D K62  C A9852
+Auction: 1C P ?
+Answer: 2C
+Explanation: 8 HCP and a clubs suit - support partner's clubs to the 2 level
+הסבר: 8 נק' וסדרת קלאב: תמכו בקלאב של השותף ברמת 2.
+
+Hand: S K102  H 83  D A62  C A9852
+Auction: 1C P ?
+Answer: 3C
+Explanation: 11 HCP and a clubs suit - support partner's clubs to the 3 level
+הסבר: 11 נק' וסדרת קלאב: תמכו בקלאב של השותף ברמת 3.

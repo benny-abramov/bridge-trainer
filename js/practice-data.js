@@ -119,5 +119,85 @@ const PRACTICE = {
     "he": "עם 11 נק' בלבד, אבל 5-4 בספייד ובהארט, פתחו 1♠."
    }
   }
+ ],
+ "responding": [
+  {
+   "hand": "S:QT84 H:92 D:K763 C:J54",
+   "auction": [
+    "1H",
+    "P",
+    "?"
+   ],
+   "answer": "1S",
+   "why": {
+    "en": "6 HCP and four spades: show the new suit at the 1-level.",
+    "he": "6 נק' וארבעה ספייד: הראו את הסדרה החדשה ברמת 1."
+   }
+  },
+  {
+   "hand": "S:QT8 H:92 D:K763 C:J542",
+   "auction": [
+    "1S",
+    "P",
+    "?"
+   ],
+   "answer": "2S",
+   "why": {
+    "en": "6 HCP and 3 cards in opener's major: support to the 2 level",
+    "he": "6 נק' ו-3 קלפים בסדרת המייגור של הפותח: תמכו ברמת 2."
+   }
+  },
+  {
+   "hand": "S:QT8 H:A32 D:KQ6 C:9854",
+   "auction": [
+    "1S",
+    "P",
+    "?"
+   ],
+   "answer": "3S",
+   "why": {
+    "en": "11 HCP and 3 cards in opener's major: support to the 3 level - invitation to 4S",
+    "he": "11 נק' ו-3 קלפים בסדרת המייגור של הפותח: תמכו ברמת 3, הזמנה ל-4S."
+   }
+  },
+  {
+   "hand": "S:QT H:AK832 D:K62 C:985",
+   "auction": [
+    "1S",
+    "P",
+    "?"
+   ],
+   "answer": "2H",
+   "why": {
+    "en": "11 HCP and a heart suit - we can bid at the 2 level",
+    "he": "11 נק' וסדרת הארט: אפשר להכריז אותה ברמת 2."
+   }
+  },
+  {
+   "hand": "S:JT2 H:83 D:K62 C:A9852",
+   "auction": [
+    "1C",
+    "P",
+    "?"
+   ],
+   "answer": "2C",
+   "why": {
+    "en": "8 HCP and a clubs suit - support partner's clubs to the 2 level",
+    "he": "8 נק' וסדרת קלאב: תמכו בקלאב של השותף ברמת 2."
+   }
+  },
+  {
+   "hand": "S:KT2 H:83 D:A62 C:A9852",
+   "auction": [
+    "1C",
+    "P",
+    "?"
+   ],
+   "answer": "3C",
+   "why": {
+    "en": "11 HCP and a clubs suit - support partner's clubs to the 3 level",
+    "he": "11 נק' וסדרת קלאב: תמכו בקלאב של השותף ברמת 3."
+   }
+  }
  ]
 };
