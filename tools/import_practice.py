@@ -80,9 +80,9 @@ def parse_call(token):
     t = clean(token).upper().replace(' ', '')
     if t in ('P', 'PASS', 'פאס'):
         return 'P'
-    if t in ('X', 'DBL', 'DOUBLE', 'כפל'):
+    if t in ('X', 'DBL', 'DOUBLE', 'כפל', 'דאבל'):
         return 'X'
-    if t in ('XX', 'RDBL', 'REDOUBLE'):
+    if t in ('XX', 'RDBL', 'REDOUBLE', 'רידאבל'):
         return 'XX'
     if t == '?':
         return '?'

@@ -23,4 +23,4 @@
 # Auction: 1H P ?
 # Answer: 1S
 # Explanation: 6 HCP and four spades: show the new suit at the 1-level.
-# הסבר: 6 נק' וארבעה עלים: הראו את הסדרה החדשה ברמת 1.
+# הסבר: 6 נק' וארבעה ספייד: הראו את הסדרה החדשה ברמת 1.

@@ -1,0 +1,137 @@
+# Hebrew glossary for Bridge Trainer
+#
+# One term per line:   English = Hebrew            (anything after "#" is a comment)
+# The Hebrew column shows what the app uses today. Change it to the term you prefer, write it
+# exactly as it should be spelled (e.g. with a geresh: מייג'ור), and add any terms that are missing.
+# Optionally add the plural or another form after a "/":   major = מייג'ור / מייג'ורים
+#
+# When you're done, ask Claude to "apply the glossary": all Hebrew text in the app (lessons, drills,
+# puzzles, menus and your practice files) will be rewritten to use these terms, with grammar adjusted.
+
+# ---- Basics ----
+bridge = ברידג'
+deal (the cards) = חלוקה
+dealer = מחלק
+trick = לקיחה / לקיחות
+suit = סדרה / סדרות
+strain = סוג הכרזה
+trump = שליט / שליטים
+no-trump = ללא שליט               # bids are still written 1NT, 3NT
+major (suit) = סדרת מייגור / סדרות מייגור
+minor (suit) = סדרת מיינור / סדרות מיינור
+spades = ספייד
+hearts = הארט
+diamonds = דיאמונד
+clubs = קלאב
+ace = אס
+king = מלך
+queen = מלכה
+jack = נסיך
+honor = הונור / הונורים
+high-card points (HCP) = נקודות גבוהות (נק')
+
+# ---- Players ----
+partner = שותף
+opponents = יריבים
+declarer = כרוז
+dummy = דומם
+defenders = מגינים
+opener = הפותח
+responder = המשיב
+
+# ---- The auction ----
+auction = מכרז
+bid / call = הכרזה / הכרזות
+pass = פאס
+double = דאבל
+redouble = רידאבל
+contract = חוזה
+opening bid = הכרזת פתיחה
+response = תשובה
+rebid = הכרזה חוזרת
+level = רמה
+
+# ---- Hand shape and strength ----
+balanced = מאוזנת
+singleton = סינגלטון
+doubleton = דאבלטון
+void = חוסר
+fit = התאמה
+minimum / medium / maximum = מינימום / בינוני / מקסימום
+stopper = עוצר
+
+# ---- Bidding terms ----
+raise = תמיכה
+limit raise = תמיכה בקפיצה
+forcing = מחייב
+invite / invitation = הזמנה
+preference = העדפה
+reverse = ריברס
+jump shift = קפיצה בסדרה חדשה (ג'אמפ שיפט)
+preempt = הכרזת חסימה
+weak two = הכרזת שתיים חלשה
+Rule of 20 = חוק ה-20
+overcall = הכרזת התערבות
+weak jump overcall = קפיצת התערבות חלשה
+takeout double = כפל הוצאה
+negative double = כפל שלילי
+
+# ---- Conventions ----
+convention = מוסכמה / מוסכמות
+alert = התראה
+Stayman = סטיימן
+Jacoby transfer = טרנספר  ג'ייקובי
+Jacoby 2NT = ג'ייקובי 2NT
+Blackwood = בלאקווד
+Gerber = גרבר
+Michaels cuebid = קיו-ביד מייקלס
+Unusual 2NT = 2NT מלאכותי
+waiting bid (after 2♣) = המתנה
+positive response = תשובה חיובית
+feature (after a weak two) = פיצ'ר
+fourth suit forcing = סדרה רביעית מחייבת
+
+# ---- Scoring ----
+game = משחק מלא
+part score = חוזה חלקי
+small slam / grand slam = סלאם קטן / סלאם גדול
+vulnerable = פגיע
+overtrick = לקיחה עודפת
+undertrick / down = לקיחה חסרה / נפילה
+
+# ---- Card play ----
+lead = הובלה
+opening lead = הובלת פתיחה
+follow suit = לשרת
+ruff = חיתוך / לחתוך
+discard = השלכה / להשליך
+draw trumps = להוציא שליטים
+entry = כניסה
+sure tricks = לקיחות בטוחות
+promotion = קידום
+length tricks = לקיחות אורך
+duck = ויתור (דאק)
+finesse = עקיפה
+double finesse = עקיפה כפולה
+ruffing finesse = עקיפת חיתוך
+tenace (e.g. A-Q) = מזלג
+fourth best = הרביעי מלמעלה
+top of a sequence = העליון ברצף
+top of nothing = עליון מכלום
+second hand low = יד שנייה נמוך
+third hand high = יד שלישית גבוה
+cover an honor with an honor = לכסות הונור בהונור
+signal = איתות
+
+# ---- Advanced ----
+squeeze = לחץ
+threat (card) = איום
+squeeze card = קלף הלחץ
+victim = קורבן
+rectifying the count = תיקון הספירה
+positional / automatic squeeze = לחץ מבוסס מיקום / אוטומטי
+endplay = משחק סיום (אנדפליי)
+throw-in = הכנסה
+strip = ניקוי
+ruff-sluff = חיתוך והשלכה
+unblocking = השלכת קלף גובה

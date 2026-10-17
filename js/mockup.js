@@ -11,7 +11,7 @@
 
   const TOPIC_NAMES = L(
     { develop: 'Developing suits', ruff: 'Ruffing losers', finesse: 'Finesses', squeeze: 'Squeezes', endplay: 'Endplays' },
-    { develop: 'פיתוח סדרות', ruff: 'חיתוך מפסידים', finesse: 'עקיפות', squeeze: 'לחיצות', endplay: 'משחקי סיום' });
+    { develop: 'פיתוח סדרות', ruff: 'חיתוך מפסידים', finesse: 'עקיפות', squeeze: 'לחצים', endplay: 'משחקי סיום' });
   const SECTION_NAMES = L({ declarer: 'Declarer play', advanced: 'Advanced' }, { declarer: 'משחק הכרוז', advanced: 'טכניקות מתקדמות' });
   const COMPASS = L(['N', 'E', 'S', 'W'], ['צ', 'מז', 'ד', 'מע']);
 

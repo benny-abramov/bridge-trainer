@@ -103,7 +103,7 @@ function openingBid(hand) {
   if (pts >= 22) {
     return { bid: '2C', why: L(
       `${pts} HCP is 22 or more, so open ${bh('2C')}: the strong, artificial opening. It says nothing about clubs. It tells partner you have a very big hand.`,
-      `${pts} נק' הן 22 ומעלה, ולכן פתחו ${bh('2C')}: הפתיחה החזקה והמלאכותית. היא לא אומרת דבר על תלתנים, אלא מספרת לשותף שיש לכם יד גדולה מאוד.`) };
+      `${pts} נק' הן 22 ומעלה, ולכן פתחו ${bh('2C')}: הפתיחה החזקה והמלאכותית. היא לא אומרת דבר על קלאב, אלא מספרת לשותף שיש לכם יד גדולה מאוד.`) };
   }
   if (bal && pts >= 20 && pts <= 21) {
     return { bid: '2N', why: L(`Balanced with ${pts} HCP (20–21): open 2NT.`, `יד מאוזנת עם ${pts} נק' (20-21): פתחו 2NT.`) };
@@ -133,21 +133,21 @@ function openingBid(hand) {
       let which = '';
       if (len.S >= 5 && len.H >= 5) {
         which = len.S === len.H
-          ? L(' With two equal majors, bid spades first.', ' עם שתי סדרות עליונות שוות, הכריזו קודם עלים.')
-          : L(' With two 5+ card majors, bid the longer.', ' עם שתי סדרות עליונות של 5 ומעלה, הכריזו את הארוכה.');
+          ? L(' With two equal majors, bid spades first.', ' עם שתי סדרות מייגור שוות, הכריזו קודם ספייד.')
+          : L(' With two 5+ card majors, bid the longer.', ' עם שתי סדרות מייגור של 5 ומעלה, הכריזו את הארוכה.');
       }
       return { bid: '1' + suit, why: L(
         `${reason}. With a ${len[suit]}-card major, open ${bh('1' + suit)}.${which}${note}`,
-        `${reason}. עם סדרה עליונה של ${len[suit]} קלפים, פתחו ${bh('1' + suit)}.${which}${note}`) };
+        `${reason}. עם סדרת מייגור של ${len[suit]} קלפים, פתחו ${bh('1' + suit)}.${which}${note}`) };
     }
     let minor, how;
-    if (len.D > len.C) { minor = 'D'; how = L('diamonds are your longer minor', 'היהלומים הם הסדרה התחתונה הארוכה שלכם'); }
-    else if (len.C > len.D) { minor = 'C'; how = L('clubs are your longer minor', 'התלתנים הם הסדרה התחתונה הארוכה שלכם'); }
-    else if (len.C === 3) { minor = 'C'; how = L(`with 3-3 in the minors, open ${bh('1C')}`, `עם 3-3 בתחתונות, פתחו ${bh('1C')}`); }
-    else { minor = 'D'; how = L(`with ${len.C}-${len.D} in the minors, open ${bh('1D')}`, `עם ${len.C}-${len.D} בתחתונות, פתחו ${bh('1D')}`); }
+    if (len.D > len.C) { minor = 'D'; how = L('diamonds are your longer minor', 'הדיאמונד הוא סדרת המיינור הארוכה שלכם'); }
+    else if (len.C > len.D) { minor = 'C'; how = L('clubs are your longer minor', 'הקלאב הוא סדרת המיינור הארוכה שלכם'); }
+    else if (len.C === 3) { minor = 'C'; how = L(`with 3-3 in the minors, open ${bh('1C')}`, `עם 3-3 בסדרות המיינור, פתחו ${bh('1C')}`); }
+    else { minor = 'D'; how = L(`with ${len.C}-${len.D} in the minors, open ${bh('1D')}`, `עם ${len.C}-${len.D} בסדרות המיינור, פתחו ${bh('1D')}`); }
     return { bid: '1' + minor, why: L(
       `${reason}. No 5-card major, so open a minor: ${how}.${note}`,
-      `${reason}. אין סדרה עליונה של 5, ולכן פתחו בסדרה תחתונה: ${how}.${note}`) };
+      `${reason}. אין סדרת מייגור של 5, ולכן פתחו בסדרת מיינור: ${how}.${note}`) };
   }
 
   if (pts >= 5 && pts <= 10) {
@@ -161,12 +161,12 @@ function openingBid(hand) {
     if (six) {
       return { bid: '2' + six, why: L(
         `${pts} HCP with a 6-card ${SUIT_NAME[six]} suit: open a weak two (${bh('2' + six)}). It shows a long suit in a hand too weak to open at the 1-level.`,
-        `${pts} נק' עם סדרה של 6 קלפים ב${SUIT_NAME[six]}: פתחו "שתיים חלשה" (${bh('2' + six)}). היא מראה סדרה ארוכה ביד חלשה מכדי לפתוח ברמת 1.`) };
+        `${pts} נק' עם סדרה של 6 קלפים ב${SUIT_NAME[six]}: פתחו בהכרזת שתיים חלשה (${bh('2' + six)}). היא מראה סדרה ארוכה ביד חלשה מכדי לפתוח ברמת 1.`) };
     }
     if (len.C === 6) {
       return { bid: 'P', why: L(
         `${pts} HCP is too weak to open at the 1-level. Your 6 clubs can't be shown with a weak ${bh('2C')}, which is reserved for strong hands, so pass.`,
-        `${pts} נק' חלשות מכדי לפתוח ברמת 1. את 6 התלתנים אי אפשר להראות ב-${bh('2C')} חלשה, כי הכרזה זו שמורה לידיים חזקות, ולכן פאס.`) };
+        `${pts} נק' חלשות מכדי לפתוח ברמת 1. את 6 קלפי הקלאב אי אפשר להראות ב-${bh('2C')} חלשה, כי הכרזה זו שמורה לידיים חזקות, ולכן פאס.`) };
     }
   }
   return { bid: 'P', why: L(
@@ -192,11 +192,11 @@ function responseBid(hand, open) {
     if (pts <= 10) {
       return { bid: '2' + open, why: L(
         `${pts} HCP and ${len[open]}-card support for partner's major: raise to ${bh('2' + open)}. Showing an 8-card major fit comes first.`,
-        `${pts} נק' ותמיכה של ${len[open]} קלפים בסדרה העליונה של השותף: הגביהו ל-${bh('2' + open)}. הצגת התאמה של 8 קלפים בסדרה עליונה קודמת לכל.`) };
+        `${pts} נק' ותמיכה של ${len[open]} קלפים בסדרת המייגור של השותף: תמכו ב-${bh('2' + open)}. הצגת התאמה של 8 קלפים בסדרת מייגור קודמת לכל.`) };
     }
     return { bid: '3' + open, why: L(
       `${pts} HCP and ${len[open]}-card support: jump to ${bh('3' + open)}, a <em>limit raise</em>. It invites partner to bid game with a little extra.`,
-      `${pts} נק' ותמיכה של ${len[open]} קלפים: קפצו ל-${bh('3' + open)}, <em>הגבהה מגבילה</em>. היא מזמינה את השותף להכריז משחק מלא אם יש לו מעט יותר.`) };
+      `${pts} נק' ותמיכה של ${len[open]} קלפים: קפצו ל-${bh('3' + open)}, <em>תמיכה בקפיצה</em>. היא מזמינה את השותף להכריז משחק מלא אם יש לו מעט יותר.`) };
   }
 
   // 2. Show a new 4+ card suit at the 1-level, looking for a major fit first.
@@ -206,23 +206,23 @@ function responseBid(hand, open) {
       let tie = '';
       if (len.H === len.S) {
         tie = len.S >= 5
-          ? L(' With two 5-card majors, bid spades first.', ' עם שתי סדרות עליונות של 5, הכריזו קודם עלים.')
-          : L(' With four cards in both majors, bid hearts first (up the line).', ' עם ארבעה קלפים בשתי העליונות, הכריזו קודם לבבות (מלמטה למעלה).');
+          ? L(' With two 5-card majors, bid spades first.', ' עם שתי סדרות מייגור של 5, הכריזו קודם ספייד.')
+          : L(' With four cards in both majors, bid hearts first (up the line).', ' עם ארבעה קלפים בשתי סדרות המייגור, הכריזו קודם הארט (מלמטה למעלה).');
       }
       return { bid: '1' + suit, why: L(
         `${pts} HCP and ${len[suit]} ${SUIT_NAME[suit]}: bid ${bh('1' + suit)}. A new suit at the 1-level shows 4+ cards and 6+ HCP, and looking for a major fit comes before raising a minor.${tie}`,
-        `${pts} נק' ו-${len[suit]} ${SUIT_NAME[suit]}: הכריזו ${bh('1' + suit)}. סדרה חדשה ברמת 1 מראה 4 קלפים ומעלה ו-6 נק' ומעלה, וחיפוש התאמה בסדרה עליונה קודם להגבהת סדרה תחתונה.${tie}`) };
+        `${pts} נק' ו-${len[suit]} ${SUIT_NAME[suit]}: הכריזו ${bh('1' + suit)}. סדרה חדשה ברמת 1 מראה 4 קלפים ומעלה ו-6 נק' ומעלה, וחיפוש התאמה בסדרת מייגור קודם לתמיכה בסדרת מיינור.${tie}`) };
     }
     if (open === 'C' && len.D >= 4) {
       return { bid: '1D', why: L(
         `${pts} HCP and ${len.D} diamonds, no 4-card major: bid ${bh('1D')}. A new suit at the 1-level shows 4+ cards and asks partner to bid again.`,
-        `${pts} נק' ו-${len.D} יהלומים, בלי סדרה עליונה של 4: הכריזו ${bh('1D')}. סדרה חדשה ברמת 1 מראה 4 קלפים ומעלה ומבקשת מהשותף להכריז שוב.`) };
+        `${pts} נק' ו-${len.D} דיאמונד, בלי סדרת מייגור של 4: הכריזו ${bh('1D')}. סדרה חדשה ברמת 1 מראה 4 קלפים ומעלה ומבקשת מהשותף להכריז שוב.`) };
     }
   }
   if (open === 'H' && len.S >= 4) {
     return { bid: '1S', why: L(
       `${pts} HCP, fewer than 3 hearts, but ${len.S} spades: bid ${bh('1S')}. A new suit at the 1-level shows 4+ cards and 6+ HCP.`,
-      `${pts} נק', פחות מ-3 לבבות, אבל ${len.S} עלים: הכריזו ${bh('1S')}. סדרה חדשה ברמת 1 מראה 4 קלפים ומעלה ו-6 נק' ומעלה.`) };
+      `${pts} נק', פחות מ-3 הארט, אבל ${len.S} ספייד: הכריזו ${bh('1S')}. סדרה חדשה ברמת 1 מראה 4 קלפים ומעלה ו-6 נק' ומעלה.`) };
   }
 
   // 3. Raise partner's minor (4+ diamonds or 5+ clubs, since a minor opening can be short).
@@ -230,11 +230,11 @@ function responseBid(hand, open) {
     if (pts <= 10) {
       return { bid: '2' + open, why: L(
         `${pts} HCP, no 4-card major and ${len[open]}-card support: raise to ${bh('2' + open)}.`,
-        `${pts} נק', בלי סדרה עליונה של 4, ותמיכה של ${len[open]} קלפים: הגביהו ל-${bh('2' + open)}.`) };
+        `${pts} נק', בלי סדרת מייגור של 4, ותמיכה של ${len[open]} קלפים: תמכו ב-${bh('2' + open)}.`) };
     }
     return { bid: '3' + open, why: L(
       `${pts} HCP, no 4-card major and ${len[open]}-card support: jump to ${bh('3' + open)}, a limit raise inviting game.`,
-      `${pts} נק', בלי סדרה עליונה של 4, ותמיכה של ${len[open]} קלפים: קפצו ל-${bh('3' + open)}, הגבהה מגבילה שמזמינה למשחק מלא.`) };
+      `${pts} נק', בלי סדרת מייגור של 4, ותמיכה של ${len[open]} קלפים: קפצו ל-${bh('3' + open)}, תמיכה בקפיצה שמזמינה למשחק מלא.`) };
   }
 
   // 4. Weak hand with nothing else to say.
@@ -252,7 +252,7 @@ function responseBid(hand, open) {
     const s = twoLevel[0];
     return { bid: '2' + s, why: L(
       `${pts} HCP with no fit for partner and ${len[s]} ${SUIT_NAME[s]}: bid ${bh('2' + s)}. A new suit at the 2-level needs 11+ HCP${s === 'H' ? ' (and 5 hearts)' : ''}.`,
-      `${pts} נק' בלי התאמה לשותף ו-${len[s]} ${SUIT_NAME[s]}: הכריזו ${bh('2' + s)}. סדרה חדשה ברמת 2 דורשת 11 נק' ומעלה${s === 'H' ? ' (וחמישה לבבות)' : ''}.`) };
+      `${pts} נק' בלי התאמה לשותף ו-${len[s]} ${SUIT_NAME[s]}: הכריזו ${bh('2' + s)}. סדרה חדשה ברמת 2 דורשת 11 נק' ומעלה${s === 'H' ? ' (וחמישה הארט)' : ''}.`) };
   }
   return { bid: '2N', why: L(
     `${pts} HCP with no fit and no suit to show: bid 2NT, inviting game (11–12 HCP).`,
@@ -276,14 +276,14 @@ function rebidBid(hand, open, resp) {
   const game = isMajor ? '4' + open : '3N';
   const minorGame = isMajor ? '' : L(
     ' With a minor-suit fit, 3NT (9 tricks) is usually easier than 5 of a minor (11 tricks).',
-    ' עם התאמה בסדרה תחתונה, 3NT (9 לקיחות) בדרך כלל קל יותר מ-5 בתחתונה (11 לקיחות).');
+    ' עם התאמה בסדרת מיינור, 3NT (9 לקיחות) בדרך כלל קל יותר מ-5 בסדרת מיינור (11 לקיחות).');
 
   // Partner raised your suit.
   if (rSuit === open) {
     if (rLevel === 2) {
       if (str === 'min') return { bid: 'P', why: L(
         `${you}. Partner's raise shows 6–10 HCP, so you can't reach the 25 HCP needed for game. Pass.`,
-        `${you}. ההגבהה של השותף מראה 6-10 נק', כך שאי אפשר להגיע ל-25 הנקודות הדרושות למשחק מלא. פאס.`) };
+        `${you}. התמיכה של השותף מראה 6-10 נק', כך שאי אפשר להגיע ל-25 הנקודות הדרושות למשחק מלא. פאס.`) };
       if (str === 'med') return { bid: '3' + open, why: L(
         `${you}. Game is possible if partner is at the top of their 6–10 range, so invite with ${bh('3' + open)}.`,
         `${you}. משחק מלא אפשרי אם השותף בראש הטווח שלו (6-10), ולכן הזמינו ב-${bh('3' + open)}.`) };
@@ -293,7 +293,7 @@ function rebidBid(hand, open, resp) {
     }
     if (str === 'min') return { bid: 'P', why: L(
       `${you}. Partner's limit raise invites game. With a minimum, decline by passing.`,
-      `${you}. ההגבהה המגבילה של השותף מזמינה למשחק מלא. עם מינימום, דחו את ההזמנה בפאס.`) };
+      `${you}. התמיכה בקפיצה של השותף מזמינה למשחק מלא. עם מינימום, דחו את ההזמנה בפאס.`) };
     return { bid: game, why: L(
       `${you}. That's more than a minimum, so accept partner's invitation and bid game: ${bh(game)}.${minorGame}`,
       `${you}. זה יותר ממינימום, ולכן קבלו את ההזמנה של השותף והכריזו משחק מלא: ${bh(game)}.${minorGame}`) };
@@ -306,30 +306,30 @@ function rebidBid(hand, open, resp) {
       const level = { min: '2', med: '3', max: '4' }[str];
       const how = L(
         { min: 'raise to 2', med: 'jump to 3 to invite game', max: 'bid game at the 4-level' },
-        { min: 'הגביהו ל-2', med: 'קפצו ל-3 כהזמנה למשחק מלא', max: 'הכריזו משחק מלא ברמת 4' })[str];
+        { min: 'תמכו ברמת 2', med: 'קפצו ל-3 כהזמנה למשחק מלא', max: 'הכריזו משחק מלא ברמת 4' })[str];
       return { bid: level + rSuit, why: L(
         `${you} with ${len[rSuit]}-card support for partner's ${SUIT_NAME[rSuit]}. You've found an 8-card major fit: ${how} (${bh(level + rSuit)}).`,
-        `${you}, עם תמיכה של ${len[rSuit]} קלפים ב${SUIT_NAME[rSuit]} של השותף. מצאתם התאמה של 8 קלפים בסדרה עליונה: ${how} (${bh(level + rSuit)}).`) };
+        `${you}, עם תמיכה של ${len[rSuit]} קלפים ב${SUIT_NAME[rSuit]} של השותף. מצאתם התאמה של 8 קלפים בסדרת מייגור: ${how} (${bh(level + rSuit)}).`) };
     }
     // 2. Show a 4-card major that can still be bid at the 1-level.
     const major = ['H', 'S'].find(z => z !== open && rank(z) < rank(rSuit) && len[z] >= 4);
     if (major) {
       return { bid: '1' + major, why: L(
         `You have 4 ${SUIT_NAME[major]} and can show them at the 1-level: bid ${bh('1' + major)}. Partner may have four too, and an 8-card major fit is worth looking for before no-trump.`,
-        `יש לכם 4 ${SUIT_NAME[major]}, ואפשר להראות אותם ברמת 1: הכריזו ${bh('1' + major)}. ייתכן שגם לשותף יש ארבעה, ושווה לחפש התאמה בסדרה עליונה לפני ללא שליט.`) };
+        `יש לכם 4 ${SUIT_NAME[major]}, ואפשר להראות אותם ברמת 1: הכריזו ${bh('1' + major)}. ייתכן שגם לשותף יש ארבעה, ושווה לחפש התאמה בסדרת מייגור לפני ללא שליט.`) };
     }
     // 3. Raise partner's 1♦ response with 4-card support.
     if (rSuit === 'D' && len.D >= 4) {
       const bid = str === 'min' ? '2D' : '3D';
       return { bid, why: L(
         `${you} with ${len.D}-card diamond support and no major to show: raise to ${bh(bid)}.`,
-        `${you}, עם תמיכה של ${len.D} קלפים ביהלומים ובלי סדרה עליונה להראות: הגביהו ל-${bh(bid)}.`) };
+        `${you}, עם תמיכה של ${len.D} קלפים בדיאמונד ובלי סדרת מייגור להראות: תמכו ב-${bh(bid)}.`) };
     }
     // 4. Balanced hands bid no-trump.
     if (balanced) {
       if (str === 'min') return { bid: '1N', why: L(
         `${you} and balanced, with no fit and no major to show: rebid 1NT (12–14 balanced).`,
-        `${you} ומאוזנת, בלי התאמה ובלי סדרה עליונה להראות: הכריזו 1NT (12-14 מאוזנת).`) };
+        `${you} ומאוזנת, בלי התאמה ובלי סדרת מייגור להראות: הכריזו 1NT (12-14 מאוזנת).`) };
       return { bid: '2N', why: L(
         `${you} and balanced: jump to 2NT to show 18–19. (With 15–17 balanced you would have opened 1NT.)`,
         `${you} ומאוזנת: קפצו ל-2NT כדי להראות 18-19. (עם 15-17 מאוזנת הייתם פותחים 1NT.)`) };
@@ -341,7 +341,7 @@ function rebidBid(hand, open, resp) {
       `${you} ומאוזנת. מול 6-10 של השותף, משחק מלא לא סביר ו-1NT הוא חוזה טוב: פאס.`) };
     return { bid: '2N', why: L(
       `${you} and balanced: raise to 2NT, inviting partner to bid 3NT with the top of their 6–10 range.`,
-      `${you} ומאוזנת: הגביהו ל-2NT, כדי להזמין את השותף ל-3NT אם הוא בראש הטווח שלו (6-10).`) };
+      `${you} ומאוזנת: הכריזו 2NT, כדי להזמין את השותף ל-3NT אם הוא בראש הטווח שלו (6-10).`) };
   }
 
   // Unbalanced hands: rebid a 6-card suit, or show a second suit.
@@ -383,7 +383,7 @@ function responseMeaning(resp, open) {
   if (resp[1] === open) {
     return resp[0] === '2'
       ? L('6–10 HCP and support for your suit', '6-10 נק\' ותמיכה בסדרה שלכם')
-      : L('11–12 HCP and support: a <em>limit raise</em>, inviting game', '11-12 נק\' ותמיכה: <em>הגבהה מגבילה</em>, הזמנה למשחק מלא');
+      : L('11–12 HCP and support: a <em>limit raise</em>, inviting game', '11-12 נק\' ותמיכה: <em>תמיכה בקפיצה</em>, הזמנה למשחק מלא');
   }
   return L(`4+ ${SUIT_NAME[resp[1]]} and 6+ HCP. A new suit is forcing: you must bid again`,
     `4 ${SUIT_NAME[resp[1]]} ומעלה ו-6 נק' ומעלה. סדרה חדשה מחייבת: אתם חייבים להכריז שוב`);
@@ -399,7 +399,7 @@ function responderRebid(hand, open, resp, rebid) {
   const game = s => (isMajor(s) ? '4' + s : '3N');
   const minorNote = s => (isMajor(s) ? '' : L(
     ' With a minor-suit fit, 3NT is usually easier than 5 of a minor.',
-    ' עם התאמה בסדרה תחתונה, 3NT בדרך כלל קל יותר מ-5 בתחתונה.'));
+    ' עם התאמה בסדרת מיינור, 3NT בדרך כלל קל יותר מ-5 בסדרת מיינור.'));
   const [rl, rz] = [Number(rebid[0]), rebid[1]];
   const name = s => SUIT_NAME[s];
   const accept = pts >= 9;
@@ -461,10 +461,10 @@ function responderRebid(hand, open, resp, rebid) {
       return inv
         ? { bid: '3' + you, why: L(
           `${strength}. Partner's raise shows 12–14, so game is possible: invite with ${bh('3' + you)}.`,
-          `${strength}. ההגבהה של השותף מראה 12-14, ולכן משחק מלא אפשרי: הזמינו ב-${bh('3' + you)}.`) }
+          `${strength}. התמיכה של השותף מראה 12-14, ולכן משחק מלא אפשרי: הזמינו ב-${bh('3' + you)}.`) }
         : { bid: 'P', why: L(
           `${strength}. Partner's raise shows a minimum opening (12–14), so game is out of reach: pass.`,
-          `${strength}. ההגבהה של השותף מראה פתיחת מינימום (12-14), ולכן משחק מלא לא בהישג יד: פאס.`) };
+          `${strength}. התמיכה של השותף מראה פתיחת מינימום (12-14), ולכן משחק מלא לא בהישג יד: פאס.`) };
     }
     if (rl === 3) {
       return pts >= 9
@@ -513,7 +513,7 @@ function responderRebid(hand, open, resp, rebid) {
     if (len[rz] >= 4) {
       return { bid: (inv ? '3' : '2') + rz, why: L(
         `${strength} and 4 ${name(rz)}: you've found an 8-card major fit. ${inv ? `Jump to ${bh('3' + rz)} to invite game.` : `Raise to ${bh('2' + rz)}.`}`,
-        `${strength}, ו-4 ${name(rz)}: מצאתם התאמה של 8 קלפים בסדרה עליונה. ${inv ? `קפצו ל-${bh('3' + rz)} כדי להזמין למשחק מלא.` : `הגביהו ל-${bh('2' + rz)}.`}`) };
+        `${strength}, ו-4 ${name(rz)}: מצאתם התאמה של 8 קלפים בסדרת מייגור. ${inv ? `קפצו ל-${bh('3' + rz)} כדי להזמין למשחק מלא.` : `תמכו ב-${bh('2' + rz)}.`}`) };
     }
     if (len[you] >= 6) {
       return { bid: (inv ? '3' : '2') + you, why: L(
@@ -534,15 +534,15 @@ function responderRebid(hand, open, resp, rebid) {
           `${strength}, ו-${len[open]} ${name(open)}. לשותף יש 6, כך שיש התאמה: הזמינו למשחק מלא ב-${bh('3' + open)}.`) };
         if (len[you] >= 6) return { bid: '3' + you, why: L(
           `${strength}, a singleton in partner's suit and ${len[you]} ${name(you)}: jump to ${bh('3' + you)} to invite game in your long suit.`,
-          `${strength}, יחידון בסדרה של השותף ו-${len[you]} ${name(you)}: קפצו ל-${bh('3' + you)} כדי להזמין למשחק מלא בסדרה הארוכה שלכם.`) };
+          `${strength}, סינגלטון בסדרה של השותף ו-${len[you]} ${name(you)}: קפצו ל-${bh('3' + you)} כדי להזמין למשחק מלא בסדרה הארוכה שלכם.`) };
         return { bid: '2N', why: L(
           `${strength} but a singleton in partner's suit: bid 2NT to invite game.`,
-          `${strength}, אבל יחידון בסדרה של השותף: הכריזו 2NT כדי להזמין למשחק מלא.`) };
+          `${strength}, אבל סינגלטון בסדרה של השותף: הכריזו 2NT כדי להזמין למשחק מלא.`) };
       }
       if (len[you] >= 6 && len[open] <= 1) {
         return { bid: '2' + you, why: L(
           `${strength}, a singleton in partner's suit and ${len[you]} ${name(you)}: rebid ${bh('2' + you)}. It suggests playing there and asks partner to pass.`,
-          `${strength}, יחידון בסדרה של השותף ו-${len[you]} ${name(you)}: הכריזו ${bh('2' + you)}. זה מציע לשחק שם ומבקש מהשותף לעשות פאס.`) };
+          `${strength}, סינגלטון בסדרה של השותף ו-${len[you]} ${name(you)}: הכריזו ${bh('2' + you)}. זה מציע לשחק שם ומבקש מהשותף לעשות פאס.`) };
       }
       return { bid: 'P', why: L(
         `${strength}. Partner's ${bh('2' + open)} shows a minimum with 6+ ${name(open)}, so game is out of reach: pass.`,
@@ -551,7 +551,7 @@ function responderRebid(hand, open, resp, rebid) {
     if (isMajor(you) && len[you] >= 6 && len[open] <= 1 && pts >= 8) {
       return { bid: '4' + you, why: L(
         `You have ${pts} HCP and ${len[you]} ${name(you)}, but only a singleton in partner's suit. Opposite partner's 15–17, your long major is worth more than its points, so bid game in it: ${bh('4' + you)}.`,
-        `יש לכם ${pts} נק' ו-${len[you]} ${name(you)}, אבל רק יחידון בסדרה של השותף. מול 15-17 של השותף, הסדרה העליונה הארוכה שלכם שווה יותר מהנקודות שלה, ולכן הכריזו בה משחק מלא: ${bh('4' + you)}.`) };
+        `יש לכם ${pts} נק' ו-${len[you]} ${name(you)}, אבל רק סינגלטון בסדרה של השותף. מול 15-17 של השותף, סדרת המייגור הארוכה שלכם שווה יותר מהנקודות שלה, ולכן הכריזו בה משחק מלא: ${bh('4' + you)}.`) };
     }
     const majorGame = isMajor(open) && len[open] >= 2;
     return accept
@@ -568,10 +568,10 @@ function responderRebid(hand, open, resp, rebid) {
     return isMajor(open) && len[open] >= 3
       ? { bid: '4' + open, why: L(
         `Partner's jump shift shows 18+ HCP and forces to game. With ${len[open]}-card support for partner's major, bid game there: ${bh('4' + open)}.`,
-        `הקפיצה בסדרה חדשה של השותף מראה 18 נק' ומעלה ומחייבת עד משחק מלא. עם תמיכה של ${len[open]} קלפים בסדרה העליונה של השותף, הכריזו שם משחק מלא: ${bh('4' + open)}.`) }
+        `הקפיצה בסדרה חדשה של השותף מראה 18 נק' ומעלה ומחייבת עד משחק מלא. עם תמיכה של ${len[open]} קלפים בסדרת המייגור של השותף, הכריזו שם משחק מלא: ${bh('4' + open)}.`) }
       : { bid: '3N', why: L(
         `Partner's jump shift shows 18+ HCP and forces to game. With no major fit, bid game in no-trump: 3NT.`,
-        `הקפיצה בסדרה חדשה של השותף מראה 18 נק' ומעלה ומחייבת עד משחק מלא. בלי התאמה בסדרה עליונה, הכריזו משחק מלא בללא שליט: 3NT.`) };
+        `הקפיצה בסדרה חדשה של השותף מראה 18 נק' ומעלה ומחייבת עד משחק מלא. בלי התאמה בסדרת מייגור, הכריזו משחק מלא בללא שליט: 3NT.`) };
   }
 
   // A new, lower-ranking suit at the 2-level: not forcing, 12–17.
@@ -579,7 +579,7 @@ function responderRebid(hand, open, resp, rebid) {
     if (inv) {
       if (len[rz] >= 4) return { bid: '3' + rz, why: L(
         `${strength} and ${len[rz]} ${name(rz)}: raise to ${bh('3' + rz)} to invite game.`,
-        `${strength}, ו-${len[rz]} ${name(rz)}: הגביהו ל-${bh('3' + rz)} כדי להזמין למשחק מלא.`) };
+        `${strength}, ו-${len[rz]} ${name(rz)}: תמכו ב-${bh('3' + rz)} כדי להזמין למשחק מלא.`) };
       if (len[open] >= 3) return { bid: '3' + open, why: L(
         `${strength} and ${len[open]} ${name(open)}: jump to ${bh('3' + open)} to invite game in partner's first suit.`,
         `${strength}, ו-${len[open]} ${name(open)}: קפצו ל-${bh('3' + open)} כדי להזמין למשחק מלא בסדרה הראשונה של השותף.`) };
@@ -604,7 +604,7 @@ function responderRebid(hand, open, resp, rebid) {
   if (inv) {
     if (isMajor(rz) && len[rz] >= 4) return { bid: '4' + rz, why: L(`${certain} With 4 ${name(rz)}, bid ${bh('4' + rz)}.`, `${certain} עם 4 ${name(rz)}, הכריזו ${bh('4' + rz)}.`) };
     if (isMajor(open) && len[open] >= 3) return { bid: '4' + open, why: L(`${certain} With ${len[open]} ${name(open)}, bid ${bh('4' + open)}.`, `${certain} עם ${len[open]} ${name(open)}, הכריזו ${bh('4' + open)}.`) };
-    return { bid: '3N', why: L(`${certain} With no major fit, bid 3NT.`, `${certain} בלי התאמה בסדרה עליונה, הכריזו 3NT.`) };
+    return { bid: '3N', why: L(`${certain} With no major fit, bid 3NT.`, `${certain} בלי התאמה בסדרת מייגור, הכריזו 3NT.`) };
   }
   if (len[you] >= 5) {
     return { bid: '2' + you, why: L(
@@ -640,7 +640,7 @@ function openerRebidMeaning(open, resp, rebid) {
   if (rl === 3) return L(`18+ HCP and 4+ ${SUIT_NAME[rz]}: a jump shift, forcing to game`, `18 נק' ומעלה ו-4 ${SUIT_NAME[rz]} ומעלה: קפיצה בסדרה חדשה, מחייבת עד משחק מלא`);
   if (rank(rz) > rank(open)) return L(`4+ ${SUIT_NAME[rz]} and 12–17 HCP; not forcing`, `4 ${SUIT_NAME[rz]} ומעלה ו-12-17 נק'; לא מחייבת`);
   return L(`16+ HCP with 4+ ${SUIT_NAME[rz]} and longer ${SUIT_NAME[open]}: a reverse, forcing for one round`,
-    `16 נק' ומעלה, עם 4 ${SUIT_NAME[rz]} ומעלה ו${SUIT_NAME[open]} ארוכים יותר: ריברס, מחייב לסיבוב אחד`);
+    `16 נק' ומעלה, עם 4 ${SUIT_NAME[rz]} ומעלה וסדרת ${SUIT_NAME[open]} ארוכה יותר: ריברס, מחייב לסיבוב אחד`);
 }
 
 // Auction table for the bidding drills. `headers` are seat labels; cells are bids, '?' or ''.

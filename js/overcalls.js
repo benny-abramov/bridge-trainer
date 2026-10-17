@@ -28,7 +28,7 @@ function overcallBid(hand, open) {
   if (pts >= 17) {
     return { bid: 'X', why: L(
       `${pts} HCP is too strong for a simple overcall (8–16). Double first, then bid your suit or no-trump on the next round to show the extra strength.`,
-      `${pts} נק' זה חזק מדי להתערבות פשוטה (8-16). הכפילו קודם, ובסיבוב הבא הכריזו את הסדרה שלכם או ללא שליט כדי להראות את הכוח הנוסף.`) };
+      `${pts} נק' זה חזק מדי להתערבות פשוטה (8-16). הכריזו קודם דאבל, ובסיבוב הבא הכריזו את הסדרה שלכם או ללא שליט כדי להראות את הכוח הנוסף.`) };
   }
 
   const others = SUITS.filter(s => s !== open);
@@ -41,7 +41,7 @@ function overcallBid(hand, open) {
     const bid = (above ? 2 : 3) + best;
     return { bid, why: L(
       `${pts} HCP with ${n} ${name}: make a <em>weak jump overcall</em> of ${bidHtml(bid)}. Like a weak two, it shows a 6-card suit and 6–10 HCP, and uses up the opponents' bidding space.`,
-      `${pts} נק' עם ${n} ${name}: הכריזו <em>קפיצת התערבות חלשה</em> ל-${bidHtml(bid)}. כמו "שתיים חלשה", היא מראה סדרה של 6 קלפים ו-6-10 נק', ותופסת ליריבים מקום במכרז.`) };
+      `${pts} נק' עם ${n} ${name}: הכריזו <em>קפיצת התערבות חלשה</em> ל-${bidHtml(bid)}. כמו הכרזת שתיים חלשה, היא מראה סדרה של 6 קלפים ו-6-10 נק', ותופסת ליריבים מקום במכרז.`) };
   }
   if (n >= 5) {
     const good = suitQuality(cardsIn(best)) >= 2;
@@ -66,7 +66,7 @@ function overcallBid(hand, open) {
   let why;
   if (n >= 5 && above && pts >= 8) {
     why = L(`${pts} HCP, but your ${name} are too weak to overcall. With fewer than 12 HCP, a 1-level overcall needs a good suit (at least two of A, K, Q, J, 10). Pass.`,
-      `${pts} נק', אבל ה${name} שלכם חלשים מדי להתערבות. עם פחות מ-12 נק', התערבות ברמת 1 דורשת סדרה טובה (לפחות שניים מ-A, K, Q, J, 10). פאס.`);
+      `${pts} נק', אבל סדרת ה${name} שלכם חלשה מדי להתערבות. עם פחות מ-12 נק', התערבות ברמת 1 דורשת סדרה טובה (לפחות שניים מ-A, K, Q, J, 10). פאס.`);
   } else if (n >= 5 && pts >= 8) {
     why = L(`Your ${name} would have to be bid at the 2-level, which needs about 11+ HCP and a good suit. Pass.`,
       `את ה${name} שלכם הייתם צריכים להכריז ברמת 2, וזה דורש בערך 11 נק' ומעלה וסדרה טובה. פאס.`);

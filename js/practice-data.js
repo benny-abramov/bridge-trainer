@@ -17,7 +17,7 @@ const PRACTICE = {
    "answer": "1S",
    "why": {
     "en": "14 HCP and five spades. With a 5-card major, open 1 of it.",
-    "he": "14 נק' וחמישה עלים. עם סדרה עליונה של 5 קלפים, פתחו באחת בה."
+    "he": "14 נק' וחמישה ספייד. עם סדרת מייגור של 5 קלפים, פתחו באחת בה."
    }
   },
   {
@@ -44,7 +44,7 @@ const PRACTICE = {
    "answer": "1D",
    "why": {
     "en": "Balanced with 18 HCP: the hand is too strong for 1NT opening, so open 1D (better minor). If partner responds, jump to 2NT to describe 18-19 balanced",
-    "he": "יד מאוזנת עם 18 נק': היד חזקה מדי לפתיחה של 1NT, ולכן פתחו 1♦ (הסדרה התחתונה הטובה יותר). אם השותף משיב, קפצו ל-2NT כדי לתאר יד מאוזנת של 18-19."
+    "he": "יד מאוזנת עם 18 נק': היד חזקה מדי לפתיחה של 1NT, ולכן פתחו 1♦ (סדרת המיינור הטובה יותר). אם השותף משיב, קפצו ל-2NT כדי לתאר יד מאוזנת של 18-19."
    }
   },
   {
@@ -53,7 +53,7 @@ const PRACTICE = {
    "answer": "1D",
    "why": {
     "en": "Major opening require 5 cards, so with 14 HCP open your better minor, 1D",
-    "he": "פתיחה בסדרה עליונה דורשת 5 קלפים, ולכן עם 14 נק' פתחו בסדרה התחתונה הטובה יותר, 1♦."
+    "he": "פתיחה בסדרת מייגור דורשת 5 קלפים, ולכן עם 14 נק' פתחו בסדרת המיינור הטובה יותר, 1♦."
    }
   },
   {
@@ -62,7 +62,7 @@ const PRACTICE = {
    "answer": "1D",
    "why": {
     "en": "Major opening require 5 cards, so with 12 HCP open your better minor, 1D",
-    "he": "פתיחה בסדרה עליונה דורשת 5 קלפים, ולכן עם 12 נק' פתחו בסדרה התחתונה הטובה יותר, 1♦."
+    "he": "פתיחה בסדרת מייגור דורשת 5 קלפים, ולכן עם 12 נק' פתחו בסדרת המיינור הטובה יותר, 1♦."
    }
   },
   {
@@ -71,7 +71,7 @@ const PRACTICE = {
    "answer": "1C",
    "why": {
     "en": "With 3 cards in both minors and no 5 card major, open 1C",
-    "he": "עם 3 קלפים בשתי הסדרות התחתונות ובלי סדרה עליונה של 5 קלפים, פתחו 1♣."
+    "he": "עם 3 קלפים בשתי סדרות המיינור ובלי סדרת מייגור של 5 קלפים, פתחו 1♣."
    }
   },
   {
@@ -80,7 +80,7 @@ const PRACTICE = {
    "answer": "1D",
    "why": {
     "en": "With 4 cards in both minors open 1D",
-    "he": "עם 4 קלפים בשתי הסדרות התחתונות, פתחו 1♦."
+    "he": "עם 4 קלפים בשתי סדרות המיינור, פתחו 1♦."
    }
   },
   {
@@ -89,7 +89,7 @@ const PRACTICE = {
    "answer": "2C",
    "why": {
     "en": "With more than 21 HCP, open 2C, artificial bid that does not promise clubs, just strength",
-    "he": "עם יותר מ-21 נק', פתחו 2♣: הכרזה מלאכותית שלא מבטיחה תלתנים, רק כוח."
+    "he": "עם יותר מ-21 נק', פתחו 2♣: הכרזה מלאכותית שלא מבטיחה קלאב, רק כוח."
    }
   },
   {
@@ -116,7 +116,7 @@ const PRACTICE = {
    "answer": "1S",
    "why": {
     "en": "With only 11 HCP, but 54 in S and H, open 1S",
-    "he": "עם 11 נק' בלבד, אבל 5-4 בעלים ובלבבות, פתחו 1♠."
+    "he": "עם 11 נק' בלבד, אבל 5-4 בספייד ובהארט, פתחו 1♠."
    }
   }
  ]

@@ -50,14 +50,14 @@ function openingLead(hand, trump) {
     const c = groups[single[0]][0];
     return { card: c, why: L(
       `Lead your singleton ${lbl(c)}. When the suit is played again you'll be out of it, and you can ruff with one of your ${trumps} trumps.`,
-      `הובילו את היחידון ${lbl(c)}. כשהסדרה תשוחק שוב, כבר לא יהיו לכם קלפים בה, ותוכלו לחתוך באחד מ-${trumps} השליטים שלכם.`) };
+      `הובילו את הסינגלטון ${lbl(c)}. כשהסדרה תשוחק שוב, כבר לא יהיו לכם קלפים בה, ותוכלו לחתוך באחד מ-${trumps} השליטים שלכם.`) };
   }
   const dbl = sides.filter(s => groups[s].length === 2 && groups[s][0].value <= 10);
   if (dbl.length && trumps >= 1) {
     const c = groups[dbl[0]][0];
     return { card: c, why: L(
       `Lead the top of a small doubleton: ${lbl(c)}. If partner wins and plays the suit back, you may get to ruff the third round.`,
-      `הובילו את העליון מזוגון קטן: ${lbl(c)}. אם השותף יזכה ויחזיר את הסדרה, ייתכן שתוכלו לחתוך בסיבוב השלישי.`) };
+      `הובילו את העליון מדאבלטון קטן: ${lbl(c)}. אם השותף יזכה ויחזיר את הסדרה, ייתכן שתוכלו לחתוך בסיבוב השלישי.`) };
   }
   const safe = sides.filter(s => groups[s].length >= 3 && groups[s][0].rank !== 'A');
   if (safe.length) {

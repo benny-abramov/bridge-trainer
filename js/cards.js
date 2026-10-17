@@ -5,7 +5,7 @@ const DISPLAY_ORDER = ['S', 'H', 'C', 'D']; // alternate colors when showing a h
 const SUIT_SYMBOL = { S: '♠︎', H: '♥︎', D: '♦︎', C: '♣︎' };
 const SUIT_NAME = L(
   { S: 'spades', H: 'hearts', D: 'diamonds', C: 'clubs', N: 'no-trump' },
-  { S: 'עלים', H: 'לבבות', D: 'יהלומים', C: 'תלתנים', N: 'ללא שליט' });
+  { S: 'ספייד', H: 'הארט', D: 'דיאמונד', C: 'קלאב', N: 'ללא שליט' });
 const RANKS = ['2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A'];
 const HCP_VALUES = { A: 4, K: 3, Q: 2, J: 1 };
 const SEAT_NAMES = L(['North', 'East', 'South', 'West'], ['צפון', 'מזרח', 'דרום', 'מערב']);
@@ -80,8 +80,8 @@ const ltr = html => `<bdi dir="ltr">${html}</bdi>`;
 // Bids are strings like 'P', '1C', '3N'.
 function bidHtml(bid) {
   if (bid === 'P') return L('Pass', 'פאס');
-  if (bid === 'X') return L('Dbl', 'כפל');
-  if (bid === 'XX') return L('Rdbl', 'כפל חוזר');
+  if (bid === 'X') return L('Dbl', 'דאבל');
+  if (bid === 'XX') return L('Rdbl', 'רידאבל');
   return ltr(bid[0] + suitHtml(bid[1]));
 }
 

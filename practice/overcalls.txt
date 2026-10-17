@@ -24,4 +24,4 @@
 # Auction: 1D ?
 # Answer: 1S
 # Explanation: 10 HCP and a good five-card spade suit: overcall 1S.
-# הסבר: 10 נק' וסדרת עלים טובה של חמישה קלפים: התערבו ב-1♠.
+# הסבר: 10 נק' וסדרת ספייד טובה של חמישה קלפים: התערבו ב-1♠.
