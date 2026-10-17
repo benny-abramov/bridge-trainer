@@ -212,5 +212,157 @@ const PRACTICE = {
     "he": "11 נק' וסדרת קלאב: תמכו בקלאב של השותף ברמת 3."
    }
   }
+ ],
+ "openerRebid": [
+  {
+   "hand": "S:A4 H:KQT62 D:K73 C:Q85",
+   "auction": [
+    "1H",
+    "P",
+    "1S",
+    "P",
+    "?"
+   ],
+   "answer": "1N",
+   "why": {
+    "en": "14 HCP and balanced, with no fit for spades: rebid 1NT.",
+    "he": "14 נק' ויד מאוזנת, בלי התאמה בספייד: הכריזו 1NT."
+   }
+  },
+  {
+   "hand": "S:A4 H:KJT62 D:AK7 C:K85",
+   "auction": [
+    "1H",
+    "P",
+    "1S",
+    "P",
+    "?"
+   ],
+   "answer": "2N",
+   "why": {
+    "en": "18 HCP and balanced, jump to 2NT",
+    "he": "18 נק' ויד מאוזנת: קפצו ל-2NT."
+   }
+  },
+  {
+   "hand": "S:A4 H:KQT862 D:K7 C:Q85",
+   "auction": [
+    "1H",
+    "P",
+    "1S",
+    "P",
+    "?"
+   ],
+   "answer": "2H",
+   "why": {
+    "en": "14 HCP with rebiddable heart suit (6 cards) - rebid the hearts at the minimum level",
+    "he": "14 נק' וסדרת הארט שאפשר לחזור עליה (6 קלפים): חזרו על ההארט ברמה הנמוכה ביותר."
+   }
+  },
+  {
+   "hand": "S:A4 H:KQT862 D:K7 C:A85",
+   "auction": [
+    "1H",
+    "P",
+    "1S",
+    "P",
+    "?"
+   ],
+   "answer": "3H",
+   "why": {
+    "en": "16 HCP with rebiddable heart suit (6 cards) - rebid the hearts with a jump",
+    "he": "16 נק' וסדרת הארט שאפשר לחזור עליה (6 קלפים): חזרו על ההארט בקפיצה."
+   }
+  },
+  {
+   "hand": "S:A432 H:KQT82 D:K7 C:J8",
+   "auction": [
+    "1H",
+    "P",
+    "1S",
+    "P",
+    "?"
+   ],
+   "answer": "2S",
+   "why": {
+    "en": "13 HCP with 4 card support for partner's spades - support at the minimum level",
+    "he": "13 נק' ו-4 קלפי תמיכה בספייד של השותף: תמכו ברמה הנמוכה ביותר."
+   }
+  },
+  {
+   "hand": "S:A432 H:KQT82 D:K7 C:A8",
+   "auction": [
+    "1H",
+    "P",
+    "1S",
+    "P",
+    "?"
+   ],
+   "answer": "3S",
+   "why": {
+    "en": "16 HCP with 4 card support for partner's spades - support with a jump, invitation to 4S",
+    "he": "16 נק' ו-4 קלפי תמיכה בספייד של השותף: תמכו בקפיצה, הזמנה ל-4S."
+   }
+  },
+  {
+   "hand": "S:A4 H:KQT82 D:K732 C:32",
+   "auction": [
+    "1H",
+    "P",
+    "1S",
+    "P",
+    "?"
+   ],
+   "answer": "2D",
+   "why": {
+    "en": "12 HCP with 5-4 in H and D: bid D at the minimum level",
+    "he": "12 נק' עם 5-4 בהארט ובדיאמונד: הכריזו דיאמונד ברמה הנמוכה ביותר."
+   }
+  },
+  {
+   "hand": "S:A4 H:KQT82 D:AKQ3 C:32",
+   "auction": [
+    "1H",
+    "P",
+    "1S",
+    "P",
+    "?"
+   ],
+   "answer": "3D",
+   "why": {
+    "en": "18 HCP with 5-4 in H and D: bid D with a jump. This is usually forcing to game as we have close to 25-26 HCP combined",
+    "he": "18 נק' עם 5-4 בהארט ובדיאמונד: הכריזו דיאמונד בקפיצה. בדרך כלל זה מחייב עד משחק מלא, כי יש לכם יחד קרוב ל-25-26 נק'."
+   }
+  },
+  {
+   "hand": "S:54 H:AQ32 D:KQT82 C:K2",
+   "auction": [
+    "1D",
+    "P",
+    "1S",
+    "P",
+    "?"
+   ],
+   "answer": "1N",
+   "why": {
+    "en": "14 HCP with 5-4 in D and H: we cannot bid the heart suit at the 2 level as it would be a reverse bid, promising 16+ HCP, so we have to bid 1NT",
+    "he": "14 נק' עם 5-4 בדיאמונד ובהארט: אי אפשר להכריז הארט ברמת 2, כי זו הכרזת ריברס שמבטיחה 16 נק' ומעלה, ולכן הכריזו 1NT."
+   }
+  },
+  {
+   "hand": "S:K4 H:AKQ3 D:KQT82 C:32",
+   "auction": [
+    "1D",
+    "P",
+    "1S",
+    "P",
+    "?"
+   ],
+   "answer": "2H",
+   "why": {
+    "en": "17 HCP with 5-4 in D and H: bid H (reverse bid - as hearts are higher than diamonds).",
+    "he": "17 נק' עם 5-4 בדיאמונד ובהארט: הכריזו הארט (הכרזת ריברס, כי הארט גבוה מדיאמונד)."
+   }
+  }
  ]
 };
