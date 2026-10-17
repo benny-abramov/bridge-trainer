@@ -176,6 +176,7 @@ const LESSONS_EN = [
         <tr><td>22+ HCP, any shape</td><td>2${C} (strong and artificial)</td></tr>
         <tr><td>5–10 HCP with a 6-card ${D}, ${H} or ${S} suit</td><td>Weak two: 2${D}, 2${H} or 2${S}</td></tr>
         <tr><td>5–10 HCP with a 7-card suit</td><td>Preempt at the 3-level</td></tr>
+        <tr><td>5–10 HCP with an 8-card suit</td><td>Preempt at the 4-level</td></tr>
       </table>
       <p><strong>Rule of 20:</strong> with 10–11 HCP, add your HCP to the number of cards in your two longest suits.
       If the total is 20 or more, open at the 1-level anyway.</p>`,
@@ -198,6 +199,7 @@ const LESSONS_EN = [
         <tr><td>6–10 HCP, none of the above</td><td>1NT</td></tr>
         <tr><td>11–12 HCP, a 4+ card lower-ranking suit (5+ for ${H})</td><td>New suit at the 2-level</td></tr>
         <tr><td>11–12 HCP, none of the above</td><td>2NT, inviting game</td></tr>
+        <tr><td>13–15 HCP, none of the above</td><td>3NT, bidding game</td></tr>
       </table>
       <p>The aim of the auction is to find an <strong>8-card fit</strong> (or settle in no-trump) and the right level for your combined strength.
       With 13+ HCP you have enough for game opposite an opening bid. Those hands use more advanced bids, so the drill doesn't include them.</p>`,
@@ -565,9 +567,10 @@ const LESSONS_HE = [
         <tr><td>12-21 נק', בלי סדרת מייגור של 5</td><td>${B('1C')} או ${B('1D')} (סדרת המיינור הארוכה יותר; ${B('1C')} עם 3-3, ${B('1D')} עם 4-4)</td></tr>
         <tr><td>15-17 נק', מאוזנת</td><td>1NT</td></tr>
         <tr><td>20-21 נק', מאוזנת</td><td>2NT</td></tr>
-        <tr><td>22 נק' ומעלה, כל מבנה</td><td>${B('2C')} (חזקה ומלאכותית)</td></tr>
+        <tr><td>22 נק' ומעלה, כל חלוקה</td><td>${B('2C')} (חזקה ומלאכותית)</td></tr>
         <tr><td>5-10 נק' עם סדרה של 6 קלפים ב-${D}, ${H} או ${S}</td><td>הכרזת שתיים חלשה: ${B('2D')}, ${B('2H')} או ${B('2S')}</td></tr>
         <tr><td>5-10 נק' עם סדרה של 7 קלפים</td><td>הכרזת חסימה ברמת 3</td></tr>
+        <tr><td>5-10 נק' עם סדרה של 8 קלפים</td><td>הכרזת חסימה ברמת 4</td></tr>
       </table>
       <p><strong>סדרות המייגור</strong> הן הארט וספייד; <strong>סדרות המיינור</strong> הן קלאב ודיאמונד.</p>
       <p><strong>חוק ה-20:</strong> עם 10-11 נק', חברו את הנקודות למספר הקלפים בשתי הסדרות הארוכות שלכם.
@@ -591,6 +594,7 @@ const LESSONS_HE = [
         <tr><td>6-10 נק', אף אחד מאלה</td><td>1NT</td></tr>
         <tr><td>11-12 נק', סדרה נמוכה יותר של 4 קלפים ומעלה (5 ומעלה ב-${H})</td><td>סדרה חדשה ברמת 2</td></tr>
         <tr><td>11-12 נק', אף אחד מאלה</td><td>2NT, הזמנה למשחק מלא</td></tr>
+        <tr><td>13-15 נק', אף אחד מאלה</td><td>3NT, הכרזת משחק מלא</td></tr>
       </table>
       <p>מטרת המכרז היא למצוא <strong>התאמה של 8 קלפים</strong> (או להתייצב בללא שליט) ואת הרמה הנכונה לכוח המשותף.
       עם 13 נק' ומעלה יש לכם מספיק למשחק מלא מול הכרזת פתיחה. ידיים כאלה משתמשות בהכרזות מתקדמות יותר, ולכן הן לא כלולות בתרגול.</p>`,

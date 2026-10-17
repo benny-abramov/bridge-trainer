@@ -2,3 +2,6 @@
 .claude/settings.local.json
 .claude/hooks/
 conversation-log/
+
+# Reference images from another site, kept out of the public repo
+screenshots/
