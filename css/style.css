@@ -184,6 +184,18 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 .trick-row .win { border-color: var(--good); color: var(--good); font-weight: 700; }
 .ranking { display: flex; align-items: center; gap: .6rem; font-size: 1.5rem; font-weight: 700; margin: .5rem 0; }
 .ranking span { color: var(--muted); font-size: 1rem; }
+.contract-chart { display: grid; gap: .6rem; margin: .5rem 0 1rem; }
+.contract-group { border-radius: 12px; padding: .55rem .7rem .7rem; border: 1px solid var(--border); background: var(--surface); }
+.contract-group-title { margin-bottom: .45rem; }
+.contract-group-title span { color: var(--muted); font-size: .85rem; margin-inline-start: .35rem; }
+.contract-tiles { display: flex; flex-wrap: wrap; gap: .35rem; }
+.contract-tile { min-width: 3rem; padding: .3rem .45rem; border-radius: 8px; text-align: center; font-weight: 700; background: var(--bg, #f4f3ee); border: 1px solid var(--border); }
+.contract-group.game { border-color: var(--accent); background: var(--accent-soft); }
+.contract-group.game .contract-tile { background: var(--surface); border-color: var(--accent); }
+.contract-group.small { border-color: #c99a2e; background: rgba(201, 154, 46, .12); }
+.contract-group.small .contract-tile { background: var(--surface); border-color: #c99a2e; }
+.contract-group.grand { border-color: #8a5cc2; background: rgba(138, 92, 194, .12); }
+.contract-group.grand .contract-tile { background: var(--surface); border-color: #8a5cc2; }
 .deck-figure { display: flex; flex-direction: column; width: fit-content; max-width: 100%; box-sizing: border-box; gap: .15rem; margin: .75rem 0 1rem; padding: .6rem .8rem .8rem; border-radius: 14px; background: radial-gradient(ellipse at center, var(--felt) 55%, var(--felt-edge)); overflow-x: auto; }
 .deck-row { display: flex; align-items: center; gap: .75rem; direction: ltr; }
 .deck-suit { width: 4.5rem; flex: none; color: var(--felt-text); font-size: .85rem; font-weight: 600; }

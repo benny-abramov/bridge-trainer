@@ -31,6 +31,27 @@ function strainLadder() {
     <p class="ladder-caption muted" aria-live="polite">${STRAIN_HINT}</p>`;
 }
 
+// Every contract, grouped as part-scores, games, small slams and grand slams (scoring lesson).
+function contractChart() {
+  const bids = [];
+  for (let level = 1; level <= 7; level++) for (const strain of 'CDHSN') bids.push(level + strain);
+  const isGame = b => b[1] === 'N' ? b[0] >= 3 : 'HS'.includes(b[1]) ? b[0] >= 4 : b[0] >= 5;
+  const groups = [
+    { kind: 'part', title: L('Part-scores', 'חוזים חלקיים'), note: L('fewer than 100 trick points', 'פחות מ-100 נקודות לקיחה'), bids: bids.filter(b => b[0] <= 5 && !isGame(b)) },
+    { kind: 'game', title: L('Games', 'משחקים מלאים'), note: L('100 or more trick points', '100 נקודות לקיחה ומעלה'), bids: bids.filter(b => b[0] <= 5 && isGame(b)) },
+    { kind: 'small', title: L('Small slams', 'סלאם קטן'), note: L('12 tricks', '12 לקיחות'), bids: bids.filter(b => b[0] === '6') },
+    { kind: 'grand', title: L('Grand slams', 'סלאם גדול'), note: L('all 13 tricks', 'כל 13 הלקיחות'), bids: bids.filter(b => b[0] === '7') },
+  ];
+  return `
+    <div class="contract-chart">
+      ${groups.map(g => `
+        <div class="contract-group ${g.kind}">
+          <div class="contract-group-title"><strong>${g.title}</strong> <span>${g.note}</span></div>
+          <div class="contract-tiles">${g.bids.map(b => `<span class="contract-tile">${bidHtml(b)}</span>`).join('')}</div>
+        </div>`).join('')}
+    </div>`;
+}
+
 const LESSONS_EN = [
   {
     title: 'What is bridge?',
@@ -128,6 +149,8 @@ const LESSONS_EN = [
         <li><strong>Overtricks</strong> score the per-trick value.</li>
         <li>If declarer falls short, the defenders score <strong>50 per undertrick</strong> (100 vulnerable).</li>
       </ul>
+      <p>Here is every contract, grouped by what it scores:</p>
+      ${contractChart()}
       <p>The Play tab scores every hand as not vulnerable.</p>`,
     tryIt: 'play',
   },
@@ -527,6 +550,8 @@ const LESSONS_HE = [
         <li><strong>לקיחות עודפות</strong> מקבלות את ערך הלקיחה.</li>
         <li>אם הכרוז לא מגיע ליעד, המגינים מקבלים <strong>50 על כל לקיחה חסרה</strong> (100 כשפגיעים).</li>
       </ul>
+      <p>הנה כל החוזים, לפי סוג הניקוד שלהם:</p>
+      ${contractChart()}
       <p>בלשונית "שחקו יד" כל יד מנוקדת כלא פגיעה.</p>`,
     tryIt: 'play',
   },
