@@ -6,6 +6,7 @@
 #
 # Each hand starts with a "Hand:" line. The fields:
 #   Hand:         the 13 cards, e.g.  S AKJ52  H K74  D Q3  C J82   (10 or T for ten, - for a void)
+#                 x for any small card: the importer picks a 2-9 (or the 10) for it
 #   Auction:      (optional) passes before your turn, e.g.  P P ?   for a third-seat opening
 #   Answer:       the right call: 1S, 2NT, P, X ...
 #   Explanation:  shown with the answer, in English            (optional)

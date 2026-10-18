@@ -7,6 +7,7 @@
 # Each example starts with a "Dealer:" line. The fields:
 #   Dealer:       who dealt and bids first: N, E, S or W
 #   North:        North's 13 cards, e.g.  S AKJ52  H K74  D Q3  C J82   (10 or T for ten, - for a void)
+#                 x for any small card: the importer picks a 2-9 (or the 10) that no other hand holds
 #   East:         East's 13 cards
 #   South:        South's 13 cards
 #   West:         West's 13 cards

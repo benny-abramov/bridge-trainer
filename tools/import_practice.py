@@ -10,6 +10,7 @@ The format is described at the top of each file in practice/.
 """
 import json
 import os
+import random
 import re
 import sys
 
@@ -46,8 +47,12 @@ def clean(text):
     return text.replace('︎', '').replace('️', '')
 
 
-def parse_hand(text):
-    """'S AKJ52 H K74 D Q3 C J82' (also S:AKJ52, ♠AKJ52, 10 or T, - for a void) -> 'S:AKJ52 H:K74 D:Q3 C:J82'."""
+SMALL = '98765432'  # what an "x" in a hand becomes (or the 10, when these run out)
+
+
+def parse_suits(text):
+    """'S AKJ52 H K74 D Q3 C Jxx' (also S:AKJ52, ♠AKJ52, 10 or T, - for a void, x for any small card)
+    -> {'S': 'AKJ52', 'H': 'K74', 'D': 'Q3', 'C': 'JXX'}, checked to be 13 cards with no card twice."""
     suits, current = {}, None
     for token in clean(text).upper().replace(':', ' ').split():
         # Ranks never use the letters S, H, D or C, so a word starting with one of them starts a suit.
@@ -63,20 +68,54 @@ def parse_hand(text):
         if token in ('-', '—', '–'):
             continue
         ranks = token.replace('10', 'T')
-        bad = [c for c in ranks if c not in RANK_ORDER]
+        bad = [c for c in ranks if c not in RANK_ORDER + 'X']
         if bad:
             raise Problem(f'"{token}" is not a valid list of cards')
         suits[current] += ranks
     missing = [s for s in 'SHDC' if s not in suits]
     if missing:
         raise Problem('the hand has no ' + ', '.join(missing) + ' suit (write - for a void)')
-    cards = [s + r for s in 'SHDC' for r in suits[s]]
+    cards = [s + r for s in 'SHDC' for r in suits[s] if r != 'X']
     duplicates = sorted({c for c in cards if cards.count(c) > 1})
     if duplicates:
         raise Problem('these cards appear twice: ' + ', '.join(duplicates))
-    if len(cards) != 13:
-        raise Problem(f'the hand has {len(cards)} cards, not 13')
+    total = sum(len(suits[s]) for s in 'SHDC')
+    if total != 13:
+        raise Problem(f'the hand has {total} cards, not 13')
+    return suits
+
+
+def fill_small_cards(hands, seed):
+    """Replace every x with a card no hand holds: a 2-9 of that suit, or the 10 when the small cards
+    run out (neither is worth any points). Picked at random, but the same way each time for the same
+    text. `hands` is a list of parse_suits() results."""
+    rng = random.Random(seed)
+    used = {s + r for h in hands for s in 'SHDC' for r in h[s] if r != 'X'}
+    for suit in 'SHDC':
+        slots = [i for i, h in enumerate(hands) for _ in range(h[suit].count('X'))]
+        if not slots:
+            continue
+        pool = [r for r in SMALL if suit + r not in used]
+        if len(pool) < len(slots) and suit + 'T' not in used:
+            pool.append('T')
+        if len(pool) < len(slots):
+            raise Problem(f'there are {len(slots)} x cards in {suit} but only {len(pool)} cards from 2 to 10 left for them')
+        picked = rng.sample(pool, len(slots))
+        for i in range(len(hands)):
+            hands[i][suit] = hands[i][suit].replace('X', '')
+        for i, r in zip(slots, picked):
+            hands[i][suit] += r
+
+
+def hand_spec(suits):
     return ' '.join(f'{s}:' + ''.join(sorted(suits[s], key=RANK_ORDER.index)) for s in 'SHDC' if suits[s])
+
+
+def parse_hand(text):
+    """One hand, with any x replaced by a small card -> 'S:AKJ52 H:K74 D:Q3 C:J82'."""
+    suits = parse_suits(text)
+    fill_small_cards([suits], text)
+    return hand_spec(suits)
 
 
 def parse_call(token):
@@ -207,22 +246,27 @@ def convert_deal(block):
     dealer = block.get('dealer', '').strip().upper()[:1]
     if not dealer or dealer not in 'NESW':
         raise Problem('"Dealer:" must be N, E, S or W')
-    out = {'dealer': 'NESW'.index(dealer), 'hands': []}
-    seen = {}
+    out = {'dealer': 'NESW'.index(dealer)}
+    hands, seen = [], {}
     for seat in SEATS:
         if not block.get(seat):
             raise Problem(f'the deal has no "{seat.title()}:" hand')
         try:
-            hand = parse_hand(block[seat])
+            suits = parse_suits(block[seat])
         except Problem as e:
             raise Problem(f'{seat.title()}: {e}')
-        for part in hand.split():
-            suit, ranks = part.split(':')
-            for r in ranks:
+        for suit in 'SHDC':
+            for r in suits[suit].replace('X', ''):
                 if suit + r in seen:
                     raise Problem(f'{suit}{r} is in both {seen[suit + r].title()} and {seat.title()}')
                 seen[suit + r] = seat
-        out['hands'].append(hand)
+        hands.append(suits)
+    for suit in 'SHDC':
+        n = sum(len(h[suit]) for h in hands)
+        if n != 13:
+            raise Problem(f'the four hands have {n} {suit} cards between them, not 13')
+    fill_small_cards(hands, ' '.join(block[seat] for seat in SEATS))
+    out['hands'] = [hand_spec(h) for h in hands]
     calls = [parse_call(t) for t in clean(block.get('auction', '')).replace(',', ' ').split()]
     if not calls:
         raise Problem('the deal has no "Auction:" line')
