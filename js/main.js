@@ -1,8 +1,9 @@
 // Tab navigation and app start-up.
 
-const TABS = ['learn', 'hcp', 'opening', 'responding', 'rebid', 'rrebid', 'overcalls', 'conventions', 'declarer', 'defense', 'advanced', 'play'];
+const TABS = ['learn', 'hcp', 'opening', 'responding', 'rebid', 'rrebid', 'overcalls', 'conventions', 'declarer', 'defense', 'play'];
 
 function showTab(name) {
+  if (name === 'advanced') name = 'declarer'; // the old Advanced tab is now part of Declarer Play
   if (!TABS.includes(name)) name = 'learn';
   document.querySelectorAll('.tabs [data-tab]').forEach(btn => {
     const active = btn.dataset.tab === name;
@@ -30,6 +31,5 @@ OvercallTrainer.init();
 initConventions();
 Play.init();
 LeadTrainer.init();
-Advanced.init();
 DeclarerPlay.init();
 showTab(location.hash.slice(1));

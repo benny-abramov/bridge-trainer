@@ -1,7 +1,7 @@
 // Card-play puzzles: hand-built endings where all four hands are shown, you play North and South,
 // and the defenders play perfectly using a small exhaustive (double-dummy) solver.
-// This file holds the solver, the reusable puzzle player and the Advanced (squeeze/endplay) content;
-// js/declarer.js holds the basic declarer-play content.
+// This file holds the solver and the reusable puzzle player; js/declarer.js holds the Declarer Play
+// techniques, and the hands come from practice/declarer-play.txt.
 
 // ---------- Double-dummy solver for small endings ----------
 
@@ -57,215 +57,6 @@ function makeSolver(trump) {
   return { search, after };
 }
 
-// ---------- Content ----------
-
-const ADVANCED_TOPICS = {
-  squeeze: {
-    label: 'Squeezes',
-    intro: `
-      <p>A <strong>squeeze</strong> wins a trick from nothing. You cash a winner, and a defender who is guarding two suits has to discard. Whichever guard they throw away, one of your cards becomes a winner.</p>
-      <p>A squeeze needs four things:</p>
-      <ul>
-        <li><strong>Two threats.</strong> A <em>threat</em> is a card that would win if its suit's guard disappeared: your ♥J when the defender holds ♥K-Q, or your ♦Q when the defender holds the ♦K.</li>
-        <li><strong>One defender guarding both threats.</strong> That defender is the <em>victim</em>.</li>
-        <li><strong>The count.</strong> You must be able to win all the remaining tricks but one before the squeeze starts. If you have two losers, give one up first (<em>rectifying the count</em>), so the victim has no spare card to throw.</li>
-        <li><strong>Entries.</strong> After the victim discards, you must still be able to reach the threat that has become a winner. Usually one threat comes with its own winner, such as ♥A-J.</li>
-      </ul>
-      <p>The last winner you cash is the <strong>squeeze card</strong>. A <em>positional</em> squeeze only works against the defender who discards <em>before</em> the hand holding the threats. An <em>automatic</em> squeeze works against either defender, because the hand opposite the squeeze card has a spare card to throw.</p>
-      <p>The rule of thumb is: <strong>cash your winners in the other suits first and keep the threats</strong>. Then watch what the victim throws.</p>`,
-    puzzles: [
-      {
-        title: 'The simple squeeze',
-        trump: null, leader: 2, target: 3,
-        hands: ['H:AJ D:Q', 'C:987', 'C:A2 H:3', 'H:KQ D:K'],
-        idea: 'West guards both red suits on their own. Can you make West choose?',
-        solution: `<p>Lead the <strong>♣A</strong>, the squeeze card, first. West has to discard before North:</p>
-          <ul><li>If West throws the ♦K, North keeps the ♦Q (now a winner) and throws the ♥J. Cross to the ♥A and cash the ♦Q.</li>
-          <li>If West throws a heart, North throws the ♦Q. Lead the ♥3 to the ♥A, dropping West's last honor, and the ♥J wins.</li></ul>
-          <p>Playing hearts first fails: West keeps a guard in each suit and wins the last trick. This squeeze is <em>positional</em>: it works because West discards before North.</p>`,
-      },
-      {
-        title: 'The automatic squeeze',
-        trump: null, leader: 2, target: 3,
-        hands: ['H:AJ S:2', 'H:KQ D:K', 'C:A D:Q H:3', 'C:987'],
-        idea: 'This time it\'s East who guards both red suits, and East plays after North.',
-        solution: `<p>Lead the <strong>♣A</strong>. North has an idle card to throw (the ♠2), so it keeps both the ♥A-J and the link to South. Then East must discard:</p>
-          <ul><li>If East throws the ♦K, cash South's ♦Q (North throws the ♥J), then cross to the ♥A.</li>
-          <li>If East throws a heart, lead the ♥3 to the ♥A. East's honor falls and the ♥J wins.</li></ul>
-          <p>This squeeze is <em>automatic</em>: North's spare card means it would work against either defender.</p>`,
-      },
-      {
-        title: 'Cash everything first',
-        trump: null, leader: 2, target: 5,
-        hands: ['H:AJ D:Q S:32', 'C:98765', 'C:AKQ H:3 S:4', 'H:KQ D:K S:JT'],
-        idea: 'You need every trick. West has some spare spades to throw. What happens when they run out?',
-        solution: `<p>Cash the <strong>♣A, ♣K and ♣Q</strong>, keeping North's ♥A-J and ♦Q. North throws its two small spades.
-          West can throw two spades, but on the third club West has run out of spare cards and must give up a red-suit guard. Finish as in the simple squeeze.</p>
-          <p>Touching hearts or diamonds early lets West keep a guard in each suit. Run your long suit first and let the defender do the discarding.</p>`,
-      },
-      {
-        title: 'Rectifying the count',
-        trump: null, leader: 2, target: 3,
-        hands: ['H:AJ D:Q S:3', 'S:A C:987', 'C:A2 H:3 S:2', 'H:KQ D:K S:9'],
-        idea: 'You need three of the last four tricks, and you have a spade loser. Should you cash the ♣A now, or lose the spade first?',
-        solution: `<p>Lose the spade <strong>first</strong>: lead the ♠2. East wins the ♠A and has only clubs left to return. Your ♣A now squeezes West, who no longer has the ♠9 as a spare card.</p>
-          <p>If you cash the ♣A straight away, West simply throws the ♠9 and keeps both red guards. A squeeze only works when you can win all the remaining tricks but one. Giving up your spare loser early to reach that point is called <em>rectifying the count</em>.</p>`,
-      },
-    ],
-  },
-  endplay: {
-    label: 'Endplays',
-    intro: `
-      <p>An <strong>endplay</strong> (or <em>throw-in</em>) puts a defender on lead when every card they can lead helps you. It's the answer when a finesse is likely to lose.</p>
-      <p>The usual pattern is <strong>strip and throw in</strong>:</p>
-      <ol>
-        <li><strong>Strip:</strong> cash or ruff out the side suits, so the defender has no safe card to lead.</li>
-        <li><strong>Throw in:</strong> give the defender a trick they're forced to win.</li>
-        <li><strong>Collect:</strong> now they must lead into your tenace (such as A-Q, which is worth two tricks if the suit is led <em>to</em> it), or give you a <em>ruff-sluff</em>.</li>
-      </ol>
-      <p>A <strong>ruff-sluff</strong> happens when a defender leads a suit that both of your hands are void in. You ruff in one hand and throw a loser from the other (the "sluff"). That's why, in a trump contract, you keep a trump in <em>both</em> hands for the endplay.</p>
-      <p>Do it in the right order. If you cash your last winner in a side suit too early, the defender may get rid of the card you planned to throw them in with (<em>unblocking</em>), or keep a safe card to lead.</p>`,
-    puzzles: [
-      {
-        title: 'The basic throw-in',
-        trump: 'S', leader: 2, target: 3,
-        hands: ['S:2 H:3 D:AQ', 'H:A D:K76', 'S:3 H:2 D:43', 'H:KQJ D:J'],
-        idea: 'The ♦K sits behind dummy\'s A-Q, so a finesse loses. Can you make East lead diamonds for you?',
-        solution: `<p>Lead the <strong>♥2</strong>. East's only heart is the ace, so East must win. Now East has only diamonds left and must lead one <em>into</em> North's ♦A-Q.
-          North wins the queen, cashes the ace, and your last trump takes the final trick.</p>
-          <p>Taking the diamond finesse yourself loses to the king, and you end up with only two tricks.</p>`,
-      },
-      {
-        title: 'Strip first',
-        trump: 'S', leader: 2, target: 4,
-        hands: ['S:2 H:3 D:AQ C:A', 'H:A D:K76 C:5', 'S:3 H:2 D:43 C:2', 'H:KQJ D:J C:9'],
-        idea: 'Same idea, but now East has a club to exit with. Take that escape away first.',
-        solution: `<p>First <strong>strip the clubs</strong>: lead the ♣2 to North's ♣A. Then throw East in with the <strong>♥3</strong>. East wins the ♥A with only diamonds left, and must lead one into the ♦A-Q.</p>
-          <p>If you throw East in before cashing the ♣A, East exits safely with the ♣5 and you still have to lose a diamond to the king.</p>`,
-      },
-      {
-        title: 'Throw-in at no-trump',
-        trump: null, leader: 2, target: 3,
-        hands: ['H:2 C:432', 'H:K D:JT9', 'H:3 S:AQ C:A', 'H:A S:K98'],
-        idea: 'West has the ♠K, and your A-Q is in the South hand, so a finesse from North would lose. West also has the ♥A as a lone card…',
-        solution: `<p>Lead the <strong>♥3 straight away</strong>. West must win the bare ♥A and then lead a spade into your ♠A-Q. You also keep the ♣A, so you take the last three tricks.</p>
-          <p>If you cash the ♣A first, West can throw away the ♥A (<em>unblocking</em>). Then East wins the heart and leads a diamond, and you must give up a spade trick.
-          Make the throw-in before the defender gets a chance to discard the exit card.</p>`,
-      },
-      {
-        title: 'Throw-in with a trump',
-        trump: 'S', leader: 2, target: 3,
-        hands: ['S:2 H:A D:3 C:2', 'H:KQJ C:A', 'S:J H:2 D:AQ', 'S:Q D:K54'],
-        idea: 'West holds the last trump, the ♠Q, and the ♦K sits over your ♦A-Q. Leading diamonds yourself loses to the king.',
-        solution: `<p>Use the trump as the throw-in card: lead the <strong>♠J</strong>. West must win the ♠Q and then has only diamonds left, so West has to lead into your ♦A-Q.
-          Take the queen and the ace, then cross to North's ♥A for the last trick.</p>
-          <p>Cashing the ♥A or ♦A first does no harm, as long as you throw West in with the trump before touching the ♦Q.
-          Leading the ♦Q yourself lets West win the king, and West's ♠Q still takes a trick, so you'd end up with only two.</p>`,
-      },
-    ],
-  },
-};
-
-// Hebrew text for the puzzles above; the hands and targets are shared.
-const ADVANCED_HE = {
-  squeeze: {
-    intro: `
-      <p><strong>לחץ</strong> (סקוויז) מייצר לקיחה יש מאין. אתם מממשים זוכה, ומגן ששומר על שתי סדרות נאלץ להשליך. על איזו שמירה שלא יוותר, אחד הקלפים שלכם הופך לזוכה.</p>
-      <p>לחץ צריך ארבעה דברים:</p>
-      <ul>
-        <li><strong>שני איומים.</strong> <em>איום</em> הוא קלף שהיה זוכה אילו השמירה בסדרה שלו הייתה נעלמת: ה-♥J שלכם כשלמגן יש ♥K-Q, או ה-♦Q שלכם כשלמגן יש את ה-♦K.</li>
-        <li><strong>מגן אחד ששומר על שני האיומים.</strong> המגן הזה הוא <em>הקורבן</em>.</li>
-        <li><strong>הספירה.</strong> לפני שהלחץ מתחיל, אתם צריכים להיות מסוגלים לזכות בכל הלקיחות שנשארו פרט לאחת. אם יש לכם שני מפסידים, מסרו אחד קודם (<em>תיקון הספירה</em>), כדי שלקורבן לא יהיה קלף מיותר להשליך.</li>
-        <li><strong>כניסות.</strong> אחרי שהקורבן משליך, אתם עדיין צריכים להגיע לאיום שהפך לזוכה. בדרך כלל לאחד האיומים יש זוכה משלו, כמו ♥A-J.</li>
-      </ul>
-      <p>הזוכה האחרון שאתם מממשים הוא <strong>קלף הלחץ</strong>. לחץ <em>מבוסס מיקום</em> עובד רק נגד המגן שמשליך <em>לפני</em> היד שמחזיקה את האיומים. לחץ <em>אוטומטי</em> עובד נגד כל אחד מהמגינים, כי ליד שמול קלף הלחץ יש קלף מיותר להשליך.</p>
-      <p>כלל האצבע: <strong>ממשו קודם את הזוכים בסדרות האחרות, ושמרו את האיומים</strong>. אחר כך הסתכלו מה הקורבן משליך.</p>`,
-    puzzles: [
-      {
-        title: 'הלחץ הפשוט',
-        idea: 'מערב לבדו שומר על שתי הסדרות האדומות. תוכלו לאלץ אותו לבחור?',
-        solution: `<p>הובילו ראשון את <strong>♣A</strong>, קלף הלחץ. מערב חייב להשליך לפני צפון:</p>
-          <ul><li>אם מערב משליך את ה-♦K, צפון שומר את ה-♦Q (שהפכה לזוכה) ומשליך את ה-♥J. עברו ל-♥A וממשו את ה-♦Q.</li>
-          <li>אם מערב משליך הארט, צפון משליך את ה-♦Q. הובילו את ה-♥3 ל-♥A, ההונור האחרון של מערב נופל, וה-♥J זוכה.</li></ul>
-          <p>משחק הארט קודם נכשל: מערב שומר שמירה בכל סדרה וזוכה בלקיחה האחרונה. הלחץ הזה <em>מבוסס מיקום</em>: הוא עובד כי מערב משליך לפני צפון.</p>`,
-      },
-      {
-        title: 'הלחץ האוטומטי',
-        idea: 'הפעם מזרח שומר על שתי הסדרות האדומות, והוא משחק אחרי צפון.',
-        solution: `<p>הובילו את <strong>♣A</strong>. לצפון יש קלף מיותר להשליך (ה-♠2), כך שהוא שומר גם את ה-♥A-J וגם את הקשר לדרום. עכשיו מזרח חייב להשליך:</p>
-          <ul><li>אם מזרח משליך את ה-♦K, ממשו את ה-♦Q של דרום (צפון משליך את ה-♥J), ואז עברו ל-♥A.</li>
-          <li>אם מזרח משליך הארט, הובילו את ה-♥3 ל-♥A. ההונור של מזרח נופל וה-♥J זוכה.</li></ul>
-          <p>הלחץ הזה <em>אוטומטי</em>: בזכות הקלף המיותר של צפון הוא היה עובד נגד כל אחד מהמגינים.</p>`,
-      },
-      {
-        title: 'ממשו הכול קודם',
-        idea: 'אתם צריכים את כל הלקיחות. למערב יש כמה קלפי ספייד מיותרים להשליך. מה יקרה כשהם ייגמרו?',
-        solution: `<p>ממשו את <strong>♣A, ♣K ו-♣Q</strong>, ושמרו בצפון את ה-♥A-J ואת ה-♦Q. צפון משליך את שני קלפי הספייד הקטנים שלו.
-          מערב יכול להשליך שני קלפי ספייד, אבל על הקלאב השלישי כבר אין לו קלפים מיותרים, והוא חייב לוותר על שמירה באחת הסדרות האדומות. סיימו כמו בלחץ הפשוט.</p>
-          <p>נגיעה מוקדמת בהארט או בדיאמונד מאפשרת למערב לשמור שמירה בכל סדרה. הריצו קודם את הסדרה הארוכה, ותנו למגן להשליך.</p>`,
-      },
-      {
-        title: 'תיקון הספירה',
-        idea: 'אתם צריכים שלוש מתוך ארבע הלקיחות האחרונות, ויש לכם מפסיד בספייד. לממש עכשיו את ה-♣A, או למסור קודם את הספייד?',
-        solution: `<p>מסרו את הספייד <strong>קודם</strong>: הובילו את ה-♠2. מזרח זוכה ב-♠A ונשארו לו רק קלפי קלאב להחזיר. עכשיו ה-♣A שלכם לוחץ את מערב, שכבר אין לו את ה-♠9 כקלף מיותר.</p>
-          <p>אם תממשו את ה-♣A מיד, מערב פשוט ישליך את ה-♠9 וישמור את שתי השמירות האדומות. לחץ עובד רק כשאתם יכולים לזכות בכל הלקיחות שנשארו פרט לאחת. מסירת המפסיד המיותר מוקדם כדי להגיע למצב הזה נקראת <em>תיקון הספירה</em>.</p>`,
-      },
-    ],
-  },
-  endplay: {
-    intro: `
-      <p><strong>משחק סיום</strong> (אנדפליי, או <em>הכנסה</em>) מכניס מגן להובלה כשכל קלף שהוא יכול להוביל עוזר לכם. זה הפתרון כשעקיפה צפויה להיכשל.</p>
-      <p>הדפוס הנפוץ הוא <strong>ניקוי והכנסה</strong>:</p>
-      <ol>
-        <li><strong>ניקוי:</strong> ממשו או חתכו את הסדרות הצדדיות, כך שלמגן לא יישאר קלף בטוח להוביל.</li>
-        <li><strong>הכנסה:</strong> תנו למגן לקיחה שהוא חייב לזכות בה.</li>
-        <li><strong>איסוף:</strong> עכשיו הוא חייב להוביל לתוך המזלג שלכם (כמו A-Q, ששווה שתי לקיחות כשמובילים <em>אליו</em>), או לתת לכם <em>חיתוך והשלכה</em>.</li>
-      </ol>
-      <p><strong>חיתוך והשלכה</strong> קורה כשמגן מוביל סדרה ששתי הידיים שלכם ריקות בה. חותכים ביד אחת ומשליכים מפסיד מהיד השנייה. לכן, בחוזה בשליט, שומרים שליט <em>בשתי</em> הידיים לקראת משחק הסיום.</p>
-      <p>הסדר חשוב. אם תממשו מוקדם מדי את הזוכה האחרון בסדרה צדדית, המגן עלול להיפטר מהקלף שתכננתם להכניס אותו איתו (<em>השלכת קלף גובה</em>), או לשמור קלף בטוח להוביל.</p>`,
-    puzzles: [
-      {
-        title: 'הכנסה בסיסית',
-        idea: 'ה-♦K יושב מאחורי ה-A-Q של הדומם, ולכן עקיפה נכשלת. תוכלו לגרום למזרח להוביל לכם דיאמונד?',
-        solution: `<p>הובילו את ה-<strong>♥2</strong>. ההארט היחיד של מזרח הוא האס, ולכן מזרח חייב לזכות. עכשיו נשארו למזרח רק קלפי דיאמונד, והוא חייב להוביל דיאמונד <em>לתוך</em> ה-♦A-Q של צפון.
-          צפון זוכה במלכה, מממש את האס, והשליט האחרון שלכם לוקח את הלקיחה האחרונה.</p>
-          <p>אם תעקפו בדיאמונד בעצמכם, תפסידו למלך ותסיימו עם שתי לקיחות בלבד.</p>`,
-      },
-      {
-        title: 'קודם ניקוי',
-        idea: 'אותו רעיון, אבל עכשיו למזרח יש קלאב לצאת איתו. קחו ממנו קודם את דרך המילוט.',
-        solution: `<p>קודם <strong>נקו את הקלאב</strong>: הובילו את ה-♣2 ל-♣A של צפון. אחר כך הכניסו את מזרח עם ה-<strong>♥3</strong>. מזרח זוכה ב-♥A כשנשארו לו רק קלפי דיאמונד, והוא חייב להוביל דיאמונד לתוך ה-♦A-Q.</p>
-          <p>אם תכניסו את מזרח לפני שמימשתם את ה-♣A, מזרח ייצא בבטחה עם ה-♣5, ועדיין תפסידו דיאמונד למלך.</p>`,
-      },
-      {
-        title: 'הכנסה בללא שליט',
-        idea: 'למערב יש את ה-♠K, וה-A-Q שלכם ביד של דרום, כך שעקיפה מצפון הייתה נכשלת. למערב יש גם את ה-♥A כקלף בודד…',
-        solution: `<p>הובילו את ה-<strong>♥3 מיד</strong>. מערב חייב לזכות ב-♥A הבודד, ואז להוביל ספייד לתוך ה-♠A-Q שלכם. ה-♣A נשאר אצלכם, כך שאתם לוקחים את שלוש הלקיחות האחרונות.</p>
-          <p>אם תממשו קודם את ה-♣A, מערב יכול להשליך את ה-♥A (<em>השלכת קלף גובה</em>). אז מזרח זוכה בהארט ומוביל דיאמונד, ואתם חייבים למסור לקיחה בספייד.
-          בצעו את ההכנסה לפני שהמגן מקבל הזדמנות להשליך את קלף היציאה.</p>`,
-      },
-      {
-        title: 'הכנסה עם שליט',
-        idea: 'למערב יש את השליט האחרון, ה-♠Q, וה-♦K יושב מעל ה-♦A-Q שלכם. הובלת דיאמונד בעצמכם מפסידה למלך.',
-        solution: `<p>השתמשו בשליט כקלף ההכנסה: הובילו את ה-<strong>♠J</strong>. מערב חייב לזכות ב-♠Q, ואז נשארו לו רק קלפי דיאמונד, כך שהוא חייב להוביל לתוך ה-♦A-Q שלכם.
-          קחו את המלכה ואת האס, ואז עברו ל-♥A של צפון ללקיחה האחרונה.</p>
-          <p>מימוש ה-♥A או ה-♦A קודם לא מזיק, כל עוד אתם מכניסים את מערב עם השליט לפני שאתם נוגעים ב-♦Q.
-          אם תובילו את ה-♦Q בעצמכם, מערב יזכה במלך, וה-♠Q של מערב עדיין ייקח לקיחה, כך שתסיימו עם שתיים בלבד.</p>`,
-      },
-    ],
-  },
-};
-
-// In Hebrew, swap in the Hebrew intro and puzzle text; the hands stay the same.
-function localizeTopics(topics, he) {
-  if (LANG !== 'he') return topics;
-  for (const [key, t] of Object.entries(he)) {
-    topics[key].intro = t.intro;
-    t.puzzles.forEach((p, i) => Object.assign(topics[key].puzzles[i], p));
-  }
-  return topics;
-}
-
 // ---------- Trick slots ----------
 
 // One mark per trick in the puzzle: won, still winnable with best play, lost through a mistake,
@@ -287,7 +78,10 @@ const TRICK_SLOTS_LEGEND = L(
 
 // ---------- Puzzle player ----------
 
-function makePuzzleSection(prefix, topics) {
+// A puzzle section: `topics` maps a key to { label, intro, puzzles }, and `groups` lists the topic
+// keys under group labels for the menu. Each topic shows its intro and a "Practice hands" button
+// that opens the puzzle player.
+function makePuzzleSection(prefix, topics, groups) {
   const TRICK_PAUSE = 1000;
   const AI_DELAY = 550;
   let topic = Object.keys(topics)[0];
@@ -302,6 +96,7 @@ function makePuzzleSection(prefix, topics) {
   function start() {
     clearTimeout(timer);
     const p = puzzle();
+    if (!p) return;
     st = {
       hands: p.hands.map(parseHand),
       trick: [],
@@ -315,6 +110,8 @@ function makePuzzleSection(prefix, topics) {
     };
     updatePossible();
     st.bestAtStart = st.possible;
+    // Without a "Need:" line, the target is the most that perfect play can make.
+    st.target = p.target ?? st.bestAtStart;
     render();
     schedule();
   }
@@ -416,15 +213,15 @@ function makePuzzleSection(prefix, topics) {
 
   function statusText() {
     const p = puzzle();
-    const need = Math.max(0, p.target - st.tricks[0]);
+    const need = Math.max(0, st.target - st.tricks[0]);
     if (st.done) {
-      return st.tricks[0] >= p.target
+      return st.tricks[0] >= st.target
         ? L('Solved!', 'פתרתם!')
-        : L(`You took ${st.tricks[0]} of the ${p.target} tricks you needed.`, `לקחתם ${st.tricks[0]} מתוך ${p.target} הלקיחות שהייתם צריכים.`);
+        : L(`You took ${st.tricks[0]} of the ${st.target} tricks you needed.`, `לקחתם ${st.tricks[0]} מתוך ${st.target} הלקיחות שהייתם צריכים.`);
     }
     if (st.busy) return L(`${SEAT_NAMES[trickWinnerOf(st.trick, p.trump)]} wins the trick.`, `${SEAT_NAMES[trickWinnerOf(st.trick, p.trump)]} זוכה בלקיחה.`);
     let warn = '';
-    if (st.possible < p.target) {
+    if (st.possible < st.target) {
       warn = ` <span class="warn">${L('A mistake cost a trick (✕), so the target can no longer be reached. Try Reset.', 'טעות עלתה בלקיחה (✕), וכבר אי אפשר להגיע ליעד. נסו להתחיל מחדש.')}</span>`;
     } else if (st.possible < st.bestAtStart) {
       warn = ` <span class="warn">${L('A mistake cost a trick (✕), but you can still reach the target.', 'טעות עלתה בלקיחה (✕), אבל עדיין אפשר להגיע ליעד.')}</span>`;
@@ -438,17 +235,13 @@ function makePuzzleSection(prefix, topics) {
   function render() {
     const t = topics[topic];
     const p = puzzle();
-    document.querySelectorAll(`#${prefix}-topic button`).forEach(b => {
-      b.classList.toggle('active', b.dataset.topic === topic);
-      b.setAttribute('aria-pressed', b.dataset.topic === topic);
-    });
-    $('intro').innerHTML = colorSuits(t.intro);
     $('title').textContent = L(`Puzzle ${index + 1} of ${t.puzzles.length}: ${p.title}`, `חידה ${index + 1} מתוך ${t.puzzles.length}: ${p.title}`);
     const strain = trumpText(p.trump);
     const n = cardsLeftAtStart();
+    const contract = p.contract ? L(`Contract: ${bidHtml(p.contract)}. `, `החוזה: ${bidHtml(p.contract)}. `) : '';
     $('setup').innerHTML = L(
-      `<strong>${strain[0].toUpperCase() + strain.slice(1)}. ${SEAT_NAMES[p.leader]} to lead. You need ${p.target} of the last ${n} tricks.</strong> The defenders can see every card and will play perfectly. `,
-      `<strong>${strain}. ${SEAT_NAMES[p.leader]} מוביל. אתם צריכים ${p.target} מתוך ${n} הלקיחות האחרונות.</strong> המגינים רואים את כל הקלפים ומשחקים בצורה מושלמת. `) +
+      `<strong>${contract}${strain[0].toUpperCase() + strain.slice(1)}. ${SEAT_NAMES[p.leader]} to lead. You need ${st.target} of the last ${n} tricks.</strong> The defenders can see every card and will play perfectly. `,
+      `<strong>${contract}${strain}. ${SEAT_NAMES[p.leader]} מוביל. אתם צריכים ${st.target} מתוך ${n} הלקיחות האחרונות.</strong> המגינים רואים את כל הקלפים ומשחקים בצורה מושלמת. `) +
       colorSuits(p.idea);
     $('prev').disabled = index === 0;
     $('next').disabled = index === t.puzzles.length - 1;
@@ -459,12 +252,12 @@ function makePuzzleSection(prefix, topics) {
     $('slots').setAttribute('aria-label', L(
       `${st.tricks[0]} won, ${st.possible - st.tricks[0]} still possible, ${st.bestAtStart - st.possible} lost through a mistake`,
       `${st.tricks[0]} נלקחו, ${st.possible - st.tricks[0]} עדיין אפשריות, ${st.bestAtStart - st.possible} אבדו בגלל טעות`));
-    $('need').textContent = L(`need ${p.target} of ${n}`, `נדרשות ${p.target} מתוך ${n}`);
+    $('need').textContent = L(`need ${st.target} of ${n}`, `נדרשות ${st.target} מתוך ${n}`);
     $('legend').innerHTML = TRICK_SLOTS_LEGEND;
 
     const fb = $('feedback');
     if (st.done) {
-      const ok = st.tricks[0] >= p.target;
+      const ok = st.tricks[0] >= st.target;
       fb.className = 'feedback ' + (ok ? 'good' : 'bad');
       fb.innerHTML = `<strong>${ok ? L('Solved!', 'פתרתם!') : L('Not this time.', 'לא הפעם.')}</strong>${colorSuits(p.solution)}`;
     } else if (st.showSolution) {
@@ -483,9 +276,41 @@ function makePuzzleSection(prefix, topics) {
     return parseHand(puzzle().hands[0]).length;
   }
 
+  // Show a topic's explanation; its practice hands open with the "Practice hands" button.
+  function showTopic(key) {
+    clearTimeout(timer);
+    topic = key;
+    index = 0;
+    document.querySelectorAll(`#${prefix}-topic button`).forEach(b => {
+      b.classList.toggle('active', b.dataset.topic === topic);
+      b.setAttribute('aria-pressed', b.dataset.topic === topic);
+    });
+    const t = topics[topic];
+    $('topic-title').textContent = t.label;
+    $('intro').innerHTML = colorSuits(t.intro);
+    const n = t.puzzles.length;
+    $('practice').hidden = !n;
+    $('practice').textContent = L(`Practice hands (${n}) →`, `ידיים לתרגול (${n}) ←`);
+    $('practice-none').hidden = !!n;
+    $('practice-none').textContent = L('No practice hands for this technique yet.', 'עדיין אין ידיים לתרגול בטכניקה הזאת.');
+    $('puzzle').hidden = true;
+  }
+
   function init() {
+    $('topic').innerHTML = groups.map(g => `
+      <div class="topic-group">
+        <span class="topic-group-label">${g.label}</span>
+        <div class="segmented" role="group" aria-label="${g.label}">
+          ${g.topics.map(k => `<button type="button" data-topic="${k}">${topics[k].label}</button>`).join('')}
+        </div>
+      </div>`).join('');
     document.querySelectorAll(`#${prefix}-topic button`).forEach(b =>
-      b.addEventListener('click', () => { topic = b.dataset.topic; index = 0; start(); }));
+      b.addEventListener('click', () => showTopic(b.dataset.topic)));
+    $('practice').addEventListener('click', () => {
+      $('puzzle').hidden = false;
+      start();
+      $('puzzle').scrollIntoView({ block: 'start', behavior: 'smooth' });
+    });
     $('prev').addEventListener('click', () => { index--; start(); });
     $('next').addEventListener('click', () => { index++; start(); });
     $('reset').addEventListener('click', start);
@@ -495,10 +320,9 @@ function makePuzzleSection(prefix, topics) {
       st.hint = bestCards(st.turn)[0];
       render();
     });
-    start();
+    showTopic(topic);
   }
 
   return { init };
 }
 
-const Advanced = makePuzzleSection('adv', localizeTopics(ADVANCED_TOPICS, ADVANCED_HE));

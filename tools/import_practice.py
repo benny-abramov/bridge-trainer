@@ -27,13 +27,15 @@ DRILLS = [
     ('auction-examples.txt', 'auctionExamples', 'deal'),
     ('trick-examples.txt', 'trickExamples', 'trick'),
     ('scoring-examples.txt', 'scoringExamples', 'score'),
+    ('declarer-play.txt', 'declarerPlay', 'ending'),
 ]
 
-FIELD = re.compile(r'^\s*(hand|dealer|north|east|south|west|auction|answer|lesson|trump|leader|contract|vulnerable|result|explanation|note|הסבר|הערה)\s*:\s*(.*)$', re.I)
+FIELD = re.compile(r'^\s*(hand|dealer|north|east|south|west|auction|answer|lesson|trump|leader|contract|vulnerable|result|section|title|need|explanation|note|הסבר|הערה|כותרת)\s*:\s*(.*)$', re.I)
 FIELD_KEY = {'hand': 'hand', 'dealer': 'dealer', 'auction': 'auction', 'answer': 'answer',
              'north': 'north', 'east': 'east', 'south': 'south', 'west': 'west',
              'lesson': 'lesson', 'trump': 'trump', 'leader': 'leader',
              'contract': 'contract', 'vulnerable': 'vulnerable', 'result': 'result',
+             'section': 'section', 'need': 'need', 'title': 'title_en', 'כותרת': 'title_he',
              'explanation': 'why_en', 'הסבר': 'why_he', 'note': 'note_en', 'הערה': 'note_he'}
 SEATS = ['north', 'east', 'south', 'west']
 SUIT_SYMBOLS = {'♠': 'S', '♥': 'H', '♦': 'D', '♣': 'C'}
@@ -54,7 +56,7 @@ def clean(text):
 SMALL = '98765432'  # what an "x" in a hand becomes (or the 10, when these run out)
 
 
-def parse_suits(text):
+def parse_suits(text, full=True):
     """'S AKJ52 H K74 D Q3 C Jxx' (also S:AKJ52, ♠AKJ52, 10 or T, - for a void, x for any small card)
     -> {'S': 'AKJ52', 'H': 'K74', 'D': 'Q3', 'C': 'JXX'}, checked to be 13 cards with no card twice."""
     suits, current = {}, None
@@ -77,14 +79,16 @@ def parse_suits(text):
             raise Problem(f'"{token}" is not a valid list of cards')
         suits[current] += ranks
     missing = [s for s in 'SHDC' if s not in suits]
-    if missing:
+    if missing and full:
         raise Problem('the hand has no ' + ', '.join(missing) + ' suit (write - for a void)')
+    for s in missing:
+        suits[s] = ''
     cards = [s + r for s in 'SHDC' for r in suits[s] if r != 'X']
     duplicates = sorted({c for c in cards if cards.count(c) > 1})
     if duplicates:
         raise Problem('these cards appear twice: ' + ', '.join(duplicates))
     total = sum(len(suits[s]) for s in 'SHDC')
-    if total != 13:
+    if full and total != 13:
         raise Problem(f'the hand has {total} cards, not 13')
     return suits
 
@@ -371,6 +375,70 @@ def convert_score(block):
     return out
 
 
+DECLARER_SECTIONS = {
+    'develop': 'develop', 'developing': 'develop', 'developingsuits': 'develop',
+    'finesse': 'finesse', 'finesses': 'finesse',
+    'draw': 'draw', 'drawingtrumps': 'draw', 'drawtrumps': 'draw',
+    'ruff': 'ruff', 'ruffingindummy': 'ruff', 'ruffing': 'ruff',
+    'crossruff': 'crossruff',
+    'holdup': 'holdup',
+    'duck': 'duck', 'ducking': 'duck',
+    'safety': 'safety', 'safetyplay': 'safety', 'safetyplays': 'safety',
+    'squeeze': 'squeeze', 'squeezes': 'squeeze',
+    'endplay': 'endplay', 'endplays': 'endplay', 'elimination': 'endplay', 'eliminationandendplays': 'endplay',
+}
+MAX_ENDING = 6  # cards per hand; more is too slow for the perfect-defense solver
+
+
+def convert_ending(block):
+    """A declarer-play ending: section, contract, leader, optional target and four short hands."""
+    if block.get('errors'):
+        raise Problem('; '.join(block['errors']))
+    key = re.sub(r'[^a-z]', '', block.get('section', '').lower())
+    if key not in DECLARER_SECTIONS:
+        raise Problem('"Section:" must be one of develop, finesse, draw, ruff, crossruff, holdup, duck, safety, squeeze, endplay')
+    raw = clean(block.get('contract', '')).upper().replace(' ', '')
+    m = re.fullmatch(r'([1-7])(NT|N|C|D|H|S)', raw)
+    if not m:
+        raise Problem('"Contract:" must be a bid like 3NT or 4S')
+    contract = m.group(1) + m.group(2)[0]
+    leader = (block.get('leader') or 'S').strip().upper()[:1]
+    if leader not in 'NESW':
+        raise Problem('"Leader:" must be N, E, S or W')
+    hands, seen = [], {}
+    for seat in SEATS:
+        if not block.get(seat):
+            raise Problem(f'the hand has no "{seat.title()}:" cards')
+        try:
+            suits = parse_suits(block[seat], full=False)
+        except Problem as e:
+            raise Problem(f'{seat.title()}: {e}')
+        for suit in 'SHDC':
+            for r in suits[suit].replace('X', ''):
+                if suit + r in seen:
+                    raise Problem(f'{suit}{r} is in both {seen[suit + r].title()} and {seat.title()}')
+                seen[suit + r] = seat
+        hands.append(suits)
+    sizes = [sum(len(h[s]) for s in 'SHDC') for h in hands]
+    if len(set(sizes)) != 1:
+        raise Problem('every hand must have the same number of cards (' + ', '.join(f'{seat.title()} {n}' for seat, n in zip(SEATS, sizes)) + ')')
+    if not 1 <= sizes[0] <= MAX_ENDING:
+        raise Problem(f'each hand can have at most {MAX_ENDING} cards (these are endings), not {sizes[0]}')
+    fill_small_cards(hands, ' '.join(block[seat] for seat in SEATS))
+    out = {'section': DECLARER_SECTIONS[key], 'contract': contract, 'leader': 'NESW'.index(leader),
+           'hands': [hand_spec(h) for h in hands]}
+    need = block.get('need', '').strip()
+    if need:
+        if not need.isdigit() or not 1 <= int(need) <= sizes[0]:
+            raise Problem(f'"Need:" must be a number from 1 to {sizes[0]}')
+        out['need'] = int(need)
+    for part in ('why', 'note', 'title'):
+        en, he = block.get(part + '_en', ''), block.get(part + '_he', '')
+        if en or he:
+            out[part] = {'en': en, 'he': he}
+    return out
+
+
 def main():
     practice_dir = sys.argv[1] if len(sys.argv) > 1 else os.path.join(ROOT, 'practice')
     output = sys.argv[2] if len(sys.argv) > 2 else os.path.join(ROOT, 'js', 'practice-data.js')
@@ -382,21 +450,21 @@ def main():
             continue
         rel = os.path.relpath(path, ROOT) if path.startswith(ROOT) else path
         try:
-            blocks = read_blocks(path, {'deal': 'dealer', 'trick': 'lesson', 'score': 'contract'}.get(need, 'hand'))
+            blocks = read_blocks(path, {'deal': 'dealer', 'trick': 'lesson', 'score': 'contract', 'ending': 'section'}.get(need, 'hand'))
         except Problem as e:
             problems.append(f'{rel}: {e}')
             continue
         hands = []
         for b in blocks:
             try:
-                convert_one = {'deal': convert_deal, 'trick': convert_trick, 'score': convert_score}.get(need)
+                convert_one = {'deal': convert_deal, 'trick': convert_trick, 'score': convert_score, 'ending': convert_ending}.get(need)
                 hands.append(convert_one(b) if convert_one else convert(b, need, key))
             except Problem as e:
                 problems.append(f'{rel}, hand starting on line {b["line"]}: {e}')
         if hands:
             data[key] = hands
         what = 'example(s)' if need in ('deal', 'trick', 'score') else 'hand(s)'
-        empty = 'no examples yet' if need in ('deal', 'trick', 'score') else 'no hands yet, random hands'
+        empty = 'no examples yet' if need in ('deal', 'trick', 'score') else 'no hands yet' if need == 'ending' else 'no hands yet, random hands'
         summary.append(f'  {name}: {len(hands)} {what}' if hands else f'  {name}: {empty}')
 
     if problems:

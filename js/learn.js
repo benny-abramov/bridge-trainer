@@ -440,7 +440,7 @@ const LESSONS_EN = [
         <tr><td>Double finesse</td><td>A-Q-10 / x-x-x</td><td>Finesse the 10 first, then the queen</td></tr>
         <tr><td>Ruffing finesse</td><td>A-Q-J / void</td><td>Lead the queen; ruff if covered, otherwise throw a loser</td></tr>
       </table>
-      <p>The Declarer Play tab has practice hands for each of these.</p>`,
+      <p>The Declarer Play tab covers these and more (drawing trumps, cross ruff, hold up, ducking, safety plays), each with practice hands.</p>`,
     tryIt: 'declarer',
   },
   {
@@ -451,8 +451,8 @@ const LESSONS_EN = [
       <p>Cash your winners until a defender who is guarding two suits has to discard one of the guards. A squeeze needs two threats, one defender guarding both, the right count (you can win all the remaining tricks but one) and entries.</p>
       <h3>Endplays</h3>
       <p>Strip the side suits, then throw a defender in with a trick they're forced to win. They then have to lead into your tenace (such as A-Q) or give you a ruff-sluff.</p>
-      <p>The Advanced tab explains both in more detail, with puzzles against perfect defense.</p>`,
-    tryIt: 'advanced',
+      <p>The Declarer Play tab explains both in more detail (under <em>Expert play</em>), with practice hands against perfect defense.</p>`,
+    tryIt: 'declarer',
   },
 ];
 
@@ -843,7 +843,7 @@ const LESSONS_HE = [
         <tr><td>עקיפה כפולה</td><td>A-Q-10 / x-x-x</td><td>עקפו קודם עם ה-10, אחר כך עם המלכה</td></tr>
         <tr><td>עקיפת חיתוך</td><td>A-Q-J / חוסר</td><td>הובילו את המלכה; חתכו אם מכסים אותה, אחרת השליכו מפסיד</td></tr>
       </table>
-      <p>בלשונית "משחק הכרוז" יש ידיים לתרגול של כל אחד מאלה.</p>`,
+      <p>בלשונית "משחק הכרוז" יש את אלה ועוד (הוצאת שליטים, חיתוך צולב, השהיה, ויתור, משחקי ביטחון), עם ידיים לתרגול לכל אחד.</p>`,
     tryIt: 'declarer',
   },
   {
@@ -854,8 +854,8 @@ const LESSONS_HE = [
       <p>ממשו זוכים עד שמגן ששומר על שתי סדרות נאלץ להשליך את אחת השמירות. לחץ צריך שני איומים, מגן אחד ששומר על שניהם, ספירה נכונה (אפשר לזכות בכל הלקיחות שנשארו פרט לאחת) וכניסות.</p>
       <h3>משחקי סיום</h3>
       <p>נקו את הסדרות הצדדיות, ואז הכניסו מגן ללקיחה שהוא חייב לזכות בה. אז הוא חייב להוביל לתוך המזלג שלכם (כמו A-Q), או לתת לכם חיתוך והשלכה.</p>
-      <p>בלשונית "טכניקות מתקדמות" יש הסבר מפורט על שתיהן, עם חידות מול הגנה מושלמת.</p>`,
-    tryIt: 'advanced',
+      <p>בלשונית "משחק הכרוז" יש הסבר מפורט על שתיהן (תחת <em>משחק מומחים</em>), עם ידיים לתרגול מול הגנה מושלמת.</p>`,
+    tryIt: 'declarer',
   },
 ];
 

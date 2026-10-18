@@ -1,6 +1,6 @@
 // Preview of a "hand diagram" style for the card-play puzzles: text hands, trick chips, a contract chip,
-// step back/forward, trick counters and trick slots. Reuses the puzzle data and solver from
-// js/advanced.js and js/declarer.js.
+// step back/forward, trick counters and trick slots. Reuses the solver from js/advanced.js and the
+// practice hands from js/declarer.js (practice/declarer-play.txt).
 
 (() => {
   const AI_DELAY = 550;
@@ -9,15 +9,13 @@
   const isHuman = seat => seat % 2 === 0;
   const keyOf = c => c.suit + c.rank;
 
-  const TOPIC_NAMES = L(
-    { develop: 'Developing suits', ruff: 'Ruffing losers', finesse: 'Finesses', squeeze: 'Squeezes', endplay: 'Endplays' },
-    { develop: 'פיתוח סדרות', ruff: 'חיתוך מפסידים', finesse: 'עקיפות', squeeze: 'לחצים', endplay: 'משחקי סיום' });
-  const SECTION_NAMES = L({ declarer: 'Declarer play', advanced: 'Advanced' }, { declarer: 'משחק הכרוז', advanced: 'טכניקות מתקדמות' });
+  const TOPIC_NAMES = Object.fromEntries(Object.entries(DECLARER_TOPICS).map(([k, t]) => [k, t.label]));
+  const SECTION_NAMES = L({ declarer: 'Declarer play' }, { declarer: 'משחק הכרוז' });
   const COMPASS = L(['N', 'E', 'S', 'W'], ['צ', 'מז', 'ד', 'מע']);
 
   // Every puzzle from both sections, in order.
   const PUZZLES = [];
-  for (const [section, topics] of [['declarer', DECLARER_TOPICS], ['advanced', ADVANCED_TOPICS]]) {
+  for (const [section, topics] of [['declarer', DECLARER_TOPICS]]) {
     for (const [topic, t] of Object.entries(topics)) {
       t.puzzles.forEach(p => PUZZLES.push({ section, topic, p }));
     }
@@ -184,7 +182,7 @@
 
   function render() {
     const s = positionAfter(pos);
-    const target = puzzle.target;
+    const target = puzzle.target ?? bestAtStart;
     const total = parseHand(puzzle.hands[0]).length;
     const strain = puzzle.trump ? SUIT_SYMBOL[puzzle.trump] : 'NT';
     const strainClass = puzzle.trump && isRed(puzzle.trump) ? 'red' : '';

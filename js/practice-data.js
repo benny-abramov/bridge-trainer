@@ -1066,5 +1066,511 @@ const PRACTICE = {
     "he": "בדאבל וכשלא פגיעים: 100 ללקיחה החסרה הראשונה, 200 לשנייה ולשלישית, ו-300 לכל אחת מהרביעית ואילך."
    }
   }
+ ],
+ "declarerPlay": [
+  {
+   "section": "develop",
+   "contract": "3N",
+   "leader": 2,
+   "hands": [
+    "H:2 D:KQJ",
+    "S:5432",
+    "H:A D:32 C:A",
+    "H:KQJ D:A"
+   ],
+   "need": 3,
+   "why": {
+    "en": "<p><strong>Lead a diamond now.</strong> West can win the ♦A and lead the ♥K, but your ♥A is still there to stop the suit. Then lead your other diamond to dummy's winners.</p> <p>If you cash the ♥A first, West's hearts become winners. When West wins the ♦A, they take two heart tricks. Develop your suit while you still have a stopper in theirs.</p>",
+    "he": "<p><strong>הובילו דיאמונד עכשיו.</strong> מערב יכול לזכות ב-♦A ולהוביל את ה-♥K, אבל ה-♥A שלכם עדיין שם כדי לעצור את הסדרה. אחר כך הובילו את הדיאמונד השני שלכם אל הזוכים של הדומם.</p> <p>אם תממשו קודם את ה-♥A, קלפי ההארט של מערב יהפכו לזוכים. כשמערב יזכה ב-♦A, הוא ייקח שתי לקיחות בהארט. פתחו את הסדרה שלכם כל עוד יש לכם עוצר בסדרה שלהם.</p>"
+   },
+   "note": {
+    "en": "West has the ♦A and a strong heart suit, and you have just one heart stopper. In what order should you play?",
+    "he": "למערב יש את ה-♦A וסדרת הארט חזקה, ולכם יש עוצר אחד בלבד בהארט. באיזה סדר כדאי לשחק?"
+   },
+   "title": {
+    "en": "Knock out the ace first",
+    "he": "קודם הוציאו את האס"
+   }
+  },
+  {
+   "section": "finesse",
+   "contract": "3N",
+   "leader": 0,
+   "hands": [
+    "D:AQ C:2",
+    "D:8 C:KQ",
+    "D:32 C:A",
+    "H:9 D:K5"
+   ],
+   "need": 3,
+   "why": {
+    "en": "<p>Cross to your hand with the <strong>♣A</strong>, then lead a diamond <em>toward</em> dummy's A-Q. When West plays low, play the queen. It wins, because the king has to be played before the queen or not at all. The ace then captures West's king.</p> <p>Leading the queen (or the ace and then the queen) from dummy just lets West win the king.</p>",
+    "he": "<p>עברו ליד שלכם עם ה-<strong>♣A</strong>, ואז הובילו דיאמונד <em>לעבר</em> ה-A-Q של הדומם. כשמערב משחק נמוך, שחקו את המלכה. היא זוכה, כי המלך היה צריך להיות משוחק לפני המלכה או לא בכלל. אחר כך האס תופס את המלך של מערב.</p> <p>הובלת המלכה (או האס ואחריו המלכה) מהדומם רק מאפשרת למערב לזכות במלך.</p>"
+   },
+   "note": {
+    "en": "West has the ♦K. Dummy is on lead with the ♦A-Q.",
+    "he": "למערב יש את ה-♦K. הדומם מוביל, ויש לו ♦A-Q."
+   },
+   "title": {
+    "en": "The simple finesse",
+    "he": "העקיפה הפשוטה"
+   }
+  },
+  {
+   "section": "finesse",
+   "contract": "3N",
+   "leader": 2,
+   "hands": [
+    "H:A C:54",
+    "H:K C:A8",
+    "H:2 C:K3",
+    "C:QJT"
+   ],
+   "need": 2,
+   "why": {
+    "en": "<p>Cross to dummy with the <strong>♥A</strong>, then lead a club <em>toward</em> your king. If East plays low, the king wins. If East takes the ace, your king is a winner later.</p> <p>Leading clubs from your own hand lets East win the ace over your king, or play low and let West win the trick cheaply.</p>",
+    "he": "<p>עברו לדומם עם ה-<strong>♥A</strong>, ואז הובילו קלאב <em>לעבר</em> המלך שלכם. אם מזרח משחק נמוך, המלך זוכה. אם מזרח לוקח עם האס, המלך שלכם יהיה זוכה בהמשך.</p> <p>הובלת קלאב מהיד שלכם מאפשרת למזרח לזכות עם האס מעל המלך שלכם, או לשחק נמוך ולתת למערב לזכות בלקיחה בזול.</p>"
+   },
+   "note": {
+    "en": "East has the ♣A. Your ♣K can win a trick, but only if East has to play before you.",
+    "he": "למזרח יש את ה-♣A. ה-♣K שלכם יכול לזכות בלקיחה, אבל רק אם מזרח חייב לשחק לפניכם."
+   },
+   "title": {
+    "en": "Lead toward the king",
+    "he": "הובלה לעבר המלך"
+   }
+  },
+  {
+   "section": "finesse",
+   "contract": "3N",
+   "leader": 2,
+   "hands": [
+    "H:AKJ",
+    "H:T98",
+    "H:432",
+    "H:Q65"
+   ],
+   "need": 3,
+   "why": {
+    "en": "<p>Lead toward dummy, and when West plays low, <strong>finesse the jack</strong>. It wins. Then the ace and king take the rest, and West's queen falls.</p> <p>If West plays the queen, cover it with the ace or king. Cashing the ace and king first leaves West's queen to win the third round.</p>",
+    "he": "<p>הובילו לעבר הדומם, וכשמערב משחק נמוך, <strong>עקפו עם הנסיך</strong>. הוא זוכה. אחר כך האס והמלך לוקחים את השאר, והמלכה של מערב נופלת.</p> <p>אם מערב משחק את המלכה, כסו אותה באס או במלך. מימוש האס והמלך קודם משאיר למלכה של מערב את הסיבוב השלישי.</p>"
+   },
+   "note": {
+    "en": "You're missing the ♥Q, and West holds it with two small cards, so the ace and king won't drop it.",
+    "he": "חסרה לכם ה-♥Q, והיא אצל מערב עם שני קלפים קטנים, כך שהאס והמלך לא יפילו אותה."
+   },
+   "title": {
+    "en": "Finessing against the queen",
+    "he": "עקיפה נגד המלכה"
+   }
+  },
+  {
+   "section": "finesse",
+   "contract": "3N",
+   "leader": 2,
+   "hands": [
+    "D:AQT C:2",
+    "D:98 C:KQ",
+    "S:2 D:43 C:A",
+    "H:9 D:KJ5"
+   ],
+   "need": 4,
+   "why": {
+    "en": "<p>Lead a diamond and <strong>finesse the 10</strong> first: it wins. Return to hand with the <strong>♣A</strong> and lead another diamond, finessing the queen. Finally, the ace captures West's king.</p> <p>Use your one entry to hand wisely. If you lead the ♣2 to your ace too early, or finesse the queen first, West's jack or king takes a trick.</p>",
+    "he": "<p>הובילו דיאמונד ו<strong>עקפו קודם עם ה-10</strong>: הוא זוכה. חזרו ליד עם ה-<strong>♣A</strong> והובילו עוד דיאמונד, הפעם עקיפה עם המלכה. בסוף האס תופס את המלך של מערב.</p> <p>השתמשו בחוכמה בכניסה היחידה שלכם ליד. אם תובילו את ה-♣2 לאס שלכם מוקדם מדי, או תעקפו קודם עם המלכה, הנסיך או המלך של מערב ייקחו לקיחה.</p>"
+   },
+   "note": {
+    "en": "You're missing the ♦K and ♦J, and West has both. You'll need to lead toward dummy twice.",
+    "he": "חסרים לכם ה-♦K וה-♦J, ושניהם אצל מערב. תצטרכו להוביל לעבר הדומם פעמיים."
+   },
+   "title": {
+    "en": "The double finesse",
+    "he": "העקיפה הכפולה"
+   }
+  },
+  {
+   "section": "finesse",
+   "contract": "4S",
+   "leader": 0,
+   "hands": [
+    "D:A C:QJ",
+    "H:A C:K5",
+    "S:A H:2 D:2",
+    "H:K C:43"
+   ],
+   "need": 3,
+   "why": {
+    "en": "<p>Lead the <strong>♣Q</strong> from dummy right away:</p> <ul><li>If East covers with the king, ruff it. Then cross to dummy's ♦A and cash the ♣J, throwing your heart loser.</li> <li>If East plays low, let the queen win and throw your heart loser on it.</li></ul> <p>If you cash the ♦A first, you lose your way back to dummy for the ♣J.</p>",
+    "he": "<p>הובילו מיד את ה-<strong>♣Q</strong> מהדומם:</p> <ul><li>אם מזרח מכסה עם המלך, חתכו אותו. אחר כך עברו ל-♦A של הדומם וממשו את ה-♣J, תוך השלכת המפסיד בהארט.</li> <li>אם מזרח משחק נמוך, תנו למלכה לזכות והשליכו עליה את המפסיד בהארט.</li></ul> <p>אם תממשו קודם את ה-♦A, תאבדו את הדרך חזרה לדומם בשביל ה-♣J.</p>"
+   },
+   "note": {
+    "en": "East has the ♣K. You have no clubs in hand, but you do have a trump, and a heart loser.",
+    "he": "למזרח יש את ה-♣K. אין לכם קלאב ביד, אבל יש לכם שליט, ומפסיד בהארט."
+   },
+   "title": {
+    "en": "The ruffing finesse",
+    "he": "עקיפת חיתוך"
+   }
+  },
+  {
+   "section": "draw",
+   "contract": "4S",
+   "leader": 2,
+   "hands": [
+    "H:AKQ D:5",
+    "S:7 C:653",
+    "S:AK H:6 D:A",
+    "S:9 H:87 C:K"
+   ],
+   "need": 4,
+   "why": {
+    "en": "<p><strong>Draw trumps first</strong>: cash the ♠A and the ♠K, and each defender's last trump falls. Then lead the ♥6 to dummy and take the heart winners.</p> <p>If you lead a heart first, East has none and ruffs dummy's ace. Cashing the ♦A first doesn't help either: the defenders still hold their trumps.</p>",
+    "he": "<p><strong>הוציאו שליטים קודם</strong>: ממשו את ה-♠A ואת ה-♠K, והשליט האחרון של כל מגן נופל. אחר כך הובילו את ה-♥6 לדומם וקחו את זוכי ההארט.</p> <p>אם תובילו הארט קודם, למזרח אין הארט והוא חותך את האס של הדומם. גם מימוש ה-♦A קודם לא עוזר: השליטים עדיין אצל המגינים.</p>"
+   },
+   "note": {
+    "en": "Dummy has three heart winners, and each defender still has one trump.",
+    "he": "לדומם יש שלושה זוכים בהארט, ולכל מגן עדיין יש שליט אחד."
+   },
+   "title": {
+    "en": "Draw trumps first",
+    "he": "קודם הוציאו שליטים"
+   }
+  },
+  {
+   "section": "ruff",
+   "contract": "4S",
+   "leader": 2,
+   "hands": [
+    "S:54 D:A C:32",
+    "S:T D:KQJ C:K",
+    "S:AKQ H:32",
+    "S:J9 H:AKQ"
+   ],
+   "need": 4,
+   "why": {
+    "en": "<p><strong>Lead a heart before drawing all the trumps.</strong> When you lead the second heart, ruff it in dummy. Even if the defenders win the first heart and lead a trump, dummy still has a trump left for the ruff.</p> <p>If you draw trumps first, dummy's two trumps fall under your ace-king-queen and both hearts are losers.</p>",
+    "he": "<p><strong>הובילו הארט לפני שאתם מוציאים את כל השליטים.</strong> כשתובילו את ההארט השני, חתכו אותו בדומם. גם אם המגינים יזכו בהארט הראשון ויובילו שליט, לדומם עדיין יישאר שליט לחיתוך.</p> <p>אם תוציאו קודם שליטים, שני השליטים של הדומם ייפלו תחת האס, המלך והמלכה שלכם, ושני קלפי ההארט יהיו מפסידים.</p>"
+   },
+   "note": {
+    "en": "You have two heart losers, and dummy (the hand with fewer trumps) has no hearts.",
+    "he": "יש לכם שני מפסידים בהארט, ולדומם (היד עם פחות שליטים) אין הארט."
+   },
+   "title": {
+    "en": "Ruff in the short hand",
+    "he": "חיתוך ביד הקצרה"
+   }
+  },
+  {
+   "section": "ruff",
+   "contract": "4S",
+   "leader": 2,
+   "hands": [
+    "S:JT D:A C:432",
+    "S:9 D:QJ C:KQJ",
+    "S:AKQ H:32 C:A",
+    "S:54 H:AKQ D:K"
+   ],
+   "need": 6,
+   "why": {
+    "en": "<p>Lead a heart and <strong>ruff it in dummy with a high trump</strong> (the ♠10 or ♠J), so East's ♠9 can't overruff. Use your entries, the ♣A in hand and the ♦A in dummy, to go back and forth and ruff the second heart too. Then draw trumps with the ♠A-K-Q.</p> <p>Drawing trumps first takes away dummy's trumps, and both hearts lose. Ruffing with a low trump lets East overruff.</p>",
+    "he": "<p>הובילו הארט ו<strong>חתכו אותו בדומם בשליט גבוה</strong> (ה-♠10 או ה-♠J), כדי שה-♠9 של מזרח לא יוכל לחתוך מעליכם. השתמשו בכניסות שלכם, ה-♣A ביד וה-♦A בדומם, כדי לעבור הלוך ושוב ולחתוך גם את ההארט השני. אחר כך הוציאו שליטים עם ה-♠A-K-Q.</p> <p>הוצאת שליטים קודם לוקחת מהדומם את השליטים, ושני קלפי ההארט מפסידים. חיתוך בשליט נמוך מאפשר למזרח לחתוך מעליכם.</p>"
+   },
+   "note": {
+    "en": "You need every trick. Two heart losers, no hearts in dummy, and East has the ♠9.",
+    "he": "אתם צריכים את כל הלקיחות. שני מפסידים בהארט, אין הארט בדומם, ולמזרח יש את ה-♠9."
+   },
+   "title": {
+    "en": "Two ruffs in dummy",
+    "he": "שני חיתוכים בדומם"
+   }
+  },
+  {
+   "section": "crossruff",
+   "contract": "4S",
+   "leader": 2,
+   "hands": [
+    "S:QJ D:32",
+    "H:AK D:AK",
+    "S:AK H:32",
+    "H:QJ D:QJ"
+   ],
+   "need": 4,
+   "why": {
+    "en": "<p>Don't touch trumps. <strong>Ruff back and forth</strong>: lead a heart and ruff it in dummy, lead a diamond and ruff it in your hand, and repeat. Each of your four trumps wins a trick on its own.</p> <p>Cashing the ♠A first pulls one of dummy's trumps (dummy has to follow suit), and you make only three tricks.</p>",
+    "he": "<p>אל תיגעו בשליטים. <strong>חתכו הלוך ושוב</strong>: הובילו הארט וחתכו אותו בדומם, הובילו דיאמונד וחתכו אותו ביד, וחזרו על זה. כל אחד מארבעת השליטים שלכם זוכה בלקיחה בנפרד.</p> <p>מימוש ה-♠A קודם מוציא את אחד השליטים של הדומם (הדומם חייב לשרת), ותעשו רק שלוש לקיחות.</p>"
+   },
+   "note": {
+    "en": "Dummy has no hearts, you have no diamonds, and you hold four trumps between you.",
+    "he": "לדומם אין הארט, לכם אין דיאמונד, ויש לכם יחד ארבעה שליטים."
+   },
+   "title": {
+    "en": "Ruff back and forth",
+    "he": "חיתוך הלוך ושוב"
+   }
+  },
+  {
+   "section": "holdup",
+   "contract": "3N",
+   "leader": 3,
+   "hands": [
+    "S:2 D:JT98 C:2",
+    "S:3 H:76 D:A3 C:3",
+    "H:A32 D:KQ C:4",
+    "H:KQJT98"
+   ],
+   "need": 3,
+   "why": {
+    "en": "<p><strong>Hold up</strong> your ♥A: let West win the first two hearts, and take the ace on the third round. By then East has no hearts left. Now knock out the ♦A: East wins it but has no heart to lead, and dummy's diamonds are yours.</p> <p>If you win the first heart, East wins the ♦A and leads a heart back, and West takes the rest of the hearts.</p>",
+    "he": "<p><strong>השהו</strong> את ה-♥A: תנו למערב לזכות בשני סיבובי ההארט הראשונים, וקחו את האס בסיבוב השלישי. עד אז למזרח כבר לא נשאר הארט. עכשיו הוציאו את ה-♦A: מזרח זוכה, אבל אין לו הארט להוביל, והדיאמונד של הדומם שלכם.</p> <p>אם תזכו בהארט הראשון, מזרח יזכה ב-♦A ויחזיר הארט, ומערב ייקח את שאר ההארט.</p>"
+   },
+   "note": {
+    "en": "West leads hearts. To set up dummy's diamonds you must knock out the ♦A, and East holds it.",
+    "he": "מערב מוביל הארט. כדי לפתח את הדיאמונד של הדומם אתם חייבים להוציא את ה-♦A, והוא אצל מזרח."
+   },
+   "title": {
+    "en": "Hold up the ace",
+    "he": "השהיית האס"
+   }
+  },
+  {
+   "section": "duck",
+   "contract": "3N",
+   "leader": 2,
+   "hands": [
+    "S:AK432",
+    "S:T9 D:KQJ",
+    "S:765 H:A D:2",
+    "S:QJ8 H:KQ"
+   ],
+   "need": 4,
+   "why": {
+    "en": "<p><strong>Lead a spade and play low from dummy</strong>: you <em>duck</em> the first round. The defenders win it, but you still have two spades in hand. When you get the lead back with the ♥A, lead a spade to dummy's A-K. The defenders' spades are gone by then, so dummy's last small spade wins too.</p> <p>If you cash the ace and king first and then give up a spade, dummy's remaining winner is stranded: you have no spade left to reach it.</p>",
+    "he": "<p><strong>הובילו ספייד ושחקו נמוך מהדומם</strong>: אתם <em>מוותרים</em> (דאק) על הסיבוב הראשון. המגינים זוכים בו, אבל עדיין נשארו לכם שני קלפי ספייד ביד. כשתחזרו להובלה עם ה-♥A, הובילו ספייד ל-A-K של הדומם. עד אז קלפי הספייד של המגינים כבר נגמרו, כך שגם הספייד הקטן האחרון של הדומם זוכה.</p> <p>אם תממשו קודם את האס והמלך ורק אז תמסרו ספייד, הזוכה שנשאר לדומם תקוע: אין לכם ספייד כדי להגיע אליו.</p>"
+   },
+   "note": {
+    "en": "Dummy has five spades but no other way in. How do you set them up and still reach them?",
+    "he": "לדומם יש חמישה קלפי ספייד ואין לו שום כניסה אחרת. איך תפתחו אותם ועדיין תגיעו אליהם?"
+   },
+   "title": {
+    "en": "Duck to keep a link",
+    "he": "ויתור כדי לשמור על קשר"
+   }
+  },
+  {
+   "section": "safety",
+   "contract": "3N",
+   "leader": 2,
+   "hands": [
+    "H:AKJT2",
+    "H:Q C:KQJT",
+    "H:543 D:A C:A",
+    "H:9876 D:K"
+   ],
+   "need": 5,
+   "why": {
+    "en": "<p>Lead a heart and <strong>play dummy's ace first</strong>. It costs nothing, and it wins whenever the queen is singleton: here East's ♥Q drops, and dummy's hearts run.</p> <p>If you finesse the jack straight away, East wins the bare queen. At the table you can't see the queen, so cashing one top honor before finessing is a <em>safety play</em>: it guards against the one layout that would cost a trick.</p>",
+    "he": "<p>הובילו הארט ו<strong>שחקו קודם את האס של הדומם</strong>. זה לא עולה כלום, וזה זוכה בכל פעם שהמלכה בודדת: כאן ה-♥Q של מזרח נופלת, וההארט של הדומם רץ.</p> <p>אם תעקפו מיד עם הנסיך, מזרח יזכה במלכה הבודדת. ליד השולחן אי אפשר לראות את המלכה, ולכן מימוש הונור עליון אחד לפני העקיפה הוא <em>משחק ביטחון</em>: הוא מגן מפני החלוקה היחידה שהייתה עולה לקיחה.</p>"
+   },
+   "note": {
+    "en": "You have eight hearts missing the queen, and you need all five tricks.",
+    "he": "יש לכם שמונה קלפי הארט, וחסרה המלכה. אתם צריכים את כל חמש הלקיחות."
+   },
+   "title": {
+    "en": "Cash the ace first",
+    "he": "קודם האס"
+   }
+  },
+  {
+   "section": "squeeze",
+   "contract": "3N",
+   "leader": 2,
+   "hands": [
+    "H:AJ D:Q",
+    "C:987",
+    "H:3 C:A2",
+    "H:KQ D:K"
+   ],
+   "need": 3,
+   "why": {
+    "en": "<p>Lead the <strong>♣A</strong>, the squeeze card, first. West has to discard before North:</p> <ul><li>If West throws the ♦K, North keeps the ♦Q (now a winner) and throws the ♥J. Cross to the ♥A and cash the ♦Q.</li> <li>If West throws a heart, North throws the ♦Q. Lead the ♥3 to the ♥A, dropping West's last honor, and the ♥J wins.</li></ul> <p>Playing hearts first fails: West keeps a guard in each suit and wins the last trick. This squeeze is <em>positional</em>: it works because West discards before North.</p>",
+    "he": "<p>הובילו ראשון את <strong>♣A</strong>, קלף הלחץ. מערב חייב להשליך לפני צפון:</p> <ul><li>אם מערב משליך את ה-♦K, צפון שומר את ה-♦Q (שהפכה לזוכה) ומשליך את ה-♥J. עברו ל-♥A וממשו את ה-♦Q.</li> <li>אם מערב משליך הארט, צפון משליך את ה-♦Q. הובילו את ה-♥3 ל-♥A, ההונור האחרון של מערב נופל, וה-♥J זוכה.</li></ul> <p>משחק הארט קודם נכשל: מערב שומר שמירה בכל סדרה וזוכה בלקיחה האחרונה. הלחץ הזה <em>מבוסס מיקום</em>: הוא עובד כי מערב משליך לפני צפון.</p>"
+   },
+   "note": {
+    "en": "West guards both red suits on their own. Can you make West choose?",
+    "he": "מערב לבדו שומר על שתי הסדרות האדומות. תוכלו לאלץ אותו לבחור?"
+   },
+   "title": {
+    "en": "The simple squeeze",
+    "he": "הלחץ הפשוט"
+   }
+  },
+  {
+   "section": "squeeze",
+   "contract": "3N",
+   "leader": 2,
+   "hands": [
+    "S:2 H:AJ",
+    "H:KQ D:K",
+    "H:3 D:Q C:A",
+    "C:987"
+   ],
+   "need": 3,
+   "why": {
+    "en": "<p>Lead the <strong>♣A</strong>. North has an idle card to throw (the ♠2), so it keeps both the ♥A-J and the link to South. Then East must discard:</p> <ul><li>If East throws the ♦K, cash South's ♦Q (North throws the ♥J), then cross to the ♥A.</li> <li>If East throws a heart, lead the ♥3 to the ♥A. East's honor falls and the ♥J wins.</li></ul> <p>This squeeze is <em>automatic</em>: North's spare card means it would work against either defender.</p>",
+    "he": "<p>הובילו את <strong>♣A</strong>. לצפון יש קלף מיותר להשליך (ה-♠2), כך שהוא שומר גם את ה-♥A-J וגם את הקשר לדרום. עכשיו מזרח חייב להשליך:</p> <ul><li>אם מזרח משליך את ה-♦K, ממשו את ה-♦Q של דרום (צפון משליך את ה-♥J), ואז עברו ל-♥A.</li> <li>אם מזרח משליך הארט, הובילו את ה-♥3 ל-♥A. ההונור של מזרח נופל וה-♥J זוכה.</li></ul> <p>הלחץ הזה <em>אוטומטי</em>: בזכות הקלף המיותר של צפון הוא היה עובד נגד כל אחד מהמגינים.</p>"
+   },
+   "note": {
+    "en": "This time it's East who guards both red suits, and East plays after North.",
+    "he": "הפעם מזרח שומר על שתי הסדרות האדומות, והוא משחק אחרי צפון."
+   },
+   "title": {
+    "en": "The automatic squeeze",
+    "he": "הלחץ האוטומטי"
+   }
+  },
+  {
+   "section": "squeeze",
+   "contract": "3N",
+   "leader": 2,
+   "hands": [
+    "S:32 H:AJ D:Q",
+    "C:98765",
+    "S:4 H:3 C:AKQ",
+    "S:JT H:KQ D:K"
+   ],
+   "need": 5,
+   "why": {
+    "en": "<p>Cash the <strong>♣A, ♣K and ♣Q</strong>, keeping North's ♥A-J and ♦Q. North throws its two small spades. West can throw two spades, but on the third club West has run out of spare cards and must give up a red-suit guard. Finish as in the simple squeeze.</p> <p>Touching hearts or diamonds early lets West keep a guard in each suit. Run your long suit first and let the defender do the discarding.</p>",
+    "he": "<p>ממשו את <strong>♣A, ♣K ו-♣Q</strong>, ושמרו בצפון את ה-♥A-J ואת ה-♦Q. צפון משליך את שני קלפי הספייד הקטנים שלו. מערב יכול להשליך שני קלפי ספייד, אבל על הקלאב השלישי כבר אין לו קלפים מיותרים, והוא חייב לוותר על שמירה באחת הסדרות האדומות. סיימו כמו בלחץ הפשוט.</p> <p>נגיעה מוקדמת בהארט או בדיאמונד מאפשרת למערב לשמור שמירה בכל סדרה. הריצו קודם את הסדרה הארוכה, ותנו למגן להשליך.</p>"
+   },
+   "note": {
+    "en": "You need every trick. West has some spare spades to throw. What happens when they run out?",
+    "he": "אתם צריכים את כל הלקיחות. למערב יש כמה קלפי ספייד מיותרים להשליך. מה יקרה כשהם ייגמרו?"
+   },
+   "title": {
+    "en": "Cash everything first",
+    "he": "ממשו הכול קודם"
+   }
+  },
+  {
+   "section": "squeeze",
+   "contract": "3N",
+   "leader": 2,
+   "hands": [
+    "S:3 H:AJ D:Q",
+    "S:A C:987",
+    "S:2 H:3 C:A2",
+    "S:9 H:KQ D:K"
+   ],
+   "need": 3,
+   "why": {
+    "en": "<p>Lose the spade <strong>first</strong>: lead the ♠2. East wins the ♠A and has only clubs left to return. Your ♣A now squeezes West, who no longer has the ♠9 as a spare card.</p> <p>If you cash the ♣A straight away, West simply throws the ♠9 and keeps both red guards. A squeeze only works when you can win all the remaining tricks but one. Giving up your spare loser early to reach that point is called <em>rectifying the count</em>.</p>",
+    "he": "<p>מסרו את הספייד <strong>קודם</strong>: הובילו את ה-♠2. מזרח זוכה ב-♠A ונשארו לו רק קלפי קלאב להחזיר. עכשיו ה-♣A שלכם לוחץ את מערב, שכבר אין לו את ה-♠9 כקלף מיותר.</p> <p>אם תממשו את ה-♣A מיד, מערב פשוט ישליך את ה-♠9 וישמור את שתי השמירות האדומות. לחץ עובד רק כשאתם יכולים לזכות בכל הלקיחות שנשארו פרט לאחת. מסירת המפסיד המיותר מוקדם כדי להגיע למצב הזה נקראת <em>תיקון הספירה</em>.</p>"
+   },
+   "note": {
+    "en": "You need three of the last four tricks, and you have a spade loser. Should you cash the ♣A now, or lose the spade first?",
+    "he": "אתם צריכים שלוש מתוך ארבע הלקיחות האחרונות, ויש לכם מפסיד בספייד. לממש עכשיו את ה-♣A, או למסור קודם את הספייד?"
+   },
+   "title": {
+    "en": "Rectifying the count",
+    "he": "תיקון הספירה"
+   }
+  },
+  {
+   "section": "endplay",
+   "contract": "4S",
+   "leader": 2,
+   "hands": [
+    "S:2 H:3 D:AQ",
+    "H:A D:K76",
+    "S:3 H:2 D:43",
+    "H:KQJ D:J"
+   ],
+   "need": 3,
+   "why": {
+    "en": "<p>Lead the <strong>♥2</strong>. East's only heart is the ace, so East must win. Now East has only diamonds left and must lead one <em>into</em> North's ♦A-Q. North wins the queen, cashes the ace, and your last trump takes the final trick.</p> <p>Taking the diamond finesse yourself loses to the king, and you end up with only two tricks.</p>",
+    "he": "<p>הובילו את ה-<strong>♥2</strong>. ההארט היחיד של מזרח הוא האס, ולכן מזרח חייב לזכות. עכשיו נשארו למזרח רק קלפי דיאמונד, והוא חייב להוביל דיאמונד <em>לתוך</em> ה-♦A-Q של צפון. צפון זוכה במלכה, מממש את האס, והשליט האחרון שלכם לוקח את הלקיחה האחרונה.</p> <p>אם תעקפו בדיאמונד בעצמכם, תפסידו למלך ותסיימו עם שתי לקיחות בלבד.</p>"
+   },
+   "note": {
+    "en": "The ♦K sits behind dummy's A-Q, so a finesse loses. Can you make East lead diamonds for you?",
+    "he": "ה-♦K יושב מאחורי ה-A-Q של הדומם, ולכן עקיפה נכשלת. תוכלו לגרום למזרח להוביל לכם דיאמונד?"
+   },
+   "title": {
+    "en": "The basic throw-in",
+    "he": "הכנסה בסיסית"
+   }
+  },
+  {
+   "section": "endplay",
+   "contract": "4S",
+   "leader": 2,
+   "hands": [
+    "S:2 H:3 D:AQ C:A",
+    "H:A D:K76 C:5",
+    "S:3 H:2 D:43 C:2",
+    "H:KQJ D:J C:9"
+   ],
+   "need": 4,
+   "why": {
+    "en": "<p>First <strong>strip the clubs</strong>: lead the ♣2 to North's ♣A. Then throw East in with the <strong>♥3</strong>. East wins the ♥A with only diamonds left, and must lead one into the ♦A-Q.</p> <p>If you throw East in before cashing the ♣A, East exits safely with the ♣5 and you still have to lose a diamond to the king.</p>",
+    "he": "<p>קודם <strong>נקו את הקלאב</strong>: הובילו את ה-♣2 ל-♣A של צפון. אחר כך הכניסו את מזרח עם ה-<strong>♥3</strong>. מזרח זוכה ב-♥A כשנשארו לו רק קלפי דיאמונד, והוא חייב להוביל דיאמונד לתוך ה-♦A-Q.</p> <p>אם תכניסו את מזרח לפני שמימשתם את ה-♣A, מזרח ייצא בבטחה עם ה-♣5, ועדיין תפסידו דיאמונד למלך.</p>"
+   },
+   "note": {
+    "en": "Same idea, but now East has a club to exit with. Take that escape away first.",
+    "he": "אותו רעיון, אבל עכשיו למזרח יש קלאב לצאת איתו. קחו ממנו קודם את דרך המילוט."
+   },
+   "title": {
+    "en": "Strip first",
+    "he": "קודם ניקוי"
+   }
+  },
+  {
+   "section": "endplay",
+   "contract": "3N",
+   "leader": 2,
+   "hands": [
+    "H:2 C:432",
+    "H:K D:JT9",
+    "S:AQ H:3 C:A",
+    "S:K98 H:A"
+   ],
+   "need": 3,
+   "why": {
+    "en": "<p>Lead the <strong>♥3 straight away</strong>. West must win the bare ♥A and then lead a spade into your ♠A-Q. You also keep the ♣A, so you take the last three tricks.</p> <p>If you cash the ♣A first, West can throw away the ♥A (<em>unblocking</em>). Then East wins the heart and leads a diamond, and you must give up a spade trick. Make the throw-in before the defender gets a chance to discard the exit card.</p>",
+    "he": "<p>הובילו את ה-<strong>♥3 מיד</strong>. מערב חייב לזכות ב-♥A הבודד, ואז להוביל ספייד לתוך ה-♠A-Q שלכם. ה-♣A נשאר אצלכם, כך שאתם לוקחים את שלוש הלקיחות האחרונות.</p> <p>אם תממשו קודם את ה-♣A, מערב יכול להשליך את ה-♥A (<em>השלכת קלף גובה</em>). אז מזרח זוכה בהארט ומוביל דיאמונד, ואתם חייבים למסור לקיחה בספייד. בצעו את ההכנסה לפני שהמגן מקבל הזדמנות להשליך את קלף היציאה.</p>"
+   },
+   "note": {
+    "en": "West has the ♠K, and your A-Q is in the South hand, so a finesse from North would lose. West also has the ♥A as a lone card…",
+    "he": "למערב יש את ה-♠K, וה-A-Q שלכם ביד של דרום, כך שעקיפה מצפון הייתה נכשלת. למערב יש גם את ה-♥A כקלף בודד…"
+   },
+   "title": {
+    "en": "Throw-in at no-trump",
+    "he": "הכנסה בללא שליט"
+   }
+  },
+  {
+   "section": "endplay",
+   "contract": "4S",
+   "leader": 2,
+   "hands": [
+    "S:2 H:A D:3 C:2",
+    "H:KQJ C:A",
+    "S:J H:2 D:AQ",
+    "S:Q D:K54"
+   ],
+   "need": 3,
+   "why": {
+    "en": "<p>Use the trump as the throw-in card: lead the <strong>♠J</strong>. West must win the ♠Q and then has only diamonds left, so West has to lead into your ♦A-Q. Take the queen and the ace, then cross to North's ♥A for the last trick.</p> <p>Cashing the ♥A or ♦A first does no harm, as long as you throw West in with the trump before touching the ♦Q. Leading the ♦Q yourself lets West win the king, and West's ♠Q still takes a trick, so you'd end up with only two.</p>",
+    "he": "<p>השתמשו בשליט כקלף ההכנסה: הובילו את ה-<strong>♠J</strong>. מערב חייב לזכות ב-♠Q, ואז נשארו לו רק קלפי דיאמונד, כך שהוא חייב להוביל לתוך ה-♦A-Q שלכם. קחו את המלכה ואת האס, ואז עברו ל-♥A של צפון ללקיחה האחרונה.</p> <p>מימוש ה-♥A או ה-♦A קודם לא מזיק, כל עוד אתם מכניסים את מערב עם השליט לפני שאתם נוגעים ב-♦Q. אם תובילו את ה-♦Q בעצמכם, מערב יזכה במלך, וה-♠Q של מערב עדיין ייקח לקיחה, כך שתסיימו עם שתיים בלבד.</p>"
+   },
+   "note": {
+    "en": "West holds the last trump, the ♠Q, and the ♦K sits over your ♦A-Q. Leading diamonds yourself loses to the king.",
+    "he": "למערב יש את השליט האחרון, ה-♠Q, וה-♦K יושב מעל ה-♦A-Q שלכם. הובלת דיאמונד בעצמכם מפסידה למלך."
+   },
+   "title": {
+    "en": "Throw-in with a trump",
+    "he": "הכנסה עם שליט"
+   }
+  }
  ]
 };

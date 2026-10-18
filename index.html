@@ -28,7 +28,6 @@
       <button role="tab" data-tab="conventions" data-he="מוסכמות">Conventions</button>
       <button role="tab" data-tab="declarer" data-he="משחק הכרוז">Declarer Play</button>
       <button role="tab" data-tab="defense" data-he="הגנה">Defense</button>
-      <button role="tab" data-tab="advanced" data-he="טכניקות מתקדמות">Advanced</button>
       <button role="tab" data-tab="play" data-he="שחקו יד">Play a Hand</button>
     </nav>
   </header>
@@ -221,18 +220,20 @@
     <!-- Declarer play -->
     <section id="tab-declarer" class="panel" role="tabpanel" hidden>
       <div class="card-surface drill">
-        <div class="drill-head">
-          <h2 data-he="משחק הכרוז">Declarer play</h2>
-          <div class="segmented" id="dp-topic" role="group" aria-label="Technique" data-he-label="טכניקה">
-            <button data-topic="develop" data-he="פיתוח סדרות">Developing suits</button>
-            <button data-topic="ruff" data-he="חיתוך מפסידים">Ruffing losers</button>
-            <button data-topic="finesse" data-he="עקיפות">Finesses</button>
-          </div>
-        </div>
-        <div class="lesson-text" id="dp-intro"></div>
+        <h2 data-he="משחק הכרוז">Declarer play</h2>
+        <div class="topic-groups" id="dp-topic"></div>
       </div>
 
-      <div class="card-surface drill puzzle">
+      <div class="card-surface drill">
+        <h3 id="dp-topic-title"></h3>
+        <div class="lesson-text" id="dp-intro"></div>
+        <p class="practice-row">
+          <button class="btn" type="button" id="dp-practice"></button>
+          <span class="muted" id="dp-practice-none" hidden></span>
+        </p>
+      </div>
+
+      <div class="card-surface drill puzzle" id="dp-puzzle" hidden>
         <div class="drill-head">
           <h3 id="dp-title"></h3>
           <div class="puzzle-nav">
@@ -285,51 +286,6 @@
           <p class="muted" data-he="שבו במערב והגנו יחד עם שותף ממוחשב מול כרוז ממוחשב. הובילו את הובלת הפתיחה, ונסו לזכות במספיק לקיחות כדי להפיל את החוזה.">Sit West and defend with a computer partner against a computer declarer. Make the opening lead, then try to win enough tricks to defeat the contract.</p>
         </div>
         <button class="btn" id="defend-hand" data-he="להגנה על יד ←">Defend a hand →</button>
-      </div>
-    </section>
-
-    <!-- Advanced techniques -->
-    <section id="tab-advanced" class="panel" role="tabpanel" hidden>
-      <div class="card-surface drill">
-        <div class="drill-head">
-          <h2 data-he="טכניקות מתקדמות">Advanced techniques</h2>
-          <div class="segmented" id="adv-topic" role="group" aria-label="Technique" data-he-label="טכניקה">
-            <button data-topic="squeeze" data-he="לחצים">Squeezes</button>
-            <button data-topic="endplay" data-he="משחקי סיום">Endplays</button>
-          </div>
-        </div>
-        <div class="lesson-text" id="adv-intro"></div>
-      </div>
-
-      <div class="card-surface drill puzzle">
-        <div class="drill-head">
-          <h3 id="adv-title"></h3>
-          <div class="puzzle-nav">
-            <button class="btn secondary" id="adv-prev" data-he="→ הקודם">← Previous</button>
-            <button class="btn secondary" id="adv-next" data-he="הבא ←">Next →</button>
-          </div>
-        </div>
-        <div class="context" id="adv-setup"></div>
-        <div class="play-actions">
-          <button class="btn secondary" id="adv-hint" data-he="רמז">Hint</button>
-          <button class="btn secondary" id="adv-reset" data-he="התחלה מחדש">Reset</button>
-          <button class="btn secondary" id="adv-solution" data-he="הצגת הפתרון">Show solution</button>
-        </div>
-        <div class="status" id="adv-status" aria-live="polite"></div>
-        <div class="trick-slots">
-          <span class="ts-label" data-he="לקיחות:">Tricks:</span>
-          <span class="ts-row" id="adv-slots" role="img"></span>
-          <span class="ts-need" id="adv-need"></span>
-          <span class="ts-legend" id="adv-legend"></span>
-        </div>
-        <div class="table puzzle-table">
-          <div class="seat north" id="adv-seat-0"></div>
-          <div class="seat west" id="adv-seat-3"></div>
-          <div class="trick-area" id="adv-trick"></div>
-          <div class="seat east" id="adv-seat-1"></div>
-          <div class="seat south" id="adv-seat-2"></div>
-        </div>
-        <div class="feedback" id="adv-feedback" aria-live="polite"></div>
       </div>
     </section>
 
