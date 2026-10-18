@@ -153,7 +153,10 @@ function makePuzzleSection(prefix, topics, groups) {
     timer = setTimeout(() => {
       st.trick = [];
       st.busy = false;
-      if (!st.hands[w].length) st.done = true;
+      if (!st.hands[w].length) {
+        st.done = true;
+        if (st.tricks[0] >= st.target) Sound.correct();
+      }
       render();
       schedule();
     }, TRICK_PAUSE);
