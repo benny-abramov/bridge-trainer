@@ -1093,6 +1093,30 @@ const PRACTICE = {
    }
   },
   {
+   "section": "develop",
+   "contract": "3N",
+   "leader": 2,
+   "hands": [
+    "H:32 D:QJT",
+    "H:64 D:874",
+    "H:AK D:652",
+    "H:QJT D:AK"
+   ],
+   "need": 3,
+   "why": {
+    "en": "<p><strong>Lead a diamond, and lead diamonds again each time you get back in.</strong> West wins the ♦A and leads the ♥Q: win with the ♥A. Lead another diamond: West wins the ♦K and leads another heart, which your ♥K wins. Now your last diamond goes to dummy's winner.</p> <p>If you cash a heart first, you have only one stopper left. West wins the first diamond and knocks it out, then wins the second diamond and cashes a heart. To knock out two honors you need two stoppers.</p>",
+    "he": "<p><strong>הובילו דיאמונד, וחזרו להוביל דיאמונד בכל פעם שאתם מקבלים את ההובלה בחזרה.</strong> מערב זוכה ב-♦A ומוביל את ה-♥Q: זכו עם ה-♥A. הובילו עוד דיאמונד: מערב זוכה ב-♦K ומוביל עוד הארט, וה-♥K שלכם זוכה. עכשיו הדיאמונד האחרון שלכם הולך אל הזוכה של הדומם.</p> <p>אם תממשו קודם הארט, יישאר לכם רק עוצר אחד. מערב יזכה בדיאמונד הראשון ויוציא אותו, ואז יזכה בדיאמונד השני ויממש הארט. כדי להוציא שני הונורים צריך שני עוצרים.</p>"
+   },
+   "note": {
+    "en": "You're missing the ♦A and ♦K (West has both), so you need to knock out both of them",
+    "he": "חסרים לכם ה-♦A וה-♦K (שניהם אצל מערב), ולכן עליכם להוציא את שניהם."
+   },
+   "title": {
+    "en": "Knock out two missing honors",
+    "he": "הוציאו שני הונורים חסרים"
+   }
+  },
+  {
    "section": "finesse",
    "contract": "3N",
    "leader": 0,
