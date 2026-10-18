@@ -45,6 +45,7 @@ const HcpTrainer = (() => {
     renderFan(area, hand);
     $('hcp-input').value = '';
     $('hcp-input').disabled = false;
+    $('hcp-input').classList.remove('right', 'wrong');
     $('hcp-check').disabled = false;
     $('hcp-feedback').className = 'feedback';
     $('hcp-feedback').innerHTML = '';
@@ -70,10 +71,18 @@ const HcpTrainer = (() => {
     record(stats, correct);
     answered = true;
     $('hcp-input').disabled = true;
+    $('hcp-input').classList.add(correct ? 'right' : 'wrong');
+    if (correct) {
+      Sound.correct();
+    } else {
+      Sound.wrong();
+      // Light up the cards that count, so you can see what you missed.
+      $('hcp-hand').querySelectorAll('.card').forEach((el, i) => el.classList.toggle('counted', !!HCP_VALUES[hand[i].rank]));
+    }
     const bal = isBalanced(hand);
     $('hcp-feedback').className = 'feedback ' + (correct ? 'good' : 'bad');
     $('hcp-feedback').innerHTML =
-      `<strong>${correct ? L('Correct!', 'נכון!') : L(`Not quite — it's ${expected}.`, `לא בדיוק: התשובה היא ${expected}.`)}</strong>` +
+      `<strong>${correct ? L('✓ Correct!', '✓ נכון!') : L(`✗ Not quite — it's ${expected}.`, `✗ לא בדיוק: התשובה היא ${expected}.`)}</strong>` +
       (item && item.why ? `<div>${practiceText(item.why)}</div>` : '') +
       `<div class="breakdown" dir="ltr">${breakdown()}</div>` +
       `<div class="small">${L(`This hand is <b>${bal ? 'balanced' : 'unbalanced'}</b>.`, `היד הזו <b>${bal ? 'מאוזנת' : 'לא מאוזנת'}</b>.`)}</div>`;

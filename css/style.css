@@ -296,6 +296,10 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
   background: var(--bg);
   color: var(--text);
 }
+.answer-row input.right { border-color: var(--good); background: var(--good-soft); color: var(--good); font-weight: 700; }
+.answer-row input.wrong { border-color: var(--bad); background: var(--bad-soft); color: var(--bad); font-weight: 700; animation: shake .35s ease; }
+@keyframes shake { 20%, 60% { transform: translateX(-5px); } 40%, 80% { transform: translateX(5px); } }
+@media (prefers-reduced-motion: reduce) { .answer-row input.wrong { animation: none; } }
 .select { font: inherit; padding: .4rem .6rem; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); max-width: 100%; }
 .check { display: inline-flex; align-items: center; gap: .4rem; font-weight: 500 !important; cursor: pointer; }
 .pill { background: var(--accent-soft); color: var(--accent); font-weight: 700; padding: .2rem .7rem; border-radius: 999px; }
@@ -367,6 +371,7 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 .card.playable:hover, .card.playable:focus-visible { transform: translateY(-10px); box-shadow: 0 6px 12px rgba(0, 0, 0, .3); }
 .card.dim { filter: brightness(.68) saturate(.7); }
 .card.hint { box-shadow: 0 0 0 3px var(--hint), 0 6px 12px rgba(0, 0, 0, .3); transform: translateY(-10px); }
+.card.counted { transform: translateY(-14px); }
 .card.winner { box-shadow: 0 0 0 3px var(--hint), 0 4px 10px rgba(0, 0, 0, .35); }
 
 /* ---------- Play table ---------- */

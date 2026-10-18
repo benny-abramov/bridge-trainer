@@ -1,6 +1,6 @@
-// Card-play and correct-answer sounds, and the sound on/off button. The sounds are generated with
-// the Web Audio API (a filtered burst of noise for a card, a rising chime for a right answer), so
-// there are no audio files.
+// Card-play, correct-answer and wrong-answer sounds, and the sound on/off button. The sounds are
+// generated with the Web Audio API (a filtered burst of noise for a card, a rising chime for a right
+// answer, two falling notes for a wrong one), so there are no audio files.
 
 const Sound = (() => {
   let on = true;
@@ -59,6 +59,27 @@ const Sound = (() => {
     } catch { /* no audio available: stay silent */ }
   }
 
+  // A soft, low two-note falling "uh-oh" for a wrong answer.
+  function wrong() {
+    try {
+      if (!audio()) return;
+      const start = ctx.currentTime;
+      [392, 311.1].forEach((freq, i) => {
+        const t = start + i * 0.16;
+        const osc = ctx.createOscillator();
+        osc.type = 'triangle';
+        osc.frequency.value = freq;
+        const gain = ctx.createGain();
+        gain.gain.setValueAtTime(0, t);
+        gain.gain.linearRampToValueAtTime(0.16, t + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.001, t + 0.3);
+        osc.connect(gain).connect(ctx.destination);
+        osc.start(t);
+        osc.stop(t + 0.35);
+      });
+    } catch { /* no audio available: stay silent */ }
+  }
+
   function update(btn) {
     btn.textContent = on ? '🔊' : '🔇';
     btn.setAttribute('aria-pressed', on);
@@ -79,5 +100,5 @@ const Sound = (() => {
     });
   }
 
-  return { cardPlayed, correct, init };
+  return { cardPlayed, correct, wrong, init };
 })();
