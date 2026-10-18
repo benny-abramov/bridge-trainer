@@ -188,7 +188,9 @@ const LESSONS_EN = [
         <tr><td>37</td><td>Grand slam (all 13 tricks)</td></tr>
       </table>
       <p>A hand's <strong>shape</strong> matters too. <strong>Balanced</strong> hands have no void, no singleton and at most one doubleton:
-      4-3-3-3, 4-4-3-2 or 5-3-3-2. These hands suit no-trump.</p>`,
+      4-3-3-3, 4-4-3-2 or 5-3-3-2. These hands suit no-trump.</p>
+      <p>A hand with a void, a singleton or two doubletons is <strong>unbalanced</strong>. Some examples:</p>
+      <div class="shape-examples"></div>`,
     tryIt: 'hcp',
   },
   {
@@ -590,7 +592,9 @@ const LESSONS_HE = [
         <tr><td>37</td><td>סלאם גדול (כל 13 הלקיחות)</td></tr>
       </table>
       <p>גם <strong>מבנה</strong> היד חשוב. ליד <strong>מאוזנת</strong> אין חוסר, אין סינגלטון, ויש לכל היותר דאבלטון אחד:
-      4-3-3-3, 4-4-3-2 או 5-3-3-2. ידיים כאלה מתאימות למשחק ללא שליט.</p>`,
+      4-3-3-3, 4-4-3-2 או 5-3-3-2. ידיים כאלה מתאימות למשחק ללא שליט.</p>
+      <p>יד עם חוסר, סינגלטון או שני דאבלטונים היא <strong>לא מאוזנת</strong>. כמה דוגמאות:</p>
+      <div class="shape-examples"></div>`,
     tryIt: 'hcp',
   },
   {
@@ -1035,6 +1039,53 @@ const ScoreDemo = (() => {
   return { mount };
 })();
 
+// The balanced and unbalanced hands in the point-counting lesson. Each caption's shape, points and
+// reason are worked out from the cards.
+const ShapeExamples = (() => {
+  const BALANCED = ['S:KQ74 H:A85 D:J62 C:K93', 'S:AJ62 H:KQ85 D:973 C:Q4', 'S:K8 H:AQJ74 D:K63 C:Q52'];
+  const UNBALANCED = ['S:AKJ83 H:7 D:KQ94 C:852', 'H:KJ9643 D:AQ75 C:K82', 'S:Q7 H:A5 D:KJT63 C:AJ82'];
+
+  function reason(lens) {
+    if (lens.includes(0)) return L('a void', 'חוסר');
+    if (lens.includes(1)) return L('a singleton', 'סינגלטון');
+    return L('two doubletons', 'שני דאבלטונים');
+  }
+
+  function figure(spec) {
+    const hand = parseHand(spec);
+    const lens = Object.values(suitLengths(hand));
+    const shape = lens.slice().sort((a, b) => b - a).join('-');
+    const fig = document.createElement('figure');
+    fig.className = 'shape-hand';
+    const felt = document.createElement('div');
+    felt.className = 'shape-felt';
+    renderFan(felt, hand);
+    const cap = document.createElement('figcaption');
+    cap.innerHTML = `<strong>${ltr(shape)}</strong> · ${L(`${hcp(hand)} HCP`, `${hcp(hand)} נק'`)}` +
+      (isBalanced(hand) ? '' : ` · ${reason(lens)}`);
+    fig.append(felt, cap);
+    return fig;
+  }
+
+  function group(title, specs) {
+    const box = document.createElement('div');
+    box.className = 'example';
+    box.innerHTML = `<div class="example-title">${title}</div>`;
+    const grid = document.createElement('div');
+    grid.className = 'shape-grid';
+    specs.forEach(spec => grid.appendChild(figure(spec)));
+    box.appendChild(grid);
+    return box;
+  }
+
+  function mount(box) {
+    box.innerHTML = '';
+    box.append(group(L('Balanced', 'מאוזנות'), BALANCED), group(L('Unbalanced', 'לא מאוזנות'), UNBALANCED));
+  }
+
+  return { mount };
+})();
+
 // The "Example" in the Tricks and Trumps lessons: one trick from practice/trick-examples.txt,
 // played a card at a time, then the winner and the explanation.
 const TrickDemo = (() => {
@@ -1281,6 +1332,7 @@ const Learn = (() => {
     });
     document.querySelectorAll('#lesson-body .trick-demo').forEach(TrickDemo.mount);
     document.querySelectorAll('#lesson-body .score-demo').forEach(ScoreDemo.mount);
+    document.querySelectorAll('#lesson-body .shape-examples').forEach(ShapeExamples.mount);
     const auctionDemo = document.querySelector('#lesson-body .auction-demo');
     if (auctionDemo) AuctionDemo.mount(auctionDemo);
     const demo = document.querySelector('#lesson-body .deal-demo');
