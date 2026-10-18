@@ -105,21 +105,66 @@ function openingLead(hand, trump) {
 
 const LeadTrainer = (() => {
   const stats = makeStats();
-  let hand, contract, answer, answered;
+  let hand, contract, answer, answered, item = null, practiceIndex = 0;
   const $ = id => document.getElementById(id);
+  const AUCTION_COLUMNS = [3, 0, 1, 2]; // West, North, East, South
 
   function next() {
-    ({ hands: [, , , hand], contract } = Play.dealTable());
-    answer = openingLead(hand, contract.strain === 'N' ? null : contract.strain);
+    const list = practiceHands('openingLeads');
+    if (list.length) {
+      const i = practiceIndex++ % list.length;
+      item = list[i];
+      hand = parseHand(item.hands[item.leader]);
+      const strain = item.contract[1];
+      const card = hand.find(c => c.suit === item.answer[0] && c.rank === item.answer[1]);
+      const textbook = openingLead(hand, strain === 'N' ? null : strain);
+      answer = { card, why: practiceText(item.why) || (textbook.card === card ? textbook.why : '') };
+      $('lead-context').innerHTML = practiceCounter(i + 1, list.length) + practiceContext(item);
+    } else {
+      item = null;
+      ({ hands: [, , , hand], contract } = Play.dealTable());
+      answer = openingLead(hand, contract.strain === 'N' ? null : contract.strain);
+      const bid = bidHtml(contract.level + contract.strain);
+      $('lead-context').innerHTML = L(
+        `South is declarer in <strong>${bid}</strong> (${trumpText(contract.strain)}). You are West, so you make the opening lead. Click the card you would lead.`,
+        `דרום הוא הכרוז בחוזה <strong>${bid}</strong> (${trumpText(contract.strain)}). אתם במערב, ולכן אתם מבצעים את הובלת הפתיחה. לחצו על הקלף שהייתם מובילים.`);
+    }
     answered = false;
-    const bid = bidHtml(contract.level + contract.strain);
-    $('lead-context').innerHTML = L(
-      `South is declarer in <strong>${bid}</strong> (${trumpText(contract.strain)}). You are West, so you make the opening lead. Click the card you would lead.`,
-      `דרום הוא הכרוז בחוזה <strong>${bid}</strong> (${trumpText(contract.strain)}). אתם במערב, ולכן אתם מבצעים את הובלת הפתיחה. לחצו על הקלף שהייתם מובילים.`);
     $('lead-feedback').className = 'feedback';
     $('lead-feedback').innerHTML = '';
+    $('lead-deal').innerHTML = '';
     $('lead-next').hidden = true;
     renderHand();
+  }
+
+  // One of your hands from practice/opening-leads.txt: the note, the auction and the contract.
+  function practiceContext(it) {
+    const cells = [...Array(AUCTION_COLUMNS.indexOf(it.dealer)).fill(''), ...it.auction];
+    const rows = [];
+    for (let i = 0; i < cells.length; i += 4) rows.push([...cells.slice(i, i + 4), '', '', ''].slice(0, 4));
+    const bid = bidHtml(it.contract) + [L('', ''), L(' doubled', ' בדאבל'), L(' redoubled', ' ברידאבל')][it.doubled];
+    const declarer = SEAT_NAMES[it.declarer], you = SEAT_NAMES[it.leader];
+    const note = practiceText(it.note);
+    return (note ? `<div>${note}</div>` : '') + auctionHtml(AUCTION_COLUMNS.map(s => SEAT_NAMES[s]), rows, L(
+      `${declarer} is declarer in <strong>${bid}</strong> (${trumpText(it.contract[1])}). You are ${you}, on declarer's left, so you make the opening lead. Click the card you would lead.`,
+      `${declarer} הוא הכרוז בחוזה <strong>${bid}</strong> (${trumpText(it.contract[1])}). אתם ב${you}, משמאל לכרוז, ולכן אתם מבצעים את הובלת הפתיחה. לחצו על הקלף שהייתם מובילים.`));
+  }
+
+  // After the lead: all four hands of one of your deals.
+  function renderDeal() {
+    const box = $('lead-deal');
+    box.innerHTML = `
+      <div class="lead-deal-title">${L('The full deal', 'החלוקה המלאה')}</div>
+      <div class="table puzzle-table deal-table">
+        ${[0, 3, 1, 2].map(s => `<div class="seat ${['north', 'east', 'south', 'west'][s]}" data-seat="${s}"></div>`).join('')}
+        <div class="deal-center">${bidHtml(item.contract)}<br>${L(`by ${SEAT_NAMES[item.declarer]}`, `הכרוז: ${SEAT_NAMES[item.declarer]}`)}</div>
+      </div>`;
+    item.hands.forEach((spec, s) => {
+      const el = box.querySelector(`[data-seat="${s}"]`);
+      const role = s === item.declarer ? L(' (declarer)', ' (כרוז)') : s === item.leader ? L(' (you)', ' (אתם)') : '';
+      el.innerHTML = `<div class="seat-label"><strong>${SEAT_NAMES[s]}</strong>${role}</div>`;
+      renderSuitRows(el, parseHand(spec));
+    });
   }
 
   function renderHand(chosen) {
@@ -146,6 +191,7 @@ const LeadTrainer = (() => {
     answered = true;
     const correct = card === answer.card;
     record(stats, correct);
+    if (correct) Sound.correct();
     renderHand(card);
     let verdict = L('Correct!', 'נכון!');
     if (!correct) {
@@ -155,8 +201,9 @@ const LeadTrainer = (() => {
         : L(`The textbook lead is ${best}.`, `ההובלה לפי הספר היא ${best}.`);
     }
     $('lead-feedback').className = 'feedback ' + (correct ? 'good' : 'bad');
-    $('lead-feedback').innerHTML = `<strong>${verdict}</strong><div>${answer.why}</div>`;
+    $('lead-feedback').innerHTML = `<strong>${verdict}</strong>${answer.why ? `<div>${answer.why}</div>` : ''}`;
     $('lead-stats').textContent = statsText(stats);
+    if (item) renderDeal();
     $('lead-next').hidden = false;
     $('lead-next').focus({ preventScroll: true });
   }

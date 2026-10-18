@@ -28,6 +28,7 @@ DRILLS = [
     ('trick-examples.txt', 'trickExamples', 'trick'),
     ('scoring-examples.txt', 'scoringExamples', 'score'),
     ('declarer-play.txt', 'declarerPlay', 'ending'),
+    ('opening-leads.txt', 'openingLeads', 'lead'),
 ]
 
 FIELD = re.compile(r'^\s*(hand|dealer|north|east|south|west|auction|answer|lesson|trump|leader|contract|vulnerable|result|section|title|need|explanation|note|הסבר|הערה|כותרת)\s*:\s*(.*)$', re.I)
@@ -293,6 +294,32 @@ def convert_deal(block):
     return out
 
 
+def convert_lead(block):
+    """An opening-lead hand: a full deal and auction (as for the auction examples) and the right lead.
+    The contract, declarer and the player on lead (declarer's left) come from the auction."""
+    out = convert_deal(block)
+    calls = out['auction']
+    seat = lambda i: (out['dealer'] + i) % 4
+    last = max((i for i, c in enumerate(calls) if c[0].isdigit()), default=None)
+    if last is None:
+        raise Problem('all four players passed, so there is no opening lead')
+    bid = calls[last]
+    side = seat(last) % 2
+    declarer = seat(next(i for i, c in enumerate(calls) if c[0].isdigit() and c[1] == bid[1] and seat(i) % 2 == side))
+    after = calls[last + 1:]
+    leader = (declarer + 1) % 4
+    out.update({'contract': bid, 'doubled': 2 if 'XX' in after else 1 if 'X' in after else 0,
+                'declarer': declarer, 'leader': leader})
+    if not block.get('answer'):
+        raise Problem('the hand has no "Answer:" line (the card to lead, e.g. KS or ♠K)')
+    card = parse_card(block['answer'])
+    holding = dict(part.split(':') for part in out['hands'][leader].split())
+    if card[1] not in holding.get(card[0], ''):
+        raise Problem(f'{block["answer"].strip()} is not in {SEATS[leader].title()}\'s hand, and {SEATS[leader].title()} is on lead')
+    out['answer'] = card
+    return out
+
+
 def parse_card(text):
     """'QH', 'H Q', '♥Q', '10S' or 'TS' -> 'HQ' (suit then rank)."""
     t = clean(text).upper().replace(' ', '').replace('10', 'T')
@@ -450,14 +477,14 @@ def main():
             continue
         rel = os.path.relpath(path, ROOT) if path.startswith(ROOT) else path
         try:
-            blocks = read_blocks(path, {'deal': 'dealer', 'trick': 'lesson', 'score': 'contract', 'ending': 'section'}.get(need, 'hand'))
+            blocks = read_blocks(path, {'deal': 'dealer', 'lead': 'dealer', 'trick': 'lesson', 'score': 'contract', 'ending': 'section'}.get(need, 'hand'))
         except Problem as e:
             problems.append(f'{rel}: {e}')
             continue
         hands = []
         for b in blocks:
             try:
-                convert_one = {'deal': convert_deal, 'trick': convert_trick, 'score': convert_score, 'ending': convert_ending}.get(need)
+                convert_one = {'deal': convert_deal, 'lead': convert_lead, 'trick': convert_trick, 'score': convert_score, 'ending': convert_ending}.get(need)
                 hands.append(convert_one(b) if convert_one else convert(b, need, key))
             except Problem as e:
                 problems.append(f'{rel}, hand starting on line {b["line"]}: {e}')

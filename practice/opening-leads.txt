@@ -1,0 +1,54 @@
+# Your practice hands for the opening-lead drill (Defense tab)
+#
+# When this file has at least one hand, the opening-lead drill shows these hands, in this order,
+# instead of random ones. You see the auction and the hand of the player on lead, and choose the
+# card to lead; then all four hands are shown. Lines starting with # are ignored.
+# After editing, run from the project folder:   python tools/import_practice.py
+#
+# Each hand starts with a "Dealer:" line. The fields:
+#   Dealer:       who dealt and bids first: N, E, S or W
+#   North:        North's 13 cards, e.g.  S AKJ52  H K74  D Q3  C J82   (10 or T for ten, - for a void)
+#                 x for any small card: the importer picks a 2-9 (or the 10) that no other hand holds
+#   East:         East's 13 cards
+#   South:        South's 13 cards
+#   West:         West's 13 cards
+#   Auction:      every call, starting with the dealer, until the auction ends (three passes after
+#                 the last bid). Bids like 1S or 2NT, P for pass, X for double, XX for redouble.
+#                 The contract, the declarer and the player on lead (declarer's left) come from it.
+#   Answer:       the card to lead, e.g.  KH  or  ♥K  or  10S   (it must be in the leader's hand)
+#   Note:         shown above the hand, in English                (optional)
+#   הערה:          shown above the hand, in Hebrew                 (optional)
+#   Explanation:  shown with the answer, in English
+#   הסבר:          shown with the answer, in Hebrew                (with only one of the two, it's
+#                 shown in both languages)
+# A field can continue on the next lines; for example, write four calls per line in an auction.
+#
+# Examples (remove the # at the start of the lines to use them):
+#
+# Dealer: S
+# North: S K1083  H 74  D AQ52  C K93
+# East:  S 64  H 10983  D 976  C A762
+# South: S AQJ95  H A62  D K4  C Q85
+# West:  S 72  H KQJ5  D J1083  C J104
+# Auction: 1S  P  3S  P
+#          4S  P  P  P
+# Answer: KH
+# Explanation: Against a suit contract, lead the top of touching honors: the ♥K. It can't give
+#   declarer a cheap trick, and once the ♥A is gone your ♥Q and ♥J are winners.
+# הסבר: נגד חוזה בשליט, הובילו את העליון מבין הונורים צמודים: ה-♥K. הוא לא יכול לתת לכרוז לקיחה
+#   זולה, ואחרי שה-♥A ייצא, ה-♥Q וה-♥J שלכם יהיו זוכים.
+#
+# Dealer: S
+# North: S Q63  H A84  D K94  C AJ75
+# East:  S 1097  H 10762  D 10752  C K10
+# South: S A4  H KQ5  D AJ63  C Q982
+# West:  S KJ852  H J93  D Q8  C 643
+# Auction: 1NT  P  3NT  P
+#          P  P
+# Answer: 5S
+# Explanation: Against no-trump, lead fourth best from your longest suit: the ♠5. Once the ♠A and
+#   ♠Q are gone, your small spades can win tricks.
+# הסבר: נגד ללא שליט, הובילו את הרביעי מלמעלה מהסדרה הארוכה שלכם: ה-♠5. אחרי שה-♠A וה-♠Q ייצאו,
+#   הספייד הקטנים שלכם יוכלו לזכות בלקיחות.
+=== Opening leads ===
+

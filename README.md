@@ -23,7 +23,7 @@ The app is available in **English and Hebrew**. Use the switch in the header; He
 
 ## Your own practice hands
 
-The Count Points, Opening Bids, Responding, Opener's Rebid, Responder's Rebid and Overcalls drills can use your own hands, answers and explanations instead of random deals:
+The Count Points, Opening Bids, Responding, Opener's Rebid, Responder's Rebid, Overcalls and opening-lead drills can use your own hands, answers and explanations instead of random deals:
 
 1. Write the hands in the matching file in [`practice/`](practice/). Each file explains the format at the top and has examples you can uncomment.
 2. Run `python tools/import_practice.py` from the project folder. It checks every hand (13 cards, no duplicates, a legal auction and answer) and writes `js/practice-data.js`. If anything is wrong, it lists each problem with its file and line and writes nothing.

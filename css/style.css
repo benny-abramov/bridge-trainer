@@ -394,6 +394,8 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 .deal-table .seat { min-height: 9.6rem; justify-content: flex-start; padding: .2rem; gap: .2rem; }
 .deal-table .seat-label, .deal-table .muted { font-size: .8rem; }
 .deal-table .fan { padding-top: 0; }
+#lead-deal:not(:empty) { margin-bottom: 1rem; }
+.lead-deal-title { font-weight: 600; margin-bottom: .4rem; }
 .deal-center { grid-area: c; max-width: 240px; text-align: center; font-size: .9rem; line-height: 1.4; }
 [dir="rtl"] .deal-center { direction: rtl; }
 .table.trick-demo-table {
