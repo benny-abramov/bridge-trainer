@@ -262,10 +262,10 @@ const Play = (() => {
       return;
     }
 
+    const drawHand = seat % 2 === 0 ? renderFan : renderSuitRows; // side seats are narrow
     if (isHuman(seat)) {
       const myTurn = !st.done && !st.busy && st.turn === seat;
       const legal = myTurn ? legalCards(seat) : [];
-      const drawHand = seat % 2 === 0 ? renderFan : renderSuitRows; // side seats are narrow
       drawHand(el, hand, (cardEl, card) => {
         if (!myTurn) return;
         if (legal.includes(card)) {
@@ -284,7 +284,7 @@ const Play = (() => {
     } else if (seat === 0) {
       renderFan(el, hand); // dummy is face up for everyone
     } else if (showAll || st.done) {
-      renderCompact(el, hand);
+      drawHand(el, hand);
     } else {
       const pile = document.createElement('div');
       pile.className = 'pile';

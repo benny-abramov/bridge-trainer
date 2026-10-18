@@ -487,8 +487,6 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 .seat-label span { opacity: .75; }
 .seat .muted { color: var(--felt-text); opacity: .7; }
 
-.compact { background: rgba(0, 0, 0, .22); border-radius: 8px; padding: .4rem .7rem; font-weight: 600; min-width: 130px; }
-.compact .suit.red { color: #ff8a80; }
 .pile { display: flex; align-items: center; gap: .5rem; --cw: 44px; font-size: .9rem; }
 
 .trick-area { grid-area: c; position: relative; width: 240px; height: 230px; }
@@ -533,7 +531,6 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
   .seat { padding: .4rem .2rem; }
   .table { padding: .75rem .25rem; border-radius: 14px; gap: .5rem; }
   .trick-area { width: 190px; height: 190px; }
-  .compact { min-width: 0; font-size: .85rem; }
   .deck-row { gap: .4rem; }
   .shape-grid { --cw: 36px; grid-template-columns: minmax(0, 1fr); gap: .25rem; }
   .shape-hand figcaption { margin-bottom: .5rem; }

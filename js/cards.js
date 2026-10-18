@@ -143,16 +143,3 @@ function renderSuitRows(container, hand, decorate) {
   container.appendChild(rows);
   return rows;
 }
-
-// Compact one-line-per-suit view, as hands are printed in bridge columns.
-function renderCompact(container, hand) {
-  const box = document.createElement('div');
-  box.className = 'compact';
-  for (const suit of SUITS) {
-    const ranks = hand.filter(c => c.suit === suit).map(c => rankLabel(c.rank)).join(' ');
-    const row = document.createElement('div');
-    row.innerHTML = `${suitHtml(suit)} <span>${ranks || '—'}</span>`;
-    box.appendChild(row);
-  }
-  container.appendChild(box);
-}
