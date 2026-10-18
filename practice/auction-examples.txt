@@ -44,3 +44,16 @@ Note: Watch who becomes declarer.
 הערה: שימו לב מי הופך לכרוז.
 Explanation: South's 2C is Stayman, asking for a 4-card major, and North shows hearts. South raises to game. North named hearts first, so North is declarer in 4H, even though South made the final bid.
 הסבר: ה-2C של דרום הוא סטיימן, ששואל על סדרת מייגור של 4 קלפים, וצפון מראה הארט. דרום עולה למשחק מלא. צפון הכריז הארט ראשון, ולכן צפון הוא הכרוז בחוזה 4H, אף שדרום הכריז את ההכרזה האחרונה.
+
+Dealer: S
+North: S Qxxx  H xxx  D xx  C AJxx
+East:  S Axx  H Qxx  D xxx  C Qxxx
+South: S Kxxx  H KJxxx  D Kx  C Kx
+West:  S Jx  H Ax D AQJxxx  C xxx
+Auction: 1H  2D  2H  3D
+         P  P  P
+Note: Watch who becomes declarer.
+הערה: שימו לב מי הופך לכרוז.
+Explanation: South opens 1H, West overcalls (bids after the initial bid by opponent), North supports to 2H, and E supports to 3D, all pass
+הסבר: דרום פותח 1H, מערב מכריז הכרזת התערבות (הכרזה אחרי הכרזת הפתיחה של היריב), צפון תומך ב-2H, ומזרח תומך ב-3D. כולם אומרים פאס.
+

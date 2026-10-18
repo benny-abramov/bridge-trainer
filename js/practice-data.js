@@ -850,6 +850,32 @@ const PRACTICE = {
     "en": "Watch who becomes declarer.",
     "he": "שימו לב מי הופך לכרוז."
    }
+  },
+  {
+   "dealer": 2,
+   "hands": [
+    "S:QT84 H:T32 D:T2 C:AJT3",
+    "S:A53 H:Q76 D:843 C:Q875",
+    "S:K962 H:KJ984 D:K7 C:K6",
+    "S:J7 H:A5 D:AQJ965 C:942"
+   ],
+   "auction": [
+    "1H",
+    "2D",
+    "2H",
+    "3D",
+    "P",
+    "P",
+    "P"
+   ],
+   "why": {
+    "en": "South opens 1H, West overcalls (bids after the initial bid by opponent), North supports to 2H, and E supports to 3D, all pass",
+    "he": "דרום פותח 1H, מערב מכריז הכרזת התערבות (הכרזה אחרי הכרזת הפתיחה של היריב), צפון תומך ב-2H, ומזרח תומך ב-3D. כולם אומרים פאס."
+   },
+   "note": {
+    "en": "Watch who becomes declarer.",
+    "he": "שימו לב מי הופך לכרוז."
+   }
   }
  ]
 };
