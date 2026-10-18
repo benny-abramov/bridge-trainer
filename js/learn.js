@@ -1296,7 +1296,7 @@ const Learn = (() => {
       <div class="eyebrow">${L(`Lesson ${index + 1} of ${LESSONS.length}`, `שיעור ${index + 1} מתוך ${LESSONS.length}`)}</div>
       <h2>${lesson.title}</h2>
       ${lesson.body}
-      ${lesson.tryIt ? `<p><button class="btn secondary" data-goto="${lesson.tryIt}">${tryLabels[lesson.tryIt]} ${L('→', '←')}</button></p>` : ''}
+      ${lesson.tryIt ? `<p><button class="btn" data-goto="${lesson.tryIt}">${tryLabels[lesson.tryIt]} ${L('→', '←')}</button></p>` : ''}
       <div class="lesson-nav">
         <button class="btn secondary" id="lesson-prev" ${index === 0 ? 'disabled' : ''}>${L('← Previous', '→ הקודם')}</button>
         <button class="btn" id="lesson-next" ${index === LESSONS.length - 1 ? 'disabled' : ''}>${L('Next →', 'הבא ←')}</button>
