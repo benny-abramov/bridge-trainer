@@ -351,6 +351,17 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 .deal-table .fan { padding-top: 0; }
 .deal-center { grid-area: c; max-width: 240px; text-align: center; font-size: .9rem; line-height: 1.4; }
 [dir="rtl"] .deal-center { direction: rtl; }
+.auction-demo-head { display: flex; flex-wrap: wrap; gap: .4rem 1rem; align-items: baseline; margin-top: .5rem; }
+.auction-demo .drill-nav { margin-top: .25rem; }
+.drill-nav-gap { flex: 1; }
+.bid-box { border-collapse: separate; border-spacing: 3px; background: rgba(0, 0, 0, .22); border-radius: 10px; padding: 3px; font-size: .85rem; }
+.bid-box th { color: var(--felt-text); font-weight: 600; font-size: .75rem; padding: .2rem .35rem; min-width: 2.9rem; }
+.bid-box th.dealer { text-decoration: underline; text-underline-offset: 3px; }
+.bid-box td { background: var(--surface); color: var(--text); border-radius: 6px; height: 1.7rem; padding: 0 .3rem; text-align: center; white-space: nowrap; }
+.bid-box td:empty { background: transparent; }
+.bid-box td.latest { box-shadow: 0 0 0 2px var(--hint); font-weight: 700; }
+.bid-box td.ask { background: transparent; color: var(--felt-text); font-weight: 700; border: 1px dashed rgba(255, 255, 255, .5); }
+[dir="rtl"] .bid-box { direction: ltr; }
 .puzzle .feedback ul { margin: .4rem 0; padding-inline-start: 1.2rem; }
 .warn { color: var(--bad); font-weight: 600; }
 

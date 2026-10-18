@@ -99,12 +99,13 @@ const LESSONS_EN = [
       <p>Strains rank from low to high:</p>
       ${strainLadder()}
       <p>Every bid must be <strong>higher</strong> than the one before it — either a higher level, or the same level in a higher strain.
-      After 1${H}, you could bid 1${S} or 1NT, but to show diamonds you'd need 2${D}.</p>
+      After 1${H}, you could bid 1${S} or 1NT, but to show diamonds you'd need at least 2${D}.</p>
       <ul>
         <li>The auction ends when a bid is followed by <strong>three passes</strong>. The last bid becomes the <strong>contract</strong>.</li>
         <li>The <strong>declarer</strong> is whichever player of the winning side first named the contract's strain.</li>
         <li><strong>Double</strong> raises the stakes of the opponents' last bid; <strong>Redouble</strong> raises them again.</li>
-      </ul>`,
+      </ul>
+      <div class="auction-demo"></div>`,
   },
   {
     title: 'Scoring basics',
@@ -498,7 +499,8 @@ const LESSONS_HE = [
         <li>המכרז מסתיים כשאחרי הכרזה באים <strong>שלושה פאסים</strong>. ההכרזה האחרונה היא <strong>החוזה</strong>.</li>
         <li><strong>הכרוז</strong> הוא השחקן מהצד הזוכה שהיה הראשון להכריז את סוג ההכרזה של החוזה.</li>
         <li><strong>דאבל</strong> מעלה את הסיכון בהכרזה האחרונה של היריבים; <strong>רידאבל</strong> מעלה אותו שוב.</li>
-      </ul>`,
+      </ul>
+      <div class="auction-demo"></div>`,
   },
   {
     title: 'יסודות הניקוד',
@@ -890,6 +892,106 @@ const DealDemo = (() => {
   return { mount };
 })();
 
+// The "Examples" in the auction lesson: a full deal from practice/auction-examples.txt, with the
+// auction revealed one call at a time.
+const AuctionDemo = (() => {
+  const examples = () => (typeof PRACTICE !== 'undefined' && PRACTICE.auctionExamples) || [];
+  const text = t => (t ? L(t.en || t.he, t.he || t.en) : '');
+  const COLUMNS = [3, 0, 1, 2]; // the auction box lists West, North, East, South
+  let ex = 0, step = 0;
+
+  function mount(box) {
+    if (!examples().length) { box.innerHTML = ''; return; }
+    box.innerHTML = `<p><button class="btn" type="button">${L('Examples', 'דוגמאות')}</button></p>`;
+    box.querySelector('button').addEventListener('click', () => { ex = 0; step = 0; render(box); });
+  }
+
+  // The final contract, e.g. "4♥ by South, doubled", or null when all four players passed.
+  function contract(deal) {
+    const calls = deal.auction;
+    const seat = i => (deal.dealer + i) % 4;
+    const last = calls.reduce((j, c, i) => (/^\d/.test(c) ? i : j), -1);
+    if (last < 0) return null;
+    const bid = calls[last];
+    const side = seat(last) % 2;
+    const declarer = seat(calls.findIndex((c, i) => /^\d/.test(c) && c[1] === bid[1] && seat(i) % 2 === side));
+    const after = calls.slice(last + 1);
+    const dbl = after.includes('XX') ? L(' redoubled', ', ברידאבל') : after.includes('X') ? L(' doubled', ', בדאבל') : '';
+    return { bid, declarer, dbl };
+  }
+
+  function auctionBox(deal) {
+    const first = COLUMNS.indexOf(deal.dealer);
+    const cells = Array(first).fill('<td></td>');
+    deal.auction.slice(0, step).forEach((c, i) => {
+      cells.push(`<td class="${i === step - 1 ? 'latest' : ''}">${bidHtml(c)}</td>`);
+    });
+    if (step < deal.auction.length) cells.push('<td class="ask">?</td>');
+    while (cells.length % 4) cells.push('<td></td>');
+    const rows = [];
+    for (let i = 0; i < cells.length; i += 4) rows.push(`<tr>${cells.slice(i, i + 4).join('')}</tr>`);
+    return `
+      <table class="bid-box">
+        <tr>${COLUMNS.map(s => `<th class="${s === deal.dealer ? 'dealer' : ''}">${SEAT_NAMES[s]}</th>`).join('')}</tr>
+        ${rows.join('')}
+      </table>`;
+  }
+
+  function render(box) {
+    const list = examples();
+    const deal = list[ex];
+    const done = step === deal.auction.length;
+    const toBid = (deal.dealer + step) % 4;
+    let result = '';
+    if (done) {
+      const c = contract(deal);
+      const line = c
+        ? L(`<strong>Final contract: ${bidHtml(c.bid)}${c.dbl} by ${SEAT_NAMES[c.declarer]}.</strong>`,
+          `<strong>החוזה הסופי: ${bidHtml(c.bid)}${c.dbl}. הכרוז: ${SEAT_NAMES[c.declarer]}.</strong>`)
+        : L('<strong>All four players passed: the cards are thrown in and dealt again.</strong>',
+          '<strong>כל ארבעת השחקנים אמרו פאס: הקלפים נאספים ומחולקים מחדש.</strong>');
+      result = `<div class="feedback good">${line}${deal.why ? `<div>${text(deal.why)}</div>` : ''}</div>`;
+    }
+    box.innerHTML = `
+      <div class="auction-demo-head">
+        <span class="practice-count">${L(`Example ${ex + 1} of ${list.length}`, `דוגמה ${ex + 1} מתוך ${list.length}`)}</span>
+        ${deal.note ? `<span>${text(deal.note)}</span>` : ''}
+      </div>
+      <div class="table puzzle-table deal-table">
+        ${[0, 3, 1, 2].map(s => `<div class="seat ${['north', 'east', 'south', 'west'][s]}${!done && s === toBid ? ' to-play' : ''}" data-seat="${s}"></div>`).join('')}
+        <div class="deal-center">${auctionBox(deal)}</div>
+      </div>
+      <div class="drill-nav">
+        <button class="btn secondary" type="button" data-act="back" ${step === 0 ? 'disabled' : ''}>${L('← Back', '→ אחורה')}</button>
+        <button class="btn" type="button" data-act="next" ${done ? 'disabled' : ''}>${L('Next bid →', 'ההכרזה הבאה ←')}</button>
+        <span class="drill-nav-gap"></span>
+        <button class="btn secondary" type="button" data-act="prev-ex" ${ex === 0 ? 'disabled' : ''}>${L('← Previous example', '→ הדוגמה הקודמת')}</button>
+        <button class="btn secondary" type="button" data-act="next-ex" ${ex === list.length - 1 ? 'disabled' : ''}>${L('Next example →', 'הדוגמה הבאה ←')}</button>
+      </div>
+      <div aria-live="polite">${result}</div>`;
+    deal.hands.forEach((spec, s) => {
+      const el = box.querySelector(`[data-seat="${s}"]`);
+      el.innerHTML = `<div class="seat-label"><strong>${SEAT_NAMES[s]}</strong>${s === deal.dealer ? ` <span>${L('(dealer)', '(מחלק)')}</span>` : ''}</div>`;
+      renderSuitRows(el, parseHand(spec));
+    });
+    const act = {
+      back: () => { step--; },
+      next: () => { step++; },
+      'prev-ex': () => { ex--; step = 0; },
+      'next-ex': () => { ex++; step = 0; },
+    };
+    box.querySelectorAll('[data-act]').forEach(btn => btn.addEventListener('click', () => {
+      const which = btn.dataset.act;
+      act[which]();
+      render(box);
+      const again = box.querySelector(`[data-act="${which}"]`);
+      (again && !again.disabled ? again : box.querySelector('[data-act="next"]:not(:disabled)') || box.querySelector('[data-act="back"]')).focus({ preventScroll: true });
+    }));
+  }
+
+  return { mount };
+})();
+
 const Learn = (() => {
   let index = 0;
 
@@ -937,6 +1039,8 @@ const Learn = (() => {
       ladder.addEventListener('mouseleave', reset);
       ladder.addEventListener('focusout', () => setTimeout(reset));
     });
+    const auctionDemo = document.querySelector('#lesson-body .auction-demo');
+    if (auctionDemo) AuctionDemo.mount(auctionDemo);
     const demo = document.querySelector('#lesson-body .deal-demo');
     if (demo) DealDemo.mount(demo);
     document.getElementById('lesson-prev').addEventListener('click', () => go(index - 1));

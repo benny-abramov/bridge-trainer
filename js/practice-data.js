@@ -792,5 +792,64 @@ const PRACTICE = {
     "he": ""
    }
   }
+ ],
+ "auctionExamples": [
+  {
+   "dealer": 1,
+   "hands": [
+    "S:742 H:Q963 D:QJ5 C:K84",
+    "S:863 H:8 D:A643 C:A7652",
+    "S:AK5 H:AKJ74 D:K82 C:93",
+    "S:QJT9 H:T52 D:T97 C:QJT"
+   ],
+   "auction": [
+    "P",
+    "1H",
+    "P",
+    "2H",
+    "P",
+    "4H",
+    "P",
+    "P",
+    "P"
+   ],
+   "why": {
+    "en": "North's 2H shows heart support and 6-10 HCP. With 18 HCP, South knows the partnership has at least 24, so South bids game in hearts. Three passes end the auction: South is declarer in 4H.",
+    "he": "ה-2H של צפון מראה תמיכה בהארט ו-6-10 נק'. עם 18 נק', דרום יודע שלזוג יש לפחות 24 נק', ולכן הוא מכריז משחק מלא בהארט. שלושה פאסים מסיימים את המכרז: דרום הוא הכרוז בחוזה 4H."
+   },
+   "note": {
+    "en": "A simple auction: an opening bid, a raise, and game.",
+    "he": "מכרז פשוט: הכרזת פתיחה, תמיכה ומשחק מלא."
+   }
+  },
+  {
+   "dealer": 0,
+   "hands": [
+    "S:K2 H:AQ84 D:KJ6 C:AT95",
+    "S:QT98 H:J97 D:T97 C:KQJ",
+    "S:AJ75 H:KT62 D:Q83 C:72",
+    "S:643 H:53 D:A542 C:8643"
+   ],
+   "auction": [
+    "1N",
+    "P",
+    "2C",
+    "P",
+    "2H",
+    "P",
+    "4H",
+    "P",
+    "P",
+    "P"
+   ],
+   "why": {
+    "en": "South's 2C is Stayman, asking for a 4-card major, and North shows hearts. South raises to game. North named hearts first, so North is declarer in 4H, even though South made the final bid.",
+    "he": "ה-2C של דרום הוא סטיימן, ששואל על סדרת מייגור של 4 קלפים, וצפון מראה הארט. דרום עולה למשחק מלא. צפון הכריז הארט ראשון, ולכן צפון הוא הכרוז בחוזה 4H, אף שדרום הכריז את ההכרזה האחרונה."
+   },
+   "note": {
+    "en": "Watch who becomes declarer.",
+    "he": "שימו לב מי הופך לכרוז."
+   }
+  }
  ]
 };

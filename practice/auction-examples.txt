@@ -1,0 +1,45 @@
+# Auction examples for the lesson "The auction"
+#
+# The lesson's "Examples" button shows these deals one at a time: all four hands, and the auction
+# revealed one call at a time with the "Next" button. Lines starting with # are ignored.
+# After editing, run from the project folder:   python tools/import_practice.py
+#
+# Each example starts with a "Dealer:" line. The fields:
+#   Dealer:       who dealt and bids first: N, E, S or W
+#   North:        North's 13 cards, e.g.  S AKJ52  H K74  D Q3  C J82   (10 or T for ten, - for a void)
+#   East:         East's 13 cards
+#   South:        South's 13 cards
+#   West:         West's 13 cards
+#   Auction:      every call, starting with the dealer, until the auction ends (three passes after
+#                 the last bid). Bids like 1S or 2NT, P for pass, X for double, XX for redouble.
+#   Note:         shown above the deal, in English                (optional, e.g. what to look for)
+#   הערה:          shown above the deal, in Hebrew                 (optional)
+#   Explanation:  shown when the auction is over, in English      (optional)
+#   הסבר:          shown when the auction is over, in Hebrew       (optional)
+# A field can continue on the next lines; for example, write four calls per line in an auction.
+
+Dealer: E
+North: S 742  H Q963  D QJ5  C K84
+East:  S 863  H 8  D A643  C A7652
+South: S AK5  H AKJ74  D K82  C 93
+West:  S QJ109  H 1052  D 1097  C QJ10
+Auction: P  1H  P  2H
+         P  4H  P  P
+         P
+Note: A simple auction: an opening bid, a raise, and game.
+הערה: מכרז פשוט: הכרזת פתיחה, תמיכה ומשחק מלא.
+Explanation: North's 2H shows heart support and 6-10 HCP. With 18 HCP, South knows the partnership has at least 24, so South bids game in hearts. Three passes end the auction: South is declarer in 4H.
+הסבר: ה-2H של צפון מראה תמיכה בהארט ו-6-10 נק'. עם 18 נק', דרום יודע שלזוג יש לפחות 24 נק', ולכן הוא מכריז משחק מלא בהארט. שלושה פאסים מסיימים את המכרז: דרום הוא הכרוז בחוזה 4H.
+
+Dealer: N
+North: S K2  H AQ84  D KJ6  C A1095
+East:  S Q1098  H J97  D 1097  C KQJ
+South: S AJ75  H K1062  D Q83  C 72
+West:  S 643  H 53  D A542  C 8643
+Auction: 1NT  P  2C  P
+         2H  P  4H  P
+         P  P
+Note: Watch who becomes declarer.
+הערה: שימו לב מי הופך לכרוז.
+Explanation: South's 2C is Stayman, asking for a 4-card major, and North shows hearts. South raises to game. North named hearts first, so North is declarer in 4H, even though South made the final bid.
+הסבר: ה-2C של דרום הוא סטיימן, ששואל על סדרת מייגור של 4 קלפים, וצפון מראה הארט. דרום עולה למשחק מלא. צפון הכריז הארט ראשון, ולכן צפון הוא הכרוז בחוזה 4H, אף שדרום הכריז את ההכרזה האחרונה.

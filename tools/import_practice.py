@@ -23,11 +23,14 @@ DRILLS = [
     ('opener-rebid.txt', 'openerRebid', 'required'),
     ('responder-rebid.txt', 'responderRebid', 'required'),
     ('overcalls.txt', 'overcalls', 'required'),
+    ('auction-examples.txt', 'auctionExamples', 'deal'),
 ]
 
-FIELD = re.compile(r'^\s*(hand|dealer|auction|answer|explanation|note|הסבר|הערה)\s*:\s*(.*)$', re.I)
+FIELD = re.compile(r'^\s*(hand|dealer|north|east|south|west|auction|answer|explanation|note|הסבר|הערה)\s*:\s*(.*)$', re.I)
 FIELD_KEY = {'hand': 'hand', 'dealer': 'dealer', 'auction': 'auction', 'answer': 'answer',
+             'north': 'north', 'east': 'east', 'south': 'south', 'west': 'west',
              'explanation': 'why_en', 'הסבר': 'why_he', 'note': 'note_en', 'הערה': 'note_he'}
+SEATS = ['north', 'east', 'south', 'west']
 SUIT_SYMBOLS = {'♠': 'S', '♥': 'H', '♦': 'D', '♣': 'C'}
 RANK_ORDER = 'AKQJT98765432'
 STRAINS = 'CDHSN'
@@ -133,8 +136,9 @@ def parse_auction(text, need):
     return calls
 
 
-def read_blocks(path):
-    """Split a file into hands. Each hand starts with a "Hand:" line; lines without a field name continue the previous field."""
+def read_blocks(path, start='hand'):
+    """Split a file into hands. Each hand starts with a `start` line ("Hand:", or "Dealer:" for full
+    deals); lines without a field name continue the previous field."""
     blocks, block, field = [], None, None
     with open(path, encoding='utf-8-sig') as f:
         for n, raw in enumerate(f, 1):
@@ -145,18 +149,18 @@ def read_blocks(path):
             m = FIELD.match(line)
             if m:
                 key = FIELD_KEY[m.group(1).lower() if m.group(1).isascii() else m.group(1)]
-                if key == 'hand':
+                if key == start:
                     block = {'line': n}
                     blocks.append(block)
                 elif block is None:
-                    raise Problem(f'line {n}: "{m.group(1)}:" comes before the first "Hand:" line')
+                    raise Problem(f'line {n}: "{m.group(1)}:" comes before the first "{start.title()}:" line')
                 if key in block:
                     block.setdefault('errors', []).append(f'"{m.group(1)}:" appears twice (line {n})')
                 block[key], field = m.group(2).strip(), key
             elif block is not None and field:
                 block[field] = (block[field] + ' ' + line.strip()).strip()
             else:
-                raise Problem(f'line {n}: "{line.strip()}" doesn\'t belong to any field (start hands with "Hand:")')
+                raise Problem(f'line {n}: "{line.strip()}" doesn\'t belong to any field (start each one with "{start.title()}:")')
     return blocks
 
 
@@ -196,6 +200,47 @@ def convert(block, need, key):
     return out
 
 
+def convert_deal(block):
+    """A full deal for the auction examples: four hands, the dealer and a complete auction."""
+    if block.get('errors'):
+        raise Problem('; '.join(block['errors']))
+    dealer = block.get('dealer', '').strip().upper()[:1]
+    if not dealer or dealer not in 'NESW':
+        raise Problem('"Dealer:" must be N, E, S or W')
+    out = {'dealer': 'NESW'.index(dealer), 'hands': []}
+    seen = {}
+    for seat in SEATS:
+        if not block.get(seat):
+            raise Problem(f'the deal has no "{seat.title()}:" hand')
+        try:
+            hand = parse_hand(block[seat])
+        except Problem as e:
+            raise Problem(f'{seat.title()}: {e}')
+        for part in hand.split():
+            suit, ranks = part.split(':')
+            for r in ranks:
+                if suit + r in seen:
+                    raise Problem(f'{suit}{r} is in both {seen[suit + r].title()} and {seat.title()}')
+                seen[suit + r] = seat
+        out['hands'].append(hand)
+    calls = [parse_call(t) for t in clean(block.get('auction', '')).replace(',', ' ').split()]
+    if not calls:
+        raise Problem('the deal has no "Auction:" line')
+    if '?' in calls:
+        raise Problem('write the whole auction, without "?"')
+    for i, c in enumerate(calls):
+        check_next_call(calls[:i], c)
+    has_bid = any(c not in ('P', 'X', 'XX') for c in calls)
+    if (has_bid and calls[-3:] != ['P', 'P', 'P']) or (not has_bid and len(calls) < 4):
+        raise Problem('the auction isn\'t over: it ends with three passes after the last bid (or four passes)')
+    out['auction'] = calls
+    for part in ('why', 'note'):
+        en, he = block.get(part + '_en', ''), block.get(part + '_he', '')
+        if en or he:
+            out[part] = {'en': en, 'he': he}
+    return out
+
+
 def main():
     practice_dir = sys.argv[1] if len(sys.argv) > 1 else os.path.join(ROOT, 'practice')
     output = sys.argv[2] if len(sys.argv) > 2 else os.path.join(ROOT, 'js', 'practice-data.js')
@@ -207,19 +252,21 @@ def main():
             continue
         rel = os.path.relpath(path, ROOT) if path.startswith(ROOT) else path
         try:
-            blocks = read_blocks(path)
+            blocks = read_blocks(path, 'dealer' if need == 'deal' else 'hand')
         except Problem as e:
             problems.append(f'{rel}: {e}')
             continue
         hands = []
         for b in blocks:
             try:
-                hands.append(convert(b, need, key))
+                hands.append(convert_deal(b) if need == 'deal' else convert(b, need, key))
             except Problem as e:
                 problems.append(f'{rel}, hand starting on line {b["line"]}: {e}')
         if hands:
             data[key] = hands
-        summary.append(f'  {name}: {len(hands)} hand(s)' if hands else f'  {name}: no hands yet, random hands')
+        what = 'example(s)' if need == 'deal' else 'hand(s)'
+        empty = 'no examples yet' if need == 'deal' else 'no hands yet, random hands'
+        summary.append(f'  {name}: {len(hands)} {what}' if hands else f'  {name}: {empty}')
 
     if problems:
         print('Nothing was written. Please fix these problems and run the script again:\n')
