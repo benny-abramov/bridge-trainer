@@ -184,6 +184,11 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 .trick-row .win { border-color: var(--good); color: var(--good); font-weight: 700; }
 .ranking { display: flex; align-items: center; gap: .6rem; font-size: 1.5rem; font-weight: 700; margin: .5rem 0; }
 .ranking span { color: var(--muted); font-size: 1rem; }
+.deck-figure { display: flex; flex-direction: column; width: fit-content; max-width: 100%; box-sizing: border-box; gap: .15rem; margin: .75rem 0 1rem; padding: .6rem .8rem .8rem; border-radius: 14px; background: radial-gradient(ellipse at center, var(--felt) 55%, var(--felt-edge)); overflow-x: auto; }
+.deck-row { display: flex; align-items: center; gap: .75rem; direction: ltr; }
+.deck-suit { width: 4.5rem; flex: none; color: var(--felt-text); font-size: .85rem; font-weight: 600; }
+[dir="rtl"] .deck-suit { direction: rtl; text-align: left; }
+.deck-figure .fan { padding-top: 6px; }
 .ladder {
   position: relative; display: flex; align-items: flex-end; height: 15rem; margin: .75rem 0 .25rem;
   padding: 0 0 2.2rem; border-bottom: 1px dashed var(--border);
@@ -477,6 +482,8 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
   .table { padding: .75rem .25rem; border-radius: 14px; gap: .5rem; }
   .trick-area { width: 190px; height: 190px; }
   .compact { min-width: 0; font-size: .85rem; }
+  .deck-row { gap: .4rem; }
+  .deck-suit { width: 3.6rem; font-size: .75rem; }
   .ladder { height: 13rem; }
   .step { margin-bottom: calc(var(--i) * 1.5rem); }
   .step-tile { width: 3.2rem; height: 3.2rem; font-size: 1.3rem; }

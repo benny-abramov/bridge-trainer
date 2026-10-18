@@ -42,6 +42,8 @@ const LESSONS_EN = [
         <span class="n">North</span><span class="w">West</span><span class="e">East</span><span class="s">South</span>
         <span class="mid">table</span>
       </div>
+      <p>Bridge uses a standard deck of <strong>52 cards</strong>: four suits of 13 cards each, ranked from the ace (highest) down to the 2.</p>
+      <div class="deck-figure" role="img" aria-label="The 52 cards: spades, hearts, diamonds and clubs, each from the ace down to the 2"></div>
       <p>A standard 52-card deck is dealt out completely, so everyone holds <strong>13 cards</strong>.
       Press the button to watch a deal: the dealer gives out one card at a time, clockwise.</p>
       <div class="deal-demo"></div>
@@ -438,6 +440,8 @@ const LESSONS_HE = [
         <span class="n">צפון</span><span class="w">מערב</span><span class="e">מזרח</span><span class="s">דרום</span>
         <span class="mid">שולחן</span>
       </div>
+      <p>בברידג' משחקים עם חפיסה רגילה של <strong>52 קלפים</strong>: ארבע סדרות של 13 קלפים כל אחת, מהאס (הגבוה ביותר) ועד ה-2.</p>
+      <div class="deck-figure" role="img" aria-label="52 הקלפים: ספייד, הארט, דיאמונד וקלאב, כל סדרה מהאס ועד ה-2"></div>
       <p>חפיסה רגילה של 52 קלפים מחולקת כולה, כך שלכל שחקן יש <strong>13 קלפים</strong>. לחצו על הכפתור כדי לראות חלוקה: המחלק נותן קלף אחד בכל פעם, לפי כיוון השעון.</p>
       <div class="deal-demo"></div>
       <p>לכל חלוקה שני שלבים:</p>
@@ -1038,6 +1042,15 @@ const Learn = (() => {
       };
       ladder.addEventListener('mouseleave', reset);
       ladder.addEventListener('focusout', () => setTimeout(reset));
+    });
+    document.querySelectorAll('#lesson-body .deck-figure').forEach(fig => {
+      for (const suit of SUITS) {
+        const row = document.createElement('div');
+        row.className = 'deck-row';
+        row.innerHTML = `<span class="deck-suit">${SUIT_NAME[suit][0].toUpperCase() + SUIT_NAME[suit].slice(1)}</span>`;
+        renderFan(row, RANKS.slice().reverse().map(rank => ({ suit, rank, value: RANKS.indexOf(rank) + 2 })));
+        fig.appendChild(row);
+      }
     });
     const auctionDemo = document.querySelector('#lesson-body .auction-demo');
     if (auctionDemo) AuctionDemo.mount(auctionDemo);
