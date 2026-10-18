@@ -71,7 +71,8 @@ const LESSONS_EN = [
           <span>West 5${H}</span><span>North Q${H}</span><span class="win">East K${H} ✓</span><span>South 2${C}</span>
         </div>
         <p class="small">South has no hearts and discards a club. East's King is the highest heart, so East wins.</p>
-      </div>`,
+      </div>
+      <div class="trick-demo" data-lesson="tricks"></div>`,
   },
   {
     title: 'Trumps and no-trump',
@@ -89,7 +90,8 @@ const LESSONS_EN = [
           <span>North A${D}</span><span class="win">East 3${S} ✓</span><span>South 4${D}</span><span>West 7${D}</span>
         </div>
         <p class="small">East has no diamonds and ruffs with a small trump, beating the Ace.</p>
-      </div>`,
+      </div>
+      <div class="trick-demo" data-lesson="trumps"></div>`,
   },
   {
     title: 'The auction',
@@ -468,7 +470,8 @@ const LESSONS_HE = [
           <span>מערב ${cardText(5, H)}</span><span>צפון ${cardText('Q', H)}</span><span class="win">מזרח ${cardText('K', H)} ✓</span><span>דרום ${cardText(2, C)}</span>
         </div>
         <p class="small">לדרום אין הארט, והוא משליך קלאב. המלך של מזרח הוא ההארט הגבוה ביותר, ולכן מזרח זוכה.</p>
-      </div>`,
+      </div>
+      <div class="trick-demo" data-lesson="tricks"></div>`,
   },
   {
     title: 'שליט וללא שליט',
@@ -486,7 +489,8 @@ const LESSONS_HE = [
           <span>צפון ${cardText('A', D)}</span><span class="win">מזרח ${cardText(3, S)} ✓</span><span>דרום ${cardText(4, D)}</span><span>מערב ${cardText(7, D)}</span>
         </div>
         <p class="small">למזרח אין דיאמונד, והוא חותך בשליט קטן שגובר על האס.</p>
-      </div>`,
+      </div>
+      <div class="trick-demo" data-lesson="trumps"></div>`,
   },
   {
     title: 'המכרז',
@@ -896,6 +900,94 @@ const DealDemo = (() => {
   return { mount };
 })();
 
+// The "Example" in the Tricks and Trumps lessons: one trick from practice/trick-examples.txt,
+// played a card at a time, then the winner and the explanation.
+const TrickDemo = (() => {
+  const examples = lesson => ((typeof PRACTICE !== 'undefined' && PRACTICE.trickExamples) || []).filter(e => e.lesson === lesson);
+  const text = t => (t ? L(t.en || t.he, t.he || t.en) : '');
+  const toCard = code => ({ suit: code[0], rank: code[1], value: RANKS.indexOf(code[1]) + 2 });
+
+  function mount(box) {
+    const list = examples(box.dataset.lesson);
+    if (!list.length) { box.innerHTML = ''; return; }
+    box.innerHTML = `<p><button class="btn" type="button">${list.length > 1 ? L('Examples', 'דוגמאות') : L('Example', 'דוגמה')}</button></p>`;
+    box.querySelector('button').addEventListener('click', () => render(box, list, 0, 0));
+  }
+
+  // The seat that wins: the highest trump if any was played, otherwise the highest card of the suit led.
+  function winnerOf(ex) {
+    const cards = ex.cards.map(toCard);
+    const led = cards[ex.leader].suit;
+    const beats = (a, b) => (a.suit === b.suit ? a.value > b.value : a.suit === ex.trump);
+    let best = ex.leader;
+    for (let i = 1; i < 4; i++) {
+      const seat = (ex.leader + i) % 4;
+      if (beats(cards[seat], cards[best])) best = seat;
+    }
+    return { seat: best, card: cards[best], ruffed: cards[best].suit !== led };
+  }
+
+  function render(box, list, ex, step) {
+    const deal = list[ex];
+    const done = step === 4;
+    const played = seat => (seat - deal.leader + 4) % 4 < step;
+    const toPlay = (deal.leader + step) % 4;
+    const win = done ? winnerOf(deal) : null;
+    const trumpLine = deal.trump === 'N'
+      ? `<strong>${L('No trump', 'ללא שליט')}</strong>`
+      : `${L('Trumps:', 'שליט:')} <strong>${suitHtml(deal.trump)} ${SUIT_NAME[deal.trump]}</strong>`;
+    let result = '';
+    if (done) {
+      const line = L(`<strong>${SEAT_NAMES[win.seat]} wins the trick with ${cardHtml(win.card)}.</strong>`,
+        `<strong>${SEAT_NAMES[win.seat]} זוכה בלקיחה עם ${cardHtml(win.card)}.</strong>`);
+      result = `<div class="feedback good">${line}${deal.why ? `<div>${text(deal.why)}</div>` : ''}</div>`;
+    }
+    box.innerHTML = `
+      <div class="auction-demo-head">
+        ${list.length > 1 ? `<span class="practice-count">${L(`Example ${ex + 1} of ${list.length}`, `דוגמה ${ex + 1} מתוך ${list.length}`)}</span>` : ''}
+        ${deal.note ? `<span>${text(deal.note)}</span>` : ''}
+      </div>
+      <div class="table trick-demo-table">
+        ${[0, 3, 1, 2].map(s => `<div class="seat ${['north', 'east', 'south', 'west'][s]}${!done && s === toPlay ? ' to-play' : ''}${done && s === win.seat ? ' trick-winner' : ''}" data-seat="${s}">
+          <div class="seat-label"><strong>${SEAT_NAMES[s]}</strong>${s === deal.leader ? ` <span>${L('(leads)', '(מוביל)')}</span>` : ''}</div>
+        </div>`).join('')}
+        <div class="trick-center">${trumpLine}</div>
+      </div>
+      <div class="drill-nav">
+        <button class="btn secondary" type="button" data-act="back" ${step === 0 ? 'disabled' : ''}>${L('← Back', '→ אחורה')}</button>
+        <button class="btn" type="button" data-act="next" ${done ? 'disabled' : ''}>${L('Next card →', 'הקלף הבא ←')}</button>
+        ${list.length > 1 ? `<span class="drill-nav-gap"></span>
+        <button class="btn secondary" type="button" data-act="prev-ex" ${ex === 0 ? 'disabled' : ''}>${L('← Previous example', '→ הדוגמה הקודמת')}</button>
+        <button class="btn secondary" type="button" data-act="next-ex" ${ex === list.length - 1 ? 'disabled' : ''}>${L('Next example →', 'הדוגמה הבאה ←')}</button>` : ''}
+      </div>
+      <div aria-live="polite">${result}</div>`;
+    for (let seat = 0; seat < 4; seat++) {
+      const el = box.querySelector(`[data-seat="${seat}"]`);
+      if (played(seat)) {
+        const card = createCardEl(toCard(deal.cards[seat]));
+        if (done && seat === win.seat) card.classList.add('winner');
+        el.appendChild(card);
+      } else {
+        el.insertAdjacentHTML('beforeend', '<div class="card-slot" aria-hidden="true"></div>');
+      }
+    }
+    const moves = {
+      back: () => render(box, list, ex, step - 1),
+      next: () => { Sound.cardPlayed(); render(box, list, ex, step + 1); },
+      'prev-ex': () => render(box, list, ex - 1, 0),
+      'next-ex': () => render(box, list, ex + 1, 0),
+    };
+    box.querySelectorAll('[data-act]').forEach(btn => btn.addEventListener('click', () => {
+      const which = btn.dataset.act;
+      moves[which]();
+      const again = box.querySelector(`[data-act="${which}"]`);
+      (again && !again.disabled ? again : box.querySelector('[data-act="next"]:not(:disabled)') || box.querySelector('[data-act="back"]')).focus({ preventScroll: true });
+    }));
+  }
+
+  return { mount };
+})();
+
 // The "Examples" in the auction lesson: a full deal from practice/auction-examples.txt, with the
 // auction revealed one call at a time.
 const AuctionDemo = (() => {
@@ -1052,6 +1144,7 @@ const Learn = (() => {
         fig.appendChild(row);
       }
     });
+    document.querySelectorAll('#lesson-body .trick-demo').forEach(TrickDemo.mount);
     const auctionDemo = document.querySelector('#lesson-body .auction-demo');
     if (auctionDemo) AuctionDemo.mount(auctionDemo);
     const demo = document.querySelector('#lesson-body .deal-demo');

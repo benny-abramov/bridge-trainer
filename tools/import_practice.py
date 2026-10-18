@@ -25,11 +25,13 @@ DRILLS = [
     ('responder-rebid.txt', 'responderRebid', 'required'),
     ('overcalls.txt', 'overcalls', 'required'),
     ('auction-examples.txt', 'auctionExamples', 'deal'),
+    ('trick-examples.txt', 'trickExamples', 'trick'),
 ]
 
-FIELD = re.compile(r'^\s*(hand|dealer|north|east|south|west|auction|answer|explanation|note|הסבר|הערה)\s*:\s*(.*)$', re.I)
+FIELD = re.compile(r'^\s*(hand|dealer|north|east|south|west|auction|answer|lesson|trump|leader|explanation|note|הסבר|הערה)\s*:\s*(.*)$', re.I)
 FIELD_KEY = {'hand': 'hand', 'dealer': 'dealer', 'auction': 'auction', 'answer': 'answer',
              'north': 'north', 'east': 'east', 'south': 'south', 'west': 'west',
+             'lesson': 'lesson', 'trump': 'trump', 'leader': 'leader',
              'explanation': 'why_en', 'הסבר': 'why_he', 'note': 'note_en', 'הערה': 'note_he'}
 SEATS = ['north', 'east', 'south', 'west']
 SUIT_SYMBOLS = {'♠': 'S', '♥': 'H', '♦': 'D', '♣': 'C'}
@@ -285,6 +287,50 @@ def convert_deal(block):
     return out
 
 
+def parse_card(text):
+    """'QH', 'H Q', '♥Q', '10S' or 'TS' -> 'HQ' (suit then rank)."""
+    t = clean(text).upper().replace(' ', '').replace('10', 'T')
+    if len(t) == 2 and t[0] in 'SHDC' and t[1] in RANK_ORDER:
+        return t
+    if len(t) == 2 and t[1] in 'SHDC' and t[0] in RANK_ORDER:
+        return t[1] + t[0]
+    raise Problem(f'"{text.strip()}" is not a card (write it like QH or 10S)')
+
+
+def convert_trick(block):
+    """One trick for the trick examples: the lesson, trumps, leader and one card per player."""
+    if block.get('errors'):
+        raise Problem('; '.join(block['errors']))
+    lesson = block.get('lesson', '').strip().lower()
+    if lesson not in ('tricks', 'trumps'):
+        raise Problem('"Lesson:" must be tricks or trumps')
+    trump = block.get('trump', '').strip().upper().replace('NOTRUMP', 'NT').replace('NO TRUMP', 'NT')
+    if trump in ('N', 'NT'):
+        trump = 'N'
+    elif trump not in ('S', 'H', 'D', 'C'):
+        raise Problem('"Trump:" must be S, H, D, C or NT')
+    leader = block.get('leader', '').strip().upper()[:1]
+    if not leader or leader not in 'NESW':
+        raise Problem('"Leader:" must be N, E, S or W')
+    cards = []
+    for seat in SEATS:
+        if not block.get(seat):
+            raise Problem(f'the trick has no "{seat.title()}:" card')
+        try:
+            cards.append(parse_card(block[seat]))
+        except Problem as e:
+            raise Problem(f'{seat.title()}: {e}')
+    duplicates = sorted({c for c in cards if cards.count(c) > 1})
+    if duplicates:
+        raise Problem('the same card is played twice: ' + ', '.join(c[1] + c[0] for c in duplicates))
+    out = {'lesson': lesson, 'trump': trump, 'leader': 'NESW'.index(leader), 'cards': cards}
+    for part in ('why', 'note'):
+        en, he = block.get(part + '_en', ''), block.get(part + '_he', '')
+        if en or he:
+            out[part] = {'en': en, 'he': he}
+    return out
+
+
 def main():
     practice_dir = sys.argv[1] if len(sys.argv) > 1 else os.path.join(ROOT, 'practice')
     output = sys.argv[2] if len(sys.argv) > 2 else os.path.join(ROOT, 'js', 'practice-data.js')
@@ -296,20 +342,21 @@ def main():
             continue
         rel = os.path.relpath(path, ROOT) if path.startswith(ROOT) else path
         try:
-            blocks = read_blocks(path, 'dealer' if need == 'deal' else 'hand')
+            blocks = read_blocks(path, {'deal': 'dealer', 'trick': 'lesson'}.get(need, 'hand'))
         except Problem as e:
             problems.append(f'{rel}: {e}')
             continue
         hands = []
         for b in blocks:
             try:
-                hands.append(convert_deal(b) if need == 'deal' else convert(b, need, key))
+                convert_one = {'deal': convert_deal, 'trick': convert_trick}.get(need)
+                hands.append(convert_one(b) if convert_one else convert(b, need, key))
             except Problem as e:
                 problems.append(f'{rel}, hand starting on line {b["line"]}: {e}')
         if hands:
             data[key] = hands
-        what = 'example(s)' if need == 'deal' else 'hand(s)'
-        empty = 'no examples yet' if need == 'deal' else 'no hands yet, random hands'
+        what = 'example(s)' if need in ('deal', 'trick') else 'hand(s)'
+        empty = 'no examples yet' if need in ('deal', 'trick') else 'no hands yet, random hands'
         summary.append(f'  {name}: {len(hands)} {what}' if hands else f'  {name}: {empty}')
 
     if problems:

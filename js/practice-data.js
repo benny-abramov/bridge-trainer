@@ -877,5 +877,98 @@ const PRACTICE = {
     "he": "שימו לב מי הופך לכרוז."
    }
   }
+ ],
+ "trickExamples": [
+  {
+   "lesson": "tricks",
+   "trump": "N",
+   "leader": 3,
+   "cards": [
+    "HQ",
+    "HK",
+    "C2",
+    "H5"
+   ],
+   "why": {
+    "en": "South has no hearts and discards a club. East's king is the highest heart, so East wins.",
+    "he": "לדרום אין הארט, והוא משליך קלאב. המלך של מזרח הוא ההארט הגבוה ביותר, ולכן מזרח זוכה."
+   },
+   "note": {
+    "en": "West leads a heart. Who wins the trick?",
+    "he": "מערב מוביל הארט. מי זוכה בלקיחה?"
+   }
+  },
+  {
+   "lesson": "tricks",
+   "trump": "N",
+   "leader": 0,
+   "cards": [
+    "C4",
+    "CT",
+    "CQ",
+    "C3"
+   ],
+   "why": {
+    "en": "Everyone follows suit. South's queen is the highest club, so South wins and will lead to the next trick.",
+    "he": "כולם משרתים. המלכה של דרום היא הקלאב הגבוה ביותר, ולכן דרום זוכה ויוביל ללקיחה הבאה."
+   }
+  },
+  {
+   "lesson": "trumps",
+   "trump": "S",
+   "leader": 0,
+   "cards": [
+    "DA",
+    "S3",
+    "D4",
+    "D7"
+   ],
+   "why": {
+    "en": "East has no diamonds and ruffs with a small trump, beating the ace.",
+    "he": "למזרח אין דיאמונד, והוא חותך בשליט קטן שגובר על האס."
+   },
+   "note": {
+    "en": "Spades are trumps.",
+    "he": "ספייד הוא השליט."
+   }
+  },
+  {
+   "lesson": "trumps",
+   "trump": "H",
+   "leader": 0,
+   "cards": [
+    "DA",
+    "H3",
+    "H7",
+    "D2"
+   ],
+   "why": {
+    "en": "East and South both have no diamonds, and both ruff. The higher trump wins: South's 7 beats East's 3.",
+    "he": "לא למזרח ולא לדרום יש דיאמונד, ושניהם חותכים. השליט הגבוה יותר זוכה: ה-7 של דרום גובר על ה-3 של מזרח."
+   },
+   "note": {
+    "en": "Hearts are trumps.",
+    "he": "הארט הוא השליט."
+   }
+  },
+  {
+   "lesson": "trumps",
+   "trump": "N",
+   "leader": 0,
+   "cards": [
+    "D5",
+    "SA",
+    "DK",
+    "D2"
+   ],
+   "why": {
+    "en": "In no-trump there are no trumps. East's ace of spades can't win a diamond trick, so the highest diamond wins: South's king.",
+    "he": "בללא שליט אין שליטים. האס ספייד של מזרח לא יכול לזכות בלקיחה של דיאמונד, ולכן הדיאמונד הגבוה ביותר זוכה: המלך של דרום."
+   },
+   "note": {
+    "en": "The same kind of trick in no-trump.",
+    "he": "אותו סוג של לקיחה, בללא שליט."
+   }
+  }
  ]
 };

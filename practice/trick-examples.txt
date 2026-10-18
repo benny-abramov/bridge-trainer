@@ -1,0 +1,78 @@
+# Trick examples for the lessons "Tricks" and "Trumps and no-trump"
+#
+# Each lesson's "Example" button shows its examples one at a time: the four players around the
+# table, and the cards of one trick played one by one with the "Next card" button. When all four
+# cards are down, the winner is highlighted and the explanation is shown.
+# Lines starting with # are ignored. After editing, run from the project folder:
+#     python tools/import_practice.py
+#
+# Each example starts with a "Lesson:" line. The fields:
+#   Lesson:       tricks  or  trumps   (the lesson that shows the example)
+#   Trump:        the trump suit, S, H, D or C, or NT for no-trump
+#   Leader:       who plays the first card: N, E, S or W (the others follow clockwise)
+#   North:        North's card, e.g.  QH  or  H Q  or  10S  (10 or T for ten)
+#   East:         East's card
+#   South:        South's card
+#   West:         West's card
+#   Note:         shown above the trick, in English              (optional)
+#   הערה:          shown above the trick, in Hebrew               (optional)
+#   Explanation:  shown when the trick is complete, in English   (optional)
+#   הסבר:          shown when the trick is complete, in Hebrew    (optional)
+
+Lesson: tricks
+Trump: NT
+Leader: W
+West:  5H
+North: QH
+East:  KH
+South: 2C
+Note: West leads a heart. Who wins the trick?
+הערה: מערב מוביל הארט. מי זוכה בלקיחה?
+Explanation: South has no hearts and discards a club. East's king is the highest heart, so East wins.
+הסבר: לדרום אין הארט, והוא משליך קלאב. המלך של מזרח הוא ההארט הגבוה ביותר, ולכן מזרח זוכה.
+
+Lesson: tricks
+Trump: NT
+Leader: N
+North: 4C
+East:  10C
+South: QC
+West:  3C
+Explanation: Everyone follows suit. South's queen is the highest club, so South wins and will lead to the next trick.
+הסבר: כולם משרתים. המלכה של דרום היא הקלאב הגבוה ביותר, ולכן דרום זוכה ויוביל ללקיחה הבאה.
+
+Lesson: trumps
+Trump: S
+Leader: N
+North: AD
+East:  3S
+South: 4D
+West:  7D
+Note: Spades are trumps.
+הערה: ספייד הוא השליט.
+Explanation: East has no diamonds and ruffs with a small trump, beating the ace.
+הסבר: למזרח אין דיאמונד, והוא חותך בשליט קטן שגובר על האס.
+
+Lesson: trumps
+Trump: H
+Leader: N
+North: AD
+East:  3H
+South: 7H
+West:  2D
+Note: Hearts are trumps.
+הערה: הארט הוא השליט.
+Explanation: East and South both have no diamonds, and both ruff. The higher trump wins: South's 7 beats East's 3.
+הסבר: לא למזרח ולא לדרום יש דיאמונד, ושניהם חותכים. השליט הגבוה יותר זוכה: ה-7 של דרום גובר על ה-3 של מזרח.
+
+Lesson: trumps
+Trump: NT
+Leader: N
+North: 5D
+East:  AS
+South: KD
+West:  2D
+Note: The same kind of trick in no-trump.
+הערה: אותו סוג של לקיחה, בללא שליט.
+Explanation: In no-trump there are no trumps. East's ace of spades can't win a diamond trick, so the highest diamond wins: South's king.
+הסבר: בללא שליט אין שליטים. האס ספייד של מזרח לא יכול לזכות בלקיחה של דיאמונד, ולכן הדיאמונד הגבוה ביותר זוכה: המלך של דרום.
