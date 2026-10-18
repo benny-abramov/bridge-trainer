@@ -869,7 +869,7 @@ const PRACTICE = {
     "P"
    ],
    "why": {
-    "en": "South opens 1H, West overcalls (bids after the initial bid by opponent), North supports to 2H, and E supports to 3D, all pass. West becomes the declarer in a 3D contract, where he commits to take 9 tricks (6 plus 3) when the trump is diamonds. East is dummy and north has to lead",
+    "en": "South opens 1H, West overcalls (bids after the initial bid by opponent), North supports to 2H, and East supports to 3D, all pass. West becomes the declarer in a 3D contract, where he commits to take 9 tricks (6 plus 3) when the trump is diamonds. East is dummy and north has to lead",
     "he": "דרום פותח 1H, מערב מכריז הכרזת התערבות (הכרזה אחרי הכרזת הפתיחה של היריב), צפון תומך ב-2H, ומזרח תומך ב-3D. כולם אומרים פאס. מערב הוא הכרוז בחוזה 3D, ומתחייב לקחת 9 לקיחות (6 ועוד 3) כשהדיאמונד הוא השליט. מזרח הוא הדומם, וצפון מבצע את הובלת הפתיחה."
    },
    "note": {
