@@ -1190,6 +1190,78 @@ const PRACTICE = {
   },
   {
    "section": "finesse",
+   "contract": "3N",
+   "leader": 2,
+   "hands": [
+    "D:AJT",
+    "D:Q93",
+    "D:K87",
+    "D:654"
+   ],
+   "need": 3,
+   "why": {
+    "en": "<p>In this case east has the Q, so we have to cross to the ♦A and play the J, playing low from hand if East ducks</p>",
+    "he": "<p>במקרה הזה המלכה אצל מזרח, ולכן עברו לדומם עם ה-♦A ושחקו את ה-J. אם מזרח לא מכסה, שחקו נמוך מהיד.</p>"
+   },
+   "note": {
+    "en": "You're missing the ♦Q and you have to guess which defender has it. You can finesse against east or west",
+    "he": "חסרה לכם ה-♦Q ועליכם לנחש אצל איזה מגן היא. אפשר לעקוף נגד מזרח או נגד מערב."
+   },
+   "title": {
+    "en": "The two way finesse",
+    "he": "העקיפה הדו-כיוונית"
+   }
+  },
+  {
+   "section": "finesse",
+   "contract": "3N",
+   "leader": 2,
+   "hands": [
+    "D:A96",
+    "D:753",
+    "D:QJT",
+    "D:K82"
+   ],
+   "need": 3,
+   "why": {
+    "en": "<p>Lead the Q from hand, hoping the K is onside (with West)</p>",
+    "he": "<p>הובילו את ה-Q מהיד, בתקווה שהמלך במקום הנכון (אצל מערב).</p>"
+   },
+   "note": {
+    "en": "You are missing the ♦K. In this case the ♦Q is in your hand",
+    "he": "חסר לכם ה-♦K. הפעם ה-♦Q נמצאת ביד שלכם."
+   },
+   "title": {
+    "en": "The Backward finesse",
+    "he": "העקיפה ההפוכה"
+   }
+  },
+  {
+   "section": "finesse",
+   "contract": "3N",
+   "leader": 2,
+   "hands": [
+    "D:AJT C:6",
+    "D:K97 C:4",
+    "D:432 C:A",
+    "D:Q65 C:8"
+   ],
+   "need": 3,
+   "why": {
+    "en": "<p>Lead low from hand and play the ♦J. After winning the next trick lead low towards the ♦10</p>",
+    "he": "<p>הובילו נמוך מהיד ושחקו את ה-♦J. אחרי שתזכו בלקיחה הבאה, הובילו נמוך לכיוון ה-♦10.</p>"
+   },
+   "note": {
+    "en": "You are missing both the ♦K and ♦Q. Lead twice towards the AJ10 hoping at least one of the missing honors is onside",
+    "he": "חסרים לכם גם ה-♦K וגם ה-♦Q. הובילו פעמיים לכיוון ה-AJ10, בתקווה שלפחות אחד ההונורים החסרים במקום הנכון."
+   },
+   "title": {
+    "en": "Two missing honors",
+    "he": "שני הונורים חסרים"
+   }
+  },
+  {
+   "section": "finesse",
    "contract": "4S",
    "leader": 0,
    "hands": [

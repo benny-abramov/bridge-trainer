@@ -112,6 +112,51 @@ Explanation: <p>Lead a diamond and <strong>finesse the 10</strong> first: it win
 הסבר: <p>הובילו דיאמונד ו<strong>עקפו קודם עם ה-10</strong>: הוא זוכה. חזרו ליד עם ה-<strong>♣A</strong> והובילו עוד דיאמונד, הפעם עקיפה עם המלכה. בסוף האס תופס את המלך של מערב.</p> <p>השתמשו בחוכמה בכניסה היחידה שלכם ליד. אם תובילו את ה-♣2 לאס שלכם מוקדם מדי, או תעקפו קודם עם המלכה, הנסיך או המלך של מערב ייקחו לקיחה.</p>
 
 Section: finesse
+Title: The two way finesse
+כותרת: העקיפה הדו-כיוונית
+Contract: 3NT
+Leader: S
+Need: 3
+North: D AJ10
+East:  D Qxx  
+South: D KXX  
+West:  D XXX
+Note: You're missing the ♦Q and you have to guess which defender has it. You can finesse against east or west
+הערה: חסרה לכם ה-♦Q ועליכם לנחש אצל איזה מגן היא. אפשר לעקוף נגד מזרח או נגד מערב.
+Explanation: <p>In this case east has the Q, so we have to cross to the ♦A and play the J, playing low from hand if East ducks</p>
+הסבר: <p>במקרה הזה המלכה אצל מזרח, ולכן עברו לדומם עם ה-♦A ושחקו את ה-J. אם מזרח לא מכסה, שחקו נמוך מהיד.</p>
+
+Section: finesse
+Title: The Backward finesse
+כותרת: העקיפה ההפוכה
+Contract: 3NT
+Leader: S
+Need: 3
+North: D Axx
+East:  D xxx  
+South: D QJ10  
+West:  D KXX
+Note: You are missing the ♦K. In this case the ♦Q is in your hand
+הערה: חסר לכם ה-♦K. הפעם ה-♦Q נמצאת ביד שלכם.
+Explanation: <p>Lead the Q from hand, hoping the K is onside (with West)</p>
+הסבר: <p>הובילו את ה-Q מהיד, בתקווה שהמלך במקום הנכון (אצל מערב).</p>
+
+Section: finesse
+Title: Two missing honors
+כותרת: שני הונורים חסרים
+Contract: 3NT
+Leader: S
+Need: 3
+North: D AJ10 C X
+East:  D Kxx C X 
+South: D XXX C A
+West:  D QXX C X
+Note: You are missing both the ♦K and ♦Q. Lead twice towards the AJ10 hoping at least one of the missing honors is onside
+הערה: חסרים לכם גם ה-♦K וגם ה-♦Q. הובילו פעמיים לכיוון ה-AJ10, בתקווה שלפחות אחד ההונורים החסרים במקום הנכון.
+Explanation: <p>Lead low from hand and play the ♦J. After winning the next trick lead low towards the ♦10</p>
+הסבר: <p>הובילו נמוך מהיד ושחקו את ה-♦J. אחרי שתזכו בלקיחה הבאה, הובילו נמוך לכיוון ה-♦10.</p>
+
+Section: finesse
 Title: The ruffing finesse
 כותרת: עקיפת חיתוך
 Contract: 4S
