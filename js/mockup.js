@@ -81,7 +81,7 @@
     schedule();
   }
 
-  // Defenders play automatically, choosing perfectly (the lowest of their best cards).
+  // Defenders play automatically, choosing perfectly (see defenderChoice for ties).
   function schedule() {
     const s = positionAfter(pos);
     if (s.done || isHuman(s.turn)) return;
@@ -90,7 +90,7 @@
       const legal = legalOf(s.hands[s.turn], s.trick);
       const values = legal.map(c => solver.after(s.hands, s.trick, s.turn, c));
       const best = Math.min(...values);
-      const card = legal.filter((c, i) => values[i] === best).reduce((a, b) => (b.value < a.value ? b : a));
+      const card = defenderChoice(legal.filter((c, i) => values[i] === best), s.trick, s.turn, puzzle.trump);
       play(s.turn, card);
     }, justFinishedTrick ? TRICK_PAUSE : AI_DELAY);
   }

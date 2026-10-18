@@ -14,6 +14,15 @@ function trickWinnerOf(trick, trump) {
   return best.seat;
 }
 
+// A defender's choice among equally good cards: take the trick with the cheapest card that wins it
+// so far, unless partner is already winning it; otherwise play the lowest card.
+function defenderChoice(options, trick, seat, trump) {
+  const lowest = cards => cards.reduce((a, b) => (b.value < a.value ? b : a));
+  if (!trick.length || trickWinnerOf(trick, trump) === (seat + 2) % 4) return lowest(options);
+  const winners = options.filter(c => trickWinnerOf([...trick, { seat, card: c }], trump) === seat);
+  return lowest(winners.length ? winners : options);
+}
+
 function legalOf(hand, trick) {
   if (!trick.length) return hand;
   const follow = hand.filter(c => c.suit === trick[0].card.suit);
@@ -166,7 +175,7 @@ function makePuzzleSection(prefix, topics, groups) {
     if (st.done || st.busy || isHuman(st.turn)) return;
     timer = setTimeout(() => {
       const options = bestCards(st.turn);
-      playCard(st.turn, options.reduce((a, b) => (b.value < a.value ? b : a)));
+      playCard(st.turn, defenderChoice(options, st.trick, st.turn, puzzle().trump));
     }, AI_DELAY);
   }
 
