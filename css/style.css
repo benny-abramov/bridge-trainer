@@ -184,6 +184,21 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 .trick-row .win { border-color: var(--good); color: var(--good); font-weight: 700; }
 .ranking { display: flex; align-items: center; gap: .6rem; font-size: 1.5rem; font-weight: 700; margin: .5rem 0; }
 .ranking span { color: var(--muted); font-size: 1rem; }
+.score-card { border-radius: 12px; padding: .7rem .9rem .8rem; margin: .4rem 0 .6rem; border: 1px solid var(--border); background: var(--surface); }
+.score-card.made { border-color: var(--good); }
+.score-card.down { border-color: var(--bad); }
+.score-title { margin-bottom: .5rem; }
+.score-table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+.score-table td { padding: .35rem .4rem; border-bottom: 1px solid var(--border); }
+.score-table td.how { color: var(--muted); white-space: nowrap; }
+.score-table td.pts { text-align: end; font-weight: 700; white-space: nowrap; width: 5.5rem; }
+.score-card.made td.pts { color: var(--good); }
+.score-card.down td.pts { color: var(--bad); }
+.score-table tr.total td { border-bottom: 0; font-weight: 700; padding-top: .5rem; }
+.score-card.made tr.total td { background: var(--good-soft, rgba(46, 125, 50, .1)); }
+.score-card.down tr.total td { background: var(--bad-soft, rgba(198, 40, 40, .1)); }
+.score-table tr.total td:first-child { border-start-start-radius: 8px; border-end-start-radius: 8px; }
+.score-table tr.total td:last-child { border-start-end-radius: 8px; border-end-end-radius: 8px; font-size: 1.1rem; }
 .contract-chart { display: grid; gap: .6rem; margin: .5rem 0 1rem; }
 .contract-group { border-radius: 12px; padding: .55rem .7rem .7rem; border: 1px solid var(--border); background: var(--surface); }
 .contract-group-title { margin-bottom: .45rem; }

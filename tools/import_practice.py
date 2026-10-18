@@ -26,12 +26,14 @@ DRILLS = [
     ('overcalls.txt', 'overcalls', 'required'),
     ('auction-examples.txt', 'auctionExamples', 'deal'),
     ('trick-examples.txt', 'trickExamples', 'trick'),
+    ('scoring-examples.txt', 'scoringExamples', 'score'),
 ]
 
-FIELD = re.compile(r'^\s*(hand|dealer|north|east|south|west|auction|answer|lesson|trump|leader|explanation|note|הסבר|הערה)\s*:\s*(.*)$', re.I)
+FIELD = re.compile(r'^\s*(hand|dealer|north|east|south|west|auction|answer|lesson|trump|leader|contract|vulnerable|result|explanation|note|הסבר|הערה)\s*:\s*(.*)$', re.I)
 FIELD_KEY = {'hand': 'hand', 'dealer': 'dealer', 'auction': 'auction', 'answer': 'answer',
              'north': 'north', 'east': 'east', 'south': 'south', 'west': 'west',
              'lesson': 'lesson', 'trump': 'trump', 'leader': 'leader',
+             'contract': 'contract', 'vulnerable': 'vulnerable', 'result': 'result',
              'explanation': 'why_en', 'הסבר': 'why_he', 'note': 'note_en', 'הערה': 'note_he'}
 SEATS = ['north', 'east', 'south', 'west']
 SUIT_SYMBOLS = {'♠': 'S', '♥': 'H', '♦': 'D', '♣': 'C'}
@@ -331,6 +333,44 @@ def convert_trick(block):
     return out
 
 
+def convert_score(block):
+    """One scoring example: the contract (maybe doubled), vulnerability and result. The app scores it."""
+    if block.get('errors'):
+        raise Problem('; '.join(block['errors']))
+    raw = clean(block.get('contract', '')).upper().replace(' ', '')
+    for word, short in (('REDOUBLED', 'XX'), ('RDBL', 'XX'), ('רידאבל', 'XX'), ('DOUBLED', 'X'), ('DBL', 'X'), ('דאבל', 'X')):
+        raw = raw.replace(word, short)
+    m = re.fullmatch(r'([1-7])(NT|N|C|D|H|S)(XX|X)?', raw)
+    if not m:
+        raise Problem('"Contract:" must be a bid like 4H, optionally followed by X (doubled) or XX (redoubled)')
+    level, strain, dbl = int(m.group(1)), m.group(2)[0], len(m.group(3) or '')
+    vul = block.get('vulnerable', '').strip().lower()
+    if vul in ('yes', 'y', 'v', 'vul', 'vulnerable', 'true', 'כן', 'פגיע', 'פגיעים'):
+        vul = True
+    elif vul in ('no', 'n', 'nv', 'not vulnerable', 'false', 'לא', 'לא פגיע', 'לא פגיעים'):
+        vul = False
+    else:
+        raise Problem('"Vulnerable:" must be yes or no')
+    res = block.get('result', '').strip().lower().replace(' ', '')
+    if res in ('=', 'made', '0', '+0'):
+        result = 0
+    elif re.fullmatch(r'[+-][1-9]\d*', res):
+        result = int(res)
+    elif re.fullmatch(r'down[1-9]\d*', res):
+        result = -int(res[4:])
+    else:
+        raise Problem('"Result:" must be = (made), +1 (an overtrick), -2 (two down) ...')
+    tricks = 6 + level + result
+    if not 0 <= tricks <= 13:
+        raise Problem(f'{level}{m.group(2)} {res} would mean {tricks} tricks: there are only 13')
+    out = {'contract': f'{level}{strain}', 'doubled': dbl, 'vulnerable': vul, 'result': result}
+    for part in ('why', 'note'):
+        en, he = block.get(part + '_en', ''), block.get(part + '_he', '')
+        if en or he:
+            out[part] = {'en': en, 'he': he}
+    return out
+
+
 def main():
     practice_dir = sys.argv[1] if len(sys.argv) > 1 else os.path.join(ROOT, 'practice')
     output = sys.argv[2] if len(sys.argv) > 2 else os.path.join(ROOT, 'js', 'practice-data.js')
@@ -342,21 +382,21 @@ def main():
             continue
         rel = os.path.relpath(path, ROOT) if path.startswith(ROOT) else path
         try:
-            blocks = read_blocks(path, {'deal': 'dealer', 'trick': 'lesson'}.get(need, 'hand'))
+            blocks = read_blocks(path, {'deal': 'dealer', 'trick': 'lesson', 'score': 'contract'}.get(need, 'hand'))
         except Problem as e:
             problems.append(f'{rel}: {e}')
             continue
         hands = []
         for b in blocks:
             try:
-                convert_one = {'deal': convert_deal, 'trick': convert_trick}.get(need)
+                convert_one = {'deal': convert_deal, 'trick': convert_trick, 'score': convert_score}.get(need)
                 hands.append(convert_one(b) if convert_one else convert(b, need, key))
             except Problem as e:
                 problems.append(f'{rel}, hand starting on line {b["line"]}: {e}')
         if hands:
             data[key] = hands
-        what = 'example(s)' if need in ('deal', 'trick') else 'hand(s)'
-        empty = 'no examples yet' if need in ('deal', 'trick') else 'no hands yet, random hands'
+        what = 'example(s)' if need in ('deal', 'trick', 'score') else 'hand(s)'
+        empty = 'no examples yet' if need in ('deal', 'trick', 'score') else 'no hands yet, random hands'
         summary.append(f'  {name}: {len(hands)} {what}' if hands else f'  {name}: {empty}')
 
     if problems:

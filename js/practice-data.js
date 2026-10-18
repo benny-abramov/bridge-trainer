@@ -970,5 +970,101 @@ const PRACTICE = {
     "he": "אותו סוג של לקיחה, בללא שליט."
    }
   }
+ ],
+ "scoringExamples": [
+  {
+   "contract": "2C",
+   "doubled": 0,
+   "vulnerable": false,
+   "result": 1,
+   "why": {
+    "en": "A minor suit scores 20 per trick, and 40 is below 100, so it's a part-score: 50 bonus. The overtrick adds another 20.",
+    "he": "סדרת מיינור שווה 20 לכל לקיחה, ו-40 זה פחות מ-100, ולכן זה חוזה חלקי: בונוס של 50. הלקיחה העודפת מוסיפה עוד 20."
+   }
+  },
+  {
+   "contract": "3N",
+   "doubled": 0,
+   "vulnerable": false,
+   "result": 2,
+   "why": {
+    "en": "No-trump scores 40 for the first trick and 30 for each after: 100, enough for game.",
+    "he": "ללא שליט שווה 40 ללקיחה הראשונה ו-30 לכל אחת אחריה: 100, מספיק למשחק מלא."
+   }
+  },
+  {
+   "contract": "4H",
+   "doubled": 0,
+   "vulnerable": true,
+   "result": 0,
+   "why": {
+    "en": "A vulnerable game earns a bigger bonus: 500 instead of 300.",
+    "he": "משחק מלא כשפגיעים מזכה בבונוס גדול יותר: 500 במקום 300."
+   }
+  },
+  {
+   "contract": "6H",
+   "doubled": 0,
+   "vulnerable": true,
+   "result": 0,
+   "why": {
+    "en": "A slam earns the game bonus and the slam bonus.",
+    "he": "סלאם מזכה גם בבונוס משחק מלא וגם בבונוס סלאם."
+   }
+  },
+  {
+   "contract": "2S",
+   "doubled": 1,
+   "vulnerable": false,
+   "result": 0,
+   "why": {
+    "en": "Doubling doubles the trick points: 2 x 30 = 60 becomes 120, which is a game. Making a doubled contract also earns 50.",
+    "he": "הדאבל מכפיל את נקודות הלקיחה: 2 x 30 = 60 הופך ל-120, וזה משחק מלא. ביצוע חוזה בדאבל מזכה גם ב-50."
+   },
+   "note": {
+    "en": "Doubled into game.",
+    "he": "דאבל שהופך את החוזה למשחק מלא."
+   }
+  },
+  {
+   "contract": "1N",
+   "doubled": 2,
+   "vulnerable": false,
+   "result": 1,
+   "why": {
+    "en": "Redoubled, the trick points are multiplied by 4, and each overtrick is worth 200 (not vulnerable).",
+    "he": "ברידאבל נקודות הלקיחה מוכפלות פי 4, וכל לקיחה עודפת שווה 200 (כשלא פגיעים)."
+   }
+  },
+  {
+   "contract": "3D",
+   "doubled": 0,
+   "vulnerable": false,
+   "result": -1,
+   "why": {
+    "en": "Undoubled and not vulnerable, each undertrick costs 50.",
+    "he": "בלי דאבל וכשלא פגיעים, כל לקיחה חסרה עולה 50."
+   }
+  },
+  {
+   "contract": "4S",
+   "doubled": 1,
+   "vulnerable": true,
+   "result": -2,
+   "why": {
+    "en": "Doubled and vulnerable: 200 for the first undertrick and 300 for each after.",
+    "he": "בדאבל וכשפגיעים: 200 ללקיחה החסרה הראשונה ו-300 לכל אחת אחריה."
+   }
+  },
+  {
+   "contract": "5C",
+   "doubled": 1,
+   "vulnerable": false,
+   "result": -4,
+   "why": {
+    "en": "Doubled and not vulnerable: 100 for the first undertrick, 200 each for the second and third, and 300 each from the fourth on.",
+    "he": "בדאבל וכשלא פגיעים: 100 ללקיחה החסרה הראשונה, 200 לשנייה ולשלישית, ו-300 לכל אחת מהרביעית ואילך."
+   }
+  }
  ]
 };

@@ -1,0 +1,72 @@
+# Scoring examples for the lesson "Scoring basics"
+#
+# The lesson's "Examples" button shows these contracts one at a time, with a table that adds up the
+# score: trick points, bonuses, overtricks, or the penalty for undertricks. The app works out the
+# numbers itself, so you only describe the contract and what happened.
+# Lines starting with # are ignored. After editing, run from the project folder:
+#     python tools/import_practice.py
+#
+# Each example starts with a "Contract:" line. The fields:
+#   Contract:     the final contract, e.g.  2C   4S X   (doubled)   1NT XX   (redoubled)
+#   Vulnerable:   yes or no   (whether declarer's side is vulnerable)
+#   Result:       =  for exactly made,  +1  for one overtrick,  -2  for two down
+#   Note:         shown above the table, in English              (optional)
+#   הערה:          shown above the table, in Hebrew               (optional)
+#   Explanation:  shown below the table, in English              (optional)
+#   הסבר:          shown below the table, in Hebrew               (optional)
+
+Contract: 2C
+Vulnerable: no
+Result: +1
+Explanation: A minor suit scores 20 per trick, and 40 is below 100, so it's a part-score: 50 bonus. The overtrick adds another 20.
+הסבר: סדרת מיינור שווה 20 לכל לקיחה, ו-40 זה פחות מ-100, ולכן זה חוזה חלקי: בונוס של 50. הלקיחה העודפת מוסיפה עוד 20.
+
+Contract: 3NT
+Vulnerable: no
+Result: +2
+Explanation: No-trump scores 40 for the first trick and 30 for each after: 100, enough for game.
+הסבר: ללא שליט שווה 40 ללקיחה הראשונה ו-30 לכל אחת אחריה: 100, מספיק למשחק מלא.
+
+Contract: 4H
+Vulnerable: yes
+Result: =
+Explanation: A vulnerable game earns a bigger bonus: 500 instead of 300.
+הסבר: משחק מלא כשפגיעים מזכה בבונוס גדול יותר: 500 במקום 300.
+
+Contract: 6H
+Vulnerable: yes
+Result: =
+Explanation: A slam earns the game bonus and the slam bonus.
+הסבר: סלאם מזכה גם בבונוס משחק מלא וגם בבונוס סלאם.
+
+Contract: 2S X
+Vulnerable: no
+Result: =
+Note: Doubled into game.
+הערה: דאבל שהופך את החוזה למשחק מלא.
+Explanation: Doubling doubles the trick points: 2 x 30 = 60 becomes 120, which is a game. Making a doubled contract also earns 50.
+הסבר: הדאבל מכפיל את נקודות הלקיחה: 2 x 30 = 60 הופך ל-120, וזה משחק מלא. ביצוע חוזה בדאבל מזכה גם ב-50.
+
+Contract: 1NT XX
+Vulnerable: no
+Result: +1
+Explanation: Redoubled, the trick points are multiplied by 4, and each overtrick is worth 200 (not vulnerable).
+הסבר: ברידאבל נקודות הלקיחה מוכפלות פי 4, וכל לקיחה עודפת שווה 200 (כשלא פגיעים).
+
+Contract: 3D
+Vulnerable: no
+Result: -1
+Explanation: Undoubled and not vulnerable, each undertrick costs 50.
+הסבר: בלי דאבל וכשלא פגיעים, כל לקיחה חסרה עולה 50.
+
+Contract: 4S X
+Vulnerable: yes
+Result: -2
+Explanation: Doubled and vulnerable: 200 for the first undertrick and 300 for each after.
+הסבר: בדאבל וכשפגיעים: 200 ללקיחה החסרה הראשונה ו-300 לכל אחת אחריה.
+
+Contract: 5C X
+Vulnerable: no
+Result: -4
+Explanation: Doubled and not vulnerable: 100 for the first undertrick, 200 each for the second and third, and 300 each from the fourth on.
+הסבר: בדאבל וכשלא פגיעים: 100 ללקיחה החסרה הראשונה, 200 לשנייה ולשלישית, ו-300 לכל אחת מהרביעית ואילך.

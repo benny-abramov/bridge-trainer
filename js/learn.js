@@ -151,6 +151,7 @@ const LESSONS_EN = [
       </ul>
       <p>Here is every contract, grouped by what it scores:</p>
       ${contractChart()}
+      <div class="score-demo"></div>
       <p>The Play tab scores every hand as not vulnerable.</p>`,
     tryIt: 'play',
   },
@@ -552,6 +553,7 @@ const LESSONS_HE = [
       </ul>
       <p>הנה כל החוזים, לפי סוג הניקוד שלהם:</p>
       ${contractChart()}
+      <div class="score-demo"></div>
       <p>בלשונית "שחקו יד" כל יד מנוקדת כלא פגיעה.</p>`,
     tryIt: 'play',
   },
@@ -925,6 +927,114 @@ const DealDemo = (() => {
   return { mount };
 })();
 
+// Duplicate scoring of one contract, as rows of [what, how, points]; points are negative when the
+// contract goes down. `ex` is a scoring example: contract like '4H', doubled 0/1/2, vulnerable, result.
+function scoreRows(ex) {
+  const level = Number(ex.contract[0]), strain = ex.contract[1];
+  const { doubled, vulnerable: vul, result } = ex;
+  const mult = [1, 2, 4][doubled];
+  const dblWord = [L('', ''), L('doubled', 'דאבל'), L('redoubled', 'רידאבל')][doubled];
+  const rows = [];
+  if (result >= 0) {
+    const per = 'CD'.includes(strain) ? 20 : 30;
+    const base = strain === 'N' ? 40 + (level - 1) * 30 : level * per;
+    let how = strain === 'N' ? (level > 1 ? `40 + ${level - 1} × 30` : '40') : `${level} × ${per}`;
+    if (mult > 1) how = how.includes(' ') ? `(${how}) × ${mult}` : `${how} × ${mult}`;
+    const trickScore = base * mult;
+    rows.push([L(`Tricks bid (${bidHtml(ex.contract)})`, `לקיחות החוזה (${bidHtml(ex.contract)})`), how, trickScore]);
+    if (trickScore >= 100) {
+      rows.push([vul ? L('Game bonus, vulnerable', 'בונוס משחק מלא, פגיעים') : L('Game bonus, not vulnerable', 'בונוס משחק מלא, לא פגיעים'), '', vul ? 500 : 300]);
+    } else {
+      rows.push([L('Part-score bonus', 'בונוס חוזה חלקי'), '', 50]);
+    }
+    if (level === 6) rows.push([L('Small slam bonus', 'בונוס סלאם קטן'), '', vul ? 750 : 500]);
+    if (level === 7) rows.push([L('Grand slam bonus', 'בונוס סלאם גדול'), '', vul ? 1500 : 1000]);
+    if (doubled) rows.push([L(`For making a ${dblWord} contract`, `על ביצוע חוזה ב${dblWord}`), '', 50 * doubled]);
+    if (result > 0) {
+      const each = doubled ? (vul ? 200 : 100) * doubled : 'CD'.includes(strain) ? 20 : 30;
+      const what = result === 1 ? L('Overtrick', 'לקיחה עודפת') : L('Overtricks', 'לקיחות עודפות');
+      rows.push([doubled ? `${what} (${dblWord})` : what, `${result} × ${each}`, result * each]);
+    }
+  } else {
+    const down = -result;
+    if (!doubled) {
+      const each = vul ? 100 : 50;
+      rows.push([down === 1 ? L('Undertrick', 'לקיחה חסרה') : L('Undertricks', 'לקיחות חסרות'), `${down} × ${each}`, -down * each]);
+    } else {
+      // Doubled: 100 / 200 / 200 / 300... not vulnerable, 200 / 300 / 300... vulnerable; redoubled is twice that.
+      const first = (vul ? 200 : 100) * mult / 2;
+      const second = (vul ? 300 : 200) * mult / 2;
+      const later = 300 * mult / 2;
+      rows.push([L(`1st undertrick (${dblWord})`, `לקיחה חסרה ראשונה (${dblWord})`), '', -first]);
+      const mid = vul ? down - 1 : Math.min(down - 1, 2);
+      if (mid > 0) rows.push([vul ? L('Each further undertrick', 'כל לקיחה חסרה נוספת') : L('2nd and 3rd undertricks', 'לקיחות חסרות שנייה ושלישית'), `${mid} × ${second}`, -mid * second]);
+      const rest = vul ? 0 : Math.max(down - 3, 0);
+      if (rest > 0) rows.push([L('4th undertrick and on', 'לקיחה חסרה רביעית ואילך'), `${rest} × ${later}`, -rest * later]);
+    }
+  }
+  return rows;
+}
+
+// The "Examples" in the scoring lesson: one contract at a time, with its score added up.
+const ScoreDemo = (() => {
+  const examples = () => (typeof PRACTICE !== 'undefined' && PRACTICE.scoringExamples) || [];
+  const text = t => (t ? L(t.en || t.he, t.he || t.en) : '');
+  const num = n => ltr(n < 0 ? `−${-n}` : `+${n}`);
+
+  function mount(box) {
+    if (!examples().length) { box.innerHTML = ''; return; }
+    box.innerHTML = `<p><button class="btn" type="button">${L('Examples', 'דוגמאות')}</button></p>`;
+    box.querySelector('button').addEventListener('click', () => render(box, 0));
+  }
+
+  function describe(ex) {
+    const level = Number(ex.contract[0]);
+    const tricks = 6 + level + ex.result;
+    const dbl = [L('', ''), L(' doubled', ', דאבל'), L(' redoubled', ', רידאבל')][ex.doubled];
+    const vul = ex.vulnerable ? L('vulnerable', 'פגיעים') : L('not vulnerable', 'לא פגיעים');
+    let res;
+    if (ex.result === 0) res = L(`made exactly (${tricks} tricks)`, `בוצע בדיוק (${tricks} לקיחות)`);
+    else if (ex.result > 0) res = L(`made with ${ex.result} overtrick${ex.result > 1 ? 's' : ''} (${tricks} tricks)`,
+      ex.result === 1 ? `בוצע עם לקיחה עודפת אחת (${tricks} לקיחות)` : `בוצע עם ${ex.result} לקיחות עודפות (${tricks} לקיחות)`);
+    else res = L(`down ${-ex.result} (${tricks} tricks)`, `נפל ב-${-ex.result} (${tricks} לקיחות)`);
+    return `<strong>${bidHtml(ex.contract)}${dbl}</strong>, ${vul}: ${res}`;
+  }
+
+  function render(box, i) {
+    const list = examples();
+    const ex = list[i];
+    const rows = scoreRows(ex);
+    const total = rows.reduce((t, r) => t + r[2], 0);
+    const made = total > 0;
+    box.innerHTML = `
+      <div class="auction-demo-head">
+        <span class="practice-count">${L(`Example ${i + 1} of ${list.length}`, `דוגמה ${i + 1} מתוך ${list.length}`)}</span>
+        ${ex.note ? `<span>${text(ex.note)}</span>` : ''}
+      </div>
+      <div class="score-card ${made ? 'made' : 'down'}">
+        <div class="score-title">${describe(ex)}</div>
+        <table class="score-table">
+          ${rows.map(([what, how, pts]) => `<tr><td>${what}</td><td class="how">${how ? ltr(how) : ''}</td><td class="pts">${num(pts)}</td></tr>`).join('')}
+          <tr class="total"><td colspan="2">${made ? L("Total for declarer's side", 'סה"כ לצד הכרוז') : L("Total: declarer's side loses", 'סה"כ: צד הכרוז מפסיד')}</td><td class="pts">${num(total)}</td></tr>
+        </table>
+        ${made ? '' : `<div class="small">${L(`The defenders score ${-total}.`, `המגינים מקבלים ${-total}.`)}</div>`}
+      </div>
+      ${ex.why ? `<p>${text(ex.why)}</p>` : ''}
+      <div class="drill-nav">
+        <button class="btn secondary" type="button" data-act="prev" ${i === 0 ? 'disabled' : ''}>${L('← Previous example', '→ הדוגמה הקודמת')}</button>
+        <button class="btn" type="button" data-act="next" ${i === list.length - 1 ? 'disabled' : ''}>${L('Next example →', 'הדוגמה הבאה ←')}</button>
+      </div>`;
+    box.querySelectorAll('[data-act]').forEach(btn => btn.addEventListener('click', () => {
+      const which = btn.dataset.act;
+      render(box, which === 'next' ? i + 1 : i - 1);
+      const again = box.querySelector(`[data-act="${which}"]`);
+      (again.disabled ? box.querySelector('[data-act]:not(:disabled)') : again).focus({ preventScroll: true });
+    }));
+  }
+
+  return { mount };
+})();
+
 // The "Example" in the Tricks and Trumps lessons: one trick from practice/trick-examples.txt,
 // played a card at a time, then the winner and the explanation.
 const TrickDemo = (() => {
@@ -1170,6 +1280,7 @@ const Learn = (() => {
       }
     });
     document.querySelectorAll('#lesson-body .trick-demo').forEach(TrickDemo.mount);
+    document.querySelectorAll('#lesson-body .score-demo').forEach(ScoreDemo.mount);
     const auctionDemo = document.querySelector('#lesson-body .auction-demo');
     if (auctionDemo) AuctionDemo.mount(auctionDemo);
     const demo = document.querySelector('#lesson-body .deal-demo');
