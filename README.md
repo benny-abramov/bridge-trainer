@@ -31,6 +31,12 @@ The Count Points, Opening Bids, Responding, Opener's Rebid, Responder's Rebid, O
 
 A drill with hands in its file shows only those hands, in your order, and starts again after the last one. A drill whose file has no hands keeps its random deals.
 
+## Updates reach open pages
+
+Every commit that changes the app gets a new version stamp (`tools/stamp_version.py`, run by the git hook in `.githooks/`). The stamp goes into `version.json`, the `app-version` meta tag and a `?v=` on every script and stylesheet link. An open page checks `version.json` when it loads and whenever you return to the tab, and offers to reload when a newer version is published.
+
+After cloning, enable the hook once with `git config core.hooksPath .githooks`.
+
 ## Preview: diagram-style puzzles
 
 [`mockup.html`](mockup.html) shows the card-play puzzles in a hand-diagram style (text hands, trick chips, step back/forward, trick counters and trick slots that show tricks won, still possible, or lost through a mistake). It's a separate page for comparison and doesn't change the main app. Open a specific puzzle with `mockup.html?p=12`.

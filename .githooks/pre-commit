@@ -1,0 +1,7 @@
+#!/bin/sh
+# Give the app a new version stamp when a commit changes it, so open pages offer to reload.
+# Enabled with:  git config core.hooksPath .githooks
+if git diff --cached --name-only | grep -qE '^(index\.html|mockup\.html|js/|css/)'; then
+  python tools/stamp_version.py >/dev/null || exit 1
+  git add index.html mockup.html version.json
+fi

@@ -36,4 +36,5 @@ initConventions();
 Play.init();
 LeadTrainer.init();
 DeclarerPlay.init();
+UpdateCheck.init();
 showTab(location.hash.slice(1));

@@ -175,6 +175,8 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 .eyebrow { font-size: .8rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--accent); }
 .lesson ul, .lesson ol { padding-inline-start: 1.3rem; }
 .lesson li { margin: .3rem 0; }
+.update-banner { position: fixed; inset-inline: 0; bottom: 0; z-index: 50; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: .5rem 1rem; padding: .7rem 1rem; background: var(--surface); border-top: 3px solid var(--accent); box-shadow: 0 -4px 14px rgba(0, 0, 0, .15); }
+.update-close { background: none; border: none; color: var(--muted); font-size: 1.4rem; line-height: 1; cursor: pointer; padding: .2rem .4rem; }
 .lesson-return { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .6rem 1rem; margin-bottom: 1rem; padding: .6rem .9rem; border-radius: 12px; background: var(--accent-soft); }
 .lesson-return-buttons { display: flex; flex-wrap: wrap; gap: .5rem; }
 .lesson-nav { display: flex; justify-content: space-between; margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--border); }
