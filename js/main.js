@@ -16,7 +16,11 @@ function showTab(name) {
 
 document.addEventListener('click', e => {
   const target = e.target.closest('[data-tab], [data-goto]');
-  if (target) showTab(target.dataset.tab || target.dataset.goto);
+  if (!target) return;
+  const tab = target.dataset.tab || target.dataset.goto;
+  if (target.dataset.lesson) Learn.showReturnBar(tab, Number(target.dataset.lesson));
+  else Learn.hideReturnBar();
+  showTab(tab);
 });
 window.addEventListener('hashchange', () => showTab(location.hash.slice(1)));
 

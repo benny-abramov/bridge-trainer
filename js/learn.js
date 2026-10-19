@@ -1296,7 +1296,7 @@ const Learn = (() => {
       <div class="eyebrow">${L(`Lesson ${index + 1} of ${LESSONS.length}`, `שיעור ${index + 1} מתוך ${LESSONS.length}`)}</div>
       <h2>${lesson.title}</h2>
       ${lesson.body}
-      ${lesson.tryIt ? `<p><button class="btn" data-goto="${lesson.tryIt}">${tryLabels[lesson.tryIt]} ${L('→', '←')}</button></p>` : ''}
+      ${lesson.tryIt ? `<p><button class="btn" data-goto="${lesson.tryIt}" data-lesson="${index}">${tryLabels[lesson.tryIt]} ${L('→', '←')}</button></p>` : ''}
       <div class="lesson-nav">
         <button class="btn secondary" id="lesson-prev" ${index === 0 ? 'disabled' : ''}>${L('← Previous', '→ הקודם')}</button>
         <button class="btn" id="lesson-next" ${index === LESSONS.length - 1 ? 'disabled' : ''}>${L('Next →', 'הבא ←')}</button>
@@ -1347,5 +1347,34 @@ const Learn = (() => {
     document.getElementById('lesson-body').scrollIntoView({ block: 'start', behavior: 'smooth' });
   }
 
-  return { init: render };
+  // A practice tab opened from a lesson's "Practice" button shows a bar for getting back to the
+  // lessons: the lesson you came from, or the one before or after it.
+  function showReturnBar(tab, from) {
+    hideReturnBar();
+    const panel = document.getElementById('tab-' + tab);
+    if (!panel) return;
+    const bar = document.createElement('div');
+    bar.className = 'lesson-return';
+    bar.innerHTML = `
+      <span class="muted small">${L(`From lesson ${from + 1}: ${LESSONS[from].title}`, `משיעור ${from + 1}: ${LESSONS[from].title}`)}</span>
+      <span class="lesson-return-buttons">
+        <button class="btn secondary" type="button" data-to="${from - 1}" ${from === 0 ? 'disabled' : ''}>${L('← Previous lesson', '→ השיעור הקודם')}</button>
+        <button class="btn" type="button" data-to="${from}">${L('Back to the lesson', 'חזרה לשיעור')}</button>
+        <button class="btn secondary" type="button" data-to="${from + 1}" ${from === LESSONS.length - 1 ? 'disabled' : ''}>${L('Next lesson →', 'השיעור הבא ←')}</button>
+      </span>`;
+    bar.addEventListener('click', e => {
+      const btn = e.target.closest('[data-to]');
+      if (!btn) return;
+      hideReturnBar();
+      showTab('learn');
+      go(Number(btn.dataset.to));
+    });
+    panel.prepend(bar);
+  }
+
+  function hideReturnBar() {
+    document.querySelectorAll('.lesson-return').forEach(bar => bar.remove());
+  }
+
+  return { init: render, showReturnBar, hideReturnBar };
 })();
