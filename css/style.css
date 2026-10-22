@@ -526,6 +526,8 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
   .deal-table .seat { min-height: 8.2rem; }
   /* The card-play puzzles keep the table layout (South below the trick, West and East beside it). */
   .table.puzzle-table:not(.deal-table) { grid-template-areas: ". n ." "w c e" ". s ."; grid-template-columns: 1fr auto 1fr; }
+  /* Play a Hand too; North and South span the table so their 13 cards don't widen the middle column. */
+  .table.play-table { grid-template-areas: "n n n" "w c e" "s s s"; grid-template-columns: 1fr auto 1fr; }
 }
 
 @media (max-width: 560px) {
@@ -541,6 +543,10 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
   .trick-area { width: 190px; height: 190px; }
   .table.puzzle-table:not(.deal-table) { --cw: 34px; gap: .3rem; padding: .6rem .2rem; }
   .puzzle-table .trick-area { width: 112px; height: 132px; }
+  .table.play-table { gap: .3rem; padding: .6rem .2rem; }
+  .play-table .trick-area { --cw: 34px; width: 112px; height: 132px; }
+  .play-table .seat.east, .play-table .seat.west { --cw: 34px; }
+  .play-table .seat.long-suit { --cw: 28px; }
   .deck-row { gap: .4rem; }
   .shape-grid { --cw: 36px; grid-template-columns: minmax(0, 1fr); gap: .25rem; }
   .shape-hand figcaption { margin-bottom: .5rem; }

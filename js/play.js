@@ -252,6 +252,8 @@ const Play = (() => {
     el.appendChild(label);
 
     const hand = st.hands[seat];
+    // A long suit in a side hand gets smaller cards on a phone (see .long-suit in style.css).
+    el.classList.toggle('long-suit', seat % 2 === 1 && Object.values(suitLengths(hand)).some(n => n >= 7));
     if (!hand.length) return;
 
     if (seat === 0 && !st.started && !showAll) {
