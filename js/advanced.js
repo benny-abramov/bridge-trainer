@@ -192,7 +192,9 @@ function makePuzzleSection(prefix, topics, groups) {
 
     const myTurn = isHuman(seat) && !st.done && !st.busy && st.turn === seat;
     const legal = myTurn ? legalOf(st.hands[seat], st.trick) : [];
-    renderFan(el, st.hands[seat], (cardEl, card) => {
+    // On a phone, West and East show one row per suit so they fit beside the trick.
+    const draw = seat % 2 && matchMedia('(max-width: 560px)').matches ? renderSuitRows : renderFan;
+    draw(el, st.hands[seat], (cardEl, card) => {
       if (!myTurn) return;
       if (!legal.includes(card)) { cardEl.classList.add('dim'); return; }
       cardEl.classList.add('playable');

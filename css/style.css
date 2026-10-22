@@ -522,6 +522,8 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
   }
   .table.deal-table { --cw: 34px; grid-template-columns: 1fr 1fr; grid-template-areas: "n n" "w e" "s s" "c c"; }
   .deal-table .seat { min-height: 8.2rem; }
+  /* The card-play puzzles keep the table layout (South below the trick, West and East beside it). */
+  .table.puzzle-table:not(.deal-table) { grid-template-areas: ". n ." "w c e" ". s ."; grid-template-columns: 1fr auto 1fr; }
 }
 
 @media (max-width: 560px) {
@@ -535,6 +537,8 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
   .seat { padding: .4rem .2rem; }
   .table { padding: .75rem .25rem; border-radius: 14px; gap: .5rem; }
   .trick-area { width: 190px; height: 190px; }
+  .table.puzzle-table:not(.deal-table) { --cw: 34px; gap: .3rem; padding: .6rem .2rem; }
+  .puzzle-table .trick-area { width: 112px; height: 132px; }
   .deck-row { gap: .4rem; }
   .shape-grid { --cw: 36px; grid-template-columns: minmax(0, 1fr); gap: .25rem; }
   .shape-hand figcaption { margin-bottom: .5rem; }
