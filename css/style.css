@@ -428,6 +428,18 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 .bid-box td.latest { box-shadow: 0 0 0 2px var(--hint); font-weight: 700; }
 .bid-box td.ask { background: transparent; color: var(--felt-text); font-weight: 700; border: 1px dashed rgba(255, 255, 255, .5); }
 [dir="rtl"] .bid-box { direction: ltr; }
+
+/* Play a Hand's bidding box: top-right of the table, as on BBO (above the table on narrow screens). */
+.table.play-table { grid-template-areas: ". n a" "w c e" ". s ."; }
+.auction-box { grid-area: a; align-self: start; justify-self: end; display: flex; flex-direction: column; align-items: center; gap: .35rem; max-width: 100%; }
+.auction-box[hidden] { display: none; }
+.auction-box .bid-box td { padding: 0; }
+.auction-box .bid-box button { font: inherit; width: 100%; height: 100%; min-height: 1.7rem; padding: 0 .3rem; border: 0; border-radius: 6px; background: none; color: inherit; cursor: pointer; }
+.auction-box .bid-box button:hover { box-shadow: inset 0 0 0 2px var(--accent); }
+.auction-box .bid-box button.final { background: var(--hint); color: #1a1a1a; font-weight: 700; }
+.auction-box .bid-box button.picked { box-shadow: inset 0 0 0 2px var(--accent); font-weight: 700; }
+.auction-caption { max-width: 15rem; font-size: .8rem; line-height: 1.35; text-align: center; color: var(--felt-text); }
+[dir="rtl"] .auction-caption { direction: rtl; }
 .puzzle .feedback ul { margin: .4rem 0; padding-inline-start: 1.2rem; }
 .warn { color: var(--bad); font-weight: 600; }
 
@@ -527,7 +539,9 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
   /* The card-play puzzles keep the table layout (South below the trick, West and East beside it). */
   .table.puzzle-table:not(.deal-table) { grid-template-areas: ". n ." "w c e" ". s ."; grid-template-columns: 1fr auto 1fr; }
   /* Play a Hand too; North and South span the table so their 13 cards don't widen the middle column. */
-  .table.play-table { grid-template-areas: "n n n" "w c e" "s s s"; grid-template-columns: 1fr auto 1fr; }
+  .table.play-table { grid-template-areas: "a a a" "n n n" "w c e" "s s s"; grid-template-columns: 1fr auto 1fr; }
+  .auction-box { justify-self: center; }
+  .auction-caption { max-width: 22rem; }
 }
 
 @media (max-width: 560px) {

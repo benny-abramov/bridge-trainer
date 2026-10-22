@@ -16,40 +16,28 @@ const Play = (() => {
     return hands.map(h => h.map(c => ({ ...c })));
   }
 
-  // Pick a reasonable contract for North-South from their combined strength and fit.
-  function chooseContract(north, south) {
-    const pts = hcp(north) + hcp(south);
-    const ln = suitLengths(north), ls = suitLengths(south);
-    const fit = s => ln[s] + ls[s];
-
-    let strain = 'N';
-    const majors = ['S', 'H'].filter(s => fit(s) >= 8).sort((a, b) => fit(b) - fit(a));
-    const minors = ['D', 'C'].filter(s => fit(s) >= 9).sort((a, b) => fit(b) - fit(a));
-    if (majors.length) strain = majors[0];
-    else if (minors.length && !(isBalanced(north) && isBalanced(south))) strain = minors[0];
-
-    let level;
-    if (strain === 'N') level = pts >= 33 ? 6 : pts >= 25 ? 3 : pts >= 23 ? 2 : 1;
-    else if (strain === 'S' || strain === 'H') level = pts >= 33 ? 6 : pts >= 26 ? 4 : pts >= 23 ? 3 : 2;
-    else level = pts >= 33 ? 6 : pts >= 29 ? 5 : pts >= 26 ? 4 : pts >= 23 ? 3 : 2;
-    return { level, strain };
-  }
-
-  // Deal four hands with North-South holding the stronger cards and South (declarer) the stronger hand.
+  // Deal four hands with North-South holding the stronger cards and South the stronger of the two,
+  // and bid them (js/auction.js). Deals where South wouldn't end up declarer are dealt again.
   function dealTable() {
-    let hands = dealHands();
-    if (hcp(hands[0]) + hcp(hands[2]) < hcp(hands[1]) + hcp(hands[3])) {
-      hands = [hands[1], hands[2], hands[3], hands[0]];
+    for (let tries = 0; tries < 500; tries++) {
+      let hands = dealHands();
+      if (hcp(hands[0]) + hcp(hands[2]) < hcp(hands[1]) + hcp(hands[3])) {
+        hands = [hands[1], hands[2], hands[3], hands[0]];
+      }
+      if (hcp(hands[0]) > hcp(hands[2])) [hands[0], hands[2]] = [hands[2], hands[0]];
+      const auction = bidAuction(hands);
+      if (auction) return { hands, contract: auction.contract, auction };
     }
-    if (hcp(hands[0]) > hcp(hands[2])) [hands[0], hands[2]] = [hands[2], hands[0]];
-    return { hands, contract: chooseContract(hands[0], hands[2]) };
+    const hands = dealHands();
+    return { hands, contract: chooseContract(hands[0], hands[2]), auction: null };
   }
 
   function newDeal(replay) {
     clearTimeout(timer);
-    const table = replay ? { hands: cloneHands(replay.hands), contract: replay.contract } : dealTable();
+    const table = replay ? { hands: cloneHands(replay.hands), contract: replay.contract, auction: replay.auction } : dealTable();
     st = {
-      original: { hands: cloneHands(table.hands), contract: table.contract },
+      original: { hands: cloneHands(table.hands), contract: table.contract, auction: table.auction },
+      auction: table.auction,
       hands: table.hands,
       contract: table.contract,
       trump: table.contract.strain === 'N' ? null : table.contract.strain,
@@ -382,6 +370,38 @@ const Play = (() => {
 
     [0, 1, 2, 3].forEach(renderSeat);
     renderCenter();
+    renderAuction();
+  }
+
+  // The bidding box, as on BBO: West, North, East, South, with the final contract highlighted.
+  // Tapping a call shows what it means.
+  const AUCTION_COLUMNS = [3, 0, 1, 2];
+
+  function renderAuction() {
+    const box = $('play-auction');
+    const a = st.auction;
+    box.hidden = !a;
+    if (!a) return;
+    const final = a.calls.reduce((j, c, i) => (/^\d/.test(c.call) ? i : j), -1);
+    const cells = Array(AUCTION_COLUMNS.indexOf(a.dealer)).fill('<td></td>');
+    a.calls.forEach((c, i) => {
+      const cls = [i === final ? 'final' : '', i === st.auctionPick ? 'picked' : ''].join(' ').trim();
+      cells.push(`<td><button type="button" class="${cls}" data-call="${i}">${bidHtml(c.call)}</button></td>`);
+    });
+    while (cells.length % 4) cells.push('<td></td>');
+    const rows = [];
+    for (let i = 0; i < cells.length; i += 4) rows.push(`<tr>${cells.slice(i, i + 4).join('')}</tr>`);
+    const pick = a.calls[st.auctionPick];
+    const caption = pick
+      ? `<strong>${SEAT_NAMES[pick.seat]} ${bidHtml(pick.call)}:</strong> ${pick.why || L('No bid.', 'בלי הכרזה.')}`
+      : L(`Final contract: <strong>${contractHtml()}</strong> by South. Tap a call to see what it means.`,
+        `החוזה הסופי: <strong>${contractHtml()}</strong>. הכרוז: דרום. הקישו על הכרזה כדי לראות מה היא אומרת.`);
+    box.innerHTML = `
+      <table class="bid-box">
+        <tr>${AUCTION_COLUMNS.map(s => `<th class="${s === a.dealer ? 'dealer' : ''}">${SEAT_NAMES[s]}</th>`).join('')}</tr>
+        ${rows.join('')}
+      </table>
+      <div class="auction-caption">${caption}</div>`;
   }
 
   function setMode(m) {
@@ -394,6 +414,13 @@ const Play = (() => {
     $('play-new').addEventListener('click', () => newDeal());
     $('play-replay').addEventListener('click', () => newDeal(st.original));
     $('play-showall').addEventListener('click', () => { showAll = !showAll; render(); });
+    $('play-auction').addEventListener('click', e => {
+      const btn = e.target.closest('[data-call]');
+      if (!btn) return;
+      const i = Number(btn.dataset.call);
+      st.auctionPick = st.auctionPick === i ? null : i;
+      renderAuction();
+    });
     $('play-mode-declare').addEventListener('click', () => setMode('declare'));
     $('play-mode-defend').addEventListener('click', () => setMode('defend'));
     $('play-hint').addEventListener('click', () => {
