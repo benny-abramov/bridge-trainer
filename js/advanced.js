@@ -259,6 +259,14 @@ function makePuzzleSection(prefix, topics, groups) {
       `<strong>${contract}${strain[0].toUpperCase() + strain.slice(1)}. ${SEAT_NAMES[p.leader]} to lead. You need ${st.target} of the last ${n} tricks.</strong> The defenders can see every card and will play perfectly. `,
       `<strong>${contract}${strain}. ${SEAT_NAMES[p.leader]} מוביל. אתם צריכים ${st.target} מתוך ${n} הלקיחות האחרונות.</strong> המגינים רואים את כל הקלפים ומשחקים בצורה מושלמת. `) +
       colorSuits(p.idea);
+    // The contract in the table's top-left corner.
+    const box = $('contract');
+    box.hidden = !p.contract;
+    if (p.contract) {
+      box.innerHTML = `<div class="tc-bid">${bidHtml(p.contract)}</div>` +
+        `<div>${L('South declares', 'הכרוז: דרום')}</div>` +
+        `<div>${L(`Need ${st.target} of ${n} tricks`, `צריך ${st.target} מתוך ${n} לקיחות`)}</div>`;
+    }
     $('prev').disabled = index === 0;
     $('next').disabled = index === t.puzzles.length - 1;
     $('hint').disabled = st.done || st.busy || !isHuman(st.turn);
