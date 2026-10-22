@@ -1278,15 +1278,17 @@ const Learn = (() => {
   let index = 0;
 
   function render() {
-    const list = document.getElementById('lesson-list');
-    list.innerHTML = '';
-    LESSONS.forEach((lesson, i) => {
-      const btn = document.createElement('button');
-      btn.innerHTML = `<bdi>${i + 1}.</bdi> ${lesson.title}`;
-      btn.className = i === index ? 'active' : '';
-      btn.addEventListener('click', () => { index = i; render(); });
-      list.appendChild(btn);
-    });
+    // The lesson picker: the current lesson on a button that opens the list of all lessons.
+    const menu = document.getElementById('lesson-menu');
+    const name = (lesson, i) => `<bdi>${i + 1}.</bdi> ${lesson.title}`;
+    menu.innerHTML = `
+      <button class="menu-button" type="button" aria-haspopup="true" aria-expanded="false" aria-label="${L('Choose a lesson', 'בחירת שיעור')}">
+        <span>${name(LESSONS[index], index)}</span> <span class="caret" aria-hidden="true">▾</span>
+      </button>
+      <div class="menu-list" hidden>
+        ${LESSONS.map((lesson, i) => `<button type="button" data-lesson-index="${i}" class="${i === index ? 'active' : ''}">${name(lesson, i)}</button>`).join('')}
+      </div>`;
+    menu.querySelectorAll('[data-lesson-index]').forEach(btn => btn.addEventListener('click', () => go(Number(btn.dataset.lessonIndex))));
 
     const lesson = LESSONS[index];
     const tryLabels = L(

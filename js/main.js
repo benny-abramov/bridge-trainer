@@ -9,8 +9,14 @@ function showTab(name, fromLesson) {
   document.querySelectorAll('.tabs [data-tab]').forEach(btn => {
     const active = btn.dataset.tab === name;
     btn.classList.toggle('active', active);
-    btn.setAttribute('aria-selected', active);
+    if (active) btn.setAttribute('aria-current', 'page');
+    else btn.removeAttribute('aria-current');
   });
+  // The Practice menu button is highlighted, and names the drill, while a drill is open.
+  const drill = document.querySelector(`.practice-menu [data-tab="${name}"]`);
+  document.querySelector('.practice-menu .menu-button').classList.toggle('active', !!drill);
+  document.getElementById('practice-label').innerHTML = drill
+    ? `<span class="practice-prefix">${L('Practice', 'תרגול')}: </span>${drill.textContent}` : L('Practice', 'תרגול');
   TABS.forEach(t => (document.getElementById('tab-' + t).hidden = t !== name));
   if (location.hash !== '#' + name) history.replaceState(null, '', '#' + name);
   Learn.showReturnBar(name, fromLesson);
