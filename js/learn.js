@@ -1347,16 +1347,21 @@ const Learn = (() => {
     document.getElementById('lesson-body').scrollIntoView({ block: 'start', behavior: 'smooth' });
   }
 
-  // A practice tab opened from a lesson's "Practice" button shows a bar for getting back to the
-  // lessons: the lesson you came from, or the one before or after it.
+  // A practice tab that a lesson links to shows a bar for getting back to the lessons: the lesson
+  // you came from (or, if you opened the tab some other way, the first lesson that links to it),
+  // or the one before or after it.
+  const cameFrom = {};
+
   function showReturnBar(tab, from) {
     hideReturnBar();
+    if (from !== undefined) cameFrom[tab] = from;
+    from = cameFrom[tab] ?? LESSONS.findIndex(lesson => lesson.tryIt === tab);
     const panel = document.getElementById('tab-' + tab);
-    if (!panel) return;
+    if (!panel || from < 0) return;
     const bar = document.createElement('div');
     bar.className = 'lesson-return';
     bar.innerHTML = `
-      <span class="muted small">${L(`From lesson ${from + 1}: ${LESSONS[from].title}`, `משיעור ${from + 1}: ${LESSONS[from].title}`)}</span>
+      <span class="muted small">${L(`Lesson ${from + 1}: ${LESSONS[from].title}`, `שיעור ${from + 1}: ${LESSONS[from].title}`)}</span>
       <span class="lesson-return-buttons">
         <button class="btn secondary" type="button" data-to="${from - 1}" ${from === 0 ? 'disabled' : ''}>${L('← Previous lesson', '→ השיעור הקודם')}</button>
         <button class="btn" type="button" data-to="${from}">${L('Back to the lesson', 'חזרה לשיעור')}</button>
@@ -1376,5 +1381,5 @@ const Learn = (() => {
     document.querySelectorAll('.lesson-return').forEach(bar => bar.remove());
   }
 
-  return { init: render, showReturnBar, hideReturnBar };
+  return { init: render, showReturnBar };
 })();

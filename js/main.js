@@ -2,7 +2,8 @@
 
 const TABS = ['learn', 'hcp', 'opening', 'responding', 'rebid', 'rrebid', 'overcalls', 'conventions', 'declarer', 'defense', 'play'];
 
-function showTab(name) {
+// `fromLesson` is the lesson whose "Practice" button opened the tab, if any.
+function showTab(name, fromLesson) {
   if (name === 'advanced') name = 'declarer'; // the old Advanced tab is now part of Declarer Play
   if (!TABS.includes(name)) name = 'learn';
   document.querySelectorAll('.tabs [data-tab]').forEach(btn => {
@@ -12,15 +13,14 @@ function showTab(name) {
   });
   TABS.forEach(t => (document.getElementById('tab-' + t).hidden = t !== name));
   if (location.hash !== '#' + name) history.replaceState(null, '', '#' + name);
+  Learn.showReturnBar(name, fromLesson);
 }
 
 document.addEventListener('click', e => {
   const target = e.target.closest('[data-tab], [data-goto]');
   if (!target) return;
   const tab = target.dataset.tab || target.dataset.goto;
-  if (target.dataset.lesson) Learn.showReturnBar(tab, Number(target.dataset.lesson));
-  else Learn.hideReturnBar();
-  showTab(tab);
+  showTab(tab, target.dataset.lesson === undefined ? undefined : Number(target.dataset.lesson));
 });
 window.addEventListener('hashchange', () => showTab(location.hash.slice(1)));
 
