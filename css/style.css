@@ -520,7 +520,7 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
     grid-template-columns: 1fr 1fr;
     min-height: 0;
   }
-  .table.deal-table { --cw: 34px; grid-template-areas: "n n" "w e" "s s" "c c"; }
+  .table.deal-table { --cw: 34px; grid-template-columns: 1fr 1fr; grid-template-areas: "n n" "w e" "s s" "c c"; }
   .deal-table .seat { min-height: 8.2rem; }
 }
 
