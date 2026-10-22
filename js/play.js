@@ -239,7 +239,8 @@ const Play = (() => {
     label.innerHTML = `<strong>${SEAT_NAMES[seat]}</strong> <span>${roleOf(seat)}</span>`;
     el.appendChild(label);
 
-    const hand = st.hands[seat];
+    // Once the hand is over, every seat shows its original 13 cards, to review the deal.
+    const hand = st.done ? sortHand(st.original.hands[seat]) : st.hands[seat];
     // A long suit in a side hand gets smaller cards on a phone (see .long-suit in style.css).
     el.classList.toggle('long-suit', seat % 2 === 1 && Object.values(suitLengths(hand)).some(n => n >= 7));
     if (!hand.length) return;
@@ -289,6 +290,7 @@ const Play = (() => {
   function renderCenter() {
     const center = $('trick-area');
     center.innerHTML = '';
+    center.parentElement.classList.toggle('done', st.done); // on a phone the result gets its own row
 
     if (st.done) {
       const result = score();

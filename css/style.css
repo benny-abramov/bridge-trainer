@@ -561,6 +561,9 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
   .play-table .trick-area { --cw: 34px; width: 112px; height: 132px; }
   .play-table .seat.east, .play-table .seat.west { --cw: 34px; }
   .play-table .seat.long-suit { --cw: 28px; }
+  .table.play-table.done { grid-template-areas: "a a a" "n n n" "w . e" "c c c" "s s s"; }
+  .play-table.done .trick-area { width: 100%; height: auto; }
+  .play-table.done .result { position: static; }
   .deck-row { gap: .4rem; }
   .shape-grid { --cw: 36px; grid-template-columns: minmax(0, 1fr); gap: .25rem; }
   .shape-hand figcaption { margin-bottom: .5rem; }
