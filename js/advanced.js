@@ -188,13 +188,15 @@ function makePuzzleSection(prefix, topics, groups) {
     label.className = 'seat-label';
     label.innerHTML = `<strong>${SEAT_NAMES[seat]}</strong> <span>${roles[seat]}</span>`;
     el.appendChild(label);
-    if (!st.hands[seat].length) return;
+    // Once the hand is over, show the starting cards again so you can look back at the whole position.
+    const hand = st.done ? parseHand(puzzle().hands[seat]) : st.hands[seat];
+    if (!hand.length) return;
 
     const myTurn = isHuman(seat) && !st.done && !st.busy && st.turn === seat;
-    const legal = myTurn ? legalOf(st.hands[seat], st.trick) : [];
+    const legal = myTurn ? legalOf(hand, st.trick) : [];
     // On a phone, West and East show one row per suit so they fit beside the trick.
     const draw = seat % 2 && matchMedia('(max-width: 560px)').matches ? renderSuitRows : renderFan;
-    draw(el, st.hands[seat], (cardEl, card) => {
+    draw(el, hand, (cardEl, card) => {
       if (!myTurn) return;
       if (!legal.includes(card)) { cardEl.classList.add('dim'); return; }
       cardEl.classList.add('playable');
