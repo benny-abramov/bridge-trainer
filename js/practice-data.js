@@ -88,8 +88,8 @@ const PRACTICE = {
    "auction": [],
    "answer": "2C",
    "why": {
-    "en": "With more than 21 HCP, open 2C, artificial bid that does not promise clubs, just strength",
-    "he": "עם יותר מ-21 נק', פתחו 2♣: הכרזה מלאכותית שלא מבטיחה קלאב, רק כוח."
+    "en": "With more than 22 HCP, open 2C, artificial bid that does not promise clubs, just strength",
+    "he": "עם יותר מ-22 נק', פתחו 2♣: הכרזה מלאכותית שלא מבטיחה קלאב, רק כוח."
    }
   },
   {

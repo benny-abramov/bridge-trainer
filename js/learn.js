@@ -200,11 +200,11 @@ const LESSONS_EN = [
       <table class="tbl">
         <tr><th>Your hand</th><th>Open</th></tr>
         <tr><td>Fewer than 12 HCP (and no long suit)</td><td>Pass</td></tr>
-        <tr><td>12–21 HCP with a 5+ card major</td><td>1${H} or 1${S} (longer major; spades with 5-5)</td></tr>
-        <tr><td>12–21 HCP, no 5-card major</td><td>1${C} or 1${D} (longer minor; 1${C} with 3-3, 1${D} with 4-4)</td></tr>
+        <tr><td>12–22 HCP with a 5+ card major</td><td>1${H} or 1${S} (longer major; spades with 5${S}-5${H})</td></tr>
+        <tr><td>12–22 HCP, no 5-card major</td><td>1${C} or 1${D} (longer minor; 1${C} with 3${C}-3${D}, 1${D} with 4${D}-4${C})</td></tr>
         <tr><td>15–17 HCP, balanced</td><td>1NT</td></tr>
-        <tr><td>20–21 HCP, balanced</td><td>2NT</td></tr>
-        <tr><td>22+ HCP, any shape</td><td>2${C} (strong and artificial)</td></tr>
+        <tr><td>20–22 HCP, balanced</td><td>2NT</td></tr>
+        <tr><td>23+ HCP, any shape</td><td>2${C} (strong and artificial)</td></tr>
         <tr><td>5–10 HCP with a 6-card ${D}, ${H} or ${S} suit</td><td>Weak two: 2${D}, 2${H} or 2${S}</td></tr>
         <tr><td>5–10 HCP with a 7-card suit</td><td>Preempt at the 3-level</td></tr>
         <tr><td>5–10 HCP with an 8-card suit</td><td>Preempt at the 4-level</td></tr>
@@ -239,10 +239,10 @@ const LESSONS_EN = [
   {
     title: "Opener's second bid",
     body: `
-      <p>Your opening bid covers a wide range (12–21 HCP). Your second bid, the <strong>rebid</strong>, tells partner which part of that range you hold:</p>
+      <p>Your opening bid covers a wide range (12–22 HCP). Your second bid, the <strong>rebid</strong>, tells partner which part of that range you hold:</p>
       <table class="tbl">
         <tr><th>Minimum</th><th>Medium</th><th>Maximum</th></tr>
-        <tr><td>12–14 HCP</td><td>15–17 HCP</td><td>18–21 HCP</td></tr>
+        <tr><td>12–14 HCP</td><td>15–17 HCP</td><td>18–22 HCP</td></tr>
       </table>
       <p><strong>When partner raises your suit</strong>, you already have a fit. Only the level is left to decide:</p>
       <table class="tbl">
@@ -337,7 +337,7 @@ const LESSONS_EN = [
       </ul>
 
       <h3>Strong 2${C}</h3>
-      <p>2${C} shows 22+ HCP (or a hand with nine tricks) and is forcing. Responder bids <strong>2${D}</strong> (artificial, "waiting") with most hands.
+      <p>2${C} shows 23+ HCP (or a hand with nine tricks) and is forcing. Responder bids <strong>2${D}</strong> (artificial, "waiting") with most hands.
       With 8+ HCP and a good 5-card suit (two of the top three honors), make a positive response in it (2${H}, 2${S}, 3${C}, 3${D}). With 8+ balanced, bid 2NT.</p>
 
       <h3>Jacoby 2NT</h3>
@@ -604,11 +604,11 @@ const LESSONS_HE = [
       <table class="tbl">
         <tr><th>היד שלכם</th><th>פתיחה</th></tr>
         <tr><td>פחות מ-12 נק' (ואין סדרה ארוכה)</td><td>פאס</td></tr>
-        <tr><td>12-21 נק' עם סדרת מייגור של 5 קלפים ומעלה</td><td>${B('1H')} או ${B('1S')} (סדרת המייגור הארוכה יותר; ספייד עם 5-5)</td></tr>
-        <tr><td>12-21 נק', בלי סדרת מייגור של 5</td><td>${B('1C')} או ${B('1D')} (סדרת המיינור הארוכה יותר; ${B('1C')} עם 3-3, ${B('1D')} עם 4-4)</td></tr>
+        <tr><td>12-22 נק' עם סדרת מייגור של 5 קלפים ומעלה</td><td>${B('1H')} או ${B('1S')} (סדרת המייגור הארוכה יותר; ספייד עם ${ltr(`5${S}-5${H}`)})</td></tr>
+        <tr><td>12-22 נק', בלי סדרת מייגור של 5</td><td>${B('1C')} או ${B('1D')} (סדרת המיינור הארוכה יותר; ${B('1C')} עם ${ltr(`3${C}-3${D}`)}, ${B('1D')} עם ${ltr(`4${D}-4${C}`)})</td></tr>
         <tr><td>15-17 נק', מאוזנת</td><td>1NT</td></tr>
-        <tr><td>20-21 נק', מאוזנת</td><td>2NT</td></tr>
-        <tr><td>22 נק' ומעלה, כל חלוקה</td><td>${B('2C')} (חזקה ומלאכותית)</td></tr>
+        <tr><td>20-22 נק', מאוזנת</td><td>2NT</td></tr>
+        <tr><td>23 נק' ומעלה, כל חלוקה</td><td>${B('2C')} (חזקה ומלאכותית)</td></tr>
         <tr><td>5-10 נק' עם סדרה של 6 קלפים ב-${D}, ${H} או ${S}</td><td>הכרזת שתיים חלשה: ${B('2D')}, ${B('2H')} או ${B('2S')}</td></tr>
         <tr><td>5-10 נק' עם סדרה של 7 קלפים</td><td>הכרזת חסימה ברמת 3</td></tr>
         <tr><td>5-10 נק' עם סדרה של 8 קלפים</td><td>הכרזת חסימה ברמת 4</td></tr>
@@ -624,7 +624,7 @@ const LESSONS_HE = [
       <p>כשהשותף פותח באחת בסדרה, ההנחיות הפשוטות האלה יעזרו לכם להתחיל:</p>
       <ul>
         <li><strong>0-5 נק':</strong> פאס.</li>
-        <li><strong>6 נק' ומעלה:</strong> השיבו. השותף עדיין עשוי לעשות פאס, ולכן עם יותר כוח ממשיכים להכריז.</li>
+        <li><strong>6 נק' ומעלה:</strong> השיבו. השותף עדיין עשוי להכריז פאס, ולכן עם יותר כוח ממשיכים להכריז.</li>
       </ul>
       <p>עם 6 נק' ומעלה, בחרו את <strong>הראשונה</strong> מבין האפשרויות הבאות שמתאימה ליד:</p>
       <table class="tbl">
@@ -644,10 +644,10 @@ const LESSONS_HE = [
   {
     title: 'ההכרזה השנייה של הפותח',
     body: `
-      <p>הכרזת הפתיחה מכסה טווח רחב (12-21 נק'). ההכרזה השנייה, <strong>ההכרזה החוזרת</strong>, מספרת לשותף באיזה חלק של הטווח אתם נמצאים:</p>
+      <p>הכרזת הפתיחה מכסה טווח רחב (12-22 נק'). ההכרזה השנייה, <strong>ההכרזה החוזרת</strong>, מספרת לשותף באיזה חלק של הטווח אתם נמצאים:</p>
       <table class="tbl">
         <tr><th>מינימום</th><th>בינוני</th><th>מקסימום</th></tr>
-        <tr><td>12-14 נק'</td><td>15-17 נק'</td><td>18-21 נק'</td></tr>
+        <tr><td>12-14 נק'</td><td>15-17 נק'</td><td>18-22 נק'</td></tr>
       </table>
       <p><strong>כשהשותף תומך בסדרה שלכם</strong>, כבר יש התאמה. נשאר להחליט רק על הרמה:</p>
       <table class="tbl">
@@ -696,7 +696,7 @@ const LESSONS_HE = [
       <p><strong>כשהשותף מראה סדרה שנייה:</strong></p>
       <ul>
         <li>עם 4 קלפים בסדרת מייגור שהשותף הראה זה עתה, תמכו בה: ברמת 2 עם מינימום, ברמת 3 כהזמנה.</li>
-        <li>אחרת, תנו <strong>העדפה</strong>. עם יותר קלפים בסדרה השנייה, עשו פאס. עם אורך שווה או יותר בסדרה הראשונה, חזרו אליה ברמה הזולה ביותר: ${B('1D')} – ${B('1S')} – ${B('2C')} – <strong>${B('2D')}</strong>.</li>
+        <li>אחרת, תנו <strong>העדפה</strong>. עם יותר קלפים בסדרה השנייה, הכריזו פאס. עם אורך שווה או יותר בסדרה הראשונה, חזרו אליה ברמה הזולה ביותר: ${B('1D')} – ${B('1S')} – ${B('2C')} – <strong>${B('2D')}</strong>.</li>
         <li>העדפה לא מראה כוח נוסף. עם 11-12, תמכו או הכריזו 2NT כדי להזמין.</li>
       </ul>
       <p><strong>כשהשותף מראה יד גדולה</strong> (הכרזה חוזרת של 2NT עם 18-19, או קפיצה בסדרה חדשה עם 18 ומעלה), הכריזו משחק מלא: 3NT, או 4 בסדרת מייגור כשיש התאמה.
@@ -742,7 +742,7 @@ const LESSONS_HE = [
       </ul>
 
       <h3>${B('2C')} חזקה</h3>
-      <p>${B('2C')} מראה 22 נק' ומעלה (או יד עם תשע לקיחות) ומחייבת. המשיב מכריז <strong>${B('2D')}</strong> (מלאכותית, "המתנה") עם רוב הידיים.
+      <p>${B('2C')} מראה 23 נק' ומעלה (או יד עם תשע לקיחות) ומחייבת. המשיב מכריז <strong>${B('2D')}</strong> (מלאכותית, "המתנה") עם רוב הידיים.
       עם 8 נק' ומעלה וסדרה טובה של 5 קלפים (שניים משלושת הקלפים הגבוהים), תנו תשובה חיובית בסדרה (${B('2H')}, ${B('2S')}, ${B('3C')}, ${B('3D')}). עם 8 ומעלה ויד מאוזנת, הכריזו 2NT.</p>
 
       <h3>ג'ייקובי 2NT</h3>
@@ -854,7 +854,7 @@ const LESSONS_HE = [
     title: 'טכניקות מתקדמות',
     body: `
       <p>כשהיסודות כבר נוחים, שתי טכניקות זוכות בלקיחות שנראות בלתי אפשריות.</p>
-      <h3>לחצים</h3>
+      <h3>משחקי לחץ</h3>
       <p>ממשו זוכים עד שמגן ששומר על שתי סדרות נאלץ להשליך את אחת השמירות. לחץ צריך שני איומים, מגן אחד ששומר על שניהם, ספירה נכונה (אפשר לזכות בכל הלקיחות שנשארו פרט לאחת) וכניסות.</p>
       <h3>משחקי סיום</h3>
       <p>נקו את הסדרות הצדדיות, ואז הכניסו מגן ללקיחה שהוא חייב לזכות בה. אז הוא חייב להוביל לתוך המזלג שלכם (כמו A-Q), או לתת לכם חיתוך והשלכה.</p>

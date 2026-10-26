@@ -43,6 +43,7 @@ responder = המשיב
 auction = מכרז
 bid / call = הכרזה / הכרזות
 pass = פאס
+to pass (the verb) = להכריז פאס               # e.g. "הכריזו פאס", "מכריזים פאס"; not "לעשות פאס"
 double = דאבל
 redouble = רידאבל
 contract = חוזה
@@ -125,6 +126,7 @@ signal = איתות
 
 # ---- Advanced ----
 squeeze = לחץ
+squeezes (as a topic heading) = משחקי לחץ
 threat (card) = איום
 squeeze card = קלף הלחץ
 victim = קורבן

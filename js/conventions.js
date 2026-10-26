@@ -25,7 +25,7 @@ function respondTo1NT(hand) {
       : '';
     return { bid, why: L(
       `<strong>Jacoby transfer.</strong> With 5+ ${SUIT_NAME[major]}, bid the suit just below: ${bidHtml(bid)}. Partner must bid ${bidHtml('2' + major)}, so the strong 1NT hand becomes declarer and its cards stay hidden. Transfer with any strength: with a weak hand you pass ${bidHtml('2' + major)}, and with more you bid again.${both}`,
-      `<strong>טרנספר ג'ייקובי.</strong> עם 5 ${SUIT_NAME[major]} ומעלה, הכריזו את הסדרה שמתחתיה: ${bidHtml(bid)}. השותף חייב להכריז ${bidHtml('2' + major)}, כך שהיד החזקה של ה-1NT הופכת לכרוז והקלפים שלה נשארים מוסתרים. עושים טרנספר עם כל כוח: עם יד חלשה עושים פאס על ${bidHtml('2' + major)}, ועם יותר ממשיכים להכריז.${both}`) };
+      `<strong>טרנספר ג'ייקובי.</strong> עם 5 ${SUIT_NAME[major]} ומעלה, הכריזו את הסדרה שמתחתיה: ${bidHtml(bid)}. השותף חייב להכריז ${bidHtml('2' + major)}, כך שהיד החזקה של ה-1NT הופכת לכרוז והקלפים שלה נשארים מוסתרים. עושים טרנספר עם כל כוח: עם יד חלשה מכריזים פאס על ${bidHtml('2' + major)}, ועם יותר ממשיכים להכריז.${both}`) };
   }
   if ((len.H === 4 || len.S === 4) && pts >= 8) {
     return { bid: '2C', why: L(
@@ -135,7 +135,7 @@ function respondTo2C(hand) {
   }
   return { bid: '2D', why: L(
     `<strong>${bidHtml('2D')} waiting.</strong> With anything else, respond ${bidHtml('2D')}. It's artificial and says nothing about diamonds: it just lets partner describe their big hand. Never pass ${bidHtml('2C')}.`,
-    `<strong>${bidHtml('2D')} המתנה.</strong> עם כל יד אחרת, השיבו ${bidHtml('2D')}. ההכרזה מלאכותית ולא אומרת דבר על דיאמונד: היא רק נותנת לשותף לתאר את היד הגדולה שלו. אף פעם אל תעשו פאס על ${bidHtml('2C')}.`) };
+    `<strong>${bidHtml('2D')} המתנה.</strong> עם כל יד אחרת, השיבו ${bidHtml('2D')}. ההכרזה מלאכותית ולא אומרת דבר על דיאמונד: היא רק נותנת לשותף לתאר את היד הגדולה שלו. אף פעם אל תכריזו פאס על ${bidHtml('2C')}.`) };
 }
 
 // ---------- Scenarios ----------
@@ -234,13 +234,13 @@ const CONVENTION_SCENARIOS = {
     label: L('Responding to 2♣', 'תשובה ל-2♣'),
     generate() {
       const hand = dealHands()[0];
-      if (hcp(hand) > 14) return null; // opposite 22+, responder can't hold much
+      if (hcp(hand) > 14) return null; // opposite 23+, responder can't hold much
       const answer = respondTo2C(hand);
       if (answer.bid === '2D' && Math.random() < 0.5) return null;
       return {
         hand, answer, allowed: bidsAbove('2C'),
         context: auctionHtml(PARTNER_FIRST, [['2C', 'P', '?', '']],
-          L(`Partner opens ${bidHtml('2C')}: strong and artificial, 22+ HCP.`, `השותף פותח ${bidHtml('2C')}: חזקה ומלאכותית, 22 נק' ומעלה.`)),
+          L(`Partner opens ${bidHtml('2C')}: strong and artificial, 23+ HCP.`, `השותף פותח ${bidHtml('2C')}: חזקה ומלאכותית, 23 נק' ומעלה.`)),
       };
     },
   },

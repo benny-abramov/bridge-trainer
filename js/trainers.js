@@ -109,13 +109,13 @@ function openingBid(hand) {
   const [first, second] = Object.values(len).sort((a, b) => b - a);
   const ruleOf20 = pts + first + second;
 
-  if (pts >= 22) {
+  if (pts >= 23) {
     return { bid: '2C', why: L(
-      `${pts} HCP is 22 or more, so open ${bh('2C')}: the strong, artificial opening. It says nothing about clubs. It tells partner you have a very big hand.`,
-      `${pts} נק' הן 22 ומעלה, ולכן פתחו ${bh('2C')}: הפתיחה החזקה והמלאכותית. היא לא אומרת דבר על קלאב, אלא מספרת לשותף שיש לכם יד גדולה מאוד.`) };
+      `${pts} HCP is 23 or more, so open ${bh('2C')}: the strong, artificial opening. It says nothing about clubs. It tells partner you have a very big hand.`,
+      `${pts} נק' הן 23 ומעלה, ולכן פתחו ${bh('2C')}: הפתיחה החזקה והמלאכותית. היא לא אומרת דבר על קלאב, אלא מספרת לשותף שיש לכם יד גדולה מאוד.`) };
   }
-  if (bal && pts >= 20 && pts <= 21) {
-    return { bid: '2N', why: L(`Balanced with ${pts} HCP (20–21): open 2NT.`, `יד מאוזנת עם ${pts} נק' (20-21): פתחו 2NT.`) };
+  if (bal && pts >= 20 && pts <= 22) {
+    return { bid: '2N', why: L(`Balanced with ${pts} HCP (20–22): open 2NT.`, `יד מאוזנת עם ${pts} נק' (20-22): פתחו 2NT.`) };
   }
   if (bal && pts >= 15 && pts <= 17) {
     return { bid: '1N', why: L(
@@ -271,8 +271,8 @@ function responseBid(hand, open) {
 // Opener's rebid after partner raises, makes a 1-level new-suit response, or responds 1NT.
 // `open` is the opening suit and `resp` partner's response ('2H', '1S', '1N', ...). Returns { bid, why }.
 const STRENGTH_TEXT = L(
-  { min: 'a minimum hand (12–14)', med: 'a medium hand (15–17)', max: 'a maximum hand (18–21)' },
-  { min: 'יד מינימום (12-14)', med: 'יד בינונית (15-17)', max: 'יד מקסימום (18-21)' });
+  { min: 'a minimum hand (12–14)', med: 'a medium hand (15–17)', max: 'a maximum hand (18–22)' },
+  { min: 'יד מינימום (12-14)', med: 'יד בינונית (15-17)', max: 'יד מקסימום (18-22)' });
 
 function rebidBid(hand, open, resp) {
   const pts = hcp(hand);
@@ -495,7 +495,7 @@ function responderRebid(hand, open, resp, rebid) {
           `${strength}, ו-${len[you]} ${name(you)}: קפצו ל-${bh('3' + you)} כדי להזמין למשחק מלא עם סדרה ארוכה.`) }
         : { bid: '2' + you, why: L(
           `${strength} and ${len[you]} ${name(you)}: rebid ${bh('2' + you)}. Repeating your suit shows 6+ cards and asks partner to pass.`,
-          `${strength}, ו-${len[you]} ${name(you)}: הכריזו ${bh('2' + you)}. חזרה על הסדרה מראה 6 קלפים ומעלה ומבקשת מהשותף לעשות פאס.`) };
+          `${strength}, ו-${len[you]} ${name(you)}: הכריזו ${bh('2' + you)}. חזרה על הסדרה מראה 6 קלפים ומעלה ומבקשת מהשותף להכריז פאס.`) };
     }
     return inv
       ? { bid: '2N', why: L(
@@ -551,7 +551,7 @@ function responderRebid(hand, open, resp, rebid) {
       if (len[you] >= 6 && len[open] <= 1) {
         return { bid: '2' + you, why: L(
           `${strength}, a singleton in partner's suit and ${len[you]} ${name(you)}: rebid ${bh('2' + you)}. It suggests playing there and asks partner to pass.`,
-          `${strength}, סינגלטון בסדרה של השותף ו-${len[you]} ${name(you)}: הכריזו ${bh('2' + you)}. זה מציע לשחק שם ומבקש מהשותף לעשות פאס.`) };
+          `${strength}, סינגלטון בסדרה של השותף ו-${len[you]} ${name(you)}: הכריזו ${bh('2' + you)}. זה מציע לשחק שם ומבקש מהשותף להכריז פאס.`) };
       }
       return { bid: 'P', why: L(
         `${strength}. Partner's ${bh('2' + open)} shows a minimum with 6+ ${name(open)}, so game is out of reach: pass.`,
@@ -597,7 +597,7 @@ function responderRebid(hand, open, resp, rebid) {
     if (len[you] >= 6 && len[open] <= 2 && len[rz] <= 3) {
       return { bid: '2' + you, why: L(
         `${strength}, no fit for partner and ${len[you]} ${name(you)}: rebid ${bh('2' + you)} to show 6+ cards and ask partner to pass.`,
-        `${strength}, בלי התאמה לשותף ו-${len[you]} ${name(you)}: הכריזו ${bh('2' + you)} כדי להראות 6 קלפים ומעלה ולבקש מהשותף לעשות פאס.`) };
+        `${strength}, בלי התאמה לשותף ו-${len[you]} ${name(you)}: הכריזו ${bh('2' + you)} כדי להראות 6 קלפים ומעלה ולבקש מהשותף להכריז פאס.`) };
     }
     return len[rz] > len[open]
       ? { bid: 'P', why: L(
@@ -869,7 +869,7 @@ const RespondingTrainer = makeBidDrill({
       answer,
       context: L(
         `Partner opens <strong>${bh('1' + open)}</strong>. The opponents pass. What do you respond?`,
-        `השותף פותח <strong>${bh('1' + open)}</strong>. היריבים עושים פאס. מה תשיבו?`),
+        `השותף פותח <strong>${bh('1' + open)}</strong>. היריבים מכריזים פאס. מה תשיבו?`),
       allowed: bid => bid === 'P' || ALL_BIDS.indexOf(bid) > openIndex,
     };
   },

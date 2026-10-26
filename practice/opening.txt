@@ -75,8 +75,8 @@ Explanation: With 4 cards in both minors open 1D
 
 Hand: S AK9 H AQ105 D AKJ7 C K7
 Answer: 2C
-Explanation: With more than 21 HCP, open 2C, artificial bid that does not promise clubs, just strength
-הסבר: עם יותר מ-21 נק', פתחו 2♣: הכרזה מלאכותית שלא מבטיחה קלאב, רק כוח.
+Explanation: With more than 22 HCP, open 2C, artificial bid that does not promise clubs, just strength
+הסבר: עם יותר מ-22 נק', פתחו 2♣: הכרזה מלאכותית שלא מבטיחה קלאב, רק כוח.
 
 Hand: S 102 H AQ108753 D 32 C 98
 Answer: 3H
