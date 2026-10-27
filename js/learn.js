@@ -232,7 +232,7 @@ const LESSONS_EN = [
         <tr><td>11–12 HCP, none of the above</td><td>2NT, inviting game</td></tr>
         <tr><td>13–15 HCP, none of the above</td><td>3NT, bidding game</td></tr>
       </table>
-      <p><strong>Support points.</strong> When you have support for partner's suit, your short suits help too: as dummy you can ruff declarer's losers in them. So add <strong>1 point for a doubleton, 2 for a singleton and 3 for a void</strong> to your HCP. For example, after partner's 1${S}, a hand with 4 spades, 8 HCP and a singleton has 10 support points: raise to 2${S}. The same goes for any hand that raises partner, including opener raising responder's suit.</p>
+      <p><strong>Support points.</strong> When you have support for partner's suit, your short suits help too: as dummy you can ruff declarer's losers in them. So add <strong>1 point for a doubleton, 2 for a singleton and 3 for a void</strong> to your HCP. For example, after partner's 1${S}, a hand with 4 spades, 8 HCP and a singleton has 10 support points: raise to 2${S}. The same goes for any hand that raises partner, including opener raising responder's suit. Only the hand with the shorter trumps counts its short suits. The hand with the longer trumps, the one partner raised, counts <strong>length points</strong> instead: 1 for each trump beyond four (1 for five, 2 for six, and so on).</p>
       <p>The aim of the auction is to find an <strong>8-card fit</strong> (or settle in no-trump) and the right level for your combined strength.
       With 13+ HCP you have enough for game opposite an opening bid. Those hands use more advanced bids, so the drill doesn't include them.</p>`,
     tryIt: 'responding',
@@ -648,7 +648,7 @@ const LESSONS_HE = [
         <tr><td>11-12 נק', אף אחד מאלה</td><td>2NT, הזמנה למשחק מלא</td></tr>
         <tr><td>13-15 נק', אף אחד מאלה</td><td>3NT, הכרזת משחק מלא</td></tr>
       </table>
-      <p><strong>נקודות תמיכה.</strong> כשיש לכם תמיכה בסדרה של השותף, גם הסדרות הקצרות שלכם עוזרות: כדומם אפשר לחתוך בהן את המפסידים של הכרוז. לכן הוסיפו לנקודות <strong>נקודה אחת על דאבלטון, 2 על סינגלטון ו-3 על חוסר</strong>. לדוגמה, אחרי 1${S} של השותף, יד עם 4 ספייד, 8 נק' וסינגלטון שווה 10 נקודות תמיכה: תמכו ב-2${S}. כך גם בכל יד שתומכת בשותף, כולל הפותח שתומך בסדרה של המשיב.</p>
+      <p><strong>נקודות תמיכה.</strong> כשיש לכם תמיכה בסדרה של השותף, גם הסדרות הקצרות שלכם עוזרות: כדומם אפשר לחתוך בהן את המפסידים של הכרוז. לכן הוסיפו לנקודות <strong>נקודה אחת על דאבלטון, 2 על סינגלטון ו-3 על חוסר</strong>. לדוגמה, אחרי 1${S} של השותף, יד עם 4 ספייד, 8 נק' וסינגלטון שווה 10 נקודות תמיכה: תמכו ב-2${S}. כך גם בכל יד שתומכת בשותף, כולל הפותח שתומך בסדרה של המשיב. רק היד עם השליטים הקצרים יותר סופרת את הסדרות הקצרות שלה. היד עם השליטים הארוכים יותר, זו שהשותף תמך בה, סופרת במקום זאת <strong>נקודות אורך</strong>: נקודה על כל שליט מעבר לארבעה (1 על חמישה, 2 על שישה וכן הלאה).</p>
       <p>מטרת המכרז היא למצוא <strong>התאמה של 8 קלפים</strong> (או להתייצב בללא שליט) ואת הרמה הנכונה לכוח המשותף.
       עם 13 נק' ומעלה יש לכם מספיק למשחק מלא מול הכרזת פתיחה. ידיים כאלה משתמשות בהכרזות מתקדמות יותר, ולכן הן לא כלולות בתרגול.</p>`,
     tryIt: 'responding',

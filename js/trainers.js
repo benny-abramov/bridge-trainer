@@ -48,6 +48,20 @@ function supportText(hand, trump) {
   return L(`${pts} HCP + ${parts.join(' + ')} = ${sp} support points`, `${pts} נק' + ${parts.join(' + ')} = ${sp} נקודות תמיכה`);
 }
 
+// Length points: the hand with the longer trumps (the one partner raised) doesn't count its short
+// suits, since the ruffs happen in partner's hand. Instead it counts 1 for each trump beyond four.
+function lengthPoints(hand, trump) {
+  return hcp(hand) + Math.max(0, suitLengths(hand)[trump] - 4);
+}
+
+// "13 HCP + 1 for 5 spades = 14 points", or just "13 HCP" with only four.
+function lengthText(hand, trump) {
+  const n = suitLengths(hand)[trump], pts = hcp(hand), extra = n - 4;
+  if (extra <= 0) return hcpText(pts);
+  return L(`${pts} HCP + ${extra} for ${n} ${SUIT_NAME[trump]} = ${pts + extra} points`,
+    `${pts} נק' + ${extra} על ${n} ${SUIT_NAME[trump]} = ${pts + extra} נקודות`);
+}
+
 const HcpTrainer = (() => {
   const stats = makeStats();
   let hand, answered, item = null, practiceIndex = 0;
@@ -318,7 +332,7 @@ function rebidBid(hand, open, resp) {
   const str = pts >= 18 ? 'max' : pts >= 15 ? 'med' : 'min';
   const you = L(`${pts} HCP is ${STRENGTH_TEXT[str]}`, `${pts} נק' הן ${STRENGTH_TEXT[str]}`);
   const [rLevel, rSuit] = [Number(resp[0]), resp[1]];
-  // Raising partner's suit, you count support points instead.
+  // Once a fit is found you count support points (raising partner) or length points (raised by partner).
   const raiseStr = sp => (sp >= 18 ? 'max' : sp >= 15 ? 'med' : 'min');
   const raiser = trump => {
     const s = raiseStr(supportPoints(hand, trump));
@@ -331,18 +345,20 @@ function rebidBid(hand, open, resp) {
     ' With a minor-suit fit, 3NT (9 tricks) is usually easier than 5 of a minor (11 tricks).',
     ' עם התאמה בסדרת מיינור, 3NT (9 לקיחות) בדרך כלל קל יותר מ-5 בסדרת מיינור (11 לקיחות).');
 
-  // Partner raised your suit.
+  // Partner raised your suit: you have the long trumps, so count length points.
   if (rSuit === open) {
+    const str = raiseStr(lengthPoints(hand, open));
+    const you = `${lengthText(hand, open)}: ${STRENGTH_TEXT[str]}`;
     if (rLevel === 2) {
       if (str === 'min') return { bid: 'P', why: L(
-        `${you}. Partner's raise shows 6–10 HCP, so you can't reach the 25 HCP needed for game. Pass.`,
-        `${you}. התמיכה של השותף מראה 6-10 נק', כך שאי אפשר להגיע ל-25 הנקודות הדרושות למשחק מלא. פאס.`) };
+        `${you}. Partner's raise shows 6–10 points, so you can't reach the 25 needed for game. Pass.`,
+        `${you}. התמיכה של השותף מראה 6-10 נקודות, כך שאי אפשר להגיע ל-25 הנקודות הדרושות למשחק מלא. פאס.`) };
       if (str === 'med') return { bid: '3' + open, why: L(
         `${you}. Game is possible if partner is at the top of their 6–10 range, so invite with ${bh('3' + open)}.`,
         `${you}. משחק מלא אפשרי אם השותף בראש הטווח שלו (6-10), ולכן הזמינו ב-${bh('3' + open)}.`) };
       return { bid: game, why: L(
-        `${you}. Even opposite 6 HCP you have enough for game: bid ${bh(game)}.${minorGame}`,
-        `${you}. גם מול 6 נק' יש לכם מספיק למשחק מלא: הכריזו ${bh(game)}.${minorGame}`) };
+        `${you}. Even opposite 6 points you have enough for game: bid ${bh(game)}.${minorGame}`,
+        `${you}. גם מול 6 נקודות יש לכם מספיק למשחק מלא: הכריזו ${bh(game)}.${minorGame}`) };
     }
     if (str === 'min') return { bid: 'P', why: L(
       `${you}. Partner's limit raise invites game. With a minimum, decline by passing.`,
@@ -518,25 +534,26 @@ function responderRebid(hand, open, resp, rebid) {
     ? L(`You have ${pts} HCP, enough to invite game (11–12)`, `יש לכם ${pts} נק', מספיק כדי להזמין למשחק מלא (11-12)`)
     : L(`You have ${pts} HCP, a minimum response (6–10)`, `יש לכם ${pts} נק', תשובת מינימום (6-10)`);
 
-  // Partner raised your suit.
+  // Partner raised your suit: you have the long trumps, so count length points.
   if (rz === you) {
+    const total = lengthPoints(hand, you), count = lengthText(hand, you);
     if (rl === 2) {
-      return inv
+      return total >= 11
         ? { bid: '3' + you, why: L(
-          `${strength}. Partner's raise shows 12–14, so game is possible: invite with ${bh('3' + you)}.`,
-          `${strength}. התמיכה של השותף מראה 12-14, ולכן משחק מלא אפשרי: הזמינו ב-${bh('3' + you)}.`) }
+          `${count}, enough to invite game (11–12). Partner's raise shows 12–14, so game is possible: invite with ${bh('3' + you)}.`,
+          `${count}, מספיק כדי להזמין למשחק מלא (11-12). התמיכה של השותף מראה 12-14, ולכן משחק מלא אפשרי: הזמינו ב-${bh('3' + you)}.`) }
         : { bid: 'P', why: L(
-          `${strength}. Partner's raise shows a minimum opening (12–14), so game is out of reach: pass.`,
-          `${strength}. התמיכה של השותף מראה פתיחת מינימום (12-14), ולכן משחק מלא לא בהישג יד: פאס.`) };
+          `${count}, a minimum response (6–10). Partner's raise shows a minimum opening (12–14), so game is out of reach: pass.`,
+          `${count}, תשובת מינימום (6-10). התמיכה של השותף מראה פתיחת מינימום (12-14), ולכן משחק מלא לא בהישג יד: פאס.`) };
     }
     if (rl === 3) {
-      return pts >= 9
+      return total >= 9
         ? { bid: game(you), why: L(
-          `You have ${pts} HCP. Partner's jump raise shows 15–17 and invites game, and you have enough to accept: bid ${bh(game(you))}.${minorNote(you)}`,
-          `יש לכם ${pts} נק'. הקפיצה של השותף מראה 15-17 ומזמינה למשחק מלא, ויש לכם מספיק כדי לקבל: הכריזו ${bh(game(you))}.${minorNote(you)}`) }
+          `You have ${count}. Partner's jump raise shows 15–17 and invites game, and you have enough to accept: bid ${bh(game(you))}.${minorNote(you)}`,
+          `יש לכם ${count}. הקפיצה של השותף מראה 15-17 ומזמינה למשחק מלא, ויש לכם מספיק כדי לקבל: הכריזו ${bh(game(you))}.${minorNote(you)}`) }
         : { bid: 'P', why: L(
-          `You have ${pts} HCP. Partner's jump raise invites game, but with a bare minimum you decline by passing.`,
-          `יש לכם ${pts} נק'. הקפיצה של השותף מזמינה למשחק מלא, אבל עם מינימום חשוף דחו את ההזמנה בפאס.`) };
+          `You have ${count}. Partner's jump raise invites game, but with a bare minimum you decline by passing.`,
+          `יש לכם ${count}. הקפיצה של השותף מזמינה למשחק מלא, אבל עם מינימום חשוף דחו את ההזמנה בפאס.`) };
     }
     return { bid: 'P', why: L('Partner has bid game. With no interest in slam, pass.', 'השותף הכריז משחק מלא. בלי עניין בסלאם, פאס.') };
   }
