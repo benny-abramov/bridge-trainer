@@ -208,6 +208,10 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 .fin-row { display: flex; align-items: center; gap: .6rem; }
 .fin-trump { margin: -.3rem 0 .6rem; font-weight: 600; }
 .fin-setup { margin: -.3rem 0 .7rem; }
+.fin-legend { margin: -.4rem 0 .7rem; font-size: .85rem; color: var(--muted); }
+/* Every card is positioned so the raised one keeps its place in the fan and doesn't hide the next card's corner. */
+.fin-table .card { position: relative; }
+.fin-table .card.led { transform: translateY(-10px); box-shadow: 0 0 0 3px var(--hint), 0 6px 12px rgba(0, 0, 0, .35); }
 .fin-cases.single { grid-template-columns: minmax(0, 1fr); max-width: 26rem; margin-inline: auto; }
 .fin-chance { margin: .9rem 0; padding: .5rem .7rem; border: 1px solid var(--border); border-radius: 8px; background: var(--accent-soft); font-weight: 600; }
 

@@ -1105,11 +1105,12 @@ const FinesseLayouts = (() => {
   // Holdings use 'x' for a small card; '' is a void. Each case gives the defenders' honors and the
   // tricks the suit makes when you play it the recommended way. `trump` names the trump suit when
   // the play needs one; South then also shows a small trump next to the void.
-  // Defense kinds (`defense: true`) instead give all four `hands`, with you as West, a `setup`
-  // line, and cases counting declarer's tricks, so fewer is better.
+  // Defense kinds (`defense: true`) instead give all four `hands`, with you as West (or as `you`:
+  // 'e'), a `setup` line, and cases counting declarer's tricks, so fewer is better.
+  // `lead: [seat, index]` raises the card that is led: the index-th card of that seat's holding.
   const KINDS = {
     simple: {
-      title: ['Simple finesse: A-Q', 'עקיפה פשוטה: A-Q'], north: 'AQ', south: 'xx',
+      title: ['Simple finesse: A-Q', 'עקיפה פשוטה: A-Q'], north: 'AQ', south: 'xx', lead: ['s', 0],
       cases: [
         { w: 'K', e: '', tricks: 2, title: ['King with West (on your left)', 'המלך אצל מערב (משמאלכם)'],
           text: ['Lead low toward the queen. If West plays low, the queen wins; if West plays the king, the ace takes it and the queen is high.',
@@ -1121,7 +1122,7 @@ const FinesseLayouts = (() => {
       chance: ['Two tricks whenever West has the king: about 50%.', 'שתי לקיחות בכל פעם שהמלך אצל מערב: בערך 50%.'],
     },
     toward: {
-      title: ['Leading toward an honor: K-x', 'הובלה לעבר הונור: K-x'], north: 'xx', south: 'Kx',
+      title: ['Leading toward an honor: K-x', 'הובלה לעבר הונור: K-x'], north: 'xx', south: 'Kx', lead: ['n', 0],
       cases: [
         { w: '', e: 'A', tricks: 1, title: ['Ace with East (on your right)', 'האס אצל מזרח (מימינכם)'],
           text: ['Lead low from dummy. If East plays low, the king wins; if East takes the ace, the king is high later.',
@@ -1134,7 +1135,7 @@ const FinesseLayouts = (() => {
         'לקיחה אחת בכל פעם שהאס אצל מזרח: בערך 50%. הובלת המלך בעצמכם אף פעם לא זוכה.'],
     },
     queen: {
-      title: ['Finesse against the queen: A-K-J', 'עקיפה נגד המלכה: A-K-J'], north: 'AKJ', south: 'xxx',
+      title: ['Finesse against the queen: A-K-J', 'עקיפה נגד המלכה: A-K-J'], north: 'AKJ', south: 'xxx', lead: ['s', 0],
       cases: [
         { w: 'Q', e: '', tricks: 3, title: ['Queen with West (on your left)', 'המלכה אצל מערב (משמאלכם)'],
           text: ['Lead low toward dummy. If West plays low, the jack wins; if West plays the queen, win and the jack is high.',
@@ -1145,7 +1146,7 @@ const FinesseLayouts = (() => {
       chance: ['Three tricks whenever West has the queen: about 50%.', 'שלוש לקיחות בכל פעם שהמלכה אצל מערב: בערך 50%.'],
     },
     kj: {
-      title: ['Leading toward K-J', 'הובלה לעבר K-J'], north: 'KJx', south: 'xxx',
+      title: ['Leading toward K-J', 'הובלה לעבר K-J'], north: 'KJx', south: 'xxx', lead: ['s', 0],
       cases: [
         { w: 'AQ', e: '', tricks: 2, title: ['Ace and queen with West', 'האס והמלכה אצל מערב'],
           text: ['Lead low and play the jack: it wins. Lead low again and the king wins too.',
@@ -1163,7 +1164,7 @@ const FinesseLayouts = (() => {
       chance: ['Two tricks about 25% of the time, at least one about 75%.', 'שתי לקיחות בערך ב-25% מהמקרים, לפחות אחת בערך ב-75%.'],
     },
     double: {
-      title: ['Double finesse: A-Q-10', 'עקיפה כפולה: A-Q-10'], north: 'AQT', south: 'xxx',
+      title: ['Double finesse: A-Q-10', 'עקיפה כפולה: A-Q-10'], north: 'AQT', south: 'xxx', lead: ['s', 0],
       cases: [
         { w: 'KJ', e: '', tricks: 3, title: ['King and jack with West', 'המלך והנסיך אצל מערב'],
           text: ['Lead low and play the 10: it wins. Lead low again and play the queen: it wins too.',
@@ -1178,7 +1179,7 @@ const FinesseLayouts = (() => {
       chance: ['Three tricks about 25% of the time, at least two about 75%.', 'שלוש לקיחות בערך ב-25% מהמקרים, לפחות שתיים בערך ב-75%.'],
     },
     ruffing: {
-      title: ['Ruffing finesse: A-Q-J / void', 'עקיפת חיתוך: A-Q-J / חוסר'], north: 'AQJ', south: '', trump: 'H',
+      title: ['Ruffing finesse: A-Q-J / void', 'עקיפת חיתוך: A-Q-J / חוסר'], north: 'AQJ', south: '', trump: 'H', lead: ['n', 1],
       cases: [
         { w: '', e: 'K', tricks: 3, title: ['King with East (on your right)', 'המלך אצל מזרח (מימינכם)'],
           text: ['Lead the queen from dummy. If East covers with the king, ruff it with a heart (trump) and the jack is high; if East plays low, throw a loser and the queen wins.',
@@ -1194,30 +1195,30 @@ const FinesseLayouts = (() => {
       title: ['Second hand low', 'יד שנייה נמוך'], defense: true,
       setup: ["Declarer (South) leads a small card toward dummy's queen. You are West, the second hand to play.",
         'הכרוז (דרום) מוביל קלף קטן לעבר המלכה של הדומם. אתם במערב, היד השנייה לשחק.'],
-      hands: { n: 'Qxx', w: 'Axx', e: 'xxx', s: 'Kxx' },
+      hands: { n: 'Qxx', w: 'Axx', e: 'JTx', s: 'Kxx' }, lead: ['s', 1],
       cases: [
         { tricks: 1, title: ['You play low', 'אתם משחקים נמוך'],
-          text: ["Dummy's queen wins. When declarer later plays the king, you play after it and your ace captures it. Declarer makes one trick and you make the ace.",
-            'המלכה של הדומם זוכה. כשהכרוז ישחק אחר כך את המלך, אתם משחקים אחריו והאס שלכם תופס אותו. הכרוז לוקח לקיחה אחת ואתם את האס.'] },
+          text: ["Dummy's queen wins. When declarer later plays the king, you play after it and your ace captures it, and then partner's jack is the highest card left. You win two tricks; declarer makes only the queen.",
+            'המלכה של הדומם זוכה. כשהכרוז ישחק אחר כך את המלך, אתם משחקים אחריו והאס שלכם תופס אותו, ואז הנסיך של השותף הוא הקלף הגבוה שנשאר. אתם זוכים בשתי לקיחות; הכרוז לוקח רק את המלכה.'] },
         { tricks: 2, title: ['You play the ace', 'אתם משחקים את האס'],
-          text: ["Your ace captures only small cards, and declarer's king and queen are both left as winners: two tricks.",
-            'האס שלכם תופס רק קלפים קטנים, והמלך והמלכה של הכרוז נשארים שניהם זוכים: שתי לקיחות.'] },
+          text: ["Your ace captures only small cards. Declarer's king and queen are both left as winners, and partner's jack and 10 fall under them: you win only one trick.",
+            'האס שלכם תופס רק קלפים קטנים. המלך והמלכה של הכרוז נשארים שניהם זוכים, והנסיך וה-10 של השותף נופלים תחתיהם: אתם זוכים רק בלקיחה אחת.'] },
       ],
       chance: ["Save your ace for one of declarer's honors. Played second, it usually captures only small cards.",
         'שמרו את האס לאחד ההונורים של הכרוז. כשמשחקים אותו כיד שנייה, הוא בדרך כלל תופס רק קלפים קטנים.'],
     },
     third: {
       title: ['Third hand high', 'יד שלישית גבוה'], defense: true,
-      setup: ['Partner (East) leads a small card and declarer plays low. You are West, the third hand; dummy plays after you.',
-        'השותף (מזרח) מוביל קלף קטן והכרוז משחק נמוך. אתם במערב, היד השלישית; הדומם משחק אחריכם.'],
-      hands: { n: 'AJx', w: 'Kxx', e: 'Qxxx', s: 'xxx' },
+      setup: ['Partner (West) leads a small card and dummy plays low. You are East, the third hand; declarer (South) plays after you.',
+        'השותף (מערב) מוביל קלף קטן והדומם משחק נמוך. אתם במזרח, היד השלישית; הכרוז (דרום) משחק אחריכם.'],
+      hands: { n: 'xxx', w: 'Qxxx', e: 'Kxx', s: 'AJx' }, you: 'e', lead: ['w', 1],
       cases: [
         { tricks: 1, title: ['You play the king', 'אתם משחקים את המלך'],
-          text: ["Dummy has to spend the ace on your king. Partner's queen now sits over dummy's jack, so declarer makes only the ace.",
-            'הדומם חייב להוציא את האס על המלך שלכם. המלכה של השותף יושבת עכשיו מעל הנסיך של הדומם, ולכן הכרוז לוקח רק את האס.'] },
+          text: ["Declarer has to spend the ace on your king. Partner's queen is now higher than declarer's jack, so declarer makes only the ace.",
+            'הכרוז חייב להוציא את האס על המלך שלכם. המלכה של השותף גבוהה עכשיו מהנסיך של הכרוז, ולכן הכרוז לוקח רק את האס.'] },
         { tricks: 2, title: ['You play low', 'אתם משחקים נמוך'],
-          text: ['Dummy wins cheaply with the jack and still has the ace: two tricks.',
-            'הדומם זוכה בזול עם הנסיך, והאס עדיין אצלו: שתי לקיחות.'] },
+          text: ['Declarer wins cheaply with the jack and still has the ace: two tricks.',
+            'הכרוז זוכה בזול עם הנסיך, והאס עדיין אצלו: שתי לקיחות.'] },
       ],
       chance: ["When partner leads, play your highest card so declarer can't win cheaply. With touching cards such as K-Q, play the cheaper one, the queen.",
         'כשהשותף מוביל, שחקו את הקלף הגבוה שלכם כדי שהכרוז לא יזכה בזול. עם קלפים צמודים כמו K-Q, שחקו את הזול מביניהם, המלכה.'],
@@ -1226,7 +1227,7 @@ const FinesseLayouts = (() => {
       title: ['Cover an honor with an honor', 'כסו הונור בהונור'], defense: true,
       setup: ['Declarer (South) leads the queen. You are West with the king, and dummy, playing after you, has the ace.',
         'הכרוז (דרום) מוביל את המלכה. אתם במערב עם המלך, ולדומם, שמשחק אחריכם, יש את האס.'],
-      hands: { n: 'Axx', w: 'Kxx', e: 'JTx', s: 'Qxx' },
+      hands: { n: 'Axx', w: 'Kxx', e: 'JTx', s: 'Qxx' }, lead: ['s', 0],
       cases: [
         { tricks: 1, title: ['You cover with the king', 'אתם מכסים עם המלך'],
           text: ["Dummy's ace has to take two honors, the queen and your king, in one trick. Partner's jack and 10 become the highest cards, so declarer makes only the ace.",
@@ -1240,13 +1241,13 @@ const FinesseLayouts = (() => {
     },
     return: {
       title: ["Return partner's suit", 'החזירו את הסדרה של השותף'], defense: true,
-      setup: ['Partner (East) led this suit. You won the first trick with the ace and are now on lead.',
-        'השותף (מזרח) הוביל בסדרה הזו. זכיתם בלקיחה הראשונה עם האס, ועכשיו אתם מובילים.'],
-      hands: { n: 'xxx', w: 'Ax', e: 'KQTxx', s: 'Jxx' },
+      setup: ['Partner (West) leads a small card from K-Q-x-x-x. You are East: you win the trick with the ace, and now it is your lead.',
+        'השותף (מערב) מוביל קלף קטן מתוך K-Q-x-x-x. אתם במזרח: אתם זוכים בלקיחה עם האס, ועכשיו ההובלה שלכם.'],
+      hands: { n: 'xxx', w: 'KQxxx', e: 'Ax', s: 'Jxx' }, you: 'e', lead: ['w', 2],
       cases: [
         { tricks: 0, title: ["You return partner's suit", 'אתם מחזירים את הסדרה של השותף'],
-          text: ["Your small card comes through declarer's jack to partner's K-Q-10, and partner takes the rest of the suit. Partner may have no other way to get the lead, so your return is what lets the long suit run.",
-            'הקלף הקטן שלכם עובר דרך הנסיך של הכרוז אל ה-K-Q-10 של השותף, והשותף לוקח את שאר הסדרה. ייתכן שלשותף אין דרך אחרת לקבל את ההובלה, ולכן ההחזרה שלכם היא מה שמאפשר לסדרה הארוכה לרוץ.'] },
+          text: ["Your small card comes through declarer's jack to partner's K-Q, and partner takes the rest of the suit. Partner may have no other way to get the lead, so your return is what lets the long suit run.",
+            'הקלף הקטן שלכם עובר דרך הנסיך של הכרוז אל ה-K-Q של השותף, והשותף לוקח את שאר הסדרה. ייתכן שלשותף אין דרך אחרת לקבל את ההובלה, ולכן ההחזרה שלכם היא מה שמאפשר לסדרה הארוכה לרוץ.'] },
       ],
       chance: ['Partner usually leads a long suit to set it up. Return it when you win a trick, unless you have a clearly better plan.',
         'השותף בדרך כלל מוביל סדרה ארוכה כדי לפתח אותה. החזירו אותה כשאתם זוכים בלקיחה, אלא אם יש לכם תוכנית טובה יותר בבירור.'],
@@ -1256,7 +1257,8 @@ const FinesseLayouts = (() => {
   const t = pair => L(pair[0], pair[1]);
   let dialog;
 
-  function hand(cls, label, ranks, trump) {
+  // `led` is the index of the card led from this hand, or -1.
+  function hand(cls, label, ranks, trump, led = -1) {
     const box = document.createElement('div');
     box.className = 'fin-hand ' + cls;
     box.innerHTML = `<span class="fin-label" dir="auto">${label}</span>`;
@@ -1267,7 +1269,8 @@ const FinesseLayouts = (() => {
       if (trump) renderFan(row, [{ suit: trump, rank: 'x' }]);
       box.appendChild(row);
     } else {
-      renderFan(box, [...ranks].map(rank => ({ suit: 'S', rank })));
+      const fan = renderFan(box, [...ranks].map(rank => ({ suit: 'S', rank })));
+      if (led >= 0) fan.children[led].classList.add('led');
     }
     return box;
   }
@@ -1284,21 +1287,25 @@ const FinesseLayouts = (() => {
     box.innerHTML = `<div class="fin-head">${mark} ${t(c.title)}: ${tricks}</div>`;
     const table = document.createElement('div');
     table.className = 'fin-table';
+    const led = seat => (k.lead && k.lead[0] === seat ? k.lead[1] : -1);
     if (k.defense) {
+      const you = k.you || 'w';
+      const west = you === 'w' ? L('West (you)', 'מערב (אתם)') : L('West (partner)', 'מערב (השותף)');
+      const east = you === 'e' ? L('East (you)', 'מזרח (אתם)') : L('East (partner)', 'מזרח (השותף)');
       table.append(
-        hand('n', L('North (dummy)', 'צפון (דומם)'), k.hands.n),
-        hand('w', L('West (you)', 'מערב (אתם)'), k.hands.w),
-        hand('e', L('East (partner)', 'מזרח (השותף)'), k.hands.e),
-        hand('s', L('South (declarer)', 'דרום (הכרוז)'), k.hands.s));
+        hand('n', L('North (dummy)', 'צפון (דומם)'), k.hands.n, null, led('n')),
+        hand('w', west, k.hands.w, null, led('w')),
+        hand('e', east, k.hands.e, null, led('e')),
+        hand('s', L('South (declarer)', 'דרום (הכרוז)'), k.hands.s, null, led('s')));
     } else {
       // The defenders' honors, filled out with small cards to the length of your longer hand.
       const len = Math.max(k.north.length, k.south.length);
       const defender = honors => (honors + 'x'.repeat(len)).slice(0, len);
       table.append(
-        hand('n', L('North (dummy)', 'צפון (דומם)'), k.north),
+        hand('n', L('North (dummy)', 'צפון (דומם)'), k.north, null, led('n')),
         hand('w', L('West', 'מערב'), defender(c.w)),
         hand('e', L('East', 'מזרח'), defender(c.e)),
-        hand('s', L('South (you)', 'דרום (אתם)'), k.south, k.trump));
+        hand('s', L('South (you)', 'דרום (אתם)'), k.south, k.trump, led('s')));
     }
     const text = document.createElement('p');
     text.innerHTML = t(c.text);
@@ -1320,7 +1327,8 @@ const FinesseLayouts = (() => {
     const [best, worst] = k.defense ? [Math.min(...tricks), Math.max(...tricks)] : [Math.max(...tricks), Math.min(...tricks)];
     dialog.innerHTML = `<h3>${t(k.title)}</h3>` +
       (k.trump ? `<p class="fin-trump">${suitHtml(k.trump)} ${trumpText(k.trump)}</p>` : '') +
-      (k.setup ? `<p class="fin-setup">${t(k.setup)}</p>` : '');
+      (k.setup ? `<p class="fin-setup">${t(k.setup)}</p>` : '') +
+      (k.lead ? `<p class="fin-legend">${L('The raised, outlined card is the one led.', 'הקלף המורם והמסומן הוא הקלף שמובילים.')}</p>` : '');
     const grid = document.createElement('div');
     grid.className = 'fin-cases' + (k.cases.length === 1 ? ' single' : '');
     k.cases.forEach(c => grid.appendChild(caseBox(c, best, worst)));
