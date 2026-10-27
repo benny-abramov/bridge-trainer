@@ -681,7 +681,7 @@ const PRACTICE = {
    "answer": "P",
    "why": {
     "en": "Not enough HCP or good suit for overcall",
-    "he": ""
+    "he": "אין מספיק נק' או סדרה טובה להכרזת התערבות."
    }
   },
   {
@@ -693,7 +693,7 @@ const PRACTICE = {
    "answer": "1S",
    "why": {
     "en": "Overcall with 1S with 5 card suit",
-    "he": ""
+    "he": "הכרזת התערבות 1♠ עם סדרה של 5 קלפים."
    }
   },
   {
@@ -705,7 +705,7 @@ const PRACTICE = {
    "answer": "P",
    "why": {
     "en": "Not enough HCP or good suit for overcall at the 2 level",
-    "he": ""
+    "he": "אין מספיק נק' או סדרה טובה להכרזת התערבות ברמה 2."
    }
   },
   {
@@ -717,7 +717,7 @@ const PRACTICE = {
    "answer": "2H",
    "why": {
     "en": "Enough HCP and good suit for overcall at the 2 level",
-    "he": ""
+    "he": "יש מספיק נק' וסדרה טובה להכרזת התערבות ברמה 2."
    }
   },
   {
@@ -729,7 +729,7 @@ const PRACTICE = {
    "answer": "X",
    "why": {
     "en": "Takeout double, asking partner to bid his best suit",
-    "he": ""
+    "he": "כפל הוצאה, שמבקש מהשותף להכריז את הסדרה הטובה ביותר שלו."
    }
   },
   {
@@ -740,8 +740,8 @@ const PRACTICE = {
    ],
    "answer": "X",
    "why": {
-    "en": "The hand is too strong for simple 1H overcall, so we bid double and then intend to bid hearts over any reponse from partner. This kind of double is called \"big double\"",
-    "he": ""
+    "en": "The hand is too strong for simple 1H overcall, so we bid double and then intend to bid hearts over any response from partner. This kind of double is called \"big double\"",
+    "he": "היד חזקה מדי להכרזת התערבות פשוטה של 1♥, ולכן מכריזים דאבל ומתכוונים להכריז הארט אחרי כל תשובה של השותף. דאבל כזה נקרא \"דאבל גדול\"."
    }
   },
   {
@@ -753,7 +753,7 @@ const PRACTICE = {
    "answer": "1N",
    "why": {
     "en": "With 15-18 HCP and stopper in opponents suit, bid 1NT",
-    "he": ""
+    "he": "עם 15-18 נק' ועוצר בסדרה של היריבים, הכריזו 1NT."
    }
   },
   {
@@ -765,7 +765,7 @@ const PRACTICE = {
    "answer": "2H",
    "why": {
     "en": "Weak jump overcall, showing 6 cards and 6-10 HCP",
-    "he": ""
+    "he": "קפיצת התערבות חלשה, שמראה 6 קלפים ו-6-10 נק'."
    }
   },
   {
@@ -777,7 +777,7 @@ const PRACTICE = {
    "answer": "3H",
    "why": {
     "en": "Preemptive bid at the 3 level, showing 7 cards and 6-10 HCP",
-    "he": ""
+    "he": "הכרזת חסימה ברמה 3, שמראה 7 קלפים ו-6-10 נק'."
    }
   },
   {
@@ -789,7 +789,7 @@ const PRACTICE = {
    "answer": "4H",
    "why": {
     "en": "Preemptive bid at the 4 level, showing 8 cards",
-    "he": ""
+    "he": "הכרזת חסימה ברמה 4, שמראה 8 קלפים."
    }
   }
  ],
