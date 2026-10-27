@@ -287,16 +287,18 @@ const LESSONS_EN = [
       <ul>
         <li>With 6–10, pass, or sign off at the 2-level in your own 6-card suit.</li>
         <li>With 11–12, invite: raise to the 3-level with a fit, or bid 2NT.</li>
+        <li>With 13+, bid game: in your 8-card fit if you have one, otherwise 3NT.</li>
       </ul>
       <p><strong>When partner shows a second suit:</strong></p>
       <ul>
         <li>With 4 cards in a newly shown major, raise it: to 2 with a minimum, to 3 to invite.</li>
         <li>Otherwise give <strong>preference</strong>. With more cards in the second suit, pass it. With equal length or more in the first suit, go back to it at the cheapest level: 1${D} – 1${S} – 2${C} – <strong>2${D}</strong>.</li>
         <li>Preference shows no extra strength. With 11–12, raise or bid 2NT to invite instead.</li>
+        <li>With 13+, bid game: 4 of a major with an 8-card fit, otherwise 3NT.</li>
       </ul>
       <p><strong>When partner shows a big hand</strong> (a 2NT rebid with 18–19, or a jump shift with 18+), bid game: 3NT, or 4 of a major when you have a fit.
       A <strong>reverse</strong> (16+) is forcing for one round: with a minimum, rebid a 5-card suit or give preference.</p>
-      <p>The drill uses hands of 6–12 HCP. Hands with 13+ need further bidding tools, so they aren't included.</p>`,
+      <p>The drill uses hands of 6–12 HCP. Hands with 13+ often need further bidding tools, so they aren't included.</p>`,
     tryIt: 'rrebid',
   },
   {
@@ -700,16 +702,18 @@ const LESSONS_HE = [
       <ul>
         <li>עם 6-10, פאס, או עצירה ברמת 2 בסדרה של 6 קלפים משלכם.</li>
         <li>עם 11-12, הזמינו: תמיכה ברמת 3 עם התאמה, או 2NT.</li>
+        <li>עם 13 ומעלה, הכריזו משחק מלא: בסדרה שבה יש לכם התאמה של 8 קלפים, אם יש, ואחרת 3NT.</li>
       </ul>
       <p><strong>כשהשותף מראה סדרה שנייה:</strong></p>
       <ul>
         <li>עם 4 קלפים בסדרת מייגור שהשותף הראה זה עתה, תמכו בה: ברמת 2 עם מינימום, ברמת 3 כהזמנה.</li>
         <li>אחרת, תנו <strong>העדפה</strong>. עם יותר קלפים בסדרה השנייה, הכריזו פאס. עם אורך שווה או יותר בסדרה הראשונה, חזרו אליה ברמה הזולה ביותר: <bdi dir="ltr">${B('1D')} – ${B('1S')} – ${B('2C')} – <strong>${B('2D')}</strong></bdi>.</li>
         <li>העדפה לא מראה כוח נוסף. עם 11-12, תמכו או הכריזו 2NT כדי להזמין.</li>
+        <li>עם 13 ומעלה, הכריזו משחק מלא: 4 בסדרת מייגור עם התאמה של 8 קלפים, ואחרת 3NT.</li>
       </ul>
       <p><strong>כשהשותף מראה יד גדולה</strong> (הכרזה חוזרת של 2NT עם 18-19, או קפיצה בסדרה חדשה עם 18 ומעלה), הכריזו משחק מלא: 3NT, או 4 בסדרת מייגור כשיש התאמה.
       <strong>ריברס</strong> (16 ומעלה) מחייב לסיבוב אחד: עם מינימום, חזרו על סדרה של 5 קלפים או תנו העדפה.</p>
-      <p>התרגול משתמש בידיים של 6-12 נק'. ידיים של 13 ומעלה דורשות כלי הכרזה נוספים, ולכן הן לא כלולות.</p>`,
+      <p>התרגול משתמש בידיים של 6-12 נק'. ידיים של 13 ומעלה דורשות לעיתים קרובות כלי הכרזה נוספים, ולכן הן לא כלולות.</p>`,
     tryIt: 'rrebid',
   },
   {
