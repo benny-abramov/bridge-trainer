@@ -260,6 +260,7 @@ const LESSONS_EN = [
         <li>Otherwise use the unbalanced-hand rules below.</li>
       </ol>
       <p><strong>When partner responds 1NT</strong> (6–10, no fit): with a balanced minimum, pass. With balanced 18–19, raise to 2NT. Otherwise use the unbalanced-hand rules.</p>
+      <p><strong>When partner bids a new suit at the 2-level</strong> (a <em>two over one</em>, such as 1${S} – 2${C}), partner has 11+ HCP and you must bid again. Raise partner's hearts with 3 (or a minor with 4, if unbalanced). With a balanced hand, <strong>2NT shows 12–14</strong> and <strong>3NT shows 18–19</strong>. Otherwise use the unbalanced-hand rules; a new suit that needs the 3-level shows 15+.</p>
       <p><strong>Unbalanced hands:</strong></p>
       <ul>
         <li>With a <strong>6-card suit</strong>, rebid it: at the 2-level with a minimum, or jump to the 3-level with 15+.</li>
@@ -267,7 +268,7 @@ const LESSONS_EN = [
         <li>Bidding a <strong>higher-ranking second suit</strong> at the 2-level, as in 1${D} – 1${S} – 2${H}, is a <em>reverse</em>. It needs 16+ HCP.</li>
         <li>With none of these, rebid your own suit at the 2-level.</li>
       </ul>
-      <p>The drill covers these four responses: a simple raise, a limit raise, a new suit at the 1-level and 1NT.</p>`,
+      <p>The drill covers these five responses: a simple raise, a limit raise, a new suit at the 1-level, 1NT and a new suit at the 2-level.</p>`,
     tryIt: 'rebid',
   },
   {
@@ -676,6 +677,7 @@ const LESSONS_HE = [
         <li>אחרת, השתמשו בכללים לידיים לא מאוזנות שלמטה.</li>
       </ol>
       <p><strong>כשהשותף משיב 1NT</strong> (6-10, בלי התאמה): עם מינימום מאוזן, פאס. עם 18-19 מאוזן, הכריזו 2NT. אחרת, השתמשו בכללים לידיים לא מאוזנות.</p>
+      <p><strong>כשהשותף מכריז סדרה חדשה ברמת 2</strong> (<em>שתיים על אחת</em>, כמו <bdi dir="ltr">${B('1S')} – ${B('2C')}</bdi>), לשותף יש 11 נק' ומעלה וחובה להכריז שוב. תמכו בהארט של השותף עם 3 (או בסדרת מיינור עם 4, ביד לא מאוזנת). ביד מאוזנת, <strong>2NT מראה 12-14</strong> ו-<strong>3NT מראה 18-19</strong>. אחרת, השתמשו בכללים לידיים לא מאוזנות; סדרה חדשה שדורשת את רמת 3 מראה 15 ומעלה.</p>
       <p><strong>ידיים לא מאוזנות:</strong></p>
       <ul>
         <li>עם <strong>סדרה של 6 קלפים</strong>, הכריזו אותה שוב: ברמת 2 עם מינימום, או בקפיצה לרמת 3 עם 15 ומעלה.</li>
@@ -683,7 +685,7 @@ const LESSONS_HE = [
         <li>הכרזה של <strong>סדרה שנייה גבוהה יותר</strong> ברמת 2, כמו <bdi dir="ltr">${B('1D')} – ${B('1S')} – ${B('2H')}</bdi>, נקראת <em>ריברס</em>. היא דורשת 16 נק' ומעלה.</li>
         <li>אם אף אחד מאלה לא מתאים, הכריזו שוב את הסדרה שלכם ברמת 2.</li>
       </ul>
-      <p>התרגול מכסה ארבע תשובות: תמיכה פשוטה, תמיכה בקפיצה, סדרה חדשה ברמת 1 ו-1NT.</p>`,
+      <p>התרגול מכסה חמש תשובות: תמיכה פשוטה, תמיכה בקפיצה, סדרה חדשה ברמת 1, 1NT וסדרה חדשה ברמת 2.</p>`,
     tryIt: 'rebid',
   },
   {

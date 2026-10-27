@@ -375,6 +375,58 @@ function rebidBid(hand, open, resp) {
   }
 
   const balanced = isBalanced(hand);
+
+  // Partner bid a new suit at the 2-level ("two over one"): 11+ HCP and forcing, so you must bid again.
+  if (rLevel === 2 && rSuit !== 'N') {
+    const forcing = L(`Partner's ${bh(resp)} shows 11+ HCP and is forcing`, `ה-${bh(resp)} של השותף מראה 11 נק' ומעלה ומחייב`);
+    // 1. Support for partner's suit: 3+ hearts (a 2♥ response shows five), or 4+ in a minor when unbalanced.
+    if (rSuit === 'H' ? len.H >= 3 : len[rSuit] >= 4 && !balanced) {
+      const { you } = raiser(rSuit);
+      return { bid: '3' + rSuit, why: L(
+        `${forcing}. ${you}, with ${len[rSuit]}-card support: raise to ${bh('3' + rSuit)}.`,
+        `${forcing}. ${you}, עם תמיכה של ${len[rSuit]} קלפים: תמכו ב-${bh('3' + rSuit)}.`) };
+    }
+    // 2. Balanced hands bid no-trump: 2NT with 12–14, 3NT with 18–19 (15–17 balanced opens 1NT).
+    if (balanced) {
+      if (str === 'min') return { bid: '2N', why: L(
+        `${forcing}. ${you} and balanced: bid 2NT, which shows 12–14.`,
+        `${forcing}. ${you} ומאוזנת: הכריזו 2NT, שמראה 12-14.`) };
+      return { bid: '3N', why: L(
+        `${forcing}. ${you} and balanced: jump to 3NT, which shows 18–19.`,
+        `${forcing}. ${you} ומאוזנת: קפצו ל-3NT, שמראה 18-19.`) };
+    }
+    // 3. A 6-card suit: rebid it, jumping with extra strength.
+    if (len[open] >= 6) {
+      const bid = (str === 'min' ? '2' : '3') + open;
+      return { bid, why: str === 'min'
+        ? L(`${forcing}. ${you} with ${len[open]} ${SUIT_NAME[open]}: rebid ${bh(bid)} to show 6+ cards.`,
+          `${forcing}. ${you}, עם ${len[open]} ${SUIT_NAME[open]}: הכריזו ${bh(bid)} כדי להראות 6 קלפים ומעלה.`)
+        : L(`${forcing}. ${you} with ${len[open]} ${SUIT_NAME[open]}: jump to ${bh(bid)} to show a good 6-card suit and extra strength.`,
+          `${forcing}. ${you}, עם ${len[open]} ${SUIT_NAME[open]}: קפצו ל-${bh(bid)} כדי להראות סדרה טובה של 6 קלפים וכוח נוסף.`) };
+    }
+    // 4. A second suit you can still bid at the 2-level (higher-ranking than your first is a reverse, 16+).
+    const others = SUITS.filter(z => z !== open && z !== rSuit && len[z] >= 4)
+      .sort((a, b) => len[b] - len[a] || rank(a) - rank(b));
+    const twoLevel = others.find(z => rank(z) < rank(rSuit) && (rank(z) > rank(open) || pts >= 16));
+    if (twoLevel) {
+      const reverse = rank(twoLevel) < rank(open);
+      return { bid: '2' + twoLevel, why: L(
+        `${forcing}. ${you} with ${len[twoLevel]} ${SUIT_NAME[twoLevel]}: bid ${bh('2' + twoLevel)}.${reverse ? ' Bidding a higher-ranking suit than your first is a <em>reverse</em> and needs 16+ HCP.' : ''}`,
+        `${forcing}. ${you}, עם ${len[twoLevel]} ${SUIT_NAME[twoLevel]}: הכריזו ${bh('2' + twoLevel)}.${reverse ? ' הכרזת סדרה גבוהה מהסדרה הראשונה שלכם היא <em>ריברס</em> ודורשת 16 נק\' ומעלה.' : ''}`) };
+    }
+    // 5. A second suit that needs the 3-level shows extra strength.
+    const threeLevel = others.find(z => rank(z) > rank(rSuit));
+    if (threeLevel && str !== 'min') {
+      return { bid: '3' + threeLevel, why: L(
+        `${forcing}. ${you} with ${len[threeLevel]} ${SUIT_NAME[threeLevel]}: bid ${bh('3' + threeLevel)}. A new suit at the 3-level shows extra strength (15+).`,
+        `${forcing}. ${you}, עם ${len[threeLevel]} ${SUIT_NAME[threeLevel]}: הכריזו ${bh('3' + threeLevel)}. סדרה חדשה ברמת 3 מראה כוח נוסף (15 ומעלה).`) };
+    }
+    // 6. Nothing else to say: rebid your suit.
+    return { bid: '2' + open, why: L(
+      `${forcing}. ${you}, with no fit, no second suit you can show cheaply and an unbalanced hand: rebid your ${SUIT_NAME[open]} at the 2-level, ${bh('2' + open)}.`,
+      `${forcing}. ${you}, בלי התאמה, בלי סדרה שנייה שאפשר להראות בזול וביד לא מאוזנת: הכריזו שוב את ה${SUIT_NAME[open]} שלכם ברמת 2, ${bh('2' + open)}.`) };
+  }
+
   if (rLevel === 1 && rSuit !== 'N') {
     // 1. Raise partner's major with 4-card support.
     if ((rSuit === 'H' || rSuit === 'S') && len[rSuit] >= 4) {
@@ -461,6 +513,10 @@ function responseMeaning(resp, open) {
     return resp[0] === '2'
       ? L('6–10 points (counting short suits) and support for your suit', '6-10 נקודות (כולל סדרות קצרות) ותמיכה בסדרה שלכם')
       : L('11–12 points (counting short suits) and support: a <em>limit raise</em>, inviting game', '11-12 נקודות (כולל סדרות קצרות) ותמיכה: <em>תמיכה בקפיצה</em>, הזמנה למשחק מלא');
+  }
+  if (resp[0] === '2') {
+    return L(`11+ HCP and 4+ ${SUIT_NAME[resp[1]]}${resp[1] === 'H' ? ' (5+ for hearts)' : ''}: a <em>two over one</em>. It's forcing: you must bid again`,
+      `11 נק' ומעלה ו-4 ${SUIT_NAME[resp[1]]} ומעלה${resp[1] === 'H' ? ' (5 ומעלה בהארט)' : ''}: <em>שתיים על אחת</em>. זה מחייב: אתם חייבים להכריז שוב`);
   }
   return L(`4+ ${SUIT_NAME[resp[1]]} and 6+ HCP. A new suit is forcing: you must bid again`,
     `4 ${SUIT_NAME[resp[1]]} ומעלה ו-6 נק' ומעלה. סדרה חדשה מחייבת: אתם חייבים להכריז שוב`);
@@ -968,7 +1024,7 @@ const RebidTrainer = makeBidDrill({
       const open = opening[1];
       if (hcp(partner) > 12) continue;
       const response = responseBid(partner, open), resp = response.bid;
-      if (response.gameForce || resp === 'P' || resp === '2N' || (resp[0] === '2' && resp[1] !== open)) continue;
+      if (response.gameForce || resp === 'P' || resp === '2N') continue;
       const answer = rebidBid(hand, open, resp);
       if (answer.bid === 'P' && Math.random() < 0.5) continue;
       const respIndex = REBID_BIDS.indexOf(resp);

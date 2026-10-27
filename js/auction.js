@@ -110,8 +110,8 @@ function bidAuction(hands) {
           ? L(`Answers Stayman: ${bidHtml('2D')} says South has no 4-card major.`, `תשובה לסטיימן: ${bidHtml('2D')} אומר שלדרום אין סדרת מייגור של 4.`)
           : L(`Answers Stayman: South has 4 ${SUIT_NAME[bid[1]]}.`, `תשובה לסטיימן: לדרום יש 4 ${SUIT_NAME[bid[1]]}.`) }, bid === '2D');
       }
-      // rebidBid covers a raise, a 1-level new suit or 1NT.
-      const simple = openSuit && resp && (resp[0] === '1' || (resp[1] === openSuit && (resp[0] === '2' || resp[0] === '3')));
+      // rebidBid covers a raise, a 1-level new suit, 1NT or a 2-level new suit (two over one).
+      const simple = openSuit && resp && (resp[0] === '1' || (resp[0] === '2' && resp[1] !== 'N') || (resp[1] === openSuit && resp[0] === '3'));
       if (simple) return use(seat, rebidBid(hand, openSuit, resp), false);
       return place(seat);
     }
