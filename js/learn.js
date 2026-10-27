@@ -384,11 +384,15 @@ const LESSONS_EN = [
       To defeat a contract of, say, 4${S}, declarer needs 10 tricks, so you need <strong>4</strong>.</p>
       <h3>The opening lead</h3>
       <p>The player on declarer's left leads before dummy is shown, so it's the one card you choose without seeing dummy. Pick the suit first, then the card.</p>
-      <p><strong>Against no-trump</strong>, set up your long suit:</p>
-      <ul>
-        <li>With three touching honors (K-Q-J, Q-J-10), lead the top one.</li>
-        <li>Otherwise lead the <strong>fourth-highest</strong> card of your longest, strongest suit: from K-J-7-<strong>4</strong>-2, lead the 4.</li>
-      </ul>
+      <p><strong>Against no-trump</strong>, set up your long suit. A suit with a sequence comes first:</p>
+      <table class="tbl">
+        <tr><th>Holding</th><th>Lead</th></tr>
+        <tr><td>Three touching honors: K-Q-J, Q-J-10, J-10-9</td><td>The top one</td></tr>
+        <tr><td>Broken sequence ("2½" honors): K-Q-10, Q-J-9, J-10-8</td><td>The top one</td></tr>
+        <tr><td>Interior sequence: A-J-10, K-J-10</td><td>The <strong>J</strong></td></tr>
+        <tr><td>Interior sequence: K-10-9, Q-10-9</td><td>The <strong>10</strong></td></tr>
+        <tr><td>No sequence: your longest, strongest suit, K-J-7-4-2</td><td>Fourth best: <strong>4</strong></td></tr>
+      </table>
       <p><strong>Against a suit contract</strong>, take your tricks quickly and look for ruffs. In order of preference:</p>
       <table class="tbl">
         <tr><th>Holding</th><th>Lead</th></tr>
@@ -790,11 +794,15 @@ const LESSONS_HE = [
       כדי להפיל חוזה של, נניח, ${B('4S')}, הכרוז צריך 10 לקיחות, ולכן אתם צריכים <strong>4</strong>.</p>
       <h3>הובלת הפתיחה</h3>
       <p>השחקן משמאל לכרוז מוביל לפני שהדומם נחשף, כך שזה הקלף היחיד שבוחרים בלי לראות את הדומם. בחרו קודם את הסדרה, ואז את הקלף.</p>
-      <p><strong>נגד ללא שליט</strong>, פתחו את הסדרה הארוכה שלכם:</p>
-      <ul>
-        <li>עם שלושה הונורים צמודים (K-Q-J, Q-J-10), הובילו את העליון.</li>
-        <li>אחרת הובילו את הקלף <strong>הרביעי מלמעלה</strong> בסדרה הארוכה והחזקה ביותר שלכם: מתוך K-J-7-<strong>4</strong>-2, הובילו את ה-4.</li>
-      </ul>
+      <p><strong>נגד ללא שליט</strong>, פתחו את הסדרה הארוכה שלכם. סדרה עם רצף קודמת:</p>
+      <table class="tbl">
+        <tr><th>החזקה</th><th>הובלה</th></tr>
+        <tr><td>שלושה הונורים צמודים: K-Q-J, Q-J-10, J-10-9</td><td>העליון</td></tr>
+        <tr><td>רצף שבור ("<bdi dir="ltr">2½</bdi>" הונורים): K-Q-10, Q-J-9, J-10-8</td><td>העליון</td></tr>
+        <tr><td>רצף פנימי: A-J-10, K-J-10</td><td>ה-<strong>J</strong></td></tr>
+        <tr><td>רצף פנימי: K-10-9, Q-10-9</td><td>ה-<strong>10</strong></td></tr>
+        <tr><td>בלי רצף: הסדרה הארוכה והחזקה ביותר, K-J-7-4-2</td><td>הרביעי מלמעלה: <strong>4</strong></td></tr>
+      </table>
       <p><strong>נגד חוזה בשליט</strong>, קחו את הלקיחות שלכם מהר וחפשו חיתוכים. לפי סדר עדיפות:</p>
       <table class="tbl">
         <tr><th>החזקה</th><th>הובלה</th></tr>

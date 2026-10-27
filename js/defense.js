@@ -1,5 +1,20 @@
 // Opening-lead rules and the opening-lead drill.
 
+// The kind of sequence a suit (sorted high to low) offers for a no-trump lead, or null:
+//   'solid'    three touching cards from the jack up: K-Q-J, Q-J-10, J-10-9 (lead the top)
+//   'broken'   two touching honors and the next card but one: K-Q-10, Q-J-9, J-10-8 (lead the top)
+//   'interior' the J-10 under A or K, or the 10-9 under K or Q: A-J-10, K-J-10, K-10-9, Q-10-9
+//              (lead the top of the touching pair, the second card)
+function ntSequence(g) {
+  if (g.length < 3) return null;
+  const [a, b, c] = g.map(x => x.value);
+  if (a >= 11 && b === a - 1 && c === a - 2) return 'solid';
+  if (a >= 11 && b === a - 1 && c === a - 3) return 'broken';
+  const top3 = g.slice(0, 3).map(x => x.rank).join('');
+  if (['AJT', 'KJT', 'KT9', 'QT9'].includes(top3)) return 'interior';
+  return null;
+}
+
 // Textbook opening lead. `trump` is a suit letter, or null for no-trump. Returns { card, why }.
 function openingLead(hand, trump) {
   const groups = {};
@@ -16,12 +31,26 @@ function openingLead(hand, trump) {
   }
 
   if (!trump) {
-    const seq = sides.filter(s => touching(groups[s], 3));
+    const seq = sides.map(s => ({ s, kind: ntSequence(groups[s]) })).filter(x => x.kind);
     if (seq.length) {
-      const c = groups[pick(seq, longest)][0];
+      const { s, kind } = pick(seq, (a, b) => longest(a.s, b.s));
+      const g = groups[s];
+      if (kind === 'solid') {
+        const c = g[0];
+        return { card: c, why: L(
+          `Against no-trump, lead the top of a three-card sequence: ${lbl(c)}. It pushes out declarer's higher cards without giving away a trick.`,
+          `נגד ללא שליט, הובילו את העליון ברצף של שלושה קלפים: ${lbl(c)}. הוא מוציא את הקלפים הגבוהים של הכרוז בלי למסור לו לקיחה.`) };
+      }
+      if (kind === 'broken') {
+        const c = g[0];
+        return { card: c, why: L(
+          `Against no-trump, lead the top of a broken sequence (two touching honors and the next card but one, like K-Q-10): ${lbl(c)}. It works almost like a full sequence: it pushes out declarer's higher cards without giving away a trick.`,
+          `נגד ללא שליט, הובילו את העליון ברצף שבור (שני הונורים צמודים והקלף שאחרי הבא, כמו K-Q-10): ${lbl(c)}. הוא עובד כמעט כמו רצף מלא: מוציא את הקלפים הגבוהים של הכרוז בלי למסור לו לקיחה.`) };
+      }
+      const c = g[1];
       return { card: c, why: L(
-        `Against no-trump, lead the top of a three-card sequence: ${lbl(c)}. It pushes out declarer's higher cards without giving away a trick.`,
-        `נגד ללא שליט, הובילו את העליון ברצף של שלושה קלפים: ${lbl(c)}. הוא מוציא את הקלפים הגבוהים של הכרוז בלי למסור לו לקיחה.`) };
+        `Against no-trump, lead the top of an interior sequence (the touching cards under your top honor, like the J from A-J-10 or the 10 from K-10-9): ${lbl(c)}. Your top honor stays behind to capture one of declarer's cards.`,
+        `נגד ללא שליט, הובילו את העליון ברצף פנימי (הקלפים הצמודים שמתחת להונור העליון, כמו ה-J מתוך A-J-10 או ה-10 מתוך K-10-9): ${lbl(c)}. ההונור העליון נשאר אצלכם כדי לתפוס אחד מהקלפים של הכרוז.`) };
     }
     const s = pick(sides, longest);
     const c = groups[s][3];
