@@ -8,8 +8,8 @@ const Play = (() => {
   let timer = null;
   let showAll = false;
   let mode = 'declare';
-  // Vulnerability cycles with each new deal: none, East-West, North-South, both.
-  const VUL_CYCLE = [{ ns: false, ew: false }, { ns: false, ew: true }, { ns: true, ew: false }, { ns: true, ew: true }];
+  // Vulnerability cycles with each new deal in tournament order (boards 1–4): none, North-South, East-West, both.
+  const VUL_CYCLE = [{ ns: false, ew: false }, { ns: true, ew: false }, { ns: false, ew: true }, { ns: true, ew: true }];
   let board = 0;
   const $ = id => document.getElementById(id);
 

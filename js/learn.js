@@ -142,6 +142,7 @@ const LESSONS_EN = [
         <tr><td>${H} ${S} majors</td><td>30</td></tr>
         <tr><td>NT</td><td>40 for the first, 30 for each after</td></tr>
       </table>
+      <p>Each side is either <strong>vulnerable</strong> or <strong>not vulnerable</strong>, and the two sides can differ. Being vulnerable raises the stakes: bigger bonuses when you make a game or slam, bigger penalties when you go down. In tournament bridge every deal is scored on its own, and the vulnerability is set in advance by the <strong>board number</strong>, in a rotating cycle: nobody vulnerable, North-South, East-West, both, and so on.</p>
       <ul>
         <li>A contract worth <strong>100+</strong> trick points is a <strong>game</strong>: 3NT, 4${H}/4${S} or 5${C}/5${D}. It earns a bonus of 300 (500 when vulnerable).</li>
         <li>Smaller contracts are <strong>part-scores</strong> and earn a 50 bonus.</li>
@@ -152,7 +153,7 @@ const LESSONS_EN = [
       <p>Here is every contract, grouped by what it scores:</p>
       ${contractChart()}
       <div class="score-demo"></div>
-      <p>The Play tab scores every hand as not vulnerable.</p>`,
+      <p>Play a Hand rotates the vulnerability with each new deal and shows it in the bidding box: a vulnerable side's names are red.</p>`,
     tryIt: 'play',
   },
   {
@@ -559,6 +560,7 @@ const LESSONS_HE = [
         <tr><td>${H} ${S} סדרות מייגור</td><td>30</td></tr>
         <tr><td>NT</td><td>40 לראשונה, 30 לכל אחת אחריה</td></tr>
       </table>
+      <p>כל צד הוא <strong>פגיע</strong> או <strong>לא פגיע</strong>, ושני הצדדים יכולים להיות במצב שונה. פגיעות מעלה את הסיכון: בונוסים גדולים יותר כשמבצעים משחק מלא או סלאם, וקנסות גדולים יותר כשנופלים. בברידג' תחרותי כל חלוקה מנוקדת בנפרד, והפגיעות נקבעת מראש לפי <strong>מספר הבורד</strong>, במחזוריות קבועה: אף צד לא פגיע, צפון-דרום, מזרח-מערב, שני הצדדים, וחוזר חלילה.</p>
       <ul>
         <li>חוזה ששווה <strong>100 נקודות לקיחה ומעלה</strong> הוא <strong>משחק מלא</strong>: 3NT, ${B('4H')} או ${B('4S')}, ${B('5C')} או ${B('5D')}. הוא מזכה בבונוס של 300 (500 כשפגיעים).</li>
         <li>חוזים קטנים יותר הם <strong>חוזים חלקיים</strong> ומזכים בבונוס של 50.</li>
@@ -569,7 +571,7 @@ const LESSONS_HE = [
       <p>הנה כל החוזים, לפי סוג הניקוד שלהם:</p>
       ${contractChart()}
       <div class="score-demo"></div>
-      <p>בלשונית "שחקו יד" כל יד מנוקדת כלא פגיעה.</p>`,
+      <p>בלשונית "שחקו יד" הפגיעות מתחלפת בכל חלוקה חדשה ומוצגת בתיבת ההכרזות: השמות של צד פגיע מסומנים באדום.</p>`,
     tryIt: 'play',
   },
   {
