@@ -71,7 +71,7 @@ function isRed(suit) {
 
 function suitHtml(suit) {
   if (suit === 'N') return 'NT';
-  return `<span class="suit${isRed(suit) ? ' red' : ''}">${SUIT_SYMBOL[suit]}</span>`;
+  return `<span class="suit s-${suit}${isRed(suit) ? ' red' : ''}">${SUIT_SYMBOL[suit]}</span>`;
 }
 
 // Bids and cards keep their left-to-right form ("1♥", "K♠") inside right-to-left text.
@@ -110,6 +110,7 @@ function createCardEl(card, { faceDown = false, gap = false } = {}) {
     el.setAttribute('aria-label', L('face-down card', 'קלף הפוך'));
     return el;
   }
+  el.classList.add('s-' + card.suit); // four-color suits: see style.css
   if (isRed(card.suit)) el.classList.add('red');
   el.innerHTML =
     `<span class="corner"><span class="r">${rankLabel(card.rank)}</span>` +

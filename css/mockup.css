@@ -69,6 +69,8 @@
 .suit-row { display: flex; align-items: center; gap: 2px; min-height: 37px; font-size: 1.75rem; line-height: 1; }
 .suit-row .sym { width: 1.25em; font-size: 1.9rem; color: #111; }
 .sym.red, .red { color: #d32f2f; }
+.sym.s-D, .s-D { color: #d35400; }
+.sym.s-C, .s-C { color: #1a7f37; }
 .pc {
   font: inherit;
   color: #111;

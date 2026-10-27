@@ -136,7 +136,7 @@
     for (const suit of SUITS) {
       const row = document.createElement('div');
       row.className = 'suit-row';
-      row.innerHTML = `<span class="sym ${isRed(suit) ? 'red' : ''}">${SUIT_SYMBOL[suit]}</span>`;
+      row.innerHTML = `<span class="sym s-${suit} ${isRed(suit) ? 'red' : ''}">${SUIT_SYMBOL[suit]}</span>`;
       const cards = s.hands[seat].filter(c => c.suit === suit);
       if (hidden) {
         row.insertAdjacentHTML('beforeend', '<span class="hidden-cards" aria-label="hidden">••••</span>');
@@ -175,7 +175,7 @@
     for (const { seat, card } of shown) {
       const chip = document.createElement('div');
       chip.className = `chip at-${['n', 'e', 's', 'w'][seat]}` + (seat === winner ? ' won' : '') + (s.trick.length ? '' : ' finished');
-      chip.innerHTML = `<span class="sym ${isRed(card.suit) ? 'red' : ''}">${SUIT_SYMBOL[card.suit]}</span>${rankLabel(card.rank)}`;
+      chip.innerHTML = `<span class="sym s-${card.suit} ${isRed(card.suit) ? 'red' : ''}">${SUIT_SYMBOL[card.suit]}</span>${rankLabel(card.rank)}`;
       box.appendChild(chip);
     }
   }
@@ -185,7 +185,7 @@
     const target = puzzle.target ?? bestAtStart;
     const total = parseHand(puzzle.hands[0]).length;
     const strain = puzzle.trump ? SUIT_SYMBOL[puzzle.trump] : 'NT';
-    const strainClass = puzzle.trump && isRed(puzzle.trump) ? 'red' : '';
+    const strainClass = puzzle.trump ? `s-${puzzle.trump}${isRed(puzzle.trump) ? ' red' : ''}` : '';
 
     // Compass box with the puzzle number (vulnerability bars are decorative: puzzles are not vulnerable).
     $('compass').innerHTML = `

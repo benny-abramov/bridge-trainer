@@ -16,6 +16,9 @@
   --bad: #b3261e;
   --bad-soft: #fbeae8;
   --red-suit: #c62828;
+  /* Four-color suits, as on online bridge sites: diamonds orange and clubs green, so no two suits look alike. */
+  --diamond-suit: #d35400;
+  --club-suit: #1a7f37;
   --hint: #f2b705;
   --shadow: 0 1px 2px rgba(0, 0, 0, .06), 0 4px 14px rgba(0, 0, 0, .06);
   --cw: 58px; /* card width */
@@ -40,6 +43,8 @@
     --bad: #f28b82;
     --bad-soft: #3a1c1a;
     --red-suit: #ff7b72;
+    --diamond-suit: #ffa257;
+    --club-suit: #5fd38a;
     --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 4px 14px rgba(0, 0, 0, .3);
     color-scheme: dark;
   }
@@ -62,6 +67,8 @@
   --bad: #f28b82;
   --bad-soft: #3a1c1a;
   --red-suit: #ff7b72;
+  --diamond-suit: #ffa257;
+  --club-suit: #5fd38a;
   --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 4px 14px rgba(0, 0, 0, .3);
   color-scheme: dark;
 }
@@ -83,6 +90,12 @@ p { margin: .6rem 0; }
 
 .suit { font-variant-emoji: text; }
 .suit.red { color: var(--red-suit); }
+.suit.s-D { color: var(--felt-diamond, var(--diamond-suit)); }
+.suit.s-C { color: var(--felt-club, var(--club-suit)); }
+/* Text written on the green felt needs lighter shades, or a green club disappears into it.
+   The auction's call chips have their own page-colored background, so they go back to the normal shades. */
+:is(.table, .fin-table, .deck-figure, .shape-felt, .compass .mid, .hand-area) { --felt-club: #8ff0b0; --felt-diamond: #ffb877; }
+.bid-box td:not(.ask) { --felt-club: initial; --felt-diamond: initial; }
 
 /* ---------- Header & tabs ---------- */
 
@@ -200,7 +213,7 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 .fin-case.part { border-color: var(--hint); }
 .fin-case p { margin: .5rem 0 0; font-size: .92rem; }
 .fin-head { font-weight: 600; margin-bottom: .4rem; }
-.fin-table { --cw: 34px; direction: ltr; display: grid; grid-template-areas: "n n" "w e" "s s"; gap: .3rem 1rem; justify-items: center; padding: .4rem; border-radius: 10px; background: radial-gradient(ellipse at center, var(--felt) 55%, var(--felt-edge)); color: var(--felt-text); }
+.fin-table { --cw: 40px; direction: ltr; display: grid; grid-template-areas: "n n" "w e" "s s"; gap: .3rem 1rem; justify-items: center; padding: .4rem; border-radius: 10px; background: radial-gradient(ellipse at center, var(--felt) 55%, var(--felt-edge)); color: var(--felt-text); }
 .fin-hand { display: flex; flex-direction: column; align-items: center; gap: .15rem; }
 .fin-hand.n { grid-area: n; } .fin-hand.w { grid-area: w; justify-self: start; } .fin-hand.e { grid-area: e; justify-self: end; } .fin-hand.s { grid-area: s; }
 .fin-label { font-size: .75rem; }
@@ -384,10 +397,13 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
   transition: transform .12s ease, box-shadow .12s ease;
 }
 .card.red { color: #c62828; }
+/* Cards stay white in dark mode, so they keep the light-mode suit colors. */
+.card.s-D { color: #d35400; }
+.card.s-C { color: #1a7f37; }
 .card .corner { position: absolute; top: 3px; left: 5px; display: flex; flex-direction: column; align-items: center; line-height: 1; }
 .card .r { font-size: calc(var(--cw) * .3); letter-spacing: -.04em; }
-.card .s { font-size: calc(var(--cw) * .26); }
-.card .pip { position: absolute; right: 6%; bottom: 4%; font-size: calc(var(--cw) * .5); line-height: 1; }
+.card .s { font-size: calc(var(--cw) * .36); }
+.card .pip { position: absolute; right: 6%; bottom: 4%; font-size: calc(var(--cw) * .62); line-height: 1; }
 .card.back {
   background: repeating-linear-gradient(45deg, #2c5aa8 0 5px, #3a6cc0 5px 10px);
   border: 3px solid #fff;
@@ -461,7 +477,7 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 .auction-box .bid-box td { padding: 0; }
 .auction-box .bid-box button { font: inherit; width: 100%; height: 100%; min-height: 1.7rem; padding: 0 .3rem; border: 0; border-radius: 6px; background: none; color: inherit; cursor: pointer; }
 .auction-box .bid-box button:hover { box-shadow: inset 0 0 0 2px var(--accent); }
-.auction-box .bid-box button.final { background: var(--hint); color: #1a1a1a; font-weight: 700; }
+.auction-box .bid-box button.final { background: var(--hint); color: #1a1a1a; font-weight: 700; --red-suit: #c62828; --diamond-suit: #d35400; --club-suit: #1a7f37; }
 .auction-box .bid-box button.picked { box-shadow: inset 0 0 0 2px var(--accent); font-weight: 700; }
 .auction-caption { max-width: 15rem; font-size: .8rem; line-height: 1.35; text-align: center; color: var(--felt-text); }
 [dir="rtl"] .auction-caption { direction: rtl; }
