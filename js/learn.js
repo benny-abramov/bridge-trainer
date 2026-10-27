@@ -1209,13 +1209,13 @@ const FinesseLayouts = (() => {
     },
     third: {
       title: ['Third hand high', 'יד שלישית גבוה'], defense: true,
-      setup: ['Partner (West) leads a small card and dummy plays low. You are East, the third hand; declarer (South) plays after you.',
-        'השותף (מערב) מוביל קלף קטן והדומם משחק נמוך. אתם במזרח, היד השלישית; הכרוז (דרום) משחק אחריכם.'],
-      hands: { n: 'xxx', w: 'Qxxx', e: 'Kxx', s: 'AJx' }, you: 'e', lead: ['w', 1],
+      setup: ['Partner (West) leads low from Q-10-x-x and dummy plays low. You are East, the third hand; declarer (South) plays after you.',
+        'השותף (מערב) מוביל נמוך מתוך Q-10-x-x והדומם משחק נמוך. אתם במזרח, היד השלישית; הכרוז (דרום) משחק אחריכם.'],
+      hands: { n: 'xxx', w: 'QTxx', e: 'Kxx', s: 'AJx' }, you: 'e', lead: ['w', 3],
       cases: [
         { tricks: 1, title: ['You play the king', 'אתם משחקים את המלך'],
-          text: ["Declarer has to spend the ace on your king. Partner's queen is now higher than declarer's jack, so declarer makes only the ace.",
-            'הכרוז חייב להוציא את האס על המלך שלכם. המלכה של השותף גבוהה עכשיו מהנסיך של הכרוז, ולכן הכרוז לוקח רק את האס.'] },
+          text: ["Declarer has to spend the ace on your king. Partner's Q-10 are now higher than declarer's jack, so declarer makes only the ace.",
+            'הכרוז חייב להוציא את האס על המלך שלכם. ה-Q-10 של השותף גבוהים עכשיו מהנסיך של הכרוז, ולכן הכרוז לוקח רק את האס.'] },
         { tricks: 2, title: ['You play low', 'אתם משחקים נמוך'],
           text: ['Declarer wins cheaply with the jack and still has the ace: two tricks.',
             'הכרוז זוכה בזול עם הנסיך, והאס עדיין אצלו: שתי לקיחות.'] },
@@ -1241,9 +1241,9 @@ const FinesseLayouts = (() => {
     },
     return: {
       title: ["Return partner's suit", 'החזירו את הסדרה של השותף'], defense: true,
-      setup: ['Partner (West) leads a small card from K-Q-x-x-x. You are East: you win the trick with the ace, and now it is your lead.',
-        'השותף (מערב) מוביל קלף קטן מתוך K-Q-x-x-x. אתם במזרח: אתם זוכים בלקיחה עם האס, ועכשיו ההובלה שלכם.'],
-      hands: { n: 'xxx', w: 'KQxxx', e: 'Ax', s: 'Jxx' }, you: 'e', lead: ['w', 2],
+      setup: ['Partner (West) leads the fourth-best card, the 5, from K-Q-7-5-2. You are East: you win the trick with the ace, and now it is your lead.',
+        'השותף (מערב) מוביל את הרביעי מלמעלה, ה-5, מתוך K-Q-7-5-2. אתם במזרח: אתם זוכים בלקיחה עם האס, ועכשיו ההובלה שלכם.'],
+      hands: { n: 'xxx', w: 'KQ752', e: 'Ax', s: 'Jxx' }, you: 'e', lead: ['w', 3],
       cases: [
         { tricks: 0, title: ["You return partner's suit", 'אתם מחזירים את הסדרה של השותף'],
           text: ["Your small card comes through declarer's jack to partner's K-Q, and partner takes the rest of the suit. Partner may have no other way to get the lead, so your return is what lets the long suit run.",
