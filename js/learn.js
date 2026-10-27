@@ -1243,11 +1243,11 @@ const FinesseLayouts = (() => {
       title: ["Return partner's suit", 'החזירו את הסדרה של השותף'], defense: true,
       setup: ['Partner (West) leads the fourth-best card, the 5, from K-Q-7-5-2. You are East: you win the trick with the ace, and now it is your lead.',
         'השותף (מערב) מוביל את הרביעי מלמעלה, ה-5, מתוך K-Q-7-5-2. אתם במזרח: אתם זוכים בלקיחה עם האס, ועכשיו ההובלה שלכם.'],
-      hands: { n: 'xxx', w: 'KQ752', e: 'Ax', s: 'Jxx' }, you: 'e', lead: ['w', 3],
+      hands: { n: { S: 'xxx', H: 'xx' }, w: 'KQ752', e: { S: 'Ax', H: 'xxx' }, s: { S: 'Jxx', H: 'AK' } }, you: 'e', lead: ['w', 3],
       cases: [
         { tricks: 0, title: ["You return partner's suit", 'אתם מחזירים את הסדרה של השותף'],
-          text: ["Your small card comes through declarer's jack to partner's K-Q, and partner takes the rest of the suit. Partner may have no other way to get the lead, so your return is what lets the long suit run.",
-            'הקלף הקטן שלכם עובר דרך הנסיך של הכרוז אל ה-K-Q של השותף, והשותף לוקח את שאר הסדרה. ייתכן שלשותף אין דרך אחרת לקבל את ההובלה, ולכן ההחזרה שלכם היא מה שמאפשר לסדרה הארוכה לרוץ.'] },
+          text: ["Your small spade comes through declarer's jack to partner's K-Q, and partner takes the rest of the suit. Switching to hearts would only help declarer, whose A-K win those tricks. Partner may have no other way to get the lead, so your return is what lets the long suit run.",
+            'הספייד הקטן שלכם עובר דרך הנסיך של הכרוז אל ה-K-Q של השותף, והשותף לוקח את שאר הסדרה. מעבר להארט רק יעזור לכרוז, שה-A-K שלו זוכים בלקיחות האלה. ייתכן שלשותף אין דרך אחרת לקבל את ההובלה, ולכן ההחזרה שלכם היא מה שמאפשר לסדרה הארוכה לרוץ.'] },
       ],
       chance: ['Partner usually leads a long suit to set it up. Return it when you win a trick, unless you have a clearly better plan.',
         'השותף בדרך כלל מוביל סדרה ארוכה כדי לפתח אותה. החזירו אותה כשאתם זוכים בלקיחה, אלא אם יש לכם תוכנית טובה יותר בבירור.'],
@@ -1257,7 +1257,8 @@ const FinesseLayouts = (() => {
   const t = pair => L(pair[0], pair[1]);
   let dialog;
 
-  // `led` is the index of the card led from this hand, or -1.
+  // `ranks` is a spade holding, or an object such as { S: 'Jxx', H: 'AK' } for a hand with more
+  // than one suit. `led` is the index of the card led from this hand, or -1.
   function hand(cls, label, ranks, trump, led = -1) {
     const box = document.createElement('div');
     box.className = 'fin-hand ' + cls;
@@ -1269,7 +1270,8 @@ const FinesseLayouts = (() => {
       if (trump) renderFan(row, [{ suit: trump, rank: 'x' }]);
       box.appendChild(row);
     } else {
-      const fan = renderFan(box, [...ranks].map(rank => ({ suit: 'S', rank })));
+      const suits = typeof ranks === 'string' ? { S: ranks } : ranks;
+      const fan = renderFan(box, Object.entries(suits).flatMap(([suit, r]) => [...r].map(rank => ({ suit, rank }))));
       if (led >= 0) fan.children[led].classList.add('led');
     }
     return box;
