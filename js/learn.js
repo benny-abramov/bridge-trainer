@@ -1197,13 +1197,17 @@ const FinesseLayouts = (() => {
     box.className = 'fin-case ' + tone;
     const tricks = c.tricks === 1 ? L('1 trick', 'לקיחה אחת') : c.tricks === 0 ? L('no tricks', 'אין לקיחות') : L(`${c.tricks} tricks`, `${c.tricks} לקיחות`);
     box.innerHTML = `<div class="fin-head">${mark} ${t(c.title)}: ${tricks}</div>`;
+    const { north, south } = KINDS[dialog.dataset.kind];
+    // The defenders' honors, filled out with small cards to the length of your longer hand.
+    const len = Math.max(north.length, south.length);
+    const defender = honors => (honors + 'x'.repeat(len)).slice(0, len);
     const table = document.createElement('div');
     table.className = 'fin-table';
     table.append(
-      hand('n', L('North (dummy)', 'צפון (דומם)'), KINDS[dialog.dataset.kind].north),
-      hand('w', L('West', 'מערב'), c.w || 'x'),
-      hand('e', L('East', 'מזרח'), c.e || 'x'),
-      hand('s', L('South (you)', 'דרום (אתם)'), KINDS[dialog.dataset.kind].south));
+      hand('n', L('North (dummy)', 'צפון (דומם)'), north),
+      hand('w', L('West', 'מערב'), defender(c.w)),
+      hand('e', L('East', 'מזרח'), defender(c.e)),
+      hand('s', L('South (you)', 'דרום (אתם)'), south));
     const text = document.createElement('p');
     text.innerHTML = t(c.text);
     box.append(table, text);
