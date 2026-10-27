@@ -23,6 +23,64 @@ function chooseContract(north, south) {
   return { level, strain };
 }
 
+// Responder's second call after a Jacoby transfer. Opener's completion says nothing about their
+// length in the major, so with five cards responder offers a choice (2NT invites, 3NT is game);
+// with six or more the 8-card fit is certain. Returns null for slam-going hands.
+function afterTransfer(hand, major) {
+  const pts = hcp(hand), n = suitLengths(hand)[major], name = SUIT_NAME[major];
+  const done = L(`Partner's ${bidHtml('2' + major)} only completed the transfer: it says nothing about how many ${name} partner has.`,
+    `ה-${bidHtml('2' + major)} של השותף רק השלים את הטרנספר: הוא לא אומר כמה ${name} יש לשותף.`);
+  if (pts <= 7) return { call: 'P', why: L(
+    `<strong>Transfer and pass.</strong> With only ${pts} HCP, game is out of reach. North transferred just to play in ${name}, so pass ${bidHtml('2' + major)}.`,
+    `<strong>טרנספר ופאס.</strong> עם ${pts} נק' בלבד, משחק מלא לא בהישג יד. צפון ביקש טרנספר רק כדי לשחק ב${name}, ולכן פאס על ${bidHtml('2' + major)}.`) };
+  if (pts >= 16) return null;
+  const game = pts >= 10;
+  if (n >= 6) {
+    const call = (game ? '4' : '3') + major;
+    return { call, why: game
+      ? L(`${pts} HCP and ${n} ${name}: enough for game, and with six ${name} you have an 8-card fit even if partner has only two. Bid ${bidHtml(call)}.`,
+        `${pts} נק' ו-${n} ${name}: מספיק למשחק מלא, ועם שישה ${name} יש התאמה של 8 קלפים גם אם לשותף יש רק שניים. הכריזו ${bidHtml(call)}.`)
+      : L(`${pts} HCP and ${n} ${name}: with six ${name} the fit is certain, so invite game with ${bidHtml(call)}.`,
+        `${pts} נק' ו-${n} ${name}: עם שישה ${name} ההתאמה ודאית, ולכן הזמינו למשחק מלא ב-${bidHtml(call)}.`) };
+  }
+  return game
+    ? { call: '3N', why: L(
+      `${done} With ${pts} HCP you have enough for game, and with five ${name} you offer a choice: 3NT. Partner bids ${bidHtml('4' + major)} with three or more ${name}.`,
+      `${done} עם ${pts} נק' יש מספיק למשחק מלא, ועם חמישה ${name} אתם מציעים בחירה: 3NT. השותף יכריז ${bidHtml('4' + major)} עם שלושה ${name} ומעלה.`) }
+    : { call: '2N', why: L(
+      `${done} With ${pts} HCP you want to invite game, and with five ${name} you bid 2NT. Partner then chooses the level and whether to play in ${name} or no-trump.`,
+      `${done} עם ${pts} נק' אתם רוצים להזמין למשחק מלא, ועם חמישה ${name} אתם מכריזים 2NT. השותף בוחר אז את הרמה, וגם אם לשחק ב${name} או בללא שליט.`) };
+}
+
+// Opener's answer to responder's second call after a transfer. 1NT showed 15–17: 16–17 accepts an invitation.
+function transferReply(hand, major, call) {
+  const pts = hcp(hand), n = suitLengths(hand)[major], name = SUIT_NAME[major];
+  const max = pts >= 16, fit = n >= 3;
+  const range = max ? L(`${pts} HCP, the top of your 15–17`, `${pts} נק', ראש הטווח שלכם (15-17)`) : L(`${pts} HCP, the bottom of your 15–17`, `${pts} נק', תחתית הטווח שלכם (15-17)`);
+  const support = L(fit ? `${n} ${name}, so you have an 8-card fit` : `only ${n} ${name}, so no fit`,
+    `${fit ? '' : 'רק '}${n} ${name}, ${fit ? 'כך שיש התאמה של 8 קלפים' : 'כך שאין התאמה'}`);
+  if (call === '2N') {
+    const bid = max ? (fit ? '4' + major : '3N') : (fit ? '3' + major : 'P');
+    return { call: bid, why: L(
+      `Partner's 2NT shows five ${name} and invites game. You have ${range}, and ${support}: ${bid === 'P' ? 'pass' : `bid ${bidHtml(bid)}`}.`,
+      `ה-2NT של השותף מראה חמישה ${name} ומזמין למשחק מלא. יש לכם ${range}, ${fit ? `ו-${n} ${name}, כך שיש התאמה של 8 קלפים` : `ורק ${n} ${name}, כך שאין התאמה`}: ${bid === 'P' ? 'פאס' : `הכריזו ${bidHtml(bid)}`}.`) };
+  }
+  if (call === '3N') {
+    const bid = fit ? '4' + major : 'P';
+    return { call: bid, why: L(
+      `Partner's 3NT shows five ${name} and enough for game. You have ${support}: ${fit ? `play in ${bidHtml(bid)}` : 'pass and play 3NT'}.`,
+      `ה-3NT של השותף מראה חמישה ${name} ומספיק למשחק מלא. יש לכם ${support}: ${fit ? `שחקו ב-${bidHtml(bid)}` : 'פאס ושחקו ב-3NT'}.`) };
+  }
+  if (call === '3' + major) {
+    const bid = max ? '4' + major : 'P';
+    return { call: bid, why: L(
+      `Partner's ${bidHtml(call)} shows six ${name} and invites game. You have ${range}: ${max ? `accept with ${bidHtml(bid)}` : 'decline by passing'}.`,
+      `ה-${bidHtml(call)} של השותף מראה שישה ${name} ומזמין למשחק מלא. יש לכם ${range}: ${max ? `קבלו ב-${bidHtml(bid)}` : 'דחו בפאס'}.`) };
+  }
+  if (call === '4' + major) return { call: 'P', why: L('Partner has bid game. Pass.', 'השותף הכריז משחק מלא. פאס.') };
+  return null;
+}
+
 const isBidCall = call => /^\d/.test(call);
 const callRank = bid => (Number(bid[0]) - 1) * 5 + 'CDHSN'.indexOf(bid[1]);
 
@@ -118,11 +176,14 @@ function bidAuction(hands) {
       if (simple) return use(seat, rebidBid(hand, openSuit, resp), false);
       return place(seat);
     }
-    if (seat === 0 && mine.length === 1 && open === '1N' && (mine[0] === '2D' || mine[0] === '2H') && hcp(hand) <= 7) {
-      const major = mine[0] === '2D' ? 'H' : 'S';
-      return { call: 'P', why: L(
-        `<strong>Transfer and pass.</strong> With only ${hcp(hand)} HCP, game is out of reach. North transferred just to play in ${SUIT_NAME[major]}, so pass ${bidHtml('2' + major)}.`,
-        `<strong>טרנספר ופאס.</strong> עם ${hcp(hand)} נק' בלבד, משחק מלא לא בהישג יד. צפון ביקש טרנספר רק כדי לשחק ב${SUIT_NAME[major]}, ולכן פאס על ${bidHtml('2' + major)}.`) };
+    const transfer = open === '1N' && ['2D', '2H'].includes(callsBy(0)[0]) ? (callsBy(0)[0] === '2D' ? 'H' : 'S') : null;
+    if (seat === 0 && mine.length === 1 && transfer) {
+      const r = afterTransfer(hand, transfer);
+      if (r) return r;
+    }
+    if (seat === DEALER && mine.length === 2 && transfer && partner.length === 2) {
+      const r = transferReply(hand, transfer, partner[1]);
+      if (r) { placed = true; return r; } // that settles the contract
     }
     if (seat === 0 && mine.length === 1 && openSuit) { // North's second call
       return use(seat, responderRebid(hand, openSuit, mine[0], partner[1]), false);
