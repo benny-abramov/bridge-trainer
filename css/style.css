@@ -205,6 +205,8 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 .fin-hand.n { grid-area: n; } .fin-hand.w { grid-area: w; justify-self: start; } .fin-hand.e { grid-area: e; justify-self: end; } .fin-hand.s { grid-area: s; }
 .fin-label { font-size: .75rem; }
 .fin-void { font-size: .85rem; font-style: italic; height: calc(var(--cw) * 1.4); display: flex; align-items: center; }
+.fin-row { display: flex; align-items: center; gap: .6rem; }
+.fin-trump { margin: -.3rem 0 .6rem; font-weight: 600; }
 .fin-chance { margin: .9rem 0; padding: .5rem .7rem; border: 1px solid var(--border); border-radius: 8px; background: var(--accent-soft); font-weight: 600; }
 
 .example { border-inline-start: 4px solid var(--accent); background: var(--accent-soft); border-radius: 10px; padding: .75rem 1rem; margin: 1rem 0; }

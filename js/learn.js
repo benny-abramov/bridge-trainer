@@ -1092,7 +1092,8 @@ const ShapeExamples = (() => {
 // between West and East, with the tricks it gives and the chance of the best result.
 const FinesseLayouts = (() => {
   // Holdings use 'x' for a small card; '' is a void. Each case gives the defenders' honors and the
-  // tricks the suit makes when you play it the recommended way.
+  // tricks the suit makes when you play it the recommended way. `trump` names the trump suit when
+  // the play needs one; South then also shows a small trump next to the void.
   const KINDS = {
     simple: {
       title: ['Simple finesse: A-Q', 'עקיפה פשוטה: A-Q'], north: 'AQ', south: 'xx',
@@ -1164,11 +1165,11 @@ const FinesseLayouts = (() => {
       chance: ['Three tricks about 25% of the time, at least two about 75%.', 'שלוש לקיחות בערך ב-25% מהמקרים, לפחות שתיים בערך ב-75%.'],
     },
     ruffing: {
-      title: ['Ruffing finesse: A-Q-J / void', 'עקיפת חיתוך: A-Q-J / חוסר'], north: 'AQJ', south: '',
+      title: ['Ruffing finesse: A-Q-J / void', 'עקיפת חיתוך: A-Q-J / חוסר'], north: 'AQJ', south: '', trump: 'H',
       cases: [
         { w: '', e: 'K', tricks: 3, title: ['King with East (on your right)', 'המלך אצל מזרח (מימינכם)'],
-          text: ['Lead the queen from dummy. If East covers with the king, ruff it and the jack is high; if East plays low, throw a loser and the queen wins.',
-            'הובילו את המלכה מהדומם. אם מזרח מכסה עם המלך, חתכו והנסיך גבוה; אם מזרח משחק נמוך, השליכו מפסיד והמלכה זוכה.'] },
+          text: ['Lead the queen from dummy. If East covers with the king, ruff it with a heart (trump) and the jack is high; if East plays low, throw a loser and the queen wins.',
+            'הובילו את המלכה מהדומם. אם מזרח מכסה עם המלך, חתכו עם הארט (שליט) והנסיך גבוה; אם מזרח משחק נמוך, השליכו מפסיד והמלכה זוכה.'] },
         { w: 'K', e: '', tricks: 2, title: ['King with West (on your left)', 'המלך אצל מערב (משמאלכם)'],
           text: ['West wins the queen with the king. You threw a loser on it, so the lost trick costs nothing extra.',
             'מערב זוכה במלכה עם המלך. השלכתם עליה מפסיד, כך שהלקיחה שהפסדתם לא עולה לכם יותר.'] },
@@ -1181,12 +1182,19 @@ const FinesseLayouts = (() => {
   const t = pair => L(pair[0], pair[1]);
   let dialog;
 
-  function hand(cls, label, ranks) {
+  function hand(cls, label, ranks, trump) {
     const box = document.createElement('div');
     box.className = 'fin-hand ' + cls;
     box.innerHTML = `<span class="fin-label" dir="auto">${label}</span>`;
-    if (!ranks) box.insertAdjacentHTML('beforeend', `<span class="fin-void">${L('void', 'חוסר')}</span>`);
-    else renderFan(box, [...ranks].map(rank => ({ suit: 'S', rank })));
+    if (!ranks) {
+      const row = document.createElement('div');
+      row.className = 'fin-row';
+      row.innerHTML = `<span class="fin-void">${ltr(suitHtml('S'))}&nbsp;${L('void', 'חוסר')}</span>`;
+      if (trump) renderFan(row, [{ suit: trump, rank: 'x' }]);
+      box.appendChild(row);
+    } else {
+      renderFan(box, [...ranks].map(rank => ({ suit: 'S', rank })));
+    }
     return box;
   }
 
@@ -1197,7 +1205,7 @@ const FinesseLayouts = (() => {
     box.className = 'fin-case ' + tone;
     const tricks = c.tricks === 1 ? L('1 trick', 'לקיחה אחת') : c.tricks === 0 ? L('no tricks', 'אין לקיחות') : L(`${c.tricks} tricks`, `${c.tricks} לקיחות`);
     box.innerHTML = `<div class="fin-head">${mark} ${t(c.title)}: ${tricks}</div>`;
-    const { north, south } = KINDS[dialog.dataset.kind];
+    const { north, south, trump } = KINDS[dialog.dataset.kind];
     // The defenders' honors, filled out with small cards to the length of your longer hand.
     const len = Math.max(north.length, south.length);
     const defender = honors => (honors + 'x'.repeat(len)).slice(0, len);
@@ -1207,7 +1215,7 @@ const FinesseLayouts = (() => {
       hand('n', L('North (dummy)', 'צפון (דומם)'), north),
       hand('w', L('West', 'מערב'), defender(c.w)),
       hand('e', L('East', 'מזרח'), defender(c.e)),
-      hand('s', L('South (you)', 'דרום (אתם)'), south));
+      hand('s', L('South (you)', 'דרום (אתם)'), south, trump));
     const text = document.createElement('p');
     text.innerHTML = t(c.text);
     box.append(table, text);
@@ -1225,7 +1233,8 @@ const FinesseLayouts = (() => {
     }
     dialog.dataset.kind = kind;
     const tricks = k.cases.map(c => c.tricks);
-    dialog.innerHTML = `<h3>${t(k.title)}</h3>`;
+    dialog.innerHTML = `<h3>${t(k.title)}</h3>` +
+      (k.trump ? `<p class="fin-trump">${suitHtml(k.trump)} ${trumpText(k.trump)}</p>` : '');
     const grid = document.createElement('div');
     grid.className = 'fin-cases';
     k.cases.forEach(c => grid.appendChild(caseBox(c, Math.max(...tricks), Math.min(...tricks))));
