@@ -38,11 +38,13 @@ const Play = (() => {
   function newDeal(replay) {
     clearTimeout(timer);
     const table = replay
-      ? { hands: cloneHands(replay.hands), contract: replay.contract, auction: replay.auction, vul: replay.vul }
-      : { ...dealTable(), vul: VUL_CYCLE[board++ % 4] };
+      ? { hands: cloneHands(replay.hands), contract: replay.contract, auction: replay.auction, board: replay.board }
+      : { ...dealTable(), board: ++board };
+    const vul = VUL_CYCLE[(table.board - 1) % 4];
     st = {
-      original: { hands: cloneHands(table.hands), contract: table.contract, auction: table.auction, vul: table.vul },
-      vul: table.vul,
+      original: { hands: cloneHands(table.hands), contract: table.contract, auction: table.auction, board: table.board },
+      board: table.board,
+      vul,
       auction: table.auction,
       hands: table.hands,
       contract: table.contract,
@@ -380,11 +382,33 @@ const Play = (() => {
     [0, 1, 2, 3].forEach(renderSeat);
     renderCenter();
     renderAuction();
+    renderBoard();
   }
 
   // The bidding box, as on BBO: West, North, East, South, with the final contract highlighted.
   // Tapping a call shows what it means.
   const AUCTION_COLUMNS = [3, 0, 1, 2];
+
+  // The top-left corner of the table: the board number in a square whose edges are red on the
+  // vulnerable sides (top and bottom for North-South, left and right for East-West) with a "D" on
+  // the dealer's edge, then the contract and each side's tricks so far.
+  function renderBoard() {
+    const box = $('play-board');
+    const dealer = st.auction ? st.auction.dealer : 2;
+    const edge = ['top', 'right', 'bottom', 'left']; // North, East, South, West
+    const declarer = st.auction ? st.auction.declarer : 2;
+    box.innerHTML = `
+      <div class="bi-board${st.vul.ns ? ' vul-ns' : ''}${st.vul.ew ? ' vul-ew' : ''}" title="${vulText()}" aria-label="${L(`Board ${st.board}`, `בורד ${st.board}`)}. ${vulText()}">
+        <span class="bi-num">${st.board}</span><span class="bi-dealer ${edge[dealer]}">${L('D', 'מ')}</span>
+      </div>
+      <div class="bi-side">
+        <div class="bi-contract"><span class="bi-bid">${contractHtml()}</span><span>${SEAT_NAMES[declarer]}</span></div>
+        <div class="bi-tricks" title="${L('Tricks won', 'לקיחות שנלקחו')}">
+          <div><span>${L('N-S', 'צ-ד')}</span><b>${st.tricks[0]}</b></div>
+          <div><span>${L('E-W', 'מז-מע')}</span><b>${st.tricks[1]}</b></div>
+        </div>
+      </div>`;
+  }
 
   function vulText() {
     const { ns, ew } = st.vul;
