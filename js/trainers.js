@@ -630,6 +630,15 @@ function responderRebid(hand, open, resp, rebid) {
           `${strength} and ${len[you]} ${name(you)}: rebid ${bh('2' + you)}. Repeating your suit shows 6+ cards and asks partner to pass.`,
           `${strength}, ו-${len[you]} ${name(you)}: הכריזו ${bh('2' + you)}. חזרה על הסדרה מראה 6 קלפים ומעלה ומבקשת מהשותף להכריז פאס.`) };
     }
+    // A weak two-suiter: show the lower-ranking second suit. It isn't forcing, and partner
+    // chooses between your two suits.
+    const second = !inv && len[you] >= 5 && !isBalanced(hand)
+      && SUITS.find(z => z !== you && z !== open && rank(z) > rank(you) && len[z] >= 4);
+    if (second) {
+      return { bid: '2' + second, why: L(
+        `${strength}, with ${len[you]} ${name(you)} and ${len[second]} ${name(second)}. With an unbalanced hand 1NT may be a poor spot, so bid ${bh('2' + second)} to show your second suit. It isn't forcing: partner passes with ${name(second)} or goes back to ${bh('2' + you)} with three ${name(you)}.`,
+        `${strength}, עם ${len[you]} ${name(you)} ו-${len[second]} ${name(second)}. ביד לא מאוזנת 1NT עלול להיות חוזה גרוע, ולכן הכריזו ${bh('2' + second)} כדי להראות את הסדרה השנייה. ההכרזה לא מחייבת: השותף מכריז פאס עם ${name(second)} או חוזר ל-${bh('2' + you)} עם שלושה ${name(you)}.`) };
+    }
     return inv
       ? { bid: '2N', why: L(
         `${strength}. Partner's 1NT shows 12–14, so invite game with 2NT.`,

@@ -288,6 +288,7 @@ const LESSONS_EN = [
       <p><strong>When partner shows a minimum</strong> (a 1NT rebid, a simple raise, or rebidding their suit at the 2-level):</p>
       <ul>
         <li>With 6–10, pass, or sign off at the 2-level in your own 6-card suit.</li>
+        <li>After a 1NT rebid, with 6–10 and an unbalanced hand with a lower-ranking second suit (5-4 or longer), bid it at the 2-level, as in 1${D} – 1${S} – 1NT – <strong>2${C}</strong>. It isn't forcing: partner passes or goes back to your first suit.</li>
         <li>With 11–12, invite: raise to the 3-level with a fit, or bid 2NT.</li>
         <li>With 13+, bid game: in your 8-card fit if you have one, otherwise 3NT.</li>
       </ul>
@@ -705,6 +706,7 @@ const LESSONS_HE = [
       <p><strong>כשהשותף מראה מינימום</strong> (הכרזה חוזרת של 1NT, תמיכה פשוטה, או חזרה על הסדרה שלו ברמת 2):</p>
       <ul>
         <li>עם 6-10, פאס, או עצירה ברמת 2 בסדרה של 6 קלפים משלכם.</li>
+        <li>אחרי הכרזה חוזרת של 1NT, עם 6-10 ויד לא מאוזנת עם סדרה שנייה נמוכה יותר (5-4 ומעלה), הכריזו אותה ברמת 2, כמו <bdi dir="ltr">${B('1D')} – ${B('1S')} – 1NT – <strong>${B('2C')}</strong></bdi>. ההכרזה לא מחייבת: השותף מכריז פאס או חוזר לסדרה הראשונה שלכם.</li>
         <li>עם 11-12, הזמינו: תמיכה ברמת 3 עם התאמה, או 2NT.</li>
         <li>עם 13 ומעלה, הכריזו משחק מלא: בסדרה שבה יש לכם התאמה של 8 קלפים, אם יש, ואחרת 3NT.</li>
       </ul>
