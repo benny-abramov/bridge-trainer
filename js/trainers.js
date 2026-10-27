@@ -49,17 +49,23 @@ function supportText(hand, trump) {
 }
 
 // Length points: the hand with the longer trumps (the one partner raised) doesn't count its short
-// suits, since the ruffs happen in partner's hand. Instead it counts 1 for each trump beyond four.
-function lengthPoints(hand, trump) {
-  return hcp(hand) + Math.max(0, suitLengths(hand)[trump] - 4);
+// suits, since the ruffs happen in partner's hand. Instead it counts 1 for each card beyond four in
+// every long suit: the trumps and any long side suit, which can set up extra tricks.
+const extraLength = hand => Object.entries(suitLengths(hand)).filter(([, n]) => n > 4);
+
+function lengthPoints(hand) {
+  return extraLength(hand).reduce((sum, [, n]) => sum + n - 4, hcp(hand));
 }
 
-// "13 HCP + 1 for 5 spades = 14 points", or just "13 HCP" with only four.
+// "13 HCP + 2 for 6 spades + 1 for 5 diamonds = 16 points", or just "13 HCP" with no 5-card suit.
+// The trump suit comes first.
 function lengthText(hand, trump) {
-  const n = suitLengths(hand)[trump], pts = hcp(hand), extra = n - 4;
-  if (extra <= 0) return hcpText(pts);
-  return L(`${pts} HCP + ${extra} for ${n} ${SUIT_NAME[trump]} = ${pts + extra} points`,
-    `${pts} נק' + ${extra} על ${n} ${SUIT_NAME[trump]} = ${pts + extra} נקודות`);
+  const pts = hcp(hand);
+  const long = extraLength(hand).sort(([a], [b]) => (b === trump) - (a === trump));
+  if (!long.length) return hcpText(pts);
+  const total = lengthPoints(hand);
+  const parts = long.map(([s, n]) => L(`${n - 4} for ${n} ${SUIT_NAME[s]}`, `${n - 4} על ${n} ${SUIT_NAME[s]}`));
+  return L(`${pts} HCP + ${parts.join(' + ')} = ${total} points`, `${pts} נק' + ${parts.join(' + ')} = ${total} נקודות`);
 }
 
 const HcpTrainer = (() => {
@@ -347,7 +353,7 @@ function rebidBid(hand, open, resp) {
 
   // Partner raised your suit: you have the long trumps, so count length points.
   if (rSuit === open) {
-    const str = raiseStr(lengthPoints(hand, open));
+    const str = raiseStr(lengthPoints(hand));
     const you = `${lengthText(hand, open)}: ${STRENGTH_TEXT[str]}`;
     if (rLevel === 2) {
       if (str === 'min') return { bid: 'P', why: L(
@@ -536,7 +542,7 @@ function responderRebid(hand, open, resp, rebid) {
 
   // Partner raised your suit: you have the long trumps, so count length points.
   if (rz === you) {
-    const total = lengthPoints(hand, you), count = lengthText(hand, you);
+    const total = lengthPoints(hand), count = lengthText(hand, you);
     if (rl === 2) {
       return total >= 11
         ? { bid: '3' + you, why: L(
