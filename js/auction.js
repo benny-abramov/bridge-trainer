@@ -53,8 +53,11 @@ function bidAuction(hands) {
     }
     let level = target.level;
     while (level <= 7 && !legal(level + target.strain)) level++;
-    if (level > 7 || (level > target.level + 1 && !lastArtificial)) {
-      return { call: 'P', why: L('Higher would be too ambitious: pass and play here.', 'גבוה יותר יהיה שאפתני מדי: פאס ומשחקים כאן.') };
+    // Going past the level the points call for only makes sense to leave an artificial bid.
+    if (level > 7 || (level > target.level && !lastArtificial)) {
+      return { call: 'P', why: L(
+        `North-South have about ${pts} HCP: bidding higher would be too ambitious, so pass and play ${bidHtml(last.call)}.`,
+        `לצפון-דרום יש בערך ${pts} נק': להכריז גבוה יותר יהיה שאפתני מדי, ולכן פאס ומשחקים ב-${bidHtml(last.call)}.`) };
     }
     const bid = level + target.strain;
     return { call: bid, why: L(`North-South have about ${pts} HCP${fit}, so ${SEAT_NAMES[seat]} places the contract: ${bidHtml(bid)}.`,
@@ -114,6 +117,12 @@ function bidAuction(hands) {
       const simple = openSuit && resp && (resp[0] === '1' || (resp[0] === '2' && resp[1] !== 'N') || (resp[1] === openSuit && resp[0] === '3'));
       if (simple) return use(seat, rebidBid(hand, openSuit, resp), false);
       return place(seat);
+    }
+    if (seat === 0 && mine.length === 1 && open === '1N' && (mine[0] === '2D' || mine[0] === '2H') && hcp(hand) <= 7) {
+      const major = mine[0] === '2D' ? 'H' : 'S';
+      return { call: 'P', why: L(
+        `<strong>Transfer and pass.</strong> With only ${hcp(hand)} HCP, game is out of reach. North transferred just to play in ${SUIT_NAME[major]}, so pass ${bidHtml('2' + major)}.`,
+        `<strong>טרנספר ופאס.</strong> עם ${hcp(hand)} נק' בלבד, משחק מלא לא בהישג יד. צפון ביקש טרנספר רק כדי לשחק ב${SUIT_NAME[major]}, ולכן פאס על ${bidHtml('2' + major)}.`) };
     }
     if (seat === 0 && mine.length === 1 && openSuit) { // North's second call
       return use(seat, responderRebid(hand, openSuit, mine[0], partner[1]), false);
