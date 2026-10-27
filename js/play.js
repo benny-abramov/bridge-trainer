@@ -8,6 +8,9 @@ const Play = (() => {
   let timer = null;
   let showAll = false;
   let mode = 'declare';
+  // Vulnerability cycles with each new deal: none, East-West, North-South, both.
+  const VUL_CYCLE = [{ ns: false, ew: false }, { ns: false, ew: true }, { ns: true, ew: false }, { ns: true, ew: true }];
+  let board = 0;
   const $ = id => document.getElementById(id);
 
   // ---------- Setting up a deal ----------
@@ -34,9 +37,12 @@ const Play = (() => {
 
   function newDeal(replay) {
     clearTimeout(timer);
-    const table = replay ? { hands: cloneHands(replay.hands), contract: replay.contract, auction: replay.auction } : dealTable();
+    const table = replay
+      ? { hands: cloneHands(replay.hands), contract: replay.contract, auction: replay.auction, vul: replay.vul }
+      : { ...dealTable(), vul: VUL_CYCLE[board++ % 4] };
     st = {
-      original: { hands: cloneHands(table.hands), contract: table.contract, auction: table.auction },
+      original: { hands: cloneHands(table.hands), contract: table.contract, auction: table.auction, vul: table.vul },
+      vul: table.vul,
       auction: table.auction,
       hands: table.hands,
       contract: table.contract,
@@ -197,18 +203,19 @@ const Play = (() => {
     return winners.length ? lowest(winners) : discard(legal);
   }
 
-  // ---------- Scoring (not vulnerable, from North-South's point of view) ----------
+  // ---------- Scoring (undoubled, from North-South's point of view) ----------
 
   function score() {
     const { level, strain } = st.contract;
+    const vul = st.vul.ns;
     const need = level + 6;
     const made = st.tricks[0];
-    if (made < need) return { text: L(`Down ${need - made}`, `נפילה של ${need - made}`), points: -50 * (need - made) };
+    if (made < need) return { text: L(`Down ${need - made}`, `נפילה של ${need - made}`), points: -(vul ? 100 : 50) * (need - made) };
     const per = strain === 'C' || strain === 'D' ? 20 : 30;
     const contractPts = level * per + (strain === 'N' ? 10 : 0);
-    let points = contractPts + (made - need) * per + (contractPts >= 100 ? 300 : 50);
-    if (level === 6) points += 500;
-    if (level === 7) points += 1000;
+    let points = contractPts + (made - need) * per + (contractPts >= 100 ? (vul ? 500 : 300) : 50);
+    if (level === 6) points += vul ? 750 : 500;
+    if (level === 7) points += vul ? 1500 : 1000;
     const over = made - need;
     const text = over
       ? L(`Made with ${over} overtrick${over > 1 ? 's' : ''}`, over > 1 ? `בוצע עם ${over} לקיחות עודפות` : 'בוצע עם לקיחה עודפת אחת')
@@ -379,6 +386,14 @@ const Play = (() => {
   // Tapping a call shows what it means.
   const AUCTION_COLUMNS = [3, 0, 1, 2];
 
+  function vulText() {
+    const { ns, ew } = st.vul;
+    if (ns && ew) return L('Both sides vulnerable', 'שני הצדדים פגיעים');
+    if (ns) return L('North-South vulnerable', 'צפון-דרום פגיעים');
+    if (ew) return L('East-West vulnerable', 'מזרח-מערב פגיעים');
+    return L('Nobody vulnerable', 'אף צד לא פגיע');
+  }
+
   function renderAuction() {
     const box = $('play-auction');
     const a = st.auction;
@@ -398,11 +413,14 @@ const Play = (() => {
       ? `<strong>${SEAT_NAMES[pick.seat]} ${bidHtml(pick.call)}:</strong> ${pick.why || L('No bid.', 'בלי הכרזה.')}`
       : L(`Final contract: <strong>${contractHtml()}</strong> by South. Tap a call to see what it means.`,
         `החוזה הסופי: <strong>${contractHtml()}</strong>. הכרוז: דרום. הקישו על הכרזה כדי לראות מה היא אומרת.`);
+    const isVul = seat => (seat % 2 ? st.vul.ew : st.vul.ns);
+    const vulTitle = L('Vulnerable', 'פגיע');
     box.innerHTML = `
       <table class="bid-box">
-        <tr>${AUCTION_COLUMNS.map(s => `<th class="${s === a.dealer ? 'dealer' : ''}">${SEAT_NAMES[s]}</th>`).join('')}</tr>
+        <tr>${AUCTION_COLUMNS.map(s => `<th class="${[s === a.dealer ? 'dealer' : '', isVul(s) ? 'vul' : ''].join(' ').trim()}"${isVul(s) ? ` title="${vulTitle}"` : ''}>${SEAT_NAMES[s]}</th>`).join('')}</tr>
         ${rows.join('')}
       </table>
+      <div class="auction-vul">${vulText()}</div>
       <div class="auction-caption">${caption}</div>`;
   }
 

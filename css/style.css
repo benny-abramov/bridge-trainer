@@ -479,6 +479,10 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 .auction-box .bid-box button:hover { box-shadow: inset 0 0 0 2px var(--accent); }
 .auction-box .bid-box button.final { background: var(--hint); color: #1a1a1a; font-weight: 700; --red-suit: #c62828; --diamond-suit: #d35400; --club-suit: #1a7f37; }
 .auction-box .bid-box button.picked { box-shadow: inset 0 0 0 2px var(--accent); font-weight: 700; }
+/* Seat names like a real bidding box: white when not vulnerable, red when vulnerable. */
+.auction-box .bid-box th { background: #f1f1ee; color: #1a1a1a; border-radius: 6px; }
+.auction-box .bid-box th.vul { background: #c62828; color: #fff; }
+.auction-vul { color: var(--felt-text); font-size: .8rem; }
 .auction-caption { max-width: 15rem; font-size: .8rem; line-height: 1.35; text-align: center; color: var(--felt-text); }
 [dir="rtl"] .auction-caption { direction: rtl; }
 
