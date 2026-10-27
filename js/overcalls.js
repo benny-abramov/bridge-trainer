@@ -37,7 +37,14 @@ function overcallBid(hand, open) {
   const above = rank(best) < rank(open); // can be bid at the 1-level
   const name = SUIT_NAME[best];
 
-  if (pts >= 6 && pts <= 10 && n >= 6) {
+  if (pts >= 6 && pts <= 10 && n >= 7) {
+    // The longer the suit, the higher the preempt: the 3-level with 7 cards, the 4-level with 8+.
+    const bid = (n >= 8 ? 4 : 3) + best;
+    return { bid, why: L(
+      `${pts} HCP with ${n} ${name}: <em>preempt</em> with ${bidHtml(bid)}. The longer your suit, the higher you jump: the 3-level with 7 cards, the 4-level with 8. It takes away the opponents' bidding space.`,
+      `${pts} נק' עם ${n} ${name}: הכריזו <em>הכרזת חסימה</em> ב-${bidHtml(bid)}. ככל שהסדרה ארוכה יותר, קופצים גבוה יותר: לרמה 3 עם 7 קלפים, לרמה 4 עם 8. היא לוקחת מהיריבים מקום במכרז.`) };
+  }
+  if (pts >= 6 && pts <= 10 && n === 6) {
     const bid = (above ? 2 : 3) + best;
     return { bid, why: L(
       `${pts} HCP with ${n} ${name}: make a <em>weak jump overcall</em> of ${bidHtml(bid)}. Like a weak two, it shows a 6-card suit and 6–10 HCP, and uses up the opponents' bidding space.`,

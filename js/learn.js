@@ -304,18 +304,20 @@ const LESSONS_EN = [
     body: `
       <p>When an opponent opens the bidding, your side can still compete. Bidding after the opponents have opened is called <strong>overcalling</strong>.
       An overcall can win the contract, push the opponents too high, or tell partner which suit to lead.</p>
-      <p>When the opponent on your right opens one of a suit, choose the first of these that fits:</p>
+      <p>When the opponent on your right opens one of a suit, find the row that fits your hand:</p>
       <table class="tbl">
         <tr><th>Your hand</th><th>Action</th></tr>
-        <tr><td>15–18 HCP, balanced, with a stopper in their suit</td><td>1NT</td></tr>
-        <tr><td>17+ HCP, too strong to overcall</td><td>Double, then bid your suit or no-trump</td></tr>
-        <tr><td>6–10 HCP and a 6-card suit</td><td><strong>Weak jump overcall</strong>: one level higher than needed (1${H} – 2${S}, 1${S} – 3${C})</td></tr>
         <tr><td>8–16 HCP and a good 5+ card suit you can bid at the 1-level</td><td>1-level overcall</td></tr>
         <tr><td>11–16 HCP and a good 5+ card suit at the 2-level</td><td>2-level overcall</td></tr>
         <tr><td>12+ HCP, short in their suit, 3+ cards in every other suit</td><td><strong>Takeout double</strong></td></tr>
+        <tr><td>15–18 HCP, balanced, with a stopper in their suit</td><td>1NT</td></tr>
+        <tr><td>17+ HCP, too strong to overcall</td><td>Double, then bid your suit or no-trump</td></tr>
+        <tr><td>6–10 HCP and a 6-card suit</td><td><strong>Weak jump overcall</strong>: one level higher than needed (1${H} – 2${S}, 1${S} – 3${C})</td></tr>
+        <tr><td>6–10 HCP and a 7-card suit</td><td><strong>Preempt</strong> at the 3-level (1${C} – 3${H})</td></tr>
         <tr><td>Anything else</td><td>Pass</td></tr>
       </table>
       <ul>
+        <li>When more than one row fits, a weak hand (6–10 HCP) with a 6- or 7-card suit makes the jump, not a simple overcall. A balanced 15–18 with a stopper prefers 1NT.</li>
         <li>A <strong>good suit</strong> has at least two of the top honors (A, K, Q, J, 10). With fewer than 12 HCP, only overcall with a good suit, because partner will usually lead it.</li>
         <li>A <strong>stopper</strong> is a holding that will win a trick in their suit: A, K-x, Q-x-x or J-x-x-x.</li>
         <li>A <strong>takeout double</strong> doesn't mean "I think they'll go down". It asks partner to choose a trump suit, so partner must bid even with a weak hand.</li>
@@ -715,18 +717,20 @@ const LESSONS_HE = [
     body: `
       <p>כשיריב פותח, הצד שלכם עדיין יכול להתחרות. הכרזה אחרי שהיריבים פתחו נקראת <strong>הכרזת התערבות</strong>.
       היא יכולה לזכות בחוזה, לדחוף את היריבים גבוה מדי, או לומר לשותף באיזו סדרה להוביל.</p>
-      <p>כשהיריב מימינכם פותח באחת בסדרה, בחרו את הראשונה שמתאימה:</p>
+      <p>כשהיריב מימינכם פותח באחת בסדרה, מצאו את השורה שמתאימה ליד שלכם:</p>
       <table class="tbl">
         <tr><th>היד שלכם</th><th>פעולה</th></tr>
-        <tr><td>15-18 נק', מאוזנת, עם עוצר בסדרה שלהם</td><td>1NT</td></tr>
-        <tr><td>17 נק' ומעלה, חזקה מדי להתערבות</td><td>דאבל, ואחר כך הכריזו את הסדרה שלכם או ללא שליט</td></tr>
-        <tr><td>6-10 נק' וסדרה של 6 קלפים</td><td><strong>קפיצת התערבות חלשה</strong>: רמה אחת מעל הנדרש (${B('1H')} – ${B('2S')}, ${B('1S')} – ${B('3C')})</td></tr>
         <tr><td>8-16 נק' וסדרה טובה של 5 קלפים ומעלה שאפשר להכריז ברמת 1</td><td>התערבות ברמת 1</td></tr>
         <tr><td>11-16 נק' וסדרה טובה של 5 קלפים ומעלה ברמת 2</td><td>התערבות ברמת 2</td></tr>
         <tr><td>12 נק' ומעלה, קצר בסדרה שלהם, 3 קלפים ומעלה בכל סדרה אחרת</td><td><strong>כפל הוצאה</strong></td></tr>
+        <tr><td>15-18 נק', מאוזנת, עם עוצר בסדרה שלהם</td><td>1NT</td></tr>
+        <tr><td>17 נק' ומעלה, חזקה מדי להתערבות</td><td>דאבל, ואחר כך הכריזו את הסדרה שלכם או ללא שליט</td></tr>
+        <tr><td>6-10 נק' וסדרה של 6 קלפים</td><td><strong>קפיצת התערבות חלשה</strong>: רמה אחת מעל הנדרש (${B('1H')} – ${B('2S')}, ${B('1S')} – ${B('3C')})</td></tr>
+        <tr><td>6-10 נק' וסדרה של 7 קלפים</td><td><strong>הכרזת חסימה</strong> ברמה 3 (${B('1C')} – ${B('3H')})</td></tr>
         <tr><td>כל דבר אחר</td><td>פאס</td></tr>
       </table>
       <ul>
+        <li>כשיותר משורה אחת מתאימה, יד חלשה (6-10 נק') עם סדרה של 6 או 7 קלפים קופצת, ולא מתערבת התערבות פשוטה. יד מאוזנת של 15-18 עם עוצר מעדיפה 1NT.</li>
         <li><strong>סדרה טובה</strong> כוללת לפחות שניים מהקלפים הגבוהים (A, K, Q, J, 10). עם פחות מ-12 נק', התערבו רק עם סדרה טובה, כי בדרך כלל השותף יוביל אותה.</li>
         <li><strong>עוצר</strong> הוא החזקה שתזכה בלקיחה בסדרה שלהם: A, K-x, Q-x-x או J-x-x-x.</li>
         <li><strong>כפל הוצאה</strong> לא אומר "אני חושב שהם ייפלו". הוא מבקש מהשותף לבחור סדרת שליט, ולכן השותף חייב להכריז גם עם יד חלשה.</li>
