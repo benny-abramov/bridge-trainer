@@ -19,6 +19,7 @@ function showTab(name, fromLesson) {
     ? `<span class="practice-prefix">${L('Practice', 'תרגול')}: </span>${drill.textContent}` : L('Practice', 'תרגול');
   TABS.forEach(t => (document.getElementById('tab-' + t).hidden = t !== name));
   if (location.hash !== '#' + name) history.replaceState(null, '', '#' + name);
+  Saved.set('tab', name);
   Learn.showReturnBar(name, fromLesson);
 }
 
@@ -43,4 +44,4 @@ Play.init();
 LeadTrainer.init();
 DeclarerPlay.init();
 UpdateCheck.init();
-showTab(location.hash.slice(1));
+showTab(location.hash.slice(1) || Saved.get('tab')); // the address wins, else where you were last

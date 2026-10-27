@@ -439,6 +439,7 @@ const LESSONS_EN = [
         <tr><td>Simple finesse</td><td>A-Q / x-x</td><td>Lead toward A-Q and play the queen</td></tr>
         <tr><td>Leading toward an honor</td><td>x-x / K-x</td><td>Lead from dummy toward the king</td></tr>
         <tr><td>Finesse against the queen</td><td>A-K-J / x-x-x</td><td>Lead toward dummy and play the jack</td></tr>
+        <tr><td>Leading toward K-J</td><td>K-J-x / x-x-x</td><td>Lead low toward dummy and play the jack. If it loses to the queen, lead toward the king later: it wins when West has the ace</td></tr>
         <tr><td>Double finesse</td><td>A-Q-10 / x-x-x</td><td>Finesse the 10 first, then the queen</td></tr>
         <tr><td>Ruffing finesse</td><td>A-Q-J / void</td><td>Lead the queen; ruff if covered, otherwise throw a loser</td></tr>
       </table>
@@ -844,6 +845,7 @@ const LESSONS_HE = [
         <tr><td>עקיפה פשוטה</td><td>A-Q / x-x</td><td>הובילו לעבר A-Q ושחקו את המלכה</td></tr>
         <tr><td>הובלה לעבר הונור</td><td>x-x / K-x</td><td>הובילו מהדומם לעבר המלך</td></tr>
         <tr><td>עקיפה נגד המלכה</td><td>A-K-J / x-x-x</td><td>הובילו לעבר הדומם ושחקו את הנסיך</td></tr>
+        <tr><td>הובלה לעבר K-J</td><td>K-J-x / x-x-x</td><td>הובילו נמוך לעבר הדומם ושחקו את הנסיך. אם הוא מפסיד למלכה, הובילו מאוחר יותר לעבר המלך: הוא זוכה כשהאס אצל מערב</td></tr>
         <tr><td>עקיפה כפולה</td><td>A-Q-10 / x-x-x</td><td>עקפו קודם עם ה-10, אחר כך עם המלכה</td></tr>
         <tr><td>עקיפת חיתוך</td><td>A-Q-J / חוסר</td><td>הובילו את המלכה; חתכו אם מכסים אותה, אחרת השליכו מפסיד</td></tr>
       </table>
@@ -1275,9 +1277,10 @@ const AuctionDemo = (() => {
 })();
 
 const Learn = (() => {
-  let index = 0;
+  let index = Math.min(Math.max(Number(Saved.get('lesson')) || 0, 0), LESSONS.length - 1);
 
   function render() {
+    Saved.set('lesson', index);
     // The lesson picker: the current lesson on a button that opens the list of all lessons.
     const menu = document.getElementById('lesson-menu');
     const name = (lesson, i) => `<bdi>${i + 1}.</bdi> ${lesson.title}`;

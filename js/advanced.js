@@ -305,6 +305,7 @@ function makePuzzleSection(prefix, topics, groups) {
     clearTimeout(timer);
     topic = key;
     index = 0;
+    Saved.set(prefix + '-topic', key);
     document.querySelectorAll(`#${prefix}-topic button`).forEach(b => {
       b.classList.toggle('active', b.dataset.topic === topic);
       b.setAttribute('aria-pressed', b.dataset.topic === topic);
@@ -344,7 +345,8 @@ function makePuzzleSection(prefix, topics, groups) {
       st.hint = bestCards(st.turn)[0];
       render();
     });
-    showTopic(topic);
+    const saved = Saved.get(prefix + '-topic');
+    showTopic(saved in topics ? saved : topic);
   }
 
   return { init };

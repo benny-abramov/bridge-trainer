@@ -10,6 +10,17 @@ const LANG = (() => {
 
 const L = (en, he) => (LANG === 'he' ? he : en);
 
+// Where you were, kept in this browser so the app reopens there: the tab, the lesson and the
+// Declarer Play topic. Storage can be blocked (private windows), so failures are ignored.
+const Saved = {
+  get(key) {
+    try { return localStorage.getItem('bridge-' + key); } catch { return null; }
+  },
+  set(key, value) {
+    try { localStorage.setItem('bridge-' + key, value); } catch { /* not remembered */ }
+  },
+};
+
 function setLanguage(lang) {
   try { localStorage.setItem('bridge-lang', lang); } catch { /* storage may be blocked; the URL still carries it */ }
   const url = new URL(location.href);
