@@ -433,15 +433,15 @@ const LESSONS_EN = [
         <li>Ruff <strong>before</strong> drawing trumps, or dummy's trumps disappear. Draw trumps once the ruffs are done.</li>
       </ul>
       <h3>Finesses</h3>
-      <p>A finesse wins a trick with a card that isn't the highest. The rule is: <strong>lead from the opposite hand toward the card you hope will win</strong>.</p>
+      <p>A finesse wins a trick with a card that isn't the highest. The rule is: <strong>lead from the opposite hand toward the card you hope will win</strong>. Tap a kind to see where the missing cards can be.</p>
       <table class="tbl">
         <tr><th>Kind</th><th>Holding (dummy / you)</th><th>How</th></tr>
-        <tr><td>Simple finesse</td><td>A-Q / x-x</td><td>Lead toward A-Q and play the queen</td></tr>
-        <tr><td>Leading toward an honor</td><td>x-x / K-x</td><td>Lead from dummy toward the king</td></tr>
-        <tr><td>Finesse against the queen</td><td>A-K-J / x-x-x</td><td>Lead toward dummy and play the jack</td></tr>
-        <tr><td>Leading toward K-J</td><td>K-J-x / x-x-x</td><td>Lead low toward dummy and play the jack. If it loses to the queen, lead toward the king later: it wins when West has the ace</td></tr>
-        <tr><td>Double finesse</td><td>A-Q-10 / x-x-x</td><td>Finesse the 10 first, then the queen</td></tr>
-        <tr><td>Ruffing finesse</td><td>A-Q-J / void</td><td>Lead the queen; ruff if covered, otherwise throw a loser</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-finesse="simple">Simple finesse</button></td><td>A-Q / x-x</td><td>Lead toward A-Q and play the queen</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-finesse="toward">Leading toward an honor</button></td><td>x-x / K-x</td><td>Lead from dummy toward the king</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-finesse="queen">Finesse against the queen</button></td><td>A-K-J / x-x-x</td><td>Lead toward dummy and play the jack</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-finesse="kj">Leading toward K-J</button></td><td>K-J-x / x-x-x</td><td>Lead low toward dummy and play the jack. If it loses to the queen, lead toward the king later: it wins when West has the ace</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-finesse="double">Double finesse</button></td><td>A-Q-10 / x-x-x</td><td>Finesse the 10 first, then the queen</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-finesse="ruffing">Ruffing finesse</button></td><td>A-Q-J / void</td><td>Lead the queen; ruff if covered, otherwise throw a loser</td></tr>
       </table>
       <p>The Declarer Play tab covers these and more (drawing trumps, cross ruff, hold up, ducking, safety plays), each with practice hands.</p>`,
     tryIt: 'declarer',
@@ -839,15 +839,15 @@ const LESSONS_HE = [
         <li>חתכו <strong>לפני</strong> שאתם מוציאים שליטים, אחרת השליטים של הדומם ייעלמו. הוציאו שליטים אחרי שסיימתם לחתוך.</li>
       </ul>
       <h3>עקיפות</h3>
-      <p>עקיפה זוכה בלקיחה עם קלף שאינו הגבוה ביותר. הכלל: <strong>הובילו מהיד שממול לעבר הקלף שאתם מקווים שיזכה</strong>.</p>
+      <p>עקיפה זוכה בלקיחה עם קלף שאינו הגבוה ביותר. הכלל: <strong>הובילו מהיד שממול לעבר הקלף שאתם מקווים שיזכה</strong>. לחצו על סוג כדי לראות היכן יכולים להיות הקלפים החסרים.</p>
       <table class="tbl">
         <tr><th>סוג</th><th>החזקה (דומם / אתם)</th><th>איך</th></tr>
-        <tr><td>עקיפה פשוטה</td><td>A-Q / x-x</td><td>הובילו לעבר A-Q ושחקו את המלכה</td></tr>
-        <tr><td>הובלה לעבר הונור</td><td>x-x / K-x</td><td>הובילו מהדומם לעבר המלך</td></tr>
-        <tr><td>עקיפה נגד המלכה</td><td>A-K-J / x-x-x</td><td>הובילו לעבר הדומם ושחקו את הנסיך</td></tr>
-        <tr><td>הובלה לעבר K-J</td><td>K-J-x / x-x-x</td><td>הובילו נמוך לעבר הדומם ושחקו את הנסיך. אם הוא מפסיד למלכה, הובילו מאוחר יותר לעבר המלך: הוא זוכה כשהאס אצל מערב</td></tr>
-        <tr><td>עקיפה כפולה</td><td>A-Q-10 / x-x-x</td><td>עקפו קודם עם ה-10, אחר כך עם המלכה</td></tr>
-        <tr><td>עקיפת חיתוך</td><td>A-Q-J / חוסר</td><td>הובילו את המלכה; חתכו אם מכסים אותה, אחרת השליכו מפסיד</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-finesse="simple">עקיפה פשוטה</button></td><td>A-Q / x-x</td><td>הובילו לעבר A-Q ושחקו את המלכה</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-finesse="toward">הובלה לעבר הונור</button></td><td>x-x / K-x</td><td>הובילו מהדומם לעבר המלך</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-finesse="queen">עקיפה נגד המלכה</button></td><td>A-K-J / x-x-x</td><td>הובילו לעבר הדומם ושחקו את הנסיך</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-finesse="kj">הובלה לעבר K-J</button></td><td>K-J-x / x-x-x</td><td>הובילו נמוך לעבר הדומם ושחקו את הנסיך. אם הוא מפסיד למלכה, הובילו מאוחר יותר לעבר המלך: הוא זוכה כשהאס אצל מערב</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-finesse="double">עקיפה כפולה</button></td><td>A-Q-10 / x-x-x</td><td>עקפו קודם עם ה-10, אחר כך עם המלכה</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-finesse="ruffing">עקיפת חיתוך</button></td><td>A-Q-J / חוסר</td><td>הובילו את המלכה; חתכו אם מכסים אותה, אחרת השליכו מפסיד</td></tr>
       </table>
       <p>בלשונית "משחק הכרוז" יש את אלה ועוד (הוצאת שליטים, חיתוך צולב, השהיה, ויתור, משחקי ביטחון), עם ידיים לתרגול לכל אחד.</p>`,
     tryIt: 'declarer',
@@ -1086,6 +1086,159 @@ const ShapeExamples = (() => {
   }
 
   return { mount };
+})();
+
+// The pop-up behind each kind in the lesson's Finesses table: every way the missing honors can lie
+// between West and East, with the tricks it gives and the chance of the best result.
+const FinesseLayouts = (() => {
+  // Holdings use 'x' for a small card; '' is a void. Each case gives the defenders' honors and the
+  // tricks the suit makes when you play it the recommended way.
+  const KINDS = {
+    simple: {
+      title: ['Simple finesse: A-Q', 'עקיפה פשוטה: A-Q'], north: 'AQ', south: 'xx',
+      cases: [
+        { w: 'K', e: '', tricks: 2, title: ['King with West (on your left)', 'המלך אצל מערב (משמאלכם)'],
+          text: ['Lead low toward the queen. If West plays low, the queen wins; if West plays the king, the ace takes it and the queen is high.',
+            'הובילו נמוך לעבר המלכה. אם מערב משחק נמוך, המלכה זוכה; אם מערב משחק את המלך, האס לוקח אותו והמלכה גבוהה.'] },
+        { w: '', e: 'K', tricks: 1, title: ['King with East (on your right)', 'המלך אצל מזרח (מימינכם)'],
+          text: ['East plays after dummy, so the queen loses to the king. Only the ace wins.',
+            'מזרח משחק אחרי הדומם, ולכן המלכה מפסידה למלך. רק האס זוכה.'] },
+      ],
+      chance: ['Two tricks whenever West has the king: about 50%.', 'שתי לקיחות בכל פעם שהמלך אצל מערב: בערך 50%.'],
+    },
+    toward: {
+      title: ['Leading toward an honor: K-x', 'הובלה לעבר הונור: K-x'], north: 'xx', south: 'Kx',
+      cases: [
+        { w: '', e: 'A', tricks: 1, title: ['Ace with East (on your right)', 'האס אצל מזרח (מימינכם)'],
+          text: ['Lead low from dummy. If East plays low, the king wins; if East takes the ace, the king is high later.',
+            'הובילו נמוך מהדומם. אם מזרח משחק נמוך, המלך זוכה; אם מזרח לוקח עם האס, המלך גבוה בהמשך.'] },
+        { w: 'A', e: '', tricks: 0, title: ['Ace with West (on your left)', 'האס אצל מערב (משמאלכם)'],
+          text: ["West's ace sits over the king, so the king loses however you play.",
+            'האס של מערב יושב מעל המלך, ולכן המלך מפסיד איך שלא תשחקו.'] },
+      ],
+      chance: ['One trick whenever East has the ace: about 50%. Leading the king yourself never wins a trick.',
+        'לקיחה אחת בכל פעם שהאס אצל מזרח: בערך 50%. הובלת המלך בעצמכם אף פעם לא זוכה.'],
+    },
+    queen: {
+      title: ['Finesse against the queen: A-K-J', 'עקיפה נגד המלכה: A-K-J'], north: 'AKJ', south: 'xxx',
+      cases: [
+        { w: 'Q', e: '', tricks: 3, title: ['Queen with West (on your left)', 'המלכה אצל מערב (משמאלכם)'],
+          text: ['Lead low toward dummy. If West plays low, the jack wins; if West plays the queen, win and the jack is high.',
+            'הובילו נמוך לעבר הדומם. אם מערב משחק נמוך, הנסיך זוכה; אם מערב משחק את המלכה, זכו והנסיך גבוה.'] },
+        { w: '', e: 'Q', tricks: 2, title: ['Queen with East (on your right)', 'המלכה אצל מזרח (מימינכם)'],
+          text: ['The jack loses to the queen. The ace and king still win.', 'הנסיך מפסיד למלכה. האס והמלך עדיין זוכים.'] },
+      ],
+      chance: ['Three tricks whenever West has the queen: about 50%.', 'שלוש לקיחות בכל פעם שהמלכה אצל מערב: בערך 50%.'],
+    },
+    kj: {
+      title: ['Leading toward K-J', 'הובלה לעבר K-J'], north: 'KJx', south: 'xxx',
+      cases: [
+        { w: 'AQ', e: '', tricks: 2, title: ['Ace and queen with West', 'האס והמלכה אצל מערב'],
+          text: ['Lead low and play the jack: it wins. Lead low again and the king wins too.',
+            'הובילו נמוך ושחקו את הנסיך: הוא זוכה. הובילו שוב נמוך וגם המלך זוכה.'] },
+        { w: 'A', e: 'Q', tricks: 1, title: ['Ace with West, queen with East', 'האס אצל מערב, המלכה אצל מזרח'],
+          text: ["The jack loses to East's queen. Later lead toward the king: West's ace can't stop it.",
+            'הנסיך מפסיד למלכה של מזרח. בהמשך הובילו לעבר המלך: האס של מערב לא יכול לעצור אותו.'] },
+        { w: 'Q', e: 'A', tricks: 1, title: ['Queen with West, ace with East', 'המלכה אצל מערב, האס אצל מזרח'],
+          text: ["East wins the jack with the ace. Later lead toward the king: West's queen is below it.",
+            'מזרח זוכה בנסיך עם האס. בהמשך הובילו לעבר המלך: המלכה של מערב נמוכה ממנו.'] },
+        { w: '', e: 'AQ', tricks: 0, title: ['Ace and queen with East', 'האס והמלכה אצל מזרח'],
+          text: ['East sits over both honors: the jack loses to the queen and the king to the ace.',
+            'מזרח יושב מעל שני ההונורים: הנסיך מפסיד למלכה והמלך לאס.'] },
+      ],
+      chance: ['Two tricks about 25% of the time, at least one about 75%.', 'שתי לקיחות בערך ב-25% מהמקרים, לפחות אחת בערך ב-75%.'],
+    },
+    double: {
+      title: ['Double finesse: A-Q-10', 'עקיפה כפולה: A-Q-10'], north: 'AQT', south: 'xxx',
+      cases: [
+        { w: 'KJ', e: '', tricks: 3, title: ['King and jack with West', 'המלך והנסיך אצל מערב'],
+          text: ['Lead low and play the 10: it wins. Lead low again and play the queen: it wins too.',
+            'הובילו נמוך ושחקו את ה-10: הוא זוכה. הובילו שוב נמוך ושחקו את המלכה: גם היא זוכה.'] },
+        { w: 'K', e: 'J', tricks: 2, title: ['King with West, jack with East', 'המלך אצל מערב, הנסיך אצל מזרח'],
+          text: ["The 10 loses to East's jack. Later the queen finesse wins.", 'ה-10 מפסיד לנסיך של מזרח. בהמשך העקיפה עם המלכה מצליחה.'] },
+        { w: 'J', e: 'K', tricks: 2, title: ['Jack with West, king with East', 'הנסיך אצל מערב, המלך אצל מזרח'],
+          text: ["The 10 loses to East's king, but then the ace and queen are both winners.", 'ה-10 מפסיד למלך של מזרח, אבל אז האס והמלכה שניהם זוכים.'] },
+        { w: '', e: 'KJ', tricks: 1, title: ['King and jack with East', 'המלך והנסיך אצל מזרח'],
+          text: ['The 10 loses to the jack and the queen to the king. Only the ace wins.', 'ה-10 מפסיד לנסיך והמלכה למלך. רק האס זוכה.'] },
+      ],
+      chance: ['Three tricks about 25% of the time, at least two about 75%.', 'שלוש לקיחות בערך ב-25% מהמקרים, לפחות שתיים בערך ב-75%.'],
+    },
+    ruffing: {
+      title: ['Ruffing finesse: A-Q-J / void', 'עקיפת חיתוך: A-Q-J / חוסר'], north: 'AQJ', south: '',
+      cases: [
+        { w: '', e: 'K', tricks: 3, title: ['King with East (on your right)', 'המלך אצל מזרח (מימינכם)'],
+          text: ['Lead the queen from dummy. If East covers with the king, ruff it and the jack is high; if East plays low, throw a loser and the queen wins.',
+            'הובילו את המלכה מהדומם. אם מזרח מכסה עם המלך, חתכו והנסיך גבוה; אם מזרח משחק נמוך, השליכו מפסיד והמלכה זוכה.'] },
+        { w: 'K', e: '', tricks: 2, title: ['King with West (on your left)', 'המלך אצל מערב (משמאלכם)'],
+          text: ['West wins the queen with the king. You threw a loser on it, so the lost trick costs nothing extra.',
+            'מערב זוכה במלכה עם המלך. השלכתם עליה מפסיד, כך שהלקיחה שהפסדתם לא עולה לכם יותר.'] },
+      ],
+      chance: ['Works whenever East has the king: about 50%. Here the king must be on your right, the opposite of a simple finesse.',
+        'מצליח בכל פעם שהמלך אצל מזרח: בערך 50%. כאן המלך צריך להיות מימינכם, הפוך מעקיפה פשוטה.'],
+    },
+  };
+
+  const t = pair => L(pair[0], pair[1]);
+  let dialog;
+
+  function hand(cls, label, ranks) {
+    const box = document.createElement('div');
+    box.className = 'fin-hand ' + cls;
+    box.innerHTML = `<span class="fin-label" dir="auto">${label}</span>`;
+    if (!ranks) box.insertAdjacentHTML('beforeend', `<span class="fin-void">${L('void', 'חוסר')}</span>`);
+    else renderFan(box, [...ranks].map(rank => ({ suit: 'S', rank })));
+    return box;
+  }
+
+  function caseBox(c, best, worst) {
+    const tone = c.tricks === best ? 'good' : c.tricks === worst ? 'bad' : 'part';
+    const mark = { good: '✅', bad: '❌', part: '🟡' }[tone];
+    const box = document.createElement('div');
+    box.className = 'fin-case ' + tone;
+    const tricks = c.tricks === 1 ? L('1 trick', 'לקיחה אחת') : c.tricks === 0 ? L('no tricks', 'אין לקיחות') : L(`${c.tricks} tricks`, `${c.tricks} לקיחות`);
+    box.innerHTML = `<div class="fin-head">${mark} ${t(c.title)}: ${tricks}</div>`;
+    const table = document.createElement('div');
+    table.className = 'fin-table';
+    table.append(
+      hand('n', L('North (dummy)', 'צפון (דומם)'), KINDS[dialog.dataset.kind].north),
+      hand('w', L('West', 'מערב'), c.w || 'x'),
+      hand('e', L('East', 'מזרח'), c.e || 'x'),
+      hand('s', L('South (you)', 'דרום (אתם)'), KINDS[dialog.dataset.kind].south));
+    const text = document.createElement('p');
+    text.innerHTML = t(c.text);
+    box.append(table, text);
+    return box;
+  }
+
+  function show(kind) {
+    const k = KINDS[kind];
+    if (!k) return;
+    if (!dialog) {
+      dialog = document.createElement('dialog');
+      dialog.className = 'finesse-dialog';
+      dialog.addEventListener('click', e => { if (e.target === dialog) dialog.close(); }); // the backdrop
+      document.body.appendChild(dialog);
+    }
+    dialog.dataset.kind = kind;
+    const tricks = k.cases.map(c => c.tricks);
+    dialog.innerHTML = `<h3>${t(k.title)}</h3>`;
+    const grid = document.createElement('div');
+    grid.className = 'fin-cases';
+    k.cases.forEach(c => grid.appendChild(caseBox(c, Math.max(...tricks), Math.min(...tricks))));
+    const chance = document.createElement('p');
+    chance.className = 'fin-chance';
+    chance.innerHTML = t(k.chance);
+    const close = document.createElement('button');
+    close.className = 'btn';
+    close.type = 'button';
+    close.textContent = L('Close', 'סגירה');
+    close.addEventListener('click', () => dialog.close());
+    dialog.append(grid, chance, close);
+    dialog.showModal();
+    dialog.scrollTop = 0; // start at the top on a phone, not at the focused Close button
+  }
+
+  return { show };
 })();
 
 // The "Example" in the Tricks and Trumps lessons: one trick from practice/trick-examples.txt,
@@ -1338,6 +1491,7 @@ const Learn = (() => {
     document.querySelectorAll('#lesson-body .trick-demo').forEach(TrickDemo.mount);
     document.querySelectorAll('#lesson-body .score-demo').forEach(ScoreDemo.mount);
     document.querySelectorAll('#lesson-body .shape-examples').forEach(ShapeExamples.mount);
+    document.querySelectorAll('#lesson-body [data-finesse]').forEach(b => b.addEventListener('click', () => FinesseLayouts.show(b.dataset.finesse)));
     const auctionDemo = document.querySelector('#lesson-body .auction-demo');
     if (auctionDemo) AuctionDemo.mount(auctionDemo);
     const demo = document.querySelector('#lesson-body .deal-demo');

@@ -189,6 +189,23 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 .tbl { border-collapse: collapse; margin: .75rem 0; width: 100%; max-width: 560px; }
 .tbl th, .tbl td { border: 1px solid var(--border); padding: .4rem .65rem; text-align: start; }
 .tbl th { background: var(--accent-soft); font-weight: 600; }
+.finesse-link { font: inherit; font-weight: 600; text-align: start; padding: 0; border: 0; background: none; color: var(--accent); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.finesse-dialog { width: min(760px, calc(100% - 32px)); max-height: calc(100% - 32px); box-sizing: border-box; padding: 1rem 1.2rem; border: 1px solid var(--border); border-radius: 14px; background: var(--surface); color: var(--text); text-align: center; }
+.finesse-dialog::backdrop { background: rgba(0, 0, 0, .55); }
+.finesse-dialog h3 { margin: 0 0 .75rem; }
+.fin-cases { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; text-align: start; }
+.fin-case { border: 2px solid var(--border); border-radius: 10px; padding: .5rem .6rem; }
+.fin-case.good { border-color: var(--good); background: var(--good-soft); }
+.fin-case.bad { border-color: var(--bad); background: var(--bad-soft); }
+.fin-case.part { border-color: var(--hint); }
+.fin-case p { margin: .5rem 0 0; font-size: .92rem; }
+.fin-head { font-weight: 600; margin-bottom: .4rem; }
+.fin-table { --cw: 34px; direction: ltr; display: grid; grid-template-areas: "n n" "w e" "s s"; gap: .3rem 1rem; justify-items: center; padding: .4rem; border-radius: 10px; background: radial-gradient(ellipse at center, var(--felt) 55%, var(--felt-edge)); color: var(--felt-text); }
+.fin-hand { display: flex; flex-direction: column; align-items: center; gap: .15rem; }
+.fin-hand.n { grid-area: n; } .fin-hand.w { grid-area: w; justify-self: start; } .fin-hand.e { grid-area: e; justify-self: end; } .fin-hand.s { grid-area: s; }
+.fin-label { font-size: .75rem; }
+.fin-void { font-size: .85rem; font-style: italic; height: calc(var(--cw) * 1.4); display: flex; align-items: center; }
+.fin-chance { margin: .9rem 0; padding: .5rem .7rem; border: 1px solid var(--border); border-radius: 8px; background: var(--accent-soft); font-weight: 600; }
 
 .example { border-inline-start: 4px solid var(--accent); background: var(--accent-soft); border-radius: 10px; padding: .75rem 1rem; margin: 1rem 0; }
 .example-title { font-weight: 600; margin-bottom: .4rem; }
@@ -552,6 +569,8 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 }
 
 @media (max-width: 560px) {
+  .fin-cases { grid-template-columns: minmax(0, 1fr); }
+  .finesse-dialog { padding: .8rem; }
   :root { --cw: 42px; }
   .lesson, .drill { padding: 1.1rem 1rem; }
   .tbl { display: block; overflow-x: auto; font-size: .85rem; }
