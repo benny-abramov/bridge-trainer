@@ -202,6 +202,7 @@ const LESSONS_EN = [
         <tr><th>Your hand</th><th>Open</th></tr>
         <tr><td>Fewer than 12 HCP (and no long suit)</td><td>Pass</td></tr>
         <tr><td>12–22 HCP with a 5+ card major</td><td>1${H} or 1${S} (longer major; spades with 5${S}-5${H})</td></tr>
+        <tr><td>12–22 HCP with a minor longer than your 5-card major</td><td>1 of the minor: open your longest suit first (1${D} with 6${D}-5${H})</td></tr>
         <tr><td>12–22 HCP, no 5-card major</td><td>1${C} or 1${D} (longer minor; 1${C} with 3${C}-3${D}, 1${D} with 4${D}-4${C})</td></tr>
         <tr><td>15–17 HCP, balanced</td><td>1NT</td></tr>
         <tr><td>20–22 HCP, balanced</td><td>2NT</td></tr>
@@ -620,6 +621,7 @@ const LESSONS_HE = [
         <tr><th>היד שלכם</th><th>פתיחה</th></tr>
         <tr><td>פחות מ-12 נק' (ואין סדרה ארוכה)</td><td>פאס</td></tr>
         <tr><td>12-22 נק' עם סדרת מייגור של 5 קלפים ומעלה</td><td>${B('1H')} או ${B('1S')} (סדרת המייגור הארוכה יותר; ספייד עם ${ltr(`5${S}-5${H}`)})</td></tr>
+        <tr><td>12-22 נק' עם סדרת מיינור ארוכה מסדרת המייגור של 5</td><td>1 בסדרת המיינור: פתחו קודם בסדרה הארוכה ביותר (${B('1D')} עם ${ltr(`6${D}-5${H}`)})</td></tr>
         <tr><td>12-22 נק', בלי סדרת מייגור של 5</td><td>${B('1C')} או ${B('1D')} (סדרת המיינור הארוכה יותר; ${B('1C')} עם ${ltr(`3${C}-3${D}`)}, ${B('1D')} עם ${ltr(`4${D}-4${C}`)})</td></tr>
         <tr><td>15-17 נק', מאוזנת</td><td>1NT</td></tr>
         <tr><td>20-22 נק', מאוזנת</td><td>2NT</td></tr>

@@ -185,8 +185,17 @@ function openingBid(hand) {
         ' (12-14 מאוזנת חלשה מדי ל-1NT: פתחו בסדרה והכריזו 1NT בסיבוב הבא.)');
     }
 
+    // Open the longest suit: a longer minor comes before a 5-card major (6♦-5♥ opens 1♦).
+    const major = len.S >= len.H ? 'S' : 'H';
+    const longMinor = len.D >= len.C ? 'D' : 'C';
+    if (len[major] >= 5 && len[longMinor] > len[major]) {
+      return { bid: '1' + longMinor, why: L(
+        `${reason}. Open your longest suit: ${len[longMinor]} ${SUIT_NAME[longMinor]} come before your ${len[major]} ${SUIT_NAME[major]}. Open ${bh('1' + longMinor)} and show the ${SUIT_NAME[major]} later.${note}`,
+        `${reason}. פתחו בסדרה הארוכה ביותר: ${len[longMinor]} ${SUIT_NAME[longMinor]} קודמים ל-${len[major]} ה${SUIT_NAME[major]}. פתחו ${bh('1' + longMinor)} והראו את ה${SUIT_NAME[major]} בהמשך.${note}`) };
+    }
+
     if (len.S >= 5 || len.H >= 5) {
-      const suit = len.S >= len.H ? 'S' : 'H';
+      const suit = major;
       let which = '';
       if (len.S >= 5 && len.H >= 5) {
         which = len.S === len.H
