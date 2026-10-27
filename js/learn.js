@@ -224,14 +224,15 @@ const LESSONS_EN = [
       <p>With 6+ HCP, choose the <strong>first</strong> of these that fits your hand:</p>
       <table class="tbl">
         <tr><th>Your hand</th><th>Respond</th></tr>
-        <tr><td>3+ cards in partner's major</td><td>Raise: 2 of the major with 6–10 HCP, 3 (a <em>limit raise</em>) with 11–12</td></tr>
+        <tr><td>3+ cards in partner's major</td><td>Raise: 2 of the major with 6–10 support points, 3 (a <em>limit raise</em>) with 11–12</td></tr>
         <tr><td>A 4+ card suit you can bid at the 1-level</td><td>Bid it (majors before diamonds; hearts first with 4-4 in the majors)</td></tr>
-        <tr><td>Support for partner's minor (4+ ${D} or 5+ ${C})</td><td>Raise: 2 of the minor with 6–10, 3 with 11–12</td></tr>
+        <tr><td>Support for partner's minor (4+ ${D} or 5+ ${C})</td><td>Raise: 2 of the minor with 6–10 support points, 3 with 11–12</td></tr>
         <tr><td>6–10 HCP, none of the above</td><td>1NT</td></tr>
         <tr><td>11+ HCP, a 4+ card lower-ranking suit (5+ for ${H})</td><td>New suit at the 2-level</td></tr>
         <tr><td>11–12 HCP, none of the above</td><td>2NT, inviting game</td></tr>
         <tr><td>13–15 HCP, none of the above</td><td>3NT, bidding game</td></tr>
       </table>
+      <p><strong>Support points.</strong> When you have support for partner's suit, your short suits help too: as dummy you can ruff declarer's losers in them. So add <strong>1 point for a doubleton, 2 for a singleton and 3 for a void</strong> to your HCP. For example, after partner's 1${S}, a hand with 4 spades, 8 HCP and a singleton has 10 support points: raise to 2${S}. The same goes for any hand that raises partner, including opener raising responder's suit.</p>
       <p>The aim of the auction is to find an <strong>8-card fit</strong> (or settle in no-trump) and the right level for your combined strength.
       With 13+ HCP you have enough for game opposite an opening bid. Those hands use more advanced bids, so the drill doesn't include them.</p>`,
     tryIt: 'responding',
@@ -639,14 +640,15 @@ const LESSONS_HE = [
       <p>עם 6 נק' ומעלה, בחרו את <strong>הראשונה</strong> מבין האפשרויות הבאות שמתאימה ליד:</p>
       <table class="tbl">
         <tr><th>היד שלכם</th><th>תשובה</th></tr>
-        <tr><td>3 קלפים ומעלה בסדרת המייגור של השותף</td><td>תמיכה: ל-2 עם 6-10 נק', ל-3 (<em>תמיכה בקפיצה</em>) עם 11-12</td></tr>
+        <tr><td>3 קלפים ומעלה בסדרת המייגור של השותף</td><td>תמיכה: ל-2 עם 6-10 נקודות תמיכה, ל-3 (<em>תמיכה בקפיצה</em>) עם 11-12</td></tr>
         <tr><td>סדרה של 4 קלפים ומעלה שאפשר להכריז ברמת 1</td><td>הכריזו אותה (סדרות מייגור לפני דיאמונד; הארט קודם עם 4-4 בסדרות המייגור)</td></tr>
-        <tr><td>תמיכה בסדרת המיינור של השותף (4 ומעלה ב-${D} או 5 ומעלה ב-${C})</td><td>תמיכה: ל-2 עם 6-10, ל-3 עם 11-12</td></tr>
+        <tr><td>תמיכה בסדרת המיינור של השותף (4 ומעלה ב-${D} או 5 ומעלה ב-${C})</td><td>תמיכה: ל-2 עם 6-10 נקודות תמיכה, ל-3 עם 11-12</td></tr>
         <tr><td>6-10 נק', אף אחד מאלה</td><td>1NT</td></tr>
         <tr><td>11 נק' ומעלה, סדרה נמוכה יותר של 4 קלפים ומעלה (5 ומעלה ב-${H})</td><td>סדרה חדשה ברמת 2</td></tr>
         <tr><td>11-12 נק', אף אחד מאלה</td><td>2NT, הזמנה למשחק מלא</td></tr>
         <tr><td>13-15 נק', אף אחד מאלה</td><td>3NT, הכרזת משחק מלא</td></tr>
       </table>
+      <p><strong>נקודות תמיכה.</strong> כשיש לכם תמיכה בסדרה של השותף, גם הסדרות הקצרות שלכם עוזרות: כדומם אפשר לחתוך בהן את המפסידים של הכרוז. לכן הוסיפו לנקודות <strong>נקודה אחת על דאבלטון, 2 על סינגלטון ו-3 על חוסר</strong>. לדוגמה, אחרי 1${S} של השותף, יד עם 4 ספייד, 8 נק' וסינגלטון שווה 10 נקודות תמיכה: תמכו ב-2${S}. כך גם בכל יד שתומכת בשותף, כולל הפותח שתומך בסדרה של המשיב.</p>
       <p>מטרת המכרז היא למצוא <strong>התאמה של 8 קלפים</strong> (או להתייצב בללא שליט) ואת הרמה הנכונה לכוח המשותף.
       עם 13 נק' ומעלה יש לכם מספיק למשחק מלא מול הכרזת פתיחה. ידיים כאלה משתמשות בהכרזות מתקדמות יותר, ולכן הן לא כלולות בתרגול.</p>`,
     tryIt: 'responding',

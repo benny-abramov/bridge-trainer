@@ -20,6 +20,34 @@ function record(stats, correct) {
 
 const hcpText = n => L(`${n} HCP`, `${n} נק'`);
 
+// Support points: once you have a fit for partner's suit, your short side suits are worth extra,
+// because as dummy you can ruff declarer's losers in them: 1 for a doubleton, 2 for a singleton,
+// 3 for a void. `trump` is the suit you're supporting.
+const SHORTNESS = [3, 2, 1]; // by length: void, singleton, doubleton
+
+function supportPoints(hand, trump) {
+  const len = suitLengths(hand);
+  return SUITS.filter(s => s !== trump).reduce((sum, s) => sum + (SHORTNESS[len[s]] || 0), hcp(hand));
+}
+
+// "9 HCP + 2 for a singleton = 11 support points", or just "9 HCP" with no short suit.
+function supportText(hand, trump) {
+  const len = suitLengths(hand);
+  const pts = hcp(hand);
+  const parts = [0, 1, 2].map(n => {
+    const count = SUITS.filter(s => s !== trump && len[s] === n).length;
+    if (!count) return null;
+    const worth = SHORTNESS[n] * count;
+    const en = ['void', 'singleton', 'doubleton'][n], he = ['חוסר', 'סינגלטון', 'דאבלטון'][n];
+    return count === 1
+      ? L(`${worth} for a ${en}`, `${worth} על ${he}`)
+      : L(`${worth} for ${count === 2 ? 'two' : 'three'} ${en}s`, `${worth} על ${count === 2 ? 'שני' : 'שלושה'} ${he === 'חוסר' ? 'חוסרים' : he + 'ים'}`);
+  }).filter(Boolean);
+  if (!parts.length) return hcpText(pts);
+  const sp = supportPoints(hand, trump);
+  return L(`${pts} HCP + ${parts.join(' + ')} = ${sp} support points`, `${pts} נק' + ${parts.join(' + ')} = ${sp} נקודות תמיכה`);
+}
+
 const HcpTrainer = (() => {
   const stats = makeStats();
   let hand, answered, item = null, practiceIndex = 0;
@@ -189,23 +217,33 @@ function responseBid(hand, open) {
   const pts = hcp(hand);
   const len = suitLengths(hand);
   const isMajor = open === 'H' || open === 'S';
+  // A hand that will raise partner counts support points. Minor raises come after showing a major
+  // (or 1♦ over 1♣), so only hands that would really raise count them.
+  const majorFit = isMajor && len[open] >= 3;
+  const minorFit = !isMajor && len.H < 4 && len.S < 4
+    && ((open === 'D' && len.D >= 4) || (open === 'C' && len.C >= 5 && len.D < 4));
+  const sp = majorFit || minorFit ? supportPoints(hand, open) : pts;
+  const count = majorFit || minorFit ? supportText(hand, open) : hcpText(pts);
 
-  if (pts < 6) {
-    return { bid: 'P', why: L(
-      `${pts} HCP: with fewer than 6, pass. Even if partner has a good hand, game is unlikely.`,
-      `${pts} נק': עם פחות מ-6, פאס. גם אם לשותף יש יד טובה, משחק מלא לא סביר.`) };
+  if (sp < 6) {
+    return { bid: 'P', why: majorFit || minorFit
+      ? L(`${count}: even counting your short suits you have fewer than 6, so pass.`, `${count}: גם עם הסדרות הקצרות יש לכם פחות מ-6, ולכן פאס.`)
+      : L(`${pts} HCP: with fewer than 6, pass. Even if partner has a good hand, game is unlikely.`,
+        `${pts} נק': עם פחות מ-6, פאס. גם אם לשותף יש יד טובה, משחק מלא לא סביר.`) };
   }
 
   // 1. Support partner's major.
-  if (isMajor && len[open] >= 3) {
-    if (pts <= 10) {
+  if (majorFit) {
+    if (sp <= 10) {
       return { bid: '2' + open, why: L(
-        `${pts} HCP and ${len[open]}-card support for partner's major: raise to ${bh('2' + open)}. Showing an 8-card major fit comes first.`,
-        `${pts} נק' ותמיכה של ${len[open]} קלפים בסדרת המייגור של השותף: תמכו ב-${bh('2' + open)}. הצגת התאמה של 8 קלפים בסדרת מייגור קודמת לכל.`) };
+        `${count} and ${len[open]}-card support for partner's major: raise to ${bh('2' + open)}. Showing an 8-card major fit comes first.`,
+        `${count} ותמיכה של ${len[open]} קלפים בסדרת המייגור של השותף: תמכו ב-${bh('2' + open)}. הצגת התאמה של 8 קלפים בסדרת מייגור קודמת לכל.`) };
     }
-    return { bid: '3' + open, why: L(
-      `${pts} HCP and ${len[open]}-card support: jump to ${bh('3' + open)}, a <em>limit raise</em>. It invites partner to bid game with a little extra.`,
-      `${pts} נק' ותמיכה של ${len[open]} קלפים: קפצו ל-${bh('3' + open)}, <em>תמיכה בקפיצה</em>. היא מזמינה את השותף להכריז משחק מלא אם יש לו מעט יותר.`) };
+    // 13+ is game-forcing: the Responding drill leaves these hands out (see RespondingTrainer).
+    if (sp >= 13 && len[open] >= 4) return { ...raiseMajor(hand, open), gameForce: true };
+    return { bid: '3' + open, gameForce: sp >= 13, why: L(
+      `${count} and ${len[open]}-card support: jump to ${bh('3' + open)}, a <em>limit raise</em>. It invites partner to bid game with a little extra.`,
+      `${count} ותמיכה של ${len[open]} קלפים: קפצו ל-${bh('3' + open)}, <em>תמיכה בקפיצה</em>. היא מזמינה את השותף להכריז משחק מלא אם יש לו מעט יותר.`) };
   }
 
   // 2. Show a new 4+ card suit at the 1-level, looking for a major fit first.
@@ -235,15 +273,15 @@ function responseBid(hand, open) {
   }
 
   // 3. Raise partner's minor (4+ diamonds or 5+ clubs, since a minor opening can be short).
-  if ((open === 'D' && len.D >= 4) || (open === 'C' && len.C >= 5)) {
-    if (pts <= 10) {
+  if (minorFit) {
+    if (sp <= 10) {
       return { bid: '2' + open, why: L(
-        `${pts} HCP, no 4-card major and ${len[open]}-card support: raise to ${bh('2' + open)}.`,
-        `${pts} נק', בלי סדרת מייגור של 4, ותמיכה של ${len[open]} קלפים: תמכו ב-${bh('2' + open)}.`) };
+        `${count}, no 4-card major and ${len[open]}-card support: raise to ${bh('2' + open)}.`,
+        `${count}, בלי סדרת מייגור של 4, ותמיכה של ${len[open]} קלפים: תמכו ב-${bh('2' + open)}.`) };
     }
-    return { bid: '3' + open, why: L(
-      `${pts} HCP, no 4-card major and ${len[open]}-card support: jump to ${bh('3' + open)}, a limit raise inviting game.`,
-      `${pts} נק', בלי סדרת מייגור של 4, ותמיכה של ${len[open]} קלפים: קפצו ל-${bh('3' + open)}, תמיכה בקפיצה שמזמינה למשחק מלא.`) };
+    return { bid: '3' + open, gameForce: sp >= 13, why: L(
+      `${count}, no 4-card major and ${len[open]}-card support: jump to ${bh('3' + open)}, a limit raise inviting game.`,
+      `${count}, בלי סדרת מייגור של 4, ותמיכה של ${len[open]} קלפים: קפצו ל-${bh('3' + open)}, תמיכה בקפיצה שמזמינה למשחק מלא.`) };
   }
 
   // 4. Weak hand with nothing else to say.
@@ -280,6 +318,12 @@ function rebidBid(hand, open, resp) {
   const str = pts >= 18 ? 'max' : pts >= 15 ? 'med' : 'min';
   const you = L(`${pts} HCP is ${STRENGTH_TEXT[str]}`, `${pts} נק' הן ${STRENGTH_TEXT[str]}`);
   const [rLevel, rSuit] = [Number(resp[0]), resp[1]];
+  // Raising partner's suit, you count support points instead.
+  const raiseStr = sp => (sp >= 18 ? 'max' : sp >= 15 ? 'med' : 'min');
+  const raiser = trump => {
+    const s = raiseStr(supportPoints(hand, trump));
+    return { str: s, you: `${supportText(hand, trump)}: ${STRENGTH_TEXT[s]}` };
+  };
   const isMajor = open === 'H' || open === 'S';
   const rank = s => SUITS.indexOf(s); // lower index = higher-ranking suit
   const game = isMajor ? '4' + open : '3N';
@@ -312,6 +356,7 @@ function rebidBid(hand, open, resp) {
   if (rLevel === 1 && rSuit !== 'N') {
     // 1. Raise partner's major with 4-card support.
     if ((rSuit === 'H' || rSuit === 'S') && len[rSuit] >= 4) {
+      const { str, you } = raiser(rSuit);
       const level = { min: '2', med: '3', max: '4' }[str];
       const how = L(
         { min: 'raise to 2', med: 'jump to 3 to invite game', max: 'bid game at the 4-level' },
@@ -329,6 +374,7 @@ function rebidBid(hand, open, resp) {
     }
     // 3. Raise partner's 1♦ response with 4-card support.
     if (rSuit === 'D' && len.D >= 4) {
+      const { str, you } = raiser('D');
       const bid = str === 'min' ? '2D' : '3D';
       return { bid, why: L(
         `${you} with ${len.D}-card diamond support and no major to show: raise to ${bh(bid)}.`,
@@ -391,8 +437,8 @@ function responseMeaning(resp, open) {
   if (resp === '1N') return L('6–10 HCP, no fit and no 4-card suit to show at the 1-level', '6-10 נק\', בלי התאמה ובלי סדרה של 4 קלפים להראות ברמת 1');
   if (resp[1] === open) {
     return resp[0] === '2'
-      ? L('6–10 HCP and support for your suit', '6-10 נק\' ותמיכה בסדרה שלכם')
-      : L('11–12 HCP and support: a <em>limit raise</em>, inviting game', '11-12 נק\' ותמיכה: <em>תמיכה בקפיצה</em>, הזמנה למשחק מלא');
+      ? L('6–10 points (counting short suits) and support for your suit', '6-10 נקודות (כולל סדרות קצרות) ותמיכה בסדרה שלכם')
+      : L('11–12 points (counting short suits) and support: a <em>limit raise</em>, inviting game', '11-12 נקודות (כולל סדרות קצרות) ותמיכה: <em>תמיכה בקפיצה</em>, הזמנה למשחק מלא');
   }
   return L(`4+ ${SUIT_NAME[resp[1]]} and 6+ HCP. A new suit is forcing: you must bid again`,
     `4 ${SUIT_NAME[resp[1]]} ומעלה ו-6 נק' ומעלה. סדרה חדשה מחייבת: אתם חייבים להכריז שוב`);
@@ -422,9 +468,17 @@ function responderRebid(hand, open, resp, rebid) {
 
   if (rebid === 'P') return null;
 
-  // You raised partner's suit and partner invited game.
+  // You raised partner's suit and partner invited game: count your support points.
   if (resp === '2' + open) {
-    return rebid === '3' + open ? acceptWhy(open) : null;
+    if (rebid !== '3' + open) return null;
+    const sp = supportPoints(hand, open), count = supportText(hand, open);
+    return sp >= 9
+      ? { bid: game(open), why: L(
+        `${count}, the top of your 6–10 range. Accept partner's invitation: bid ${bh(game(open))}.${minorNote(open)}`,
+        `${count}, ראש הטווח שלכם (6-10). קבלו את ההזמנה של השותף: הכריזו ${bh(game(open))}.${minorNote(open)}`) }
+      : { bid: 'P', why: L(
+        `${count}, the bottom of your 6–10 range. Decline partner's invitation by passing.`,
+        `${count}, תחתית הטווח שלכם (6-10). דחו את ההזמנה של השותף בפאס.`) };
   }
 
   // You responded 1NT (6–10).
@@ -520,9 +574,10 @@ function responderRebid(hand, open, resp, rebid) {
   // Partner showed a new major at the 1-level.
   if (rl === 1) {
     if (len[rz] >= 4) {
-      return { bid: (inv ? '3' : '2') + rz, why: L(
-        `${strength} and 4 ${name(rz)}: you've found an 8-card major fit. ${inv ? `Jump to ${bh('3' + rz)} to invite game.` : `Raise to ${bh('2' + rz)}.`}`,
-        `${strength}, ו-4 ${name(rz)}: מצאתם התאמה של 8 קלפים בסדרת מייגור. ${inv ? `קפצו ל-${bh('3' + rz)} כדי להזמין למשחק מלא.` : `תמכו ב-${bh('2' + rz)}.`}`) };
+      const raiseInv = supportPoints(hand, rz) >= 11, count = supportText(hand, rz);
+      return { bid: (raiseInv ? '3' : '2') + rz, why: L(
+        `${count} and 4 ${name(rz)}: you've found an 8-card major fit. ${raiseInv ? `That's enough to invite game: jump to ${bh('3' + rz)}.` : `Raise to ${bh('2' + rz)}.`}`,
+        `${count}, ו-4 ${name(rz)}: מצאתם התאמה של 8 קלפים בסדרת מייגור. ${raiseInv ? `זה מספיק כדי להזמין למשחק מלא: קפצו ל-${bh('3' + rz)}.` : `תמכו ב-${bh('2' + rz)}.`}`) };
     }
     if (len[you] >= 6) {
       return { bid: (inv ? '3' : '2') + you, why: L(
@@ -585,10 +640,10 @@ function responderRebid(hand, open, resp, rebid) {
 
   // A new, lower-ranking suit at the 2-level: not forcing, 12–17.
   if (rank(rz) > rank(open)) {
+    if (len[rz] >= 4 && supportPoints(hand, rz) >= 11) return { bid: '3' + rz, why: L(
+      `${supportText(hand, rz)} and ${len[rz]} ${name(rz)}: raise to ${bh('3' + rz)} to invite game.`,
+      `${supportText(hand, rz)}, ו-${len[rz]} ${name(rz)}: תמכו ב-${bh('3' + rz)} כדי להזמין למשחק מלא.`) };
     if (inv) {
-      if (len[rz] >= 4) return { bid: '3' + rz, why: L(
-        `${strength} and ${len[rz]} ${name(rz)}: raise to ${bh('3' + rz)} to invite game.`,
-        `${strength}, ו-${len[rz]} ${name(rz)}: תמכו ב-${bh('3' + rz)} כדי להזמין למשחק מלא.`) };
       if (len[open] >= 3) return { bid: '3' + open, why: L(
         `${strength} and ${len[open]} ${name(open)}: jump to ${bh('3' + open)} to invite game in partner's first suit.`,
         `${strength}, ו-${len[open]} ${name(open)}: קפצו ל-${bh('3' + open)} כדי להזמין למשחק מלא בסדרה הראשונה של השותף.`) };
@@ -862,7 +917,7 @@ const RespondingTrainer = makeBidDrill({
     do {
       hand = dealHands()[0];
       answer = responseBid(hand, open);
-    } while (hcp(hand) > 12 || (answer.bid === 'P' && Math.random() < 0.7));
+    } while (hcp(hand) > 12 || answer.gameForce || (answer.bid === 'P' && Math.random() < 0.7));
     const openIndex = ALL_BIDS.indexOf('1' + open);
     return {
       hand,
@@ -889,8 +944,8 @@ const RebidTrainer = makeBidDrill({
       if (opening[0] !== '1' || opening[1] === 'N') continue;
       const open = opening[1];
       if (hcp(partner) > 12) continue;
-      const resp = responseBid(partner, open).bid;
-      if (resp === 'P' || resp === '2N' || (resp[0] === '2' && resp[1] !== open)) continue;
+      const response = responseBid(partner, open), resp = response.bid;
+      if (response.gameForce || resp === 'P' || resp === '2N' || (resp[0] === '2' && resp[1] !== open)) continue;
       const answer = rebidBid(hand, open, resp);
       if (answer.bid === 'P' && Math.random() < 0.5) continue;
       const respIndex = REBID_BIDS.indexOf(resp);
@@ -915,7 +970,8 @@ const ResponderRebidTrainer = makeBidDrill({
       const opening = openingBid(partner).bid;
       if (opening[0] !== '1' || opening[1] === 'N' || hcp(hand) > 12) continue;
       const open = opening[1];
-      const resp = responseBid(hand, open).bid;
+      const response = responseBid(hand, open), resp = response.bid;
+      if (response.gameForce) continue;
       const rebid = rebidBid(partner, open, resp).bid;
       const answer = responderRebid(hand, open, resp, rebid);
       if (!answer || (answer.bid === 'P' && Math.random() < 0.4)) continue;

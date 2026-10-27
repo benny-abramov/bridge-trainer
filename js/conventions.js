@@ -45,18 +45,21 @@ function respondTo1NT(hand) {
 
 // Raising partner's 1-of-a-major opening with 4+ card support: SAYC uses 2NT as the game-forcing raise.
 function raiseMajor(hand, major) {
-  const pts = hcp(hand);
+  const pts = supportPoints(hand, major), count = supportText(hand, major);
+  if (pts < 6) return { bid: 'P', why: L(
+    `${count}: even counting your short suits you have fewer than 6, so pass.`,
+    `${count}: גם עם הסדרות הקצרות יש לכם פחות מ-6, ולכן פאס.`) };
   if (pts >= 13) {
     return { bid: '2N', why: L(
-      `<strong>Jacoby 2NT.</strong> With 4+ card support and 13+ HCP, respond 2NT. It's a game-forcing raise of partner's major. Partner then describes their hand: a new suit at the 3-level shows a singleton or void, and ${bidHtml('4' + major)} shows a minimum.`,
-      `<strong>ג'ייקובי 2NT.</strong> עם תמיכה של 4 קלפים ומעלה ו-13 נק' ומעלה, השיבו 2NT. זו תמיכה בסדרת המייגור של השותף שמחייבת עד משחק מלא. השותף מתאר אז את היד שלו: סדרה חדשה ברמת 3 מראה סינגלטון או חוסר, ו-${bidHtml('4' + major)} מראה מינימום.`) };
+      `<strong>Jacoby 2NT.</strong> ${count}. With 4+ card support and 13+ points, respond 2NT. It's a game-forcing raise of partner's major. Partner then describes their hand: a new suit at the 3-level shows a singleton or void, and ${bidHtml('4' + major)} shows a minimum.`,
+      `<strong>ג'ייקובי 2NT.</strong> ${count}. עם תמיכה של 4 קלפים ומעלה ו-13 נקודות ומעלה, השיבו 2NT. זו תמיכה בסדרת המייגור של השותף שמחייבת עד משחק מלא. השותף מתאר אז את היד שלו: סדרה חדשה ברמת 3 מראה סינגלטון או חוסר, ו-${bidHtml('4' + major)} מראה מינימום.`) };
   }
   if (pts >= 11) return { bid: '3' + major, why: L(
-    `${pts} HCP with 4-card support: a limit raise to ${bidHtml('3' + major)}, inviting game. Jacoby 2NT needs 13+.`,
-    `${pts} נק' עם תמיכה של 4 קלפים: תמיכה בקפיצה ל-${bidHtml('3' + major)}, הזמנה למשחק מלא. ג'ייקובי 2NT דורש 13 ומעלה.`) };
+    `${count} with 4-card support: a limit raise to ${bidHtml('3' + major)}, inviting game. Jacoby 2NT needs 13+.`,
+    `${count} עם תמיכה של 4 קלפים: תמיכה בקפיצה ל-${bidHtml('3' + major)}, הזמנה למשחק מלא. ג'ייקובי 2NT דורש 13 ומעלה.`) };
   return { bid: '2' + major, why: L(
-    `${pts} HCP with 4-card support: a simple raise to ${bidHtml('2' + major)}. Jacoby 2NT needs 13+.`,
-    `${pts} נק' עם תמיכה של 4 קלפים: תמיכה פשוטה ל-${bidHtml('2' + major)}. ג'ייקובי 2NT דורש 13 ומעלה.`) };
+    `${count} with 4-card support: a simple raise to ${bidHtml('2' + major)}. Jacoby 2NT needs 13+.`,
+    `${count} עם תמיכה של 4 קלפים: תמיכה פשוטה ל-${bidHtml('2' + major)}. ג'ייקובי 2NT דורש 13 ומעלה.`) };
 }
 
 const BLACKWOOD = ['5C', '5D', '5H', '5S'];
