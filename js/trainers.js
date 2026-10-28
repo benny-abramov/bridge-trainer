@@ -531,6 +531,12 @@ function rebidBid(hand, open, resp) {
 
   // Unbalanced hands: rebid a 6-card suit, or show a second suit.
   if (len[open] >= 6) {
+    // A long suit is worth more than its HCP: count length points (1 for each card beyond four).
+    const str = raiseStr(lengthPoints(hand));
+    const you = `${lengthText(hand, open)}: ${STRENGTH_TEXT[str]}`;
+    if (str === 'max' && (open === 'H' || open === 'S')) return { bid: '4' + open, why: L(
+      `${you} with ${len[open]} ${SUIT_NAME[open]}. That's enough for game in your long major even opposite a minimum response, so bid ${bh('4' + open)} directly.`,
+      `${you}, עם ${len[open]} ${SUIT_NAME[open]}. זה מספיק למשחק מלא בסדרת המייגור הארוכה שלכם גם מול תשובת מינימום, ולכן הכריזו ${bh('4' + open)} ישירות.`) };
     if (str === 'min') return { bid: '2' + open, why: L(
       `${you} with ${len[open]} ${SUIT_NAME[open]}: rebid your suit at the cheapest level, ${bh('2' + open)}. Rebidding a suit shows 6+ cards.`,
       `${you}, עם ${len[open]} ${SUIT_NAME[open]}: חזרו על הסדרה שלכם ברמה הזולה ביותר, ${bh('2' + open)}. חזרה על סדרה מראה 6 קלפים ומעלה.`) };
@@ -835,6 +841,9 @@ function responderRebid(hand, open, resp, rebid) {
 
   // Partner rebid their own suit.
   if (rz === open) {
+    if (rl >= 4) return { bid: 'P', why: L(
+      `Partner's ${bh(rebid)} shows a long suit and enough for game on their own. With no interest in slam, pass.`,
+      `ה-${bh(rebid)} של השותף מראה סדרה ארוכה ומספיק למשחק מלא לבד. בלי עניין בסלאם, פאס.`) };
     if (rl === 2) {
       if (inv) {
         if (len[open] >= 2) return { bid: '3' + open, why: L(

@@ -18,7 +18,8 @@ function goodPreemptSuit(cards) {
 }
 
 // Simplified SAYC direct-seat action over the opponent's 1-of-a-suit opening. Returns { bid, why }.
-function overcallBid(hand, open) {
+// In the balancing seat (after two passes) a suit overcall can be made with about 3 points less.
+function overcallBid(hand, open, { balancing = false } = {}) {
   const pts = hcp(hand);
   const len = suitLengths(hand);
   const rank = s => SUITS.indexOf(s); // lower index = higher-ranking suit
@@ -59,15 +60,22 @@ function overcallBid(hand, open) {
   }
   if (n >= 5) {
     const good = suitQuality(cardsIn(best)) >= 2;
-    if (above && pts >= 8 && (pts >= 12 || good)) {
+    // A long suit counts 1 point for each card beyond four: the fifth and sixth cards can be tricks too.
+    const extra = Math.max(0, n - 4);
+    const worth = pts + extra + (balancing ? 3 : 0);
+    const count = extra
+      ? L(`${pts} HCP + ${extra} for the ${n}-card suit = ${pts + extra} points`, `${pts} נק' + ${extra} על סדרה של ${n} קלפים = ${pts + extra} נקודות`)
+      : L(`${pts} HCP`, `${pts} נק'`);
+    const seat = balancing ? L(' In the balancing seat you can overcall with about 3 points less.', ' במקום הסוגר אפשר להתערב עם בערך 3 נקודות פחות.') : '';
+    if (above && worth >= 8 && (worth >= 12 || good)) {
       return { bid: '1' + best, why: L(
-        `${pts} HCP with ${n} ${name}${good ? ' and good honors' : ''}: overcall ${bidHtml('1' + best)}. A 1-level overcall shows 8–16 HCP and a good 5+ card suit. It competes for the contract and tells partner what to lead.`,
-        `${pts} נק' עם ${n} ${name}${good ? ' והונורים טובים' : ''}: התערבו ב-${bidHtml('1' + best)}. התערבות ברמת 1 מראה 8-16 נק' וסדרה טובה של 5 קלפים ומעלה. היא מתחרה על החוזה ואומרת לשותף מה להוביל.`) };
+        `${count} with ${n} ${name}${good ? ' and good honors' : ''}: overcall ${bidHtml('1' + best)}.${seat} A 1-level overcall shows 8–16 HCP and a good 5+ card suit. It competes for the contract and tells partner what to lead.`,
+        `${count} עם ${n} ${name}${good ? ' והונורים טובים' : ''}: התערבו ב-${bidHtml('1' + best)}.${seat} התערבות ברמת 1 מראה 8-16 נק' וסדרה טובה של 5 קלפים ומעלה. היא מתחרה על החוזה ואומרת לשותף מה להוביל.`) };
     }
-    if (!above && pts >= 11 && (n >= 6 || good)) {
+    if (!above && worth >= 11 && (n >= 6 || good)) {
       return { bid: '2' + best, why: L(
-        `${pts} HCP with a good ${n}-card ${name} suit: overcall ${bidHtml('2' + best)}. A 2-level overcall is riskier, so it needs about 11–16 HCP and a good suit.`,
-        `${pts} נק' עם סדרה טובה של ${n} ${name}: התערבו ב-${bidHtml('2' + best)}. התערבות ברמת 2 מסוכנת יותר, ולכן היא דורשת בערך 11-16 נק' וסדרה טובה.`) };
+        `${count} with a good ${n}-card ${name} suit: overcall ${bidHtml('2' + best)}.${seat} A 2-level overcall is riskier, so it needs about 11–16 points and a good suit.`,
+        `${count} עם סדרה טובה של ${n} ${name}: התערבו ב-${bidHtml('2' + best)}.${seat} התערבות ברמת 2 מסוכנת יותר, ולכן היא דורשת בערך 11-16 נקודות וסדרה טובה.`) };
     }
   }
 

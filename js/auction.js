@@ -574,7 +574,7 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
         const north = calls[2].call;
         const balancing = north === 'P';
         const target = balancing || !/^\d[CDHS]$/.test(north) ? openSuit : north[1];
-        const r = overcallBid(hand, target);
+        const r = overcallBid(hand, target, { balancing });
         const ok = balancing ? r.bid !== 'P' : /^\d[CDHS]$/.test(r.bid) && !nsSuits.has(r.bid[1]);
         if (ok && legal(r.bid)) return { call: r.bid, why: balancing
           ? L(`<strong>Balancing.</strong> After ${bidHtml(open)} and two passes, the auction would end here, so compete as you would directly over the opening. `, `<strong>הכרזה במקום הסוגר.</strong> אחרי ${bidHtml(open)} ושני פאסים המכרז ייגמר כאן, ולכן התחרו כמו שהייתם מתחרים ישירות מעל הפתיחה. `) + r.why
