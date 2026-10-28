@@ -353,6 +353,7 @@ const LESSONS_EN = [
       <ul>
         <li><strong>Stayman (2${C})</strong>: with 8+ HCP and a 4-card major, ask partner for a 4-card major. Partner bids 2${H} or 2${S} with one, or 2${D} with neither.</li>
         <li><strong>Jacoby transfers (2${D}, 2${H})</strong>: with 5+ cards in a major, bid the suit just below it. Partner must bid your major. Use them with any strength.</li>
+        <li><strong>Over a 2NT opening</strong> (20–22) the same conventions work one level higher: 3${C} is Stayman (with 4+ HCP), and 3${D} or 3${H} is a transfer.</li>
       </ul>
 
       <h3>Strong 2${C}</h3>
@@ -783,6 +784,7 @@ const LESSONS_HE = [
       <ul>
         <li><strong>סטיימן (${B('2C')})</strong>: עם 8 נק' ומעלה וסדרת מייגור של 4 קלפים, שאלו את השותף אם יש לו סדרת מייגור של 4. השותף מכריז ${B('2H')} או ${B('2S')} עם סדרה כזו, או ${B('2D')} בלי.</li>
         <li><strong>טרנספר ג'ייקובי (${B('2D')}, ${B('2H')})</strong>: עם 5 קלפים ומעלה בסדרת מייגור, הכריזו את הסדרה שמתחתיה. השותף חייב להכריז את הסדרה שלכם. משתמשים בו עם כל כוח.</li>
+        <li><strong>מעל פתיחה של 2NT</strong> (20-22) אותן מוסכמות עובדות רמה אחת גבוה יותר: ${B('3C')} הוא סטיימן (עם 4 נק' ומעלה), ו-${B('3D')} או ${B('3H')} הם טרנספר.</li>
       </ul>
 
       <h3>${B('2C')} חזקה</h3>

@@ -190,7 +190,7 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
       const call = c.call, art = artificial.has(i);
       const before = calls.slice(0, i);
       const interfered = before.some(x => x.seat % 2 === 1 && x.call !== 'P');
-      if (call === 'P') { if (nth === 0 && !opener) range(0, interfered ? 9 : open === '1N' ? 7 : 5); return; }
+      if (call === 'P') { if (nth === 0 && !opener) range(0, interfered ? 9 : open === '1N' ? 7 : open === '2N' ? 3 : 5); return; }
       if (!isBidCall(call)) {
         if (call !== 'X') return;
         range(6, 37);
@@ -213,6 +213,12 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
         return;
       }
       if (nth === 0) { // responder's first bid
+        if (open === '2N') {
+          if (call === '3C') range(4, 12);
+          else if (call === '3D' || call === '3H') atLeast(call === '3D' ? 'H' : 'S', 5);
+          else if (call === '3N') range(4, 12);
+          return;
+        }
         if (open === '1N') {
           if (call === '2C') range(8, 37);
           else if (call === '2D' || call === '2H') atLeast(call === '2D' ? 'H' : 'S', 5);
@@ -233,9 +239,10 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
       }
       if (art) return;
       // Opener's later bids after 1NT: completing a transfer shows nothing; a Stayman answer shows four.
-      if (opener && open === '1N' && response) {
-        if ((response.call === '2D' || response.call === '2H') && nth === 1) return;
-        if (response.call === '2C' && nth === 1) { if (isMaj(z)) atLeast(z, 4); return; }
+      if (opener && (open === '1N' || open === '2N') && response) {
+        const lv = open === '1N' ? '2' : '3';
+        if ((response.call === lv + 'D' || response.call === lv + 'H') && nth === 1) return;
+        if (response.call === lv + 'C' && nth === 1) { if (isMaj(z)) atLeast(z, 4); return; }
       }
       if (z === 'N') {
         if (opener && open === '2C') range(level === 2 ? 22 : 25, level === 2 ? 24 : 27);
@@ -599,6 +606,95 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
     return { call: 'P', why: L(`No fit for partner's ${bidHtml(theirCall)} worth showing, so ${me} passes.`, `אין ל${me} התאמה ששווה להראות ל-${bidHtml(theirCall)} של השותף, ולכן פאס.`) };
   }
 
+  // The 2NT opening (20–22 balanced): Stayman (3♣) and Jacoby transfers (3♦ → ♥, 3♥ → ♠), one
+  // level higher than over 1NT. Returns null when these rules don't apply.
+  function over2NT(seat, hand, mine, partner) {
+    const pts = hcp(hand), len = suitLengths(hand);
+    const name = z => SUIT_NAME[z];
+    const major = len.S >= 5 || len.H >= 5 ? (len.S >= len.H ? 'S' : 'H') : null;
+    const rebid = c => c && c.call;
+    if (seat === 0 && !mine.length) { // North's response
+      if (major) {
+        const bid = major === 'H' ? '3D' : '3H';
+        artificial.add(calls.length);
+        return { call: bid, why: L(
+          `<strong>Jacoby transfer.</strong> With 5+ ${name(major)}, bid the suit just below: ${bidHtml(bid)}. Partner bids ${bidHtml('3' + major)}, so the strong 2NT hand becomes declarer. Transfer with any strength, then decide.`,
+          `<strong>טרנספר ג'ייקובי.</strong> עם 5 ${name(major)} ומעלה, הכריזו את הסדרה שמתחתיה: ${bidHtml(bid)}. השותף יכריז ${bidHtml('3' + major)}, כך שהיד החזקה של ה-2NT הופכת לכרוז. עושים טרנספר עם כל כוח, ואחר כך מחליטים.`) };
+      }
+      if (pts <= 3) return { call: 'P', why: L(
+        `${pts} HCP with no 5-card major: opposite 20–22, game needs about 25, so pass.`,
+        `${pts} נק' בלי סדרת מייגור של 5: מול 20-22, משחק מלא דורש בערך 25, ולכן פאס.`) };
+      if ((len.H === 4 || len.S === 4) && pts <= 12) {
+        artificial.add(calls.length);
+        return { call: '3C', why: L(
+          `<strong>Stayman.</strong> With a 4-card major and ${pts} HCP (enough for game opposite 20–22), bid ${bidHtml('3C')} to ask partner for a 4-card major. A 4-4 major fit usually plays better than 3NT.`,
+          `<strong>סטיימן.</strong> עם סדרת מייגור של 4 קלפים ו-${pts} נק' (מספיק למשחק מלא מול 20-22), הכריזו ${bidHtml('3C')} כדי לשאול את השותף אם יש לו סדרת מייגור של 4. התאמה של 4-4 בסדרת מייגור בדרך כלל עדיפה על 3NT.`) };
+      }
+      const bid = pts >= 13 ? '6N' : '3N';
+      return { call: bid, why: bid === '6N'
+        ? L(`${pts} HCP opposite 20–22 makes 33+: bid a small slam, 6NT.`, `${pts} נק' מול 20-22 נותנות 33 ומעלה: הכריזו סלאם קטן, 6NT.`)
+        : L(`${pts} HCP opposite 20–22 is enough for game, and you have no major to look for: bid 3NT.`, `${pts} נק' מול 20-22 מספיקות למשחק מלא, ואין סדרת מייגור לחפש: הכריזו 3NT.`) };
+    }
+    const resp = callsBy(0)[0];
+    if (seat === DEALER && mine.length === 1) { // South answers
+      if (resp === '3C') {
+        const bid = len.H >= 4 ? '3H' : len.S >= 4 ? '3S' : '3D';
+        if (bid === '3D') artificial.add(calls.length);
+        return { call: bid, why: bid === '3D'
+          ? L(`Answers Stayman: ${bidHtml('3D')} says South has no 4-card major.`, `תשובה לסטיימן: ${bidHtml('3D')} אומר שלדרום אין סדרת מייגור של 4.`)
+          : L(`Answers Stayman: South has 4 ${name(bid[1])}.`, `תשובה לסטיימן: לדרום יש 4 ${name(bid[1])}.`) };
+      }
+      if (resp === '3D' || resp === '3H') {
+        const m = resp === '3D' ? 'H' : 'S';
+        return { call: '3' + m, why: L(
+          `Completes the transfer: North's ${bidHtml(resp)} showed 5+ ${name(m)}, so South bids ${bidHtml('3' + m)}.`,
+          `משלים את הטרנספר: ה-${bidHtml(resp)} של צפון הראה 5 ${name(m)} ומעלה, ולכן דרום מכריז ${bidHtml('3' + m)}.`) };
+      }
+      return null;
+    }
+    if (seat === 0 && mine.length === 1) { // North's second call
+      const answer = partner[1];
+      if (resp === '3D' || resp === '3H') {
+        const m = resp === '3D' ? 'H' : 'S';
+        if (pts <= 3) return { call: 'P', why: L(
+          `<strong>Transfer and pass.</strong> With only ${pts} HCP, stop in ${bidHtml('3' + m)}.`, `<strong>טרנספר ופאס.</strong> עם ${pts} נק' בלבד, עצרו ב-${bidHtml('3' + m)}.`) };
+        if (len[m] >= 6) return { call: (pts >= 12 ? '6' : '4') + m, why: L(
+          `With ${len[m]} ${name(m)} the fit is certain. ${pts} HCP opposite 20–22: bid ${bidHtml((pts >= 12 ? '6' : '4') + m)}.`,
+          `עם ${len[m]} ${name(m)} ההתאמה ודאית. ${pts} נק' מול 20-22: הכריזו ${bidHtml((pts >= 12 ? '6' : '4') + m)}.`) };
+        return { call: '3N', why: L(
+          `Partner's ${bidHtml('3' + m)} only completed the transfer. With five ${name(m)} and game values, bid 3NT: partner chooses between 3NT and ${bidHtml('4' + m)}.`,
+          `ה-${bidHtml('3' + m)} של השותף רק השלים את הטרנספר. עם חמישה ${name(m)} וכוח למשחק מלא, הכריזו 3NT: השותף יבחר בין 3NT ל-${bidHtml('4' + m)}.`) };
+      }
+      if (resp === '3C') {
+        const m = answer && /^3[HS]$/.test(answer) ? answer[1] : null;
+        if (m && len[m] >= 4) return { call: (pts >= 12 ? '6' : '4') + m, why: L(
+          `Partner's ${bidHtml(answer)} shows 4 ${name(m)}: an 8-card fit. With ${pts} HCP opposite 20–22, bid ${bidHtml((pts >= 12 ? '6' : '4') + m)}.`,
+          `ה-${bidHtml(answer)} של השותף מראה 4 ${name(m)}: התאמה של 8 קלפים. עם ${pts} נק' מול 20-22, הכריזו ${bidHtml((pts >= 12 ? '6' : '4') + m)}.`) };
+        const bid = pts >= 12 ? '6N' : '3N';
+        if (!legal(bid)) return null;
+        return { call: bid, why: L(
+          `No major fit, so play in no-trump: ${bidHtml(bid)}.${answer === '3H' ? ' (Partner will know you have four spades.)' : ''}`,
+          `אין התאמה בסדרת מייגור, ולכן שחקו בללא שליט: ${bidHtml(bid)}.${answer === '3H' ? ' (השותף יידע שיש לכם ארבעה ספייד.)' : ''}`) };
+      }
+      return null;
+    }
+    if (seat === DEALER && mine.length === 2) { // South's last word
+      placed = true;
+      const north = partner[1];
+      if (north === '3N' && (resp === '3D' || resp === '3H')) {
+        const m = resp === '3D' ? 'H' : 'S';
+        return len[m] >= 3
+          ? { call: '4' + m, why: L(`Partner showed five ${name(m)}; with ${len[m]} you have an 8-card fit, so bid ${bidHtml('4' + m)}.`, `השותף הראה חמישה ${name(m)}; עם ${len[m]} יש התאמה של 8 קלפים, ולכן הכריזו ${bidHtml('4' + m)}.`) }
+          : { call: 'P', why: L(`Partner showed five ${name(m)}, but with only ${len[m]} there's no fit: pass 3NT.`, `השותף הראה חמישה ${name(m)}, אבל עם ${len[m]} בלבד אין התאמה: פאס על 3NT.`) };
+      }
+      if (north === '3N' && mine[1] === '3H' && len.S >= 4) return { call: '4S', why: L(
+        `Partner used Stayman without hearts, so partner has four spades, and so do you: bid ${bidHtml('4S')}.`,
+        `השותף השתמש בסטיימן בלי הארט, כך שיש לו ארבעה ספייד, וגם לכם: הכריזו ${bidHtml('4S')}.`) };
+      return { call: 'P', why: L('Partner has placed the contract. Pass.', 'השותף קבע את החוזה. פאס.') };
+    }
+    return null;
+  }
+
   function northSouth(seat) {
     // A player who has only passed, when partner has just passed too, has nothing to add.
     const ownCalls = callsBy(seat), partnerCalls = callsBy((seat + 2) % 4);
@@ -638,6 +734,10 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
     }
     if (seat === 0 && !mine.length && openSuit && calls[1].call !== 'P' && calls[1].call !== 'X') {
       return competitiveResponse(hand, openSuit, calls[1].call); // North responds after West's overcall
+    }
+    if (open === '2N' && !calls.some(c => c.seat % 2 === 1 && c.call !== 'P')) {
+      const r = over2NT(seat, hand, mine, partner);
+      if (r && legal(r.call)) return r;
     }
     if (seat === 0 && !mine.length) { // North responds
       if (open === '1N' && hcp(hand) <= 15) {
