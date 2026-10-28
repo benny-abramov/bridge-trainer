@@ -251,6 +251,7 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
           if (!response || response.call === 'P') range(18, 19); // bidding no-trump alone after partner passed
           else if (level === 1 || twoOverOne) range(12, 14);
           else if (level === 2) range(18, 19);
+          else if (nth >= 2) range(14, 17); // accepting partner's invitation
           else range(18, 21);
         }
         return;
@@ -813,6 +814,25 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
     if (seat === DEALER && mine.length === 2 && transfer && partner.length === 2) {
       const r = transferReply(hand, transfer, partner[1]);
       if (r) { placed = true; return r; } // that settles the contract
+    }
+    // Opener answers responder's invitation (2NT, or a raise to the 3-level): accept with the top of the range.
+    if (seat === DEALER && mine.length === 2 && openSuit && partner.length === 2 && !calls.some(c => c.seat % 2 === 1 && c.call !== 'P')) {
+      const [resp, inv] = partner, myRebid = mine[1];
+      const raisedSuit = /^3[CDHS]$/.test(inv) && (inv[1] === openSuit || inv[1] === myRebid[1]) ? inv[1] : null;
+      if ((inv === '2N' || raisedSuit) && /^[12]/.test(resp) && resp !== '2N' && /^2[CDHS]$/.test(myRebid)) {
+        const pts = hcp(hand);
+        const rebidOwn = myRebid[1] === openSuit; // 12–14; a new suit is 12–17
+        const accept = pts >= (rebidOwn ? 14 : 15);
+        const range = rebidOwn ? L('12–14', '12-14') : L('12–17', '12-17');
+        const game = raisedSuit === 'H' || raisedSuit === 'S' ? '4' + raisedSuit : '3N';
+        return accept
+          ? { call: game, why: L(
+            `Partner's ${bidHtml(inv)} invites game. Your ${bidHtml(myRebid)} showed ${range}, and with ${pts} HCP you're at the top of that range: accept with ${bidHtml(game)}.`,
+            `ה-${bidHtml(inv)} של השותף מזמין למשחק מלא. ה-${bidHtml(myRebid)} שלכם הראה ${range}, ועם ${pts} נק' אתם בראש הטווח: קבלו ב-${bidHtml(game)}.`) }
+          : { call: 'P', why: L(
+            `Partner's ${bidHtml(inv)} invites game. Your ${bidHtml(myRebid)} showed ${range}, and with ${pts} HCP you're at the bottom of that range: decline by passing.`,
+            `ה-${bidHtml(inv)} של השותף מזמין למשחק מלא. ה-${bidHtml(myRebid)} שלכם הראה ${range}, ועם ${pts} נק' אתם בתחתית הטווח: דחו בפאס.`) };
+      }
     }
     if (seat === 0 && mine.length === 1 && mine[0] === 'P' && openSuit && partner[1] && partner[1] !== 'P') {
       return afterReopen(hand, partner[1]); // North passed the overcall and South bid again alone
