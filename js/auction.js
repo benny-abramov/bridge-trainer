@@ -385,7 +385,14 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
           ` אחרי ה-${overHtml} של מערב, ללא שליט דורש גם עוצר ב${SUIT_NAME[theirs]} שלהם, ויש לכם.`) : '') };
       }
     }
-    // No-trump with a stopper in their suit: 1NT with 6–10, 2NT with 11–12.
+    // No-trump with a stopper in their suit: 1NT with 6–10, 2NT with 11–12, 3NT with 13+ counting
+    // long suits (a 6-card suit is worth more than its HCP).
+    const worth = lengthPoints(hand);
+    if (theirs !== 'N' && !fit && hasStopper(hand.filter(c => c.suit === theirs)) && worth >= 13 && legal('3N')) {
+      return { call: '3N', why: L(
+        `${lengthText(hand, theirs)}, with a stopper in West's ${SUIT_NAME[theirs]}: enough for game opposite an opening bid, so bid 3NT. 2NT (11–12) would undersell the hand.`,
+        `${lengthText(hand, theirs)}, עם עוצר ב${SUIT_NAME[theirs]} של מערב: מספיק למשחק מלא מול פתיחה, ולכן הכריזו 3NT. 2NT (11-12) היה ממעיט בערך היד.`) };
+    }
     if (theirs !== 'N' && !fit && hasStopper(hand.filter(c => c.suit === theirs)) && pts <= 12) {
       const bid = pts <= 10 ? '1N' : '2N';
       if (legal(bid)) return { call: bid, why: L(
