@@ -6,15 +6,16 @@
 // drill's rules (js/overcalls.js), East answers West, and North competes with a negative double,
 // a raise or a pass.
 
-// A reasonable contract for North-South from their combined strength and fit.
-function chooseContract(north, south) {
+// A reasonable contract for North-South from their combined strength and fit. `allowed` limits
+// the suits to choose from (no-trump is always possible).
+function chooseContract(north, south, allowed = () => true) {
   const pts = hcp(north) + hcp(south);
   const ln = suitLengths(north), ls = suitLengths(south);
   const fit = s => ln[s] + ls[s];
 
   let strain = 'N';
-  const majors = ['S', 'H'].filter(s => fit(s) >= 8).sort((a, b) => fit(b) - fit(a));
-  const minors = ['D', 'C'].filter(s => fit(s) >= 9).sort((a, b) => fit(b) - fit(a));
+  const majors = ['S', 'H'].filter(s => allowed(s) && fit(s) >= 8).sort((a, b) => fit(b) - fit(a));
+  const minors = ['D', 'C'].filter(s => allowed(s) && fit(s) >= 9).sort((a, b) => fit(b) - fit(a));
   if (majors.length) strain = majors[0];
   else if (minors.length && !(isBalanced(north) && isBalanced(south))) strain = minors[0];
 
@@ -155,7 +156,6 @@ const callRank = bid => (Number(bid[0]) - 1) * 5 + 'CDHSN'.indexOf(bid[1]);
 function bidAuction(hands, { anyDeclarer = false } = {}) {
   const DEALER = 2;
   const calls = [];
-  const target = chooseContract(hands[0], hands[2]);
   const artificial = new Set(); // indexes of calls that say nothing about the suit named
   let placed = false;
 
@@ -167,10 +167,21 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
   const callsBy = seat => calls.filter(c => c.seat === seat).map(c => c.call);
 
   // The next North-South player sets the final contract (or passes when it's already right).
+  // It plays in a suit only when partner has bid it naturally or the player holds six or more:
+  // a fit partner never showed can't be known.
   function place(seat) {
     placed = true;
     const last = lastBid();
     const lastArtificial = last && artificial.has(calls.indexOf(last));
+    const partnerSeat = (seat + 2) % 4;
+    const shown = new Set(calls.filter((c, i) => c.seat === partnerSeat && isBidCall(c.call) && !artificial.has(i)).map(c => c.call[1]));
+    const own = suitLengths(hands[seat]);
+    const target = chooseContract(hands[0], hands[2], z => shown.has(z) || own[z] >= 6);
+    // Partner's natural game stands unless there's a slam.
+    if (last && last.seat === partnerSeat && !lastArtificial && isGame(last.call) && target.level < 6) {
+      return { call: 'P', why: L(`Partner has bid game in ${bidHtml(last.call)}. Without the strength for a slam, pass.`,
+        `השותף הכריז משחק מלא ב-${bidHtml(last.call)}. בלי כוח לסלאם, פאס.`) };
+    }
     const hcpSum = hcp(hands[0]) + hcp(hands[2]);
     const pts = target.points > hcpSum
       ? L(`${hcpSum} HCP (${target.points} points counting shortness)`, `${hcpSum} נק' (${target.points} נקודות עם הסדרות הקצרות)`)
