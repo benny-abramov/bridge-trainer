@@ -285,6 +285,7 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
 
     // Partner's natural game stands unless there's a slam.
     if (last && last.seat === partnerSeat && !lastArtificial && isGame(last.call) && target.level < 6) {
+      if (Number(last.call[0]) >= 6) return { call: 'P', why: L(`Partner has bid a slam in ${bidHtml(last.call)}. Pass.`, `השותף הכריז סלאם ב-${bidHtml(last.call)}. פאס.`) };
       return { call: 'P', why: L(`Partner has bid game in ${bidHtml(last.call)}. ${known}: not enough for a slam, so pass.`,
         `השותף הכריז משחק מלא ב-${bidHtml(last.call)}. ${known}: לא מספיק לסלאם, ולכן פאס.`) };
     }

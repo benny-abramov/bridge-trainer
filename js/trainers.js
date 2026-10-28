@@ -712,7 +712,16 @@ function responderRebid(hand, open, resp, rebid) {
         `${strength}. ה-1NT של השותף מראה 12-14, ולכן משחק מלא לא בהישג יד ו-1NT הוא חוזה טוב: פאס.`) };
   }
 
+  // Opposite partner's 18+ (a 2NT rebid or a jump shift), 15+ makes 33+: a small slam.
+  const slam = (shows, strain) => {
+    const bid = (pts >= 19 ? '7' : '6') + strain;
+    return { bid, why: L(
+      `Partner's ${bh(rebid)} shows ${shows}, and you have ${pts} HCP: about ${pts + 18}+ together. 33 is enough for a small slam${pts >= 19 ? ' and 37 for a grand slam' : ''}, so bid ${bh(bid)}.`,
+      `ה-${bh(rebid)} של השותף מראה ${shows}, ויש לכם ${pts} נק': בערך ${pts + 18} ומעלה ביחד. 33 מספיקות לסלאם קטן${pts >= 19 ? ' ו-37 לסלאם גדול' : ''}, ולכן הכריזו ${bh(bid)}.`) };
+  };
+
   if (rebid === '2N') {
+    if (pts >= 15) return slam(L('18–19 balanced', '18-19 מאוזנת'), isMajor(you) && len[you] >= 6 ? you : 'N');
     if (isMajor(you) && len[you] >= 6) {
       return { bid: '4' + you, why: L(
         `Partner's 2NT shows 18–19, so you have enough for game. With ${len[you]} ${name(you)}, bid ${bh('4' + you)}.`,
@@ -781,6 +790,7 @@ function responderRebid(hand, open, resp, rebid) {
 
   // Jump shift: 18+ and forcing to game.
   if (rl === 3) {
+    if (pts >= 15) return slam(L('18+ HCP', "18 נק' ומעלה"), isMajor(open) && len[open] >= 3 ? open : 'N');
     return isMajor(open) && len[open] >= 3
       ? { bid: '4' + open, why: L(
         `Partner's jump shift shows 18+ HCP and forces to game. With ${len[open]}-card support for partner's major, bid game there: ${bh('4' + open)}.`,
