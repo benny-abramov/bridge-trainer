@@ -84,6 +84,8 @@ function transferReply(hand, major, call) {
 }
 
 const isBidCall = call => /^\d/.test(call);
+// Game: 3NT, 4 of a major or 5 of a minor (or higher).
+const isGame = bid => Number(bid[0]) >= ({ N: 3, S: 4, H: 4, D: 5, C: 5 })[bid[1]];
 const callRank = bid => (Number(bid[0]) - 1) * 5 + 'CDHSN'.indexOf(bid[1]);
 
 // Bids the deal. Returns { calls: [{ seat, call, why }], contract: { level, strain }, declarer },
@@ -117,6 +119,12 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
     }
     let level = target.level;
     while (level <= 7 && !legal(level + target.strain)) level++;
+    // Once partner has bid game, never retreat to a part-score above it (3NT → 4♦).
+    if (last && last.seat % 2 === 0 && !lastArtificial && isGame(last.call) && !isGame(level + target.strain)) {
+      return { call: 'P', why: L(
+        `Partner has already bid game in ${bidHtml(last.call)}. ${bidHtml(level + target.strain)} would be only a part-score, so pass.`,
+        `השותף כבר הכריז משחק מלא ב-${bidHtml(last.call)}. ${bidHtml(level + target.strain)} יהיה רק חוזה חלקי, ולכן פאס.`) };
+    }
     // Going past the level the points call for only makes sense to leave an artificial bid.
     if (level > 7 || (level > target.level && !lastArtificial)) {
       return { call: 'P', why: L(
