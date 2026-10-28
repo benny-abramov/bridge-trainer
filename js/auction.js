@@ -190,7 +190,11 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
       const call = c.call, art = artificial.has(i);
       const before = calls.slice(0, i);
       const interfered = before.some(x => x.seat % 2 === 1 && x.call !== 'P');
-      if (call === 'P') { if (nth === 0 && !opener) range(0, interfered ? 9 : open === '1N' ? 7 : open === '2N' ? 3 : 5); return; }
+      if (call === 'P') {
+        if (nth === 0 && !opener) range(0, interfered ? 9 : open === '1N' ? 7 : open === '2N' ? 3 : 5);
+        else if (opener && nth === 1 && open[0] === '1' && response && /^\d[CDHS]$/.test(response.call)) range(12, 13); // a free pass: a minimum
+        return;
+      }
       if (!isBidCall(call)) {
         if (call !== 'X') return;
         range(6, 37);
@@ -780,6 +784,15 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
     }
     if (seat === DEALER && mine.length === 1) { // South's second call
       const resp = partner[0];
+      // The opponents bid over partner's new suit: opener no longer has to bid. With a minimum, no
+      // support and no long suit, pass: partner's new suit is unlimited and partner can bid again.
+      const respIndex = calls.findIndex(c => c.seat === 0 && c.call !== 'P');
+      const theyBid = respIndex >= 0 && calls.slice(respIndex + 1).find(c => c.seat % 2 === 1 && isBidCall(c.call));
+      if (openSuit && theyBid && /^\d[CDHS]$/.test(resp) && resp[1] !== openSuit && hcp(hand) <= 13 && len[resp[1]] < 3 && len[openSuit] < 6) {
+        return { call: 'P', why: L(
+          `${hcp(hand)} HCP, a minimum, with only ${len[resp[1]]} of partner's ${SUIT_NAME[resp[1]]} and no long suit. ${theyBid.seat === 1 ? 'East' : 'West'}'s ${bidHtml(theyBid.call)} means you don't have to bid, so pass: partner's ${bidHtml(resp)} is unlimited, and partner can bid again with more.`,
+          `${hcp(hand)} נק', מינימום, עם ${len[resp[1]]} בלבד ב${SUIT_NAME[resp[1]]} של השותף ובלי סדרה ארוכה. ה-${bidHtml(theyBid.call)} של ${theyBid.seat === 1 ? 'מזרח' : 'מערב'} פוטר אתכם מלהכריז, ולכן פאס: ה-${bidHtml(resp)} של השותף לא מוגבל, והשותף יכול להכריז שוב עם יותר.`) };
+      }
       if (open === '1N' && (resp === '2D' || resp === '2H')) {
         const major = resp === '2D' ? 'H' : 'S';
         return use(seat, { bid: '2' + major, why: L(

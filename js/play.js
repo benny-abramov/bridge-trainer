@@ -57,6 +57,8 @@ const Play = (() => {
       done: false,
       started: false,
       hint: null,
+      played: [{}, {}, {}, {}], // cards each seat has played, counted by suit
+      signals: {}, // seat → the suit that defender asked to have led again (a high-low)
     };
     render();
     scheduleAI();
@@ -91,6 +93,14 @@ const Play = (() => {
   function playCard(seat, card) {
     if (st.done || st.busy || seat !== st.turn) return;
     const hand = st.hands[seat];
+    // A defender who plays a higher card than needed under partner's ace or king (the start of a
+    // high-low) asks partner to continue the suit: with a doubleton, to ruff the third round.
+    const lead = st.trick[0];
+    if (seat % 2 === 1 && st.trump && lead && lead.seat === (seat + 2) % 4 && lead.card.value >= 13
+      && card.suit === lead.card.suit && hand.some(c => c.suit === card.suit && c.value < card.value)) {
+      st.signals[seat] = card.suit;
+    }
+    st.played[seat][card.suit] = (st.played[seat][card.suit] || 0) + 1;
     hand.splice(hand.indexOf(card), 1);
     st.trick.push({ seat, card });
     Sound.cardPlayed();
@@ -174,9 +184,23 @@ const Play = (() => {
     return winner || longSuitLead(seat);
   }
 
+  // A defender whose partner asked for the suit with a high-low: cash the top card while partner
+  // can still follow, then lead the suit again for partner to ruff.
+  function signalLead(seat) {
+    const partner = (seat + 2) % 4;
+    const suit = st.signals[partner];
+    const g = suit && bySuit(st.hands[seat])[suit];
+    if (!g) return null;
+    const partnerOut = (st.played[partner][suit] || 0) >= 2;
+    if (!partnerOut) return isMaster(g[0], seat) ? g[0] : null;
+    return g[g.length - 1];
+  }
+
   function chooseLead(seat) {
     if (seat % 2 === 0) return declarerLead(seat);
     if (!st.started) return openingLead(st.hands[seat], st.trump).card;
+    const signalled = signalLead(seat);
+    if (signalled) return signalled;
     return longSuitLead(seat);
   }
 
@@ -193,7 +217,17 @@ const Play = (() => {
     const winning = currentWinner(st.trick);
     const following = legal[0].suit === led;
 
-    if (sameSide(winning.seat, seat)) return following ? lowest(legal) : discard(legal);
+    if (sameSide(winning.seat, seat)) {
+      // Partner leads an ace or king in a trump contract: with a small doubleton and trumps to
+      // ruff with, play the higher card first (high-low) to ask for a third round.
+      const lead = st.trick[0];
+      const hasTrump = st.hands[seat].some(c => c.suit === st.trump);
+      if (following && st.trump && led !== st.trump && seat % 2 === 1 && lead.seat === (seat + 2) % 4 && lead.card.value >= 13
+        && legal.length === 2 && hasTrump && Math.max(...legal.map(c => c.value)) <= 10) {
+        return legal.reduce((a, b) => (b.value > a.value ? b : a));
+      }
+      return following ? lowest(legal) : discard(legal);
+    }
 
     const winners = legal.filter(c => beats(c, winning.card));
     if (following) {
