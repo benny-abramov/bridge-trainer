@@ -217,17 +217,26 @@ function openingBid(hand) {
   }
 
   if (pts >= 5 && pts <= 10) {
+    // Weak twos and preempts need a good suit: two of the top four honors (A, K, Q, J).
+    const good = s => goodPreemptSuit(hand.filter(c => c.suit === s));
     const seven = SUITS.find(s => len[s] >= 7);
-    if (seven) {
-      return { bid: '3' + seven, why: L(
-        `${pts} HCP with a ${len[seven]}-card ${SUIT_NAME[seven]} suit: make a 3-level preempt (${bh('3' + seven)}) to crowd the opponents' bidding.`,
-        `${pts} נק' עם סדרה של ${len[seven]} קלפים ב${SUIT_NAME[seven]}: הכריזו חסימה ברמת 3 (${bh('3' + seven)}) כדי להקשות על היריבים להכריז.`) };
+    if (seven && good(seven)) {
+      const bid = (len[seven] >= 8 ? '4' : '3') + seven;
+      return { bid, why: L(
+        `${pts} HCP with a good ${len[seven]}-card ${SUIT_NAME[seven]} suit: preempt with ${bh(bid)} to crowd the opponents' bidding. The 3-level shows 7 cards, the 4-level 8, and a preempt needs two of the top four honors (A, K, Q, J).`,
+        `${pts} נק' עם סדרה טובה של ${len[seven]} קלפים ב${SUIT_NAME[seven]}: הכריזו חסימה ב-${bh(bid)} כדי להקשות על היריבים להכריז. רמה 3 מראה 7 קלפים, רמה 4 מראה 8, והכרזת חסימה דורשת שניים מארבעת ההונורים העליונים (A, K, Q, J).`) };
     }
     const six = ['S', 'H', 'D'].find(s => len[s] === 6);
-    if (six) {
+    if (six && good(six)) {
       return { bid: '2' + six, why: L(
-        `${pts} HCP with a 6-card ${SUIT_NAME[six]} suit: open a weak two (${bh('2' + six)}). It shows a long suit in a hand too weak to open at the 1-level.`,
-        `${pts} נק' עם סדרה של 6 קלפים ב${SUIT_NAME[six]}: פתחו בהכרזת שתיים חלשה (${bh('2' + six)}). היא מראה סדרה ארוכה ביד חלשה מכדי לפתוח ברמת 1.`) };
+        `${pts} HCP with a good 6-card ${SUIT_NAME[six]} suit: open a weak two (${bh('2' + six)}). It shows a good long suit (two of the top four honors) in a hand too weak to open at the 1-level.`,
+        `${pts} נק' עם סדרה טובה של 6 קלפים ב${SUIT_NAME[six]}: פתחו בהכרזת שתיים חלשה (${bh('2' + six)}). היא מראה סדרה ארוכה וטובה (שניים מארבעת ההונורים העליונים) ביד חלשה מכדי לפתוח ברמת 1.`) };
+    }
+    const weak = seven || six;
+    if (weak) {
+      return { bid: 'P', why: L(
+        `${pts} HCP with ${len[weak]} ${SUIT_NAME[weak]}, but the suit is too weak: a weak two or a preempt needs two of the top four honors (A, K, Q, J). Pass.`,
+        `${pts} נק' עם ${len[weak]} ${SUIT_NAME[weak]}, אבל הסדרה חלשה מדי: הכרזת שתיים חלשה או הכרזת חסימה דורשות שניים מארבעת ההונורים העליונים (A, K, Q, J). פאס.`) };
     }
     if (len.C === 6) {
       return { bid: 'P', why: L(
@@ -1013,7 +1022,7 @@ const ALL_BIDS = ['P', '1C', '1D', '1H', '1S', '1N', '2C', '2D', '2H', '2S', '2N
 const OpeningTrainer = makeBidDrill({
   prefix: 'open',
   practice: 'opening',
-  bids: ALL_BIDS,
+  bids: [...ALL_BIDS, '4C', '4D', '4H', '4S'], // 4-level preempts with an 8-card suit
   generate() {
     // Passing hands are the most common deal; skip most of them to keep practice interesting.
     let hand, answer;

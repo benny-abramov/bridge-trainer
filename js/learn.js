@@ -207,10 +207,11 @@ const LESSONS_EN = [
         <tr><td>15–17 HCP, balanced</td><td>1NT</td></tr>
         <tr><td>20–22 HCP, balanced</td><td>2NT</td></tr>
         <tr><td>23+ HCP, any shape</td><td>2${C} (strong and artificial)</td></tr>
-        <tr><td>5–10 HCP with a 6-card ${D}, ${H} or ${S} suit</td><td>Weak two: 2${D}, 2${H} or 2${S}</td></tr>
-        <tr><td>5–10 HCP with a 7-card suit</td><td>Preempt at the 3-level</td></tr>
-        <tr><td>5–10 HCP with an 8-card suit</td><td>Preempt at the 4-level</td></tr>
+        <tr><td>5–10 HCP with a good 6-card ${D}, ${H} or ${S} suit</td><td>Weak two: 2${D}, 2${H} or 2${S}</td></tr>
+        <tr><td>5–10 HCP with a good 7-card suit</td><td>Preempt at the 3-level</td></tr>
+        <tr><td>5–10 HCP with a good 8-card suit</td><td>Preempt at the 4-level</td></tr>
       </table>
+      <p>A <strong>good suit</strong> for a weak two or a preempt has two of the top four honors (A, K, Q, J). With a weaker suit, pass.</p>
       <p><strong>Rule of 20:</strong> with 10–11 HCP, add your HCP to the number of cards in your two longest suits.
       If the total is 20 or more, open at the 1-level anyway.</p>`,
     tryIt: 'opening',
@@ -627,10 +628,11 @@ const LESSONS_HE = [
         <tr><td>15-17 נק', מאוזנת</td><td>1NT</td></tr>
         <tr><td>20-22 נק', מאוזנת</td><td>2NT</td></tr>
         <tr><td>23 נק' ומעלה, כל חלוקה</td><td>${B('2C')} (חזקה ומלאכותית)</td></tr>
-        <tr><td>5-10 נק' עם סדרה של 6 קלפים ב-${D}, ${H} או ${S}</td><td>הכרזת שתיים חלשה: ${B('2D')}, ${B('2H')} או ${B('2S')}</td></tr>
-        <tr><td>5-10 נק' עם סדרה של 7 קלפים</td><td>הכרזת חסימה ברמת 3</td></tr>
-        <tr><td>5-10 נק' עם סדרה של 8 קלפים</td><td>הכרזת חסימה ברמת 4</td></tr>
+        <tr><td>5-10 נק' עם סדרה טובה של 6 קלפים ב-${D}, ${H} או ${S}</td><td>הכרזת שתיים חלשה: ${B('2D')}, ${B('2H')} או ${B('2S')}</td></tr>
+        <tr><td>5-10 נק' עם סדרה טובה של 7 קלפים</td><td>הכרזת חסימה ברמת 3</td></tr>
+        <tr><td>5-10 נק' עם סדרה טובה של 8 קלפים</td><td>הכרזת חסימה ברמת 4</td></tr>
       </table>
+      <p><strong>סדרה טובה</strong> להכרזת שתיים חלשה או להכרזת חסימה כוללת שניים מארבעת ההונורים העליונים (A, K, Q, J). עם סדרה חלשה יותר, פאס.</p>
       <p><strong>סדרות המייגור</strong> הן הארט וספייד; <strong>סדרות המיינור</strong> הן קלאב ודיאמונד.</p>
       <p><strong>חוק ה-20:</strong> עם 10-11 נק', חברו את הנקודות למספר הקלפים בשתי הסדרות הארוכות שלכם.
       אם הסכום 20 או יותר, פתחו בכל זאת ברמת 1.</p>`,
