@@ -150,6 +150,14 @@ const LESSONS_EN = [
         <li><strong>Overtricks</strong> score the per-trick value.</li>
         <li>If declarer falls short, the defenders score <strong>50 per undertrick</strong> (100 vulnerable).</li>
       </ul>
+      <table class="tbl">
+        <tr><th>Contract made</th><th>Bonus, not vulnerable</th><th>Bonus, vulnerable</th></tr>
+        <tr><td>Part-score</td><td>50</td><td>50</td></tr>
+        <tr><td>Game</td><td>300</td><td>500</td></tr>
+        <tr><td>Small slam (6-level, 12 tricks)</td><td>500</td><td>750</td></tr>
+        <tr><td>Grand slam (7-level, 13 tricks)</td><td>1,000</td><td>1,500</td></tr>
+      </table>
+      <p class="small muted">A slam is also a game, so it scores the game bonus too: a small slam not vulnerable earns 300 + 500.</p>
       <p>Here is every contract, grouped by what it scores:</p>
       ${contractChart()}
       <div class="score-demo"></div>
@@ -571,6 +579,14 @@ const LESSONS_HE = [
         <li><strong>לקיחות עודפות</strong> מקבלות את ערך הלקיחה.</li>
         <li>אם הכרוז לא מגיע ליעד, המגינים מקבלים <strong>50 על כל לקיחה חסרה</strong> (100 כשפגיעים).</li>
       </ul>
+      <table class="tbl">
+        <tr><th>חוזה שבוצע</th><th>בונוס, לא פגיעים</th><th>בונוס, פגיעים</th></tr>
+        <tr><td>חוזה חלקי</td><td>50</td><td>50</td></tr>
+        <tr><td>משחק מלא</td><td>300</td><td>500</td></tr>
+        <tr><td>סלאם קטן (רמה 6, 12 לקיחות)</td><td>500</td><td>750</td></tr>
+        <tr><td>סלאם גדול (רמה 7, 13 לקיחות)</td><td>1,000</td><td>1,500</td></tr>
+      </table>
+      <p class="small muted">סלאם הוא גם משחק מלא, ולכן הוא מקבל גם את בונוס המשחק המלא: סלאם קטן כשלא פגיעים מזכה ב-300 + 500.</p>
       <p>הנה כל החוזים, לפי סוג הניקוד שלהם:</p>
       ${contractChart()}
       <div class="score-demo"></div>
