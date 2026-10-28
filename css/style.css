@@ -95,7 +95,7 @@ p { margin: .6rem 0; }
 /* Text written on the green felt needs lighter shades, or a green club disappears into it.
    The auction's call chips have their own page-colored background, so they go back to the normal shades. */
 :is(.table, .fin-table, .deck-figure, .shape-felt, .compass .mid, .hand-area) { --felt-club: #8ff0b0; --felt-diamond: #ffb877; }
-.bid-box td:not(.ask) { --felt-club: initial; --felt-diamond: initial; }
+.bid-box td:not(.ask), .board-info { --felt-club: initial; --felt-diamond: initial; }
 
 /* ---------- Header & tabs ---------- */
 

@@ -189,7 +189,7 @@ function makePuzzleSection(prefix, topics, groups) {
     label.innerHTML = `<strong>${SEAT_NAMES[seat]}</strong> <span>${roles[seat]}</span>`;
     el.appendChild(label);
     // Once the hand is over, show the starting cards again so you can look back at the whole position.
-    const hand = st.done ? parseHand(puzzle().hands[seat]) : st.hands[seat];
+    const hand = sortForTrump(st.done ? parseHand(puzzle().hands[seat]) : st.hands[seat], puzzle().trump);
     if (!hand.length) return;
 
     const myTurn = isHuman(seat) && !st.done && !st.busy && st.turn === seat;

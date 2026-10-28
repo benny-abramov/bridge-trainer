@@ -29,6 +29,15 @@ function sortHand(hand) {
     DISPLAY_ORDER.indexOf(a.suit) - DISPLAY_ORDER.indexOf(b.suit) || b.value - a.value);
 }
 
+// In a trump contract the trumps go on the left and the other suits keep alternating colors.
+const TRUMP_ORDER = { S: ['S', 'H', 'C', 'D'], H: ['H', 'S', 'D', 'C'], D: ['D', 'S', 'H', 'C'], C: ['C', 'H', 'S', 'D'] };
+
+// A sorted copy of the hand for showing it with `trump` (null or 'N' for no-trump) as trumps.
+function sortForTrump(hand, trump) {
+  const order = TRUMP_ORDER[trump] || DISPLAY_ORDER;
+  return hand.slice().sort((a, b) => order.indexOf(a.suit) - order.indexOf(b.suit) || b.value - a.value);
+}
+
 // Returns four sorted 13-card hands indexed by seat: 0 North, 1 East, 2 South, 3 West.
 function dealHands() {
   const deck = shuffle(makeDeck());
@@ -137,9 +146,8 @@ function renderFan(container, hand, decorate) {
 function renderSuitRows(container, hand, decorate) {
   const rows = document.createElement('div');
   rows.className = 'suit-rows';
-  for (const suit of DISPLAY_ORDER) {
-    const cards = hand.filter(c => c.suit === suit);
-    if (cards.length) renderFan(rows, cards, decorate);
+  for (const suit of new Set(hand.map(c => c.suit))) { // in the order the hand is sorted
+    renderFan(rows, hand.filter(c => c.suit === suit), decorate);
   }
   container.appendChild(rows);
   return rows;

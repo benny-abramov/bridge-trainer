@@ -249,7 +249,7 @@ const Play = (() => {
     el.appendChild(label);
 
     // Once the hand is over, every seat shows its original 13 cards, to review the deal.
-    const hand = st.done ? sortHand(st.original.hands[seat]) : st.hands[seat];
+    const hand = sortForTrump(st.done ? st.original.hands[seat] : st.hands[seat], st.trump);
     // A long suit in a side hand gets smaller cards on a phone (see .long-suit in style.css).
     el.classList.toggle('long-suit', seat % 2 === 1 && Object.values(suitLengths(hand)).some(n => n >= 7));
     if (!hand.length) return;
