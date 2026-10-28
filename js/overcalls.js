@@ -50,8 +50,9 @@ function overcallBid(hand, open) {
       `${pts} HCP with ${n} good ${name}: <em>preempt</em> with ${bidHtml(bid)}. The longer your suit, the higher you jump: the 3-level with 7 cards, the 4-level with 8. It takes away the opponents' bidding space. A preempt needs two of the top four honors (A, K, Q, J).`,
       `${pts} נק' עם ${n} ${name} טובים: הכריזו <em>הכרזת חסימה</em> ב-${bidHtml(bid)}. ככל שהסדרה ארוכה יותר, קופצים גבוה יותר: לרמה 3 עם 7 קלפים, לרמה 4 עם 8. היא לוקחת מהיריבים מקום במכרז. הכרזת חסימה דורשת שניים מארבעת ההונורים העליונים (A, K, Q, J).`) };
   }
-  if (pts >= 6 && pts <= 10 && n === 6 && preemptable) {
-    const bid = (above ? 2 : 3) + best;
+  // A weak jump with six cards is at the 2-level only; jumping to the 3-level needs seven.
+  if (pts >= 6 && pts <= 10 && n === 6 && preemptable && above) {
+    const bid = 2 + best;
     return { bid, why: L(
       `${pts} HCP with ${n} good ${name}: make a <em>weak jump overcall</em> of ${bidHtml(bid)}. Like a weak two, it shows a good 6-card suit (two of the top four honors) and 6–10 HCP, and uses up the opponents' bidding space.`,
       `${pts} נק' עם ${n} ${name} טובים: הכריזו <em>קפיצת התערבות חלשה</em> ל-${bidHtml(bid)}. כמו הכרזת שתיים חלשה, היא מראה סדרה טובה של 6 קלפים (שניים מארבעת ההונורים העליונים) ו-6-10 נק', ותופסת ליריבים מקום במכרז.`) };
@@ -77,7 +78,10 @@ function overcallBid(hand, open) {
   }
 
   let why;
-  if (n >= 6 && pts >= 6 && pts <= 10 && !preemptable) {
+  if (n === 6 && pts >= 6 && pts <= 10 && preemptable && !above) {
+    why = L(`${pts} HCP with ${n} ${name}, but a jump would take you to the 3-level, which needs a 7-card suit. With six cards, a weak jump overcall is only at the 2-level. Pass.`,
+      `${pts} נק' עם ${n} ${name}, אבל קפיצה תביא אתכם לרמה 3, וזה דורש סדרה של 7 קלפים. עם שישה קלפים, קפיצת התערבות חלשה היא רק ברמה 2. פאס.`);
+  } else if (n >= 6 && pts >= 6 && pts <= 10 && !preemptable) {
     why = L(`${pts} HCP with ${n} ${name}, but the suit is too weak to jump with: a weak jump overcall or a preempt needs two of the top four honors (A, K, Q, J). Pass.`,
       `${pts} נק' עם ${n} ${name}, אבל הסדרה חלשה מדי לקפיצה: קפיצת התערבות חלשה או הכרזת חסימה דורשות שניים מארבעת ההונורים העליונים (A, K, Q, J). פאס.`);
   } else if (n >= 5 && above && pts >= 8) {

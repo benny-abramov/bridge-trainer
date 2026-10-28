@@ -329,7 +329,7 @@ const LESSONS_EN = [
         <tr><td>12+ HCP, short in their suit, 3+ cards in every other suit</td><td><strong>Takeout double</strong></td></tr>
         <tr><td>15–18 HCP, balanced, with a stopper in their suit</td><td>1NT</td></tr>
         <tr><td>17+ HCP, too strong to overcall</td><td>Double, then bid your suit or no-trump</td></tr>
-        <tr><td>6–10 HCP and a good 6-card suit (two of A, K, Q, J)</td><td><strong>Weak jump overcall</strong>: one level higher than needed (1${H} – 2${S}, 1${S} – 3${C})</td></tr>
+        <tr><td>6–10 HCP and a good 6-card suit (two of A, K, Q, J)</td><td><strong>Weak jump overcall</strong> at the 2-level: one level higher than needed (1${H} – 2${S}). A jump to the 3-level needs seven cards.</td></tr>
         <tr><td>6–10 HCP and a good 7-card suit (two of A, K, Q, J)</td><td><strong>Preempt</strong> at the 3-level (1${C} – 3${H})</td></tr>
         <tr><td>Anything else</td><td>Pass</td></tr>
       </table>
@@ -759,7 +759,7 @@ const LESSONS_HE = [
         <tr><td>12 נק' ומעלה, קצר בסדרה שלהם, 3 קלפים ומעלה בכל סדרה אחרת</td><td><strong>כפל הוצאה</strong></td></tr>
         <tr><td>15-18 נק', מאוזנת, עם עוצר בסדרה שלהם</td><td>1NT</td></tr>
         <tr><td>17 נק' ומעלה, חזקה מדי להתערבות</td><td>דאבל, ואחר כך הכריזו את הסדרה שלכם או ללא שליט</td></tr>
-        <tr><td>6-10 נק' וסדרה טובה של 6 קלפים (שניים מ-A, K, Q, J)</td><td><strong>קפיצת התערבות חלשה</strong>: רמה אחת מעל הנדרש (<bdi dir="ltr">${B('1H')} – ${B('2S')}</bdi>, <bdi dir="ltr">${B('1S')} – ${B('3C')}</bdi>)</td></tr>
+        <tr><td>6-10 נק' וסדרה טובה של 6 קלפים (שניים מ-A, K, Q, J)</td><td><strong>קפיצת התערבות חלשה</strong> ברמה 2: רמה אחת מעל הנדרש (<bdi dir="ltr">${B('1H')} – ${B('2S')}</bdi>). קפיצה לרמה 3 דורשת שבעה קלפים.</td></tr>
         <tr><td>6-10 נק' וסדרה טובה של 7 קלפים (שניים מ-A, K, Q, J)</td><td><strong>הכרזת חסימה</strong> ברמה 3 (<bdi dir="ltr">${B('1C')} – ${B('3H')}</bdi>)</td></tr>
         <tr><td>כל דבר אחר</td><td>פאס</td></tr>
       </table>
