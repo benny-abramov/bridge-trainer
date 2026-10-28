@@ -424,7 +424,10 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
     const pts = hcp(hand), len = suitLengths(hand);
     const theirSuit = their[1];
     const theirHtml = bidHtml(their);
-    const partnerPassed = L(`Partner passed ${theirHtml}, so partner may have very little.`, `השותף הכריז פאס על ${theirHtml}, כך שייתכן שיש לו מעט מאוד.`);
+    const passedOpening = calls[2] && calls[2].seat === 0 && calls[2].call === 'P' && calls.indexOf(calls.find(c => c.call === their)) > 2;
+    const partnerPassed = passedOpening
+      ? L(`Partner passed your opening (0–5 HCP), and then the opponents bid ${theirHtml}.`, `השותף הכריז פאס על הפתיחה שלכם (0-5 נק'), ואחר כך היריבים הכריזו ${theirHtml}.`)
+      : L(`Partner passed ${theirHtml}, so partner may have very little.`, `השותף הכריז פאס על ${theirHtml}, כך שייתכן שיש לו מעט מאוד.`);
     const cheapest = strain => { let level = 1; while (level <= 3 && !legal(level + strain)) level++; return level <= 3 ? level + strain : null; };
     if (isBalanced(hand) && pts >= 18 && theirSuit !== 'N' && hasStopper(hand.filter(c => c.suit === theirSuit))) {
       const bid = cheapest('N');
@@ -445,6 +448,9 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
         `${partnerPassed} With ${pts} HCP and a second suit of ${len[second]} ${SUIT_NAME[second]}, compete with ${bidHtml(bid)}.`,
         `${partnerPassed} עם ${pts} נק' וסדרה שנייה של ${len[second]} ${SUIT_NAME[second]}, התחרו ב-${bidHtml(bid)}.`) };
     }
+    if (isBalanced(hand) && pts >= 18 && theirSuit !== 'N') return { call: 'P', why: L(
+      `${partnerPassed} You have ${pts} HCP and a balanced hand, but no stopper in their ${SUIT_NAME[theirSuit]}, so no-trump is too risky, and you have no long suit to show. Pass.`,
+      `${partnerPassed} יש לכם ${pts} נק' ויד מאוזנת, אבל אין עוצר ב${SUIT_NAME[theirSuit]} שלהם, ולכן ללא שליט מסוכן מדי, ואין סדרה ארוכה להראות. פאס.`) };
     return { call: 'P', why: L(
       `${partnerPassed} With ${pts} HCP and nothing more to show, pass. Bidding again on your own needs extra values: 18–19 balanced for no-trump, a 6-card suit, or a good second suit.`,
       `${partnerPassed} עם ${pts} נק' ובלי עוד מה להראות, פאס. הכרזה נוספת לבד דורשת כוח נוסף: 18-19 מאוזנת בשביל ללא שליט, סדרה של 6 קלפים או סדרה שנייה טובה.`) };
@@ -533,35 +539,62 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
         `${hcp(hand)} HCP. Over a strong 1NT you need a long suit to compete: six cards for a 2-level overcall, or seven for a preempt. Pass.`,
         `${hcp(hand)} נק'. מעל 1NT חזק צריך סדרה ארוכה כדי להתחרות: שישה קלפים להתערבות ברמת 2, או שבעה להכרזת חסימה. פאס.`) };
     }
-    const west = calls[1] && calls[1].seat === 3 ? calls[1].call : 'P';
-    if (seat === 1 && !callsBy(1).length && west === 'P') return longSuitAction(hand, false) || pass;
-    if (seat !== 1 || callsBy(1).length || west === 'P') return pass;
-    const north = calls[2].call;
+    const me = SEAT_NAMES[seat];
     const pts = hcp(hand);
-    if (west === 'X') {
-      if (north !== 'P') return { call: 'P', why: L(
-        `North bid, so East no longer has to answer partner's takeout double. With ${pts} HCP, pass.`,
-        `צפון הכריז, ולכן מזרח כבר לא חייב לענות לכפל ההוצאה של השותף. עם ${pts} נק', פאס.`) };
-      const suit = SUITS.filter(s => s !== openSuit).sort((a, b) => len[b] - len[a] || SUITS.indexOf(a) - SUITS.indexOf(b))[0];
-      let level = 1;
-      while (!legal(level + suit)) level++;
-      return { call: level + suit, why: L(
-        `Partner's takeout double asks East to bid. With ${len[suit]} ${SUIT_NAME[suit]}, East's longest unbid suit, bid ${bidHtml(level + suit)}.`,
-        `כפל ההוצאה של השותף מבקש ממזרח להכריז. עם ${len[suit]} ${SUIT_NAME[suit]}, הסדרה הארוכה ביותר של מזרח שלא הוכרזה, הכריזו ${bidHtml(level + suit)}.`) };
+    const partnerSeat = (seat + 2) % 4;
+    const acted = c => c.call !== 'P';
+    const nsSuits = new Set(calls.filter((c, i) => c.seat % 2 === 0 && isBidCall(c.call) && !artificial.has(i)).map(c => c.call[1]));
+
+    // East's first call when West passed: balance after 1-of-a-suit – Pass – Pass, or overcall in a
+    // suit North-South haven't bid, or preempt with a long suit.
+    if (seat === 1 && !callsBy(1).length && !callsBy(3).some(c => c !== 'P')) {
+      if (openSuit) {
+        const north = calls[2].call;
+        const balancing = north === 'P';
+        const target = balancing || !/^\d[CDHS]$/.test(north) ? openSuit : north[1];
+        const r = overcallBid(hand, target);
+        const ok = balancing ? r.bid !== 'P' : /^\d[CDHS]$/.test(r.bid) && !nsSuits.has(r.bid[1]);
+        if (ok && legal(r.bid)) return { call: r.bid, why: balancing
+          ? L(`<strong>Balancing.</strong> After ${bidHtml(open)} and two passes, the auction would end here, so compete as you would directly over the opening. `, `<strong>הכרזה במקום הסוגר.</strong> אחרי ${bidHtml(open)} ושני פאסים המכרז ייגמר כאן, ולכן התחרו כמו שהייתם מתחרים ישירות מעל הפתיחה. `) + r.why
+          : r.why };
+      }
+      return longSuitAction(hand, false) || pass;
     }
-    const theirs = west[1];
-    if (theirs !== 'N' && Number(west[0]) <= 2 && len[theirs] >= 3) {
+
+    // Answering partner's overcall or takeout double, at the first chance after it.
+    const partnerAct = [...calls.entries()].filter(([, c]) => c.seat === partnerSeat && acted(c)).pop();
+    if (!partnerAct || callsBy(seat).some(c => c !== 'P')) return pass;
+    const [actIndex, { call: theirCall }] = partnerAct;
+    if (calls.slice(actIndex + 1).some(c => c.seat === seat)) return pass; // already had the chance
+    const nsSince = calls.slice(actIndex + 1).some(c => c.seat % 2 === 0 && acted(c));
+    if (theirCall === 'X') {
+      if (nsSince) return { call: 'P', why: L(
+        `North-South bid, so ${me} no longer has to answer partner's takeout double. With ${pts} HCP, pass.`,
+        `צפון-דרום הכריזו, ולכן ${me} כבר לא חייב לענות לכפל ההוצאה של השותף. עם ${pts} נק', פאס.`) };
+      const suit = SUITS.filter(z => !nsSuits.has(z)).sort((a, b) => len[b] - len[a] || SUITS.indexOf(a) - SUITS.indexOf(b))[0];
+      let level = 1;
+      while (level <= 3 && !legal(level + suit)) level++;
+      if (level > 3) return pass;
+      return { call: level + suit, why: L(
+        `Partner's takeout double asks ${me} to bid. With ${len[suit]} ${SUIT_NAME[suit]}, the longest unbid suit, bid ${bidHtml(level + suit)}.`,
+        `כפל ההוצאה של השותף מבקש מ${me} להכריז. עם ${len[suit]} ${SUIT_NAME[suit]}, הסדרה הארוכה ביותר שלא הוכרזה, הכריזו ${bidHtml(level + suit)}.`) };
+    }
+    const theirs = theirCall[1];
+    if (theirs !== 'N' && Number(theirCall[0]) <= 2 && len[theirs] >= 3) {
       const sp = supportPoints(hand, theirs);
-      let level = Number(west[0]) + 1;
+      let level = Number(theirCall[0]) + 1;
       while (level <= 3 && !legal(level + theirs)) level++;
       if (sp >= 6 && level <= 3) return { call: level + theirs, why: L(
         `${supportText(hand, theirs)} and ${len[theirs]}-card support for partner's ${SUIT_NAME[theirs]}: raise to ${bidHtml(level + theirs)} to compete.`,
         `${supportText(hand, theirs)} ותמיכה של ${len[theirs]} קלפים ב${SUIT_NAME[theirs]} של השותף: תמכו ב-${bidHtml(level + theirs)} כדי להתחרות.`) };
     }
-    return { call: 'P', why: L(`No fit for partner's ${bidHtml(west)} worth showing, so East passes.`, `אין למזרח התאמה ששווה להראות ל-${bidHtml(west)} של השותף, ולכן פאס.`) };
+    return { call: 'P', why: L(`No fit for partner's ${bidHtml(theirCall)} worth showing, so ${me} passes.`, `אין ל${me} התאמה ששווה להראות ל-${bidHtml(theirCall)} של השותף, ולכן פאס.`) };
   }
 
   function northSouth(seat) {
+    // A player who has only passed, when partner has just passed too, has nothing to add.
+    const ownCalls = callsBy(seat), partnerCalls = callsBy((seat + 2) % 4);
+    if (ownCalls.length && ownCalls.every(c => c === 'P') && partnerCalls[partnerCalls.length - 1] === 'P') return { call: 'P', why: '' };
     if (placed) {
       // A 7-card suit, already bid twice, corrects partner's no-trump part-score: it can be rebid again.
       const last = lastBid();
