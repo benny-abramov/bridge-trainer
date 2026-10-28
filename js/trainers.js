@@ -635,6 +635,31 @@ function responderRebid(hand, open, resp, rebid) {
     ? L(`You have ${pts} HCP, enough to invite game (11–12)`, `יש לכם ${pts} נק', מספיק כדי להזמין למשחק מלא (11-12)`)
     : L(`You have ${pts} HCP, a minimum response (6–10)`, `יש לכם ${pts} נק', תשובת מינימום (6-10)`);
 
+  // 13+ opposite an opening bid is game, whatever partner's simple rebid (the drill's hands stop
+  // at 12; Play a Hand's don't). Jumps, 2NT and reverses are handled below.
+  const reverse = rl === 2 && rz !== you && rz !== open && rank(rz) < rank(open);
+  if (pts >= 13 && rl <= 2 && rebid !== '2N' && !reverse) {
+    let bid = '3N', why;
+    if (rz === you && isMajor(you)) {
+      bid = '4' + you;
+      why = L(`partner raised your ${name(you)}, so bid game there`, `השותף תמך ב${name(you)} שלכם, ולכן הכריזו שם משחק מלא`);
+    } else if (isMajor(rz) && rz !== you && rz !== open && len[rz] >= 4) {
+      bid = '4' + rz;
+      why = L(`you have 4 of partner's ${name(rz)}, an 8-card major fit`, `יש לכם 4 ב${name(rz)} של השותף, התאמה של 8 קלפים בסדרת מייגור`);
+    } else if (isMajor(open) && len[open] >= (rz === open ? 2 : 3)) {
+      bid = '4' + open;
+      why = L(`you have ${len[open]} of partner's ${name(open)}, an 8-card fit`, `יש לכם ${len[open]} ב${name(open)} של השותף, התאמה של 8 קלפים`);
+    } else if (isMajor(you) && len[you] >= 6) {
+      bid = '4' + you;
+      why = L(`your ${len[you]} ${name(you)} are long enough to play opposite any two cards`, `${len[you]} ה${name(you)} שלכם ארוכים מספיק כדי לשחק מול כל שני קלפים`);
+    } else {
+      why = L('there is no 8-card major fit, so play in no-trump', 'אין התאמה של 8 קלפים בסדרת מייגור, ולכן שחקו בללא שליט');
+    }
+    return { bid, why: L(
+      `You have ${pts} HCP: with 13+ opposite an opening bid you have enough for game (25+ together). Don't just invite: ${why}. Bid ${bh(bid)}.`,
+      `יש לכם ${pts} נק': עם 13 ומעלה מול פתיחה יש מספיק למשחק מלא (25 ומעלה ביחד). אל תסתפקו בהזמנה: ${why}. הכריזו ${bh(bid)}.`) };
+  }
+
   // Partner raised your suit: you have the long trumps, so count length points.
   if (rz === you) {
     const total = lengthPoints(hand), count = lengthText(hand, you);
