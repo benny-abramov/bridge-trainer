@@ -544,6 +544,15 @@ function responderRebid(hand, open, resp, rebid) {
     ' עם התאמה בסדרת מיינור, 3NT בדרך כלל קל יותר מ-5 בסדרת מיינור.'));
   const [rl, rz] = [Number(rebid[0]), rebid[1]];
   const name = s => SUIT_NAME[s];
+  // Preference between partner's two suits compares the fits, not just your own lengths: a major
+  // opening promises five cards and the second suit four. Equal fits go back to the first suit.
+  const firstShown = isMajor(open) ? 5 : 4;
+  const prefersSecond = z => len[z] + 4 > len[open] + firstShown;
+  const firstFit = z => (isMajor(open)
+    ? L(`Partner has five ${name(open)} and four ${name(z)}, so your ${len[open]} ${name(open)} make a ${len[open] + 5}-card fit, at least as good as the ${len[z] + 4}-card fit your ${len[z]} ${name(z)} make.`,
+      `לשותף יש חמישה ${name(open)} וארבעה ${name(z)}, כך ש-${len[open]} ה${name(open)} שלכם יוצרים התאמה של ${len[open] + 5} קלפים, טובה לפחות כמו ההתאמה של ${len[z] + 4} קלפים שיוצרים ${len[z]} ה${name(z)} שלכם.`)
+    : L(`With ${len[open]} ${name(open)} and ${len[z]} ${name(z)}, partner's first suit is usually at least as long.`,
+      `עם ${len[open]} ${name(open)} ו-${len[z]} ${name(z)}, הסדרה הראשונה של השותף בדרך כלל ארוכה לפחות באותה מידה.`));
   const accept = pts >= 9;
   const acceptWhy = s => (accept
     ? { bid: game(s), why: L(
@@ -586,13 +595,25 @@ function responderRebid(hand, open, resp, rebid) {
     }
     if (rebid === '3' + open) return acceptWhy(open);
     if (rl === 2 && rank(rz) > rank(open)) {
-      return len[rz] > len[open]
+      // Partner's new suit can hold up to 17, so with 8–10 game is still possible: invite.
+      if (pts >= 8) {
+        const upTo = L(`You have ${pts} HCP. Partner's ${bh(rebid)} can be as strong as 17, so game is possible: keep the auction going.`,
+          `יש לכם ${pts} נק'. ה-${bh(rebid)} של השותף יכול להיות חזק עד 17, ולכן משחק מלא אפשרי: המשיכו את המכרז.`);
+        return len[rz] >= 4
+          ? { bid: '3' + rz, why: L(
+            `${upTo} With ${len[rz]} ${name(rz)}, raise to ${bh('3' + rz)} to invite game.`,
+            `${upTo} עם ${len[rz]} ${name(rz)}, תמכו ב-${bh('3' + rz)} כדי להזמין למשחק מלא.`) }
+          : { bid: '2N', why: L(
+            `${upTo} With no 4-card support for either suit, bid 2NT to invite game.`,
+            `${upTo} בלי תמיכה של 4 קלפים באף אחת מהסדרות, הכריזו 2NT כדי להזמין למשחק מלא.`) };
+      }
+      return prefersSecond(rz)
         ? { bid: 'P', why: L(
-          `Partner has shown ${name(open)} and ${name(rz)}. You have more ${name(rz)} (${len[rz]}) than ${name(open)} (${len[open]}), so pass and play in ${name(rz)}.`,
-          `השותף הראה ${name(open)} ו${name(rz)}. יש לכם יותר ${name(rz)} (${len[rz]}) מאשר ${name(open)} (${len[open]}), ולכן פאס ושחקו ב${name(rz)}.`) }
+          `Partner has shown ${name(open)} and ${name(rz)}. Your ${len[rz]} ${name(rz)} make a longer fit than your ${len[open]} ${name(open)}, so pass and play in ${name(rz)}.`,
+          `השותף הראה ${name(open)} ו${name(rz)}. ${len[rz]} ה${name(rz)} שלכם יוצרים התאמה ארוכה יותר מ-${len[open]} ה${name(open)}, ולכן פאס ושחקו ב${name(rz)}.`) }
         : { bid: '2' + open, why: L(
-          `Partner has shown ${name(open)} and ${name(rz)}. With ${len[open]} ${name(open)} and ${len[rz]} ${name(rz)}, give <em>preference</em> to partner's first suit: ${bh('2' + open)}. It's usually at least five cards long. This isn't extra strength, just a choice of suit.`,
-          `השותף הראה ${name(open)} ו${name(rz)}. עם ${len[open]} ${name(open)} ו-${len[rz]} ${name(rz)}, תנו <em>העדפה</em> לסדרה הראשונה של השותף: ${bh('2' + open)}. בדרך כלל יש בה לפחות חמישה קלפים. זה לא כוח נוסף, רק בחירת סדרה.`) };
+          `Partner has shown ${name(open)} and ${name(rz)}. ${firstFit(rz)} So give <em>preference</em> to partner's first suit: ${bh('2' + open)}. This isn't extra strength, just a choice of suit.`,
+          `השותף הראה ${name(open)} ו${name(rz)}. ${firstFit(rz)} לכן תנו <em>העדפה</em> לסדרה הראשונה של השותף: ${bh('2' + open)}. זה לא כוח נוסף, רק בחירת סדרה.`) };
     }
     return null;
   }
@@ -751,13 +772,13 @@ function responderRebid(hand, open, resp, rebid) {
         `${strength}, no fit for partner and ${len[you]} ${name(you)}: rebid ${bh('2' + you)} to show 6+ cards and ask partner to pass.`,
         `${strength}, בלי התאמה לשותף ו-${len[you]} ${name(you)}: הכריזו ${bh('2' + you)} כדי להראות 6 קלפים ומעלה ולבקש מהשותף להכריז פאס.`) };
     }
-    return len[rz] > len[open]
+    return prefersSecond(rz)
       ? { bid: 'P', why: L(
-        `${strength}. You have more ${name(rz)} (${len[rz]}) than ${name(open)} (${len[open]}), so pass and play in partner's second suit.`,
-        `${strength}. יש לכם יותר ${name(rz)} (${len[rz]}) מאשר ${name(open)} (${len[open]}), ולכן פאס ושחקו בסדרה השנייה של השותף.`) }
+        `${strength}. Your ${len[rz]} ${name(rz)} make a longer fit than your ${len[open]} ${name(open)}, so pass and play in partner's second suit.`,
+        `${strength}. ${len[rz]} ה${name(rz)} שלכם יוצרים התאמה ארוכה יותר מ-${len[open]} ה${name(open)}, ולכן פאס ושחקו בסדרה השנייה של השותף.`) }
       : { bid: '2' + open, why: L(
-        `${strength}. With ${len[open]} ${name(open)} and ${len[rz]} ${name(rz)}, give <em>preference</em> to partner's first suit: ${bh('2' + open)}. It's usually longer. This shows no extra strength.`,
-        `${strength}. עם ${len[open]} ${name(open)} ו-${len[rz]} ${name(rz)}, תנו <em>העדפה</em> לסדרה הראשונה של השותף: ${bh('2' + open)}. בדרך כלל היא ארוכה יותר. זה לא מראה כוח נוסף.`) };
+        `${strength}. ${firstFit(rz)} So give <em>preference</em> to partner's first suit: ${bh('2' + open)}. This shows no extra strength.`,
+        `${strength}. ${firstFit(rz)} לכן תנו <em>העדפה</em> לסדרה הראשונה של השותף: ${bh('2' + open)}. זה לא מראה כוח נוסף.`) };
   }
 
   // Reverse: 16+ and forcing for one round.

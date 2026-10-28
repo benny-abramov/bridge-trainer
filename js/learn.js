@@ -297,7 +297,8 @@ const LESSONS_EN = [
       <p><strong>When partner shows a second suit:</strong></p>
       <ul>
         <li>With 4 cards in a newly shown major, raise it: to 2 with a minimum, to 3 to invite.</li>
-        <li>Otherwise give <strong>preference</strong>. With more cards in the second suit, pass it. With equal length or more in the first suit, go back to it at the cheapest level: 1${D} – 1${S} – 2${C} – <strong>2${D}</strong>.</li>
+        <li>Otherwise give <strong>preference</strong> by comparing the fits, not just your own lengths. A major opening has five cards and the second suit four, so with equal fits go back to the first suit at the cheapest level: with 2${S} and 3${H}, 1${S} – 1NT – 2${H} – <strong>2${S}</strong> (5-2 and 4-3 are both 7-card fits). Pass only when the second suit makes the longer fit.</li>
+        <li>After your 1NT response, partner's new suit can still hold up to 17, so with 8–10 keep the auction going: raise to 3 with 4-card support, otherwise bid 2NT to invite.</li>
         <li>Preference shows no extra strength. With 11–12, raise or bid 2NT to invite instead.</li>
         <li>With 13+, bid game: 4 of a major with an 8-card fit, otherwise 3NT.</li>
       </ul>
@@ -717,7 +718,8 @@ const LESSONS_HE = [
       <p><strong>כשהשותף מראה סדרה שנייה:</strong></p>
       <ul>
         <li>עם 4 קלפים בסדרת מייגור שהשותף הראה זה עתה, תמכו בה: ברמת 2 עם מינימום, ברמת 3 כהזמנה.</li>
-        <li>אחרת, תנו <strong>העדפה</strong>. עם יותר קלפים בסדרה השנייה, הכריזו פאס. עם אורך שווה או יותר בסדרה הראשונה, חזרו אליה ברמה הזולה ביותר: <bdi dir="ltr">${B('1D')} – ${B('1S')} – ${B('2C')} – <strong>${B('2D')}</strong></bdi>.</li>
+        <li>אחרת, תנו <strong>העדפה</strong> לפי ההתאמות ולא רק לפי האורכים שלכם. בפתיחה בסדרת מייגור יש חמישה קלפים ובסדרה השנייה ארבעה, ולכן עם התאמות שוות חזרו לסדרה הראשונה ברמה הזולה ביותר: עם ${ltr(`2${S}`)} ו-${ltr(`3${H}`)}, <bdi dir="ltr">${B('1S')} – 1NT – ${B('2H')} – <strong>${B('2S')}</strong></bdi> (גם 5-2 וגם 4-3 הן התאמות של 7 קלפים). הכריזו פאס רק כשהסדרה השנייה יוצרת התאמה ארוכה יותר.</li>
+        <li>אחרי תשובה של 1NT, הסדרה החדשה של השותף יכולה להיות עם עד 17 נק', ולכן עם 8-10 המשיכו את המכרז: תמכו ברמת 3 עם 4 קלפים, ואחרת הכריזו 2NT כהזמנה.</li>
         <li>העדפה לא מראה כוח נוסף. עם 11-12, תמכו או הכריזו 2NT כדי להזמין.</li>
         <li>עם 13 ומעלה, הכריזו משחק מלא: 4 בסדרת מייגור עם התאמה של 8 קלפים, ואחרת 3NT.</li>
       </ul>
