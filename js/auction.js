@@ -303,9 +303,19 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
     const majors = ['S', 'H'].filter(z => fitOf(z) >= 8).sort((a, b) => fitOf(b) - fitOf(a));
     const minors = ['D', 'C'].filter(z => fitOf(z) >= 9).sort((a, b) => fitOf(b) - fitOf(a));
     let strain = majors[0] || (minors[0] && !isBalanced(me) ? minors[0] : 'N');
-    // No-trump needs a stopper in every suit the opponents have bid.
-    const theirSuits = [...new Set(calls.filter(c => c.seat % 2 === 1 && isBidCall(c.call) && c.call[1] !== 'N').map(c => c.call[1]))];
-    const unstopped = theirSuits.find(z => !hasStopper(me.filter(c => c.suit === z)));
+    // With game values a minor fit plays 3NT (4 of a minor isn't a game). Only a highly unbalanced
+    // hand (a singleton or void) with 29+ goes to 5 of the minor.
+    if ((strain === 'D' || strain === 'C')) {
+      const pts = myHcp + partnerPts;
+      const short = Object.values(myLen).some(n => n <= 1);
+      if (pts >= 25 && !(short && pts + lengthPoints(me) - myHcp >= 29)) strain = 'N';
+    }
+    // No-trump needs a stopper in every suit the opponents have bid: in this hand, or shown by
+    // partner bidding no-trump after they bid it.
+    const theirBids = calls.map((c, i) => ({ ...c, i })).filter(c => c.seat % 2 === 1 && isBidCall(c.call) && c.call[1] !== 'N');
+    const partnerStops = z => calls.some((c, i) => c.seat === partnerSeat && /^\dN$/.test(c.call) && theirBids.some(t => t.call[1] === z && t.i < i));
+    const theirSuits = [...new Set(theirBids.map(c => c.call[1]))];
+    const unstopped = theirSuits.find(z => !hasStopper(me.filter(c => c.suit === z)) && !partnerStops(z));
     if (strain === 'N' && unstopped) {
       const suitFit = ['S', 'H', 'D', 'C'].filter(z => fitOf(z) >= 7 && z !== unstopped).sort((a, b) => fitOf(b) - fitOf(a))[0];
       if (!suitFit) return { call: 'P', why: L(
@@ -328,8 +338,8 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
       : surely + info.max - info.min > surely
         ? L(`${surely}–${myHcp + info.max + extra} points together`, `${surely}-${myHcp + info.max + extra} נקודות ביחד`)
         : L(`${surely} points together`, `${surely} נקודות ביחד`);
-    const known = L(`${SEAT_NAMES[seat]} has ${myHcp} HCP${extra ? ` (+${extra} for distribution)` : ''} and ${SEAT_NAMES[partnerSeat]} has shown ${shownText}, so ${together}`,
-      `ל${SEAT_NAMES[seat]} יש ${myHcp} נק'${extra ? ` (+${extra} על החלוקה)` : ''}, ו${SEAT_NAMES[partnerSeat]} הראה ${shownText}, כלומר ${together}`);
+    const known = L(`${SEAT_NAMES[seat]} has ${myHcp} HCP${extra ? ` (+${extra} for distribution)` : ''} and ${SEAT_NAMES[partnerSeat]} has shown ${shownText} (${together})`,
+      `ל${SEAT_NAMES[seat]} יש ${myHcp} נק'${extra ? ` (+${extra} על החלוקה)` : ''}, ו${SEAT_NAMES[partnerSeat]} הראה ${shownText} (${together})`);
     const fit = strain === 'N' ? '' : L(`, with at least ${fitOf(strain)} ${SUIT_NAME[strain]} between them`, `, ולפחות ${fitOf(strain)} ${SUIT_NAME[strain]} בשתי הידיים`);
 
     // Partner's natural game stands unless there's a slam.
