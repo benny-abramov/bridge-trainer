@@ -267,6 +267,7 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
         atLeast(z, opener ? 4 : 3);
         if (opener) range([12, 15, 18][Math.min(jumps, 2)], [14, 17, 21][Math.min(jumps, 2)]);
         else if (nth === 1 && isGame(call) && before.find(x => x.seat === p && x.call !== 'P')?.call[1] !== z) range(13, 37); // a delayed game raise
+        else if (nth === 1 && !interfered && !isGame(call)) range(jumps ? 11 : 6, jumps ? 12 : 10); // simple preference or raise: 6–10; a jump: 11–12
         return;
       }
       const ownBefore = before.some((x, j) => x.seat === p && isBidCall(x.call) && x.call[1] === z && !artificial.has(j));
