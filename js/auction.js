@@ -26,11 +26,16 @@ function chooseContract(north, south, allowed = () => true) {
     points += supportPoints(dummy, strain) - hcp(dummy);
   }
 
-  let level;
-  if (strain === 'N') level = points >= 33 ? 6 : points >= 25 ? 3 : points >= 23 ? 2 : 1;
-  else if (strain === 'S' || strain === 'H') level = points >= 33 ? 6 : points >= 26 ? 4 : points >= 23 ? 3 : 2;
-  else level = points >= 33 ? 6 : points >= 29 ? 5 : points >= 26 ? 4 : points >= 23 ? 3 : 2;
-  return { level, strain, points };
+  return { level: levelFor(strain, points), strain, points };
+}
+
+// The level the combined points are worth: game at 25+ in no-trump, 26+ in a major, 29+ in a
+// minor, and a small slam at 33+.
+function levelFor(strain, points) {
+  if (points >= 33) return 6;
+  if (strain === 'N') return points >= 25 ? 3 : points >= 23 ? 2 : 1;
+  if (strain === 'S' || strain === 'H') return points >= 26 ? 4 : points >= 23 ? 3 : 2;
+  return points >= 29 ? 5 : points >= 26 ? 4 : points >= 23 ? 3 : 2;
 }
 
 // Responder's second call after a Jacoby transfer. Opener's completion says nothing about their
@@ -166,31 +171,126 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
     || (isBidCall(call) && (!lastBid() || callRank(call) > callRank(lastBid().call)));
   const callsBy = seat => calls.filter(c => c.seat === seat).map(c => c.call);
 
-  // The next North-South player sets the final contract (or passes when it's already right).
-  // It plays in a suit only when partner has bid it naturally or the player holds six or more:
-  // a fit partner never showed can't be known.
+  // What a player's calls have shown so far, read from the auction alone: an HCP range and a
+  // minimum length in each suit. The computer judges partner by this, never by partner's cards.
+  function shownBy(p) {
+    let min = 0, max = 37;
+    const len = { S: 0, H: 0, D: 0, C: 0 };
+    const range = (lo, hi) => { min = Math.max(min, lo); max = Math.max(min, Math.min(max, hi)); };
+    const atLeast = (z, n) => { len[z] = Math.max(len[z], n); };
+    const isMaj = z => z === 'H' || z === 'S';
+    const opener = p === DEALER;
+    const open = calls[0].call;
+    const partnerOf = (p + 2) % 4;
+    const response = calls.find(c => c.seat === (opener ? partnerOf : p) && c.seat !== DEALER && c.call !== 'P');
+    let k = 0;
+    calls.forEach((c, i) => {
+      if (c.seat !== p) return;
+      const nth = k++;
+      const call = c.call, art = artificial.has(i);
+      const before = calls.slice(0, i);
+      const interfered = before.some(x => x.seat % 2 === 1 && x.call !== 'P');
+      if (call === 'P') { if (nth === 0 && !opener) range(0, interfered ? 9 : open === '1N' ? 7 : 5); return; }
+      if (!isBidCall(call)) { if (call === 'X') range(6, 37); return; }
+      const level = Number(call[0]), z = call[1];
+      const prev = [...before].reverse().find(x => isBidCall(x.call));
+      const cheapest = !prev ? 1 : 'CDHSN'.indexOf(z) > 'CDHSN'.indexOf(prev.call[1]) ? Number(prev.call[0]) : Number(prev.call[0]) + 1;
+      const jumps = level - cheapest;
+
+      if (nth === 0 && opener) { // the opening bid
+        if (call === '1N') { range(15, 17); SUITS.forEach(x => atLeast(x, 2)); }
+        else if (call === '2N') { range(20, 22); SUITS.forEach(x => atLeast(x, 2)); }
+        else if (call === '2C') range(23, 37);
+        else if (level === 1) { range(12, 21); atLeast(z, isMaj(z) ? 5 : z === 'D' ? 4 : 3); }
+        else { range(5, 10); atLeast(z, level + 4); } // weak two: 6 cards, 3-level: 7, 4-level: 8
+        return;
+      }
+      if (nth === 0) { // responder's first bid
+        if (open === '1N') {
+          if (call === '2C') range(8, 37);
+          else if (call === '2D' || call === '2H') atLeast(call === '2D' ? 'H' : 'S', 5);
+          else if (call === '2N') range(8, 9);
+          else if (call === '3N') range(10, 15);
+          return;
+        }
+        if (open === '2C') { if (call === '2D') range(0, 7); else { range(8, 37); if (z !== 'N') atLeast(z, 5); } return; }
+        const o = open[1];
+        if (call === '2N' && art) { range(13, 37); atLeast(o, 4); return; } // Jacoby 2NT
+        if (z === o) { atLeast(o, isMaj(o) ? 3 : 4); if (level === 2) range(6, 10); else if (level === 3) range(11, 12); else range(13, 37); return; }
+        if (call === '1N') { range(6, 10); return; }
+        if (call === '2N') { range(11, 12); return; }
+        if (call === '3N') { range(13, 15); return; }
+        atLeast(z, z === 'H' && level === 2 ? 5 : 4);
+        range(level === 1 ? 6 : interfered ? 10 : 11, 37);
+        return;
+      }
+      if (art) return;
+      // Opener's later bids after 1NT: completing a transfer shows nothing; a Stayman answer shows four.
+      if (opener && open === '1N' && response) {
+        if ((response.call === '2D' || response.call === '2H') && nth === 1) return;
+        if (response.call === '2C' && nth === 1) { if (isMaj(z)) atLeast(z, 4); return; }
+      }
+      if (z === 'N') {
+        if (opener && open === '2C') range(level === 2 ? 22 : 25, level === 2 ? 24 : 27);
+        else if (opener && open !== '1N' && open !== '2N') {
+          const twoOverOne = response && response.call[0] === '2' && response.call[1] !== open[1];
+          if (!response || response.call === 'P') range(18, 19); // bidding no-trump alone after partner passed
+          else if (level === 1 || twoOverOne) range(12, 14);
+          else if (level === 2) range(18, 19);
+        }
+        return;
+      }
+      const partnerBid = new Set(before.filter((x, j) => x.seat === partnerOf && isBidCall(x.call) && !artificial.has(j)).map(x => x.call[1]));
+      if (partnerBid.has(z)) { // a raise of partner's suit, or preference
+        atLeast(z, opener ? 4 : 3);
+        if (opener) range([12, 15, 18][Math.min(jumps, 2)], [14, 17, 21][Math.min(jumps, 2)]);
+        return;
+      }
+      const ownBefore = before.some((x, j) => x.seat === p && isBidCall(x.call) && x.call[1] === z && !artificial.has(j));
+      if (ownBefore) { atLeast(z, 6); if (opener && !interfered) range(jumps ? 15 : 12, jumps ? 21 : 14); return; }
+      atLeast(z, 4); // a new suit
+      if (opener && open[0] === '1') {
+        if (jumps) range(18, 21); // jump shift
+        else if (level === 2 && SUITS.indexOf(z) < SUITS.indexOf(open[1])) range(16, 21); // reverse
+      }
+    });
+    return { min, max, len };
+  }
+
+  // The next North-South player sets the final contract (or passes when it's already right),
+  // from their own hand and what partner has shown in the auction.
   function place(seat) {
     placed = true;
     const last = lastBid();
     const lastArtificial = last && artificial.has(calls.indexOf(last));
     const partnerSeat = (seat + 2) % 4;
-    const shown = new Set(calls.filter((c, i) => c.seat === partnerSeat && isBidCall(c.call) && !artificial.has(i)).map(c => c.call[1]));
-    const own = suitLengths(hands[seat]);
-    const target = chooseContract(hands[0], hands[2], z => shown.has(z) || own[z] >= 6);
+    const me = hands[seat], myLen = suitLengths(me), myHcp = hcp(me);
+    const info = shownBy(partnerSeat);
+    const partnerPts = info.max >= 30 ? info.min + 3 : Math.round((info.min + info.max) / 2);
+    // A suit is a fit only as far as the bidding shows it (an own 6-card suit assumes two opposite).
+    const fitOf = z => myLen[z] + Math.max(info.len[z], myLen[z] >= 6 ? 2 : 0);
+    const majors = ['S', 'H'].filter(z => fitOf(z) >= 8).sort((a, b) => fitOf(b) - fitOf(a));
+    const minors = ['D', 'C'].filter(z => fitOf(z) >= 9).sort((a, b) => fitOf(b) - fitOf(a));
+    const strain = majors[0] || (minors[0] && !isBalanced(me) ? minors[0] : 'N');
+    let points = myHcp + partnerPts;
+    if (strain !== 'N') points += myLen[strain] <= info.len[strain] ? supportPoints(me, strain) - myHcp : lengthPoints(me) - myHcp;
+    const target = { strain, level: levelFor(strain, points) };
+
+    const shownText = info.max >= 30
+      ? (info.min ? L(`${info.min}+ HCP`, `${info.min} נק' ומעלה`) : L('no particular strength', 'כוח לא מוגדר'))
+      : L(`${info.min}–${info.max} HCP`, `${info.min}-${info.max} נק'`);
+    const known = L(`${SEAT_NAMES[seat]} has ${myHcp} HCP and ${SEAT_NAMES[partnerSeat]} has shown ${shownText}, about ${points} points together`,
+      `ל${SEAT_NAMES[seat]} יש ${myHcp} נק', ו${SEAT_NAMES[partnerSeat]} הראה ${shownText}, בערך ${points} נקודות ביחד`);
+    const fit = strain === 'N' ? '' : L(`, with at least ${fitOf(strain)} ${SUIT_NAME[strain]} between them`, `, ולפחות ${fitOf(strain)} ${SUIT_NAME[strain]} בשתי הידיים`);
+
     // Partner's natural game stands unless there's a slam.
     if (last && last.seat === partnerSeat && !lastArtificial && isGame(last.call) && target.level < 6) {
-      return { call: 'P', why: L(`Partner has bid game in ${bidHtml(last.call)}. Without the strength for a slam, pass.`,
-        `השותף הכריז משחק מלא ב-${bidHtml(last.call)}. בלי כוח לסלאם, פאס.`) };
+      return { call: 'P', why: L(`Partner has bid game in ${bidHtml(last.call)}. ${known}: not enough for a slam, so pass.`,
+        `השותף הכריז משחק מלא ב-${bidHtml(last.call)}. ${known}: לא מספיק לסלאם, ולכן פאס.`) };
     }
-    const hcpSum = hcp(hands[0]) + hcp(hands[2]);
-    const pts = target.points > hcpSum
-      ? L(`${hcpSum} HCP (${target.points} points counting shortness)`, `${hcpSum} נק' (${target.points} נקודות עם הסדרות הקצרות)`)
-      : L(`${hcpSum} HCP`, `${hcpSum} נק'`);
-    const fitLen = target.strain === 'N' ? 0 : suitLengths(hands[0])[target.strain] + suitLengths(hands[2])[target.strain];
-    const fit = fitLen ? L(` and ${fitLen} ${SUIT_NAME[target.strain]} between them`, ` ו-${fitLen} ${SUIT_NAME[target.strain]} ביחד`) : '';
     if (last && last.seat % 2 === 0 && !lastArtificial && last.call[1] === target.strain && Number(last.call[0]) >= target.level) {
-      return { call: 'P', why: L(`North-South have about ${pts}${fit}: ${bidHtml(last.call)} is the right contract, so pass.`,
-        `לצפון-דרום יש בערך ${pts}${fit}: ${bidHtml(last.call)} הוא החוזה הנכון, ולכן פאס.`) };
+      return { call: 'P', why: L(`${known}${fit}: ${bidHtml(last.call)} is the right contract, so pass.`,
+        `${known}${fit}: ${bidHtml(last.call)} הוא החוזה הנכון, ולכן פאס.`) };
     }
     let level = target.level;
     while (level <= 7 && !legal(level + target.strain)) level++;
@@ -203,12 +303,12 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
     // Going past the level the points call for only makes sense to leave an artificial bid.
     if (level > 7 || (level > target.level && !lastArtificial)) {
       return { call: 'P', why: L(
-        `North-South have about ${pts}: bidding higher would be too ambitious, so pass and play ${bidHtml(last.call)}.`,
-        `לצפון-דרום יש בערך ${pts}: להכריז גבוה יותר יהיה שאפתני מדי, ולכן פאס ומשחקים ב-${bidHtml(last.call)}.`) };
+        `${known}: bidding higher would be too ambitious, so pass and play ${bidHtml(last.call)}.`,
+        `${known}: להכריז גבוה יותר יהיה שאפתני מדי, ולכן פאס ומשחקים ב-${bidHtml(last.call)}.`) };
     }
     const bid = level + target.strain;
-    return { call: bid, why: L(`North-South have about ${pts}${fit}, so ${SEAT_NAMES[seat]} places the contract: ${bidHtml(bid)}.`,
-      `לצפון-דרום יש בערך ${pts}${fit}, ולכן ${SEAT_NAMES[seat]} קובע את החוזה: ${bidHtml(bid)}.`) };
+    return { call: bid, why: L(`${known}${fit}, so ${SEAT_NAMES[seat]} places the contract: ${bidHtml(bid)}.`,
+      `${known}${fit}, ולכן ${SEAT_NAMES[seat]} קובע את החוזה: ${bidHtml(bid)}.`) };
   }
 
   // A rule's answer if it's legal here, otherwise the contract is placed instead.
@@ -418,6 +518,21 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
       }
       if (openSuit) return use(seat, responseBid(hand, openSuit), false);
       return place(seat);
+    }
+    if (seat === DEALER && mine.length === 1 && open === '2C' && partner[0] && partner[0] !== 'P') {
+      const pts = hcp(hand);
+      if (isBalanced(hand)) {
+        const bid = pts <= 24 ? '2N' : '3N';
+        if (legal(bid)) return { call: bid, why: L(
+          `${pts} HCP and balanced: rebid ${bidHtml(bid)}. After a 2♣ opening, 2NT shows 22–24 balanced and 3NT shows 25–27.`,
+          `${pts} נק' ויד מאוזנת: הכריזו ${bidHtml(bid)}. אחרי פתיחת 2♣, 2NT מראה 22-24 מאוזנת ו-3NT מראה 25-27.`) };
+      }
+      const suit = SUITS.slice().sort((a, b) => len[b] - len[a] || SUITS.indexOf(a) - SUITS.indexOf(b))[0];
+      let level = 2;
+      while (level <= 3 && !legal(level + suit)) level++;
+      if (level <= 3) return { call: level + suit, why: L(
+        `${pts} HCP with ${len[suit]} ${SUIT_NAME[suit]}: show your suit with ${bidHtml(level + suit)}. After a 2♣ opening the auction is forcing, so partner will bid again.`,
+        `${pts} נק' עם ${len[suit]} ${SUIT_NAME[suit]}: הראו את הסדרה שלכם ב-${bidHtml(level + suit)}. אחרי פתיחת 2♣ המכרז מחייב, ולכן השותף יכריז שוב.`) };
     }
     if (seat === DEALER && mine.length === 1 && openSuit && partner[0] === 'P') {
       const theirs = [...calls].reverse().find(c => c.seat % 2 === 1 && isBidCall(c.call));
