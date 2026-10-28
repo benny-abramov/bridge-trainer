@@ -831,6 +831,13 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
       const r = transferReply(hand, transfer, partner[1]);
       if (r) { placed = true; return r; } // that settles the contract
     }
+    // After a 1NT response, responder's new suit at the 2-level shows a long suit in a weak hand: pass.
+    if (seat === DEALER && mine.length === 2 && partner[0] === '1N' && /^2[CDHS]$/.test(partner[1] ?? '')
+      && !calls.slice(0, -1).some(c => c.seat !== 0 && isBidCall(c.call) && c.call[1] === partner[1][1])) {
+      return { call: 'P', why: L(
+        `Partner's ${bidHtml(partner[1])} shows a long, good suit in a weak hand (6–10) and asks you to pass. Game is out of reach, so pass.`,
+        `ה-${bidHtml(partner[1])} של השותף מראה סדרה ארוכה וטובה ביד חלשה (6-10) ומבקש מכם להכריז פאס. משחק מלא לא בהישג יד, ולכן פאס.`) };
+    }
     // Opener answers responder's invitation (2NT, or a raise to the 3-level): accept with the top of the range.
     if (seat === DEALER && mine.length === 2 && openSuit && partner.length === 2 && !calls.some(c => c.seat % 2 === 1 && c.call !== 'P')) {
       const [resp, inv] = partner, myRebid = mine[1];

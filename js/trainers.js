@@ -681,6 +681,12 @@ function responderRebid(hand, open, resp, rebid) {
     }
     if (rebid === '3' + open) return acceptWhy(open);
     if (rl === 2 && rank(rz) > rank(open)) {
+      // A good 6-card suit of your own that can still be bid at the 2-level: bid it to play there.
+      const own = SUITS.find(z => z !== open && z !== rz && len[z] >= 6 && rank(z) < rank(rz)
+        && hand.filter(c => c.suit === z && 'AKQJT'.includes(c.rank)).length >= 2);
+      if (own) return { bid: '2' + own, why: L(
+        `You have ${pts} HCP and a good ${len[own]}-card ${name(own)} suit. Rather than choose between partner's suits, bid ${bh('2' + own)}: it shows a long, good suit in a hand too weak to have bid it at the 2-level before (under 11 HCP), and asks partner to pass.`,
+        `יש לכם ${pts} נק' וסדרת ${name(own)} טובה של ${len[own]} קלפים. במקום לבחור בין הסדרות של השותף, הכריזו ${bh('2' + own)}: זה מראה סדרה ארוכה וטובה ביד חלשה מכדי שהייתם מכריזים אותה קודם ברמת 2 (פחות מ-11 נק'), ומבקש מהשותף להכריז פאס.`) };
       // Partner's new suit can hold up to 17, so with 8–10 game is still possible: invite.
       if (pts >= 8) {
         const upTo = L(`You have ${pts} HCP. Partner's ${bh(rebid)} can be as strong as 17, so game is possible: keep the auction going.`,
