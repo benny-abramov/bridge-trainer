@@ -243,7 +243,7 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
     }
     if (pts >= 11) return place(0);
     return pass(L(`${count}. After West's ${overHtml} there's no good bid: no fit for partner, no suit to show cheaply and no stopper for no-trump. Pass for now.`,
-      `${count}. אחרי ה-${overHtml} של מערב אין הכרזה טובה: אין התאמה לשותף, אין סדרה להראות בזול ואין עוצר לללא שליט. פאס בינתיים.`));
+      `${count}. אחרי ה-${overHtml} של מערב אין הכרזה טובה: אין התאמה לשותף, אין סדרה להראות בזול ואין עוצר בשביל ללא שליט. פאס בינתיים.`));
   }
 
   // An opponent's long-suit action: a preempt with seven cards (3-level) or eight (4-level) and
@@ -254,16 +254,73 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
     const theirs = new Set(calls.filter((c, i) => c.seat % 2 === 0 && isBidCall(c.call) && !artificial.has(i)).map(c => c.call[1]));
     const best = SUITS.filter(z => !theirs.has(z)).sort((a, b) => len[b] - len[a] || SUITS.indexOf(a) - SUITS.indexOf(b))[0];
     const n = len[best], name = SUIT_NAME[best];
-    if (n >= 7 && pts >= 5 && pts <= 10) {
+    if (n >= 7 && pts >= 5 && pts <= 10 && goodPreemptSuit(hand.filter(c => c.suit === best))) {
       const bid = (n >= 8 ? 4 : 3) + best;
       if (legal(bid)) return { call: bid, why: L(
-        `${pts} HCP with ${n} ${name}: <em>preempt</em> with ${bidHtml(bid)}. A long suit in a weak hand takes away the opponents' bidding space: the 3-level with 7 cards, the 4-level with 8.`,
-        `${pts} נק' עם ${n} ${name}: הכריזו <em>הכרזת חסימה</em> ב-${bidHtml(bid)}. סדרה ארוכה ביד חלשה לוקחת מהיריבים מקום במכרז: רמה 3 עם 7 קלפים, רמה 4 עם 8.`) };
+        `${pts} HCP with ${n} good ${name}: <em>preempt</em> with ${bidHtml(bid)}. A long, good suit (two of the top four honors) in a weak hand takes away the opponents' bidding space: the 3-level with 7 cards, the 4-level with 8.`,
+        `${pts} נק' עם ${n} ${name} טובים: הכריזו <em>הכרזת חסימה</em> ב-${bidHtml(bid)}. סדרה ארוכה וטובה (שניים מארבעת ההונורים העליונים) ביד חלשה לוקחת מהיריבים מקום במכרז: רמה 3 עם 7 קלפים, רמה 4 עם 8.`) };
     }
     if (over1NT && n >= 6 && pts >= 8 && pts <= 15 && legal('2' + best)) return { call: '2' + best, why: L(
       `${pts} HCP with ${n} ${name}: overcall ${bidHtml('2' + best)}. Over a strong 1NT, a natural 2-level overcall shows a good 6-card suit.`,
       `${pts} נק' עם ${n} ${name}: התערבו ב-${bidHtml('2' + best)}. מעל 1NT חזק, התערבות טבעית ברמת 2 מראה סדרה טובה של 6 קלפים.`) };
     return null;
+  }
+
+  // Opener's second call after the opponents competed and partner passed. Partner may have
+  // nothing, so opener bids only on their own hand: balanced 18–19 with a stopper in the
+  // opponents' suit bids no-trump at the cheapest level (with 15–17 you'd have opened 1NT), a
+  // 6-card suit or a lower second suit can be shown, and anything else passes.
+  function reopen(hand, open, their) {
+    const pts = hcp(hand), len = suitLengths(hand);
+    const theirSuit = their[1];
+    const theirHtml = bidHtml(their);
+    const partnerPassed = L(`Partner passed ${theirHtml}, so partner may have very little.`, `השותף הכריז פאס על ${theirHtml}, כך שייתכן שיש לו מעט מאוד.`);
+    const cheapest = strain => { let level = 1; while (level <= 3 && !legal(level + strain)) level++; return level <= 3 ? level + strain : null; };
+    if (isBalanced(hand) && pts >= 18 && theirSuit !== 'N' && hasStopper(hand.filter(c => c.suit === theirSuit))) {
+      const bid = cheapest('N');
+      if (bid && Number(bid[0]) <= 2) return { call: bid, why: L(
+        `${partnerPassed} With ${pts} HCP, balanced, and a stopper in their ${SUIT_NAME[theirSuit]}, bid ${bidHtml(bid)}. Bidding no-trump on your own after partner's pass shows 18–19 balanced: with 15–17 you would have opened 1NT.`,
+        `${partnerPassed} עם ${pts} נק', יד מאוזנת ועוצר ב${SUIT_NAME[theirSuit]} שלהם, הכריזו ${bidHtml(bid)}. הכרזת ללא שליט לבד אחרי הפאס של השותף מראה 18-19 מאוזנת: עם 15-17 הייתם פותחים 1NT.`) };
+    }
+    if (len[open] >= 6) {
+      const bid = cheapest(open);
+      if (bid && Number(bid[0]) <= 2 + (pts >= 16 ? 1 : 0)) return { call: bid, why: L(
+        `${partnerPassed} With ${pts} HCP and ${len[open]} ${SUIT_NAME[open]}, compete by rebidding your suit: ${bidHtml(bid)}.`,
+        `${partnerPassed} עם ${pts} נק' ו-${len[open]} ${SUIT_NAME[open]}, התחרו בחזרה על הסדרה שלכם: ${bidHtml(bid)}.`) };
+    }
+    const second = SUITS.find(z => z !== open && z !== theirSuit && len[z] >= 5 && SUITS.indexOf(z) > SUITS.indexOf(open));
+    if (second && pts >= 13) {
+      const bid = cheapest(second);
+      if (bid && Number(bid[0]) <= 2) return { call: bid, why: L(
+        `${partnerPassed} With ${pts} HCP and a second suit of ${len[second]} ${SUIT_NAME[second]}, compete with ${bidHtml(bid)}.`,
+        `${partnerPassed} עם ${pts} נק' וסדרה שנייה של ${len[second]} ${SUIT_NAME[second]}, התחרו ב-${bidHtml(bid)}.`) };
+    }
+    return { call: 'P', why: L(
+      `${partnerPassed} With ${pts} HCP and nothing more to show, pass. Bidding again on your own needs extra values: 18–19 balanced for no-trump, a 6-card suit, or a good second suit.`,
+      `${partnerPassed} עם ${pts} נק' ובלי עוד מה להראות, פאס. הכרזה נוספת לבד דורשת כוח נוסף: 18-19 מאוזנת בשביל ללא שליט, סדרה של 6 קלפים או סדרה שנייה טובה.`) };
+  }
+
+  // North after passing the overcall, when South bid again alone: no-trump shows 18–19, so 7+
+  // makes game; a suit can be raised with support. Otherwise North has already said enough.
+  function afterReopen(hand, call) {
+    const pts = hcp(hand), len = suitLengths(hand);
+    if (call[1] === 'N') {
+      if (pts >= 7 && legal('3N')) return { call: '3N', why: L(
+        `Partner's ${bidHtml(call)} after your pass shows 18–19 balanced. With ${pts} HCP you have 25+ together: bid 3NT.`,
+        `ה-${bidHtml(call)} של השותף אחרי הפאס שלכם מראה 18-19 מאוזנת. עם ${pts} נק' יש לכם ביחד 25 ומעלה: הכריזו 3NT.`) };
+      return { call: 'P', why: L(
+        `Partner's ${bidHtml(call)} shows 18–19 balanced, but with ${pts} HCP game is out of reach. Pass.`,
+        `ה-${bidHtml(call)} של השותף מראה 18-19 מאוזנת, אבל עם ${pts} נק' משחק מלא לא בהישג יד. פאס.`) };
+    }
+    const suit = call[1];
+    if (isBidCall(call) && len[suit] >= 3 && supportPoints(hand, suit) >= 8) {
+      const bid = (Number(call[0]) + 1) + suit;
+      if (Number(bid[0]) <= 3 && legal(bid)) return { call: bid, why: L(
+        `${supportText(hand, suit)} and ${len[suit]}-card support for partner's ${SUIT_NAME[suit]}: raise to ${bidHtml(bid)}.`,
+        `${supportText(hand, suit)} ותמיכה של ${len[suit]} קלפים ב${SUIT_NAME[suit]} של השותף: תמכו ב-${bidHtml(bid)}.`) };
+    }
+    return { call: 'P', why: L(`You already passed, and partner is competing on their own hand. With ${pts} HCP and nothing new to add, pass.`,
+      `כבר הכרזתם פאס, והשותף מתחרה על סמך היד שלו. עם ${pts} נק' ובלי משהו חדש להוסיף, פאס.`) };
   }
 
   // East-West: West's direct action over South's 1-of-a-suit opening, then East's answer. Otherwise they pass.
@@ -351,6 +408,10 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
       if (openSuit) return use(seat, responseBid(hand, openSuit), false);
       return place(seat);
     }
+    if (seat === DEALER && mine.length === 1 && openSuit && partner[0] === 'P') {
+      const theirs = [...calls].reverse().find(c => c.seat % 2 === 1 && isBidCall(c.call));
+      if (theirs) return reopen(hand, openSuit, theirs.call); // the opponents competed and partner passed
+    }
     if (seat === DEALER && mine.length === 1) { // South's second call
       const resp = partner[0];
       if (open === '1N' && (resp === '2D' || resp === '2H')) {
@@ -387,6 +448,9 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
     if (seat === DEALER && mine.length === 2 && transfer && partner.length === 2) {
       const r = transferReply(hand, transfer, partner[1]);
       if (r) { placed = true; return r; } // that settles the contract
+    }
+    if (seat === 0 && mine.length === 1 && mine[0] === 'P' && openSuit && partner[1] && partner[1] !== 'P') {
+      return afterReopen(hand, partner[1]); // North passed the overcall and South bid again alone
     }
     if (seat === 0 && mine.length === 1 && openSuit) { // North's second call
       return use(seat, responderRebid(hand, openSuit, mine[0], partner[1]), false);

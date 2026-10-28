@@ -12,6 +12,11 @@ function suitQuality(cards) {
   return cards.filter(c => 'AKQJT'.includes(c.rank)).length;
 }
 
+// A weak jump overcall or a preempt needs a good suit: two of the top four honors (A, K, Q, J).
+function goodPreemptSuit(cards) {
+  return cards.filter(c => 'AKQJ'.includes(c.rank)).length >= 2;
+}
+
 // Simplified SAYC direct-seat action over the opponent's 1-of-a-suit opening. Returns { bid, why }.
 function overcallBid(hand, open) {
   const pts = hcp(hand);
@@ -36,19 +41,20 @@ function overcallBid(hand, open) {
   const n = len[best];
   const above = rank(best) < rank(open); // can be bid at the 1-level
   const name = SUIT_NAME[best];
+  const preemptable = goodPreemptSuit(cardsIn(best));
 
-  if (pts >= 6 && pts <= 10 && n >= 7) {
+  if (pts >= 6 && pts <= 10 && n >= 7 && preemptable) {
     // The longer the suit, the higher the preempt: the 3-level with 7 cards, the 4-level with 8+.
     const bid = (n >= 8 ? 4 : 3) + best;
     return { bid, why: L(
-      `${pts} HCP with ${n} ${name}: <em>preempt</em> with ${bidHtml(bid)}. The longer your suit, the higher you jump: the 3-level with 7 cards, the 4-level with 8. It takes away the opponents' bidding space.`,
-      `${pts} נק' עם ${n} ${name}: הכריזו <em>הכרזת חסימה</em> ב-${bidHtml(bid)}. ככל שהסדרה ארוכה יותר, קופצים גבוה יותר: לרמה 3 עם 7 קלפים, לרמה 4 עם 8. היא לוקחת מהיריבים מקום במכרז.`) };
+      `${pts} HCP with ${n} good ${name}: <em>preempt</em> with ${bidHtml(bid)}. The longer your suit, the higher you jump: the 3-level with 7 cards, the 4-level with 8. It takes away the opponents' bidding space. A preempt needs two of the top four honors (A, K, Q, J).`,
+      `${pts} נק' עם ${n} ${name} טובים: הכריזו <em>הכרזת חסימה</em> ב-${bidHtml(bid)}. ככל שהסדרה ארוכה יותר, קופצים גבוה יותר: לרמה 3 עם 7 קלפים, לרמה 4 עם 8. היא לוקחת מהיריבים מקום במכרז. הכרזת חסימה דורשת שניים מארבעת ההונורים העליונים (A, K, Q, J).`) };
   }
-  if (pts >= 6 && pts <= 10 && n === 6) {
+  if (pts >= 6 && pts <= 10 && n === 6 && preemptable) {
     const bid = (above ? 2 : 3) + best;
     return { bid, why: L(
-      `${pts} HCP with ${n} ${name}: make a <em>weak jump overcall</em> of ${bidHtml(bid)}. Like a weak two, it shows a 6-card suit and 6–10 HCP, and uses up the opponents' bidding space.`,
-      `${pts} נק' עם ${n} ${name}: הכריזו <em>קפיצת התערבות חלשה</em> ל-${bidHtml(bid)}. כמו הכרזת שתיים חלשה, היא מראה סדרה של 6 קלפים ו-6-10 נק', ותופסת ליריבים מקום במכרז.`) };
+      `${pts} HCP with ${n} good ${name}: make a <em>weak jump overcall</em> of ${bidHtml(bid)}. Like a weak two, it shows a good 6-card suit (two of the top four honors) and 6–10 HCP, and uses up the opponents' bidding space.`,
+      `${pts} נק' עם ${n} ${name} טובים: הכריזו <em>קפיצת התערבות חלשה</em> ל-${bidHtml(bid)}. כמו הכרזת שתיים חלשה, היא מראה סדרה טובה של 6 קלפים (שניים מארבעת ההונורים העליונים) ו-6-10 נק', ותופסת ליריבים מקום במכרז.`) };
   }
   if (n >= 5) {
     const good = suitQuality(cardsIn(best)) >= 2;
@@ -71,7 +77,10 @@ function overcallBid(hand, open) {
   }
 
   let why;
-  if (n >= 5 && above && pts >= 8) {
+  if (n >= 6 && pts >= 6 && pts <= 10 && !preemptable) {
+    why = L(`${pts} HCP with ${n} ${name}, but the suit is too weak to jump with: a weak jump overcall or a preempt needs two of the top four honors (A, K, Q, J). Pass.`,
+      `${pts} נק' עם ${n} ${name}, אבל הסדרה חלשה מדי לקפיצה: קפיצת התערבות חלשה או הכרזת חסימה דורשות שניים מארבעת ההונורים העליונים (A, K, Q, J). פאס.`);
+  } else if (n >= 5 && above && pts >= 8) {
     why = L(`${pts} HCP, but your ${name} are too weak to overcall. With fewer than 12 HCP, a 1-level overcall needs a good suit (at least two of A, K, Q, J, 10). Pass.`,
       `${pts} נק', אבל סדרת ה${name} שלכם חלשה מדי להתערבות. עם פחות מ-12 נק', התערבות ברמת 1 דורשת סדרה טובה (לפחות שניים מ-A, K, Q, J, 10). פאס.`);
   } else if (n >= 5 && pts >= 8) {
