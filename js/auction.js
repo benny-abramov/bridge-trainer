@@ -191,7 +191,13 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
       const before = calls.slice(0, i);
       const interfered = before.some(x => x.seat % 2 === 1 && x.call !== 'P');
       if (call === 'P') { if (nth === 0 && !opener) range(0, interfered ? 9 : open === '1N' ? 7 : 5); return; }
-      if (!isBidCall(call)) { if (call === 'X') range(6, 37); return; }
+      if (!isBidCall(call)) {
+        if (call !== 'X') return;
+        range(6, 37);
+        const over = before.find(x => x.seat % 2 === 1 && isBidCall(x.call));
+        if (nth === 0 && !opener && over && (over.call === '1H' || over.call === '1S')) atLeast(over.call === '1H' ? 'S' : 'H', 4); // negative double
+        return;
+      }
       const level = Number(call[0]), z = call[1];
       const prev = [...before].reverse().find(x => isBidCall(x.call));
       const cheapest = !prev ? 1 : 'CDHSN'.indexOf(z) > 'CDHSN'.indexOf(prev.call[1]) ? Number(prev.call[0]) : Number(prev.call[0]) + 1;
@@ -271,7 +277,17 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
     const fitOf = z => myLen[z] + Math.max(info.len[z], myLen[z] >= 6 ? 2 : 0);
     const majors = ['S', 'H'].filter(z => fitOf(z) >= 8).sort((a, b) => fitOf(b) - fitOf(a));
     const minors = ['D', 'C'].filter(z => fitOf(z) >= 9).sort((a, b) => fitOf(b) - fitOf(a));
-    const strain = majors[0] || (minors[0] && !isBalanced(me) ? minors[0] : 'N');
+    let strain = majors[0] || (minors[0] && !isBalanced(me) ? minors[0] : 'N');
+    // No-trump needs a stopper in every suit the opponents have bid.
+    const theirSuits = [...new Set(calls.filter(c => c.seat % 2 === 1 && isBidCall(c.call) && c.call[1] !== 'N').map(c => c.call[1]))];
+    const unstopped = theirSuits.find(z => !hasStopper(me.filter(c => c.suit === z)));
+    if (strain === 'N' && unstopped) {
+      const suitFit = ['S', 'H', 'D', 'C'].filter(z => fitOf(z) >= 7 && z !== unstopped).sort((a, b) => fitOf(b) - fitOf(a))[0];
+      if (!suitFit) return { call: 'P', why: L(
+        `No-trump needs a stopper in their ${SUIT_NAME[unstopped]}, and ${SEAT_NAMES[seat]} has none. With no known fit either, pass and let partner decide.`,
+        `ללא שליט דורש עוצר ב${SUIT_NAME[unstopped]} שלהם, ול${SEAT_NAMES[seat]} אין. גם התאמה ידועה אין, ולכן פאס ותנו לשותף להחליט.`) };
+      strain = suitFit;
+    }
     let points = myHcp + partnerPts;
     if (strain !== 'N') points += myLen[strain] <= info.len[strain] ? supportPoints(me, strain) - myHcp : lengthPoints(me) - myHcp;
     const target = { strain, level: levelFor(strain, points) };
@@ -315,6 +331,9 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
   // A rule's answer if it's legal here, otherwise the contract is placed instead.
   const use = (seat, r, isArtificial) => {
     if (!r || !legal(r.bid)) return place(seat);
+    // The uncontested rules don't look for stoppers: no-trump needs one in each suit the opponents bid.
+    if (/^\dN$/.test(r.bid) && !isArtificial && calls.some(c => c.seat % 2 === 1 && /^\d[CDHS]$/.test(c.call)
+      && !hasStopper(hands[seat].filter(k => k.suit === c.call[1])))) return place(seat);
     if (isArtificial) artificial.add(calls.length);
     return { call: r.bid, why: r.why };
   };
@@ -442,6 +461,47 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
       `כבר הכרזתם פאס, והשותף מתחרה על סמך היד שלו. עם ${pts} נק' ובלי משהו חדש להוסיף, פאס.`) };
   }
 
+  // Opener's answer to partner's negative double, which shows four cards in the unbid major.
+  // Raise the major with four, otherwise show a second suit or a 6-card suit, bid no-trump only
+  // with a stopper in their suit, and pass when the opponents' bid has taken away the need to answer.
+  function afterNegativeDouble(hand, open) {
+    const pts = hcp(hand), len = suitLengths(hand);
+    const over = calls.find(c => c.seat === 3 && isBidCall(c.call)).call;
+    const major = over[1] === 'H' ? 'S' : 'H';
+    const latest = [...calls].reverse().find(c => c.seat % 2 === 1 && isBidCall(c.call)).call;
+    const theirSuits = new Set(calls.filter(c => c.seat % 2 === 1 && isBidCall(c.call)).map(c => c.call[1]));
+    const eastBid = latest !== over;
+    const shows = L(`Partner's double shows four ${SUIT_NAME[major]}.`, `הדאבל של השותף מראה ארבעה ${SUIT_NAME[major]}.`);
+    const cheapest = z => { for (let level = 1; level <= 3; level++) if (legal(level + z)) return level + z; return null; };
+    if (len[major] >= 4) {
+      let bid = cheapest(major);
+      if (bid && pts >= 15 && Number(bid[0]) < 4 && legal((Number(bid[0]) + 1) + major)) bid = (Number(bid[0]) + 1) + major;
+      if (bid) return { call: bid, why: L(
+        `${shows} With ${len[major]} of them you have an 8-card fit: bid ${bidHtml(bid)}${pts >= 15 ? ', jumping to show extra strength' : ''}.`,
+        `${shows} עם ${len[major]} כאלה יש התאמה של 8 קלפים: הכריזו ${bidHtml(bid)}${pts >= 15 ? ', בקפיצה כדי להראות כוח נוסף' : ''}.`) };
+    }
+    const second = SUITS.filter(z => z !== open && !theirSuits.has(z) && len[z] >= 4).sort((a, b) => len[b] - len[a])[0];
+    const secondBid = second && cheapest(second);
+    if (secondBid) return { call: secondBid, why: L(
+      `${shows} You have only ${len[major]}, so show your second suit instead: ${bidHtml(secondBid)}.`,
+      `${shows} יש לכם רק ${len[major]}, ולכן הראו במקום זה את הסדרה השנייה שלכם: ${bidHtml(secondBid)}.`) };
+    const rebid = len[open] >= 6 && cheapest(open);
+    if (rebid) return { call: rebid, why: L(
+      `${shows} Without four of them, rebid your ${len[open]}-card ${SUIT_NAME[open]}: ${bidHtml(rebid)}.`,
+      `${shows} בלי ארבעה כאלה, חזרו על ${len[open]} ה${SUIT_NAME[open]} שלכם: ${bidHtml(rebid)}.`) };
+    const nt = cheapest('N');
+    if (nt && [...theirSuits].every(z => z === 'N' || hasStopper(hand.filter(c => c.suit === z)))) return { call: nt, why: L(
+      `${shows} With no fit for it but a stopper in their suit, bid ${bidHtml(nt)}.`,
+      `${shows} בלי התאמה, אבל עם עוצר בסדרה שלהם, הכריזו ${bidHtml(nt)}.`) };
+    if (eastBid) return { call: 'P', why: L(
+      `${shows} You have no fit, no second suit and no stopper in their suit. East's ${bidHtml(latest)} means you don't have to bid, so pass and let partner decide.`,
+      `${shows} אין לכם התאמה, סדרה שנייה או עוצר בסדרה שלהם. ה-${bidHtml(latest)} של מזרח פוטר אתכם מלהכריז, ולכן פאס ותנו לשותף להחליט.`) };
+    const bid = cheapest(open);
+    return { call: bid || 'P', why: L(
+      `${shows} With nothing better, rebid your ${SUIT_NAME[open]} at the cheapest level${bid ? `: ${bidHtml(bid)}` : ''}.`,
+      `${shows} בלי משהו טוב יותר, חזרו על ה${SUIT_NAME[open]} שלכם ברמה הזולה ביותר${bid ? `: ${bidHtml(bid)}` : ''}.`) };
+  }
+
   // East-West: West's direct action over South's 1-of-a-suit opening, then East's answer. Otherwise they pass.
   function eastWest(seat) {
     const hand = hands[seat];
@@ -541,6 +601,9 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
       if (level <= 3) return { call: level + suit, why: L(
         `${pts} HCP with ${len[suit]} ${SUIT_NAME[suit]}: show your suit with ${bidHtml(level + suit)}. After a 2♣ opening the auction is forcing, so partner will bid again.`,
         `${pts} נק' עם ${len[suit]} ${SUIT_NAME[suit]}: הראו את הסדרה שלכם ב-${bidHtml(level + suit)}. אחרי פתיחת 2♣ המכרז מחייב, ולכן השותף יכריז שוב.`) };
+    }
+    if (seat === DEALER && mine.length === 1 && openSuit && partner[0] === 'X') {
+      return afterNegativeDouble(hand, openSuit);
     }
     if (seat === DEALER && mine.length === 1 && openSuit && partner[0] === 'P') {
       const theirs = [...calls].reverse().find(c => c.seat % 2 === 1 && isBidCall(c.call));
