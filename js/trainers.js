@@ -531,9 +531,12 @@ function rebidBid(hand, open, resp) {
 
   // Unbalanced hands: rebid a 6-card suit, or show a second suit.
   if (len[open] >= 6) {
-    // A long suit is worth more than its HCP: count length points (1 for each card beyond four).
-    const str = raiseStr(lengthPoints(hand));
-    const you = `${lengthText(hand, open)}: ${STRENGTH_TEXT[str]}`;
+    // The jump rebid shows 16–17, so 15 still rebids at the 2-level.
+    const lp = lengthPoints(hand);
+    const str = lp >= 18 ? 'max' : lp >= 16 ? 'med' : 'min';
+    const SIX = L({ min: 'a minimum (12–15)', med: 'a medium hand (16–17)', max: 'a maximum hand (18+)' },
+      { min: 'מינימום (12-15)', med: 'יד בינונית (16-17)', max: 'יד מקסימום (18 ומעלה)' });
+    const you = `${lengthText(hand, open)}: ${SIX[str]}`;
     if (str === 'max' && (open === 'H' || open === 'S')) return { bid: '4' + open, why: L(
       `${you} with ${len[open]} ${SUIT_NAME[open]}. That's enough for game in your long major even opposite a minimum response, so bid ${bh('4' + open)} directly.`,
       `${you}, עם ${len[open]} ${SUIT_NAME[open]}. זה מספיק למשחק מלא בסדרת המייגור הארוכה שלכם גם מול תשובת מינימום, ולכן הכריזו ${bh('4' + open)} ישירות.`) };
@@ -541,23 +544,23 @@ function rebidBid(hand, open, resp) {
       `${you} with ${len[open]} ${SUIT_NAME[open]}: rebid your suit at the cheapest level, ${bh('2' + open)}. Rebidding a suit shows 6+ cards.`,
       `${you}, עם ${len[open]} ${SUIT_NAME[open]}: חזרו על הסדרה שלכם ברמה הזולה ביותר, ${bh('2' + open)}. חזרה על סדרה מראה 6 קלפים ומעלה.`) };
     if (str === 'med') return { bid: '3' + open, why: L(
-      `${you} with ${len[open]} ${SUIT_NAME[open]}: jump to ${bh('3' + open)} to show a good 6-card suit and 15–17. It invites game.`,
-      `${you}, עם ${len[open]} ${SUIT_NAME[open]}: קפצו ל-${bh('3' + open)} כדי להראות סדרה טובה של 6 קלפים ו-15-17. זו הזמנה למשחק מלא.`) };
+      `${you} with ${len[open]} ${SUIT_NAME[open]}: jump to ${bh('3' + open)} to show a good 6-card suit and 16–17. It invites game.`,
+      `${you}, עם ${len[open]} ${SUIT_NAME[open]}: קפצו ל-${bh('3' + open)} כדי להראות סדרה טובה של 6 קלפים ו-16-17. זו הזמנה למשחק מלא.`) };
     // 18+ is too strong for a jump rebid, which partner may pass: force to game instead.
     const solid = ['A', 'K', 'Q'].every(r => hand.some(c => c.suit === open && c.rank === r));
     if (solid) return { bid: '3N', why: L(
-      `${you} with a solid ${len[open]}-card ${SUIT_NAME[open]} suit (A, K and Q). A jump to ${bh('3' + open)} shows only 15–17 and partner may pass it, so bid game: 3NT. Your ${SUIT_NAME[open]} should provide the tricks.`,
-      `${you}, עם סדרת ${SUIT_NAME[open]} סגורה של ${len[open]} קלפים (A, K ו-Q). קפיצה ל-${bh('3' + open)} מראה רק 15-17 והשותף עלול לעצור בה, ולכן הכריזו משחק מלא: 3NT. ה${SUIT_NAME[open]} שלכם אמורים לספק את הלקיחות.`) };
+      `${you} with a solid ${len[open]}-card ${SUIT_NAME[open]} suit (A, K and Q). A jump to ${bh('3' + open)} shows only 16–17 and partner may pass it, so bid game: 3NT. Your ${SUIT_NAME[open]} should provide the tricks.`,
+      `${you}, עם סדרת ${SUIT_NAME[open]} סגורה של ${len[open]} קלפים (A, K ו-Q). קפיצה ל-${bh('3' + open)} מראה רק 16-17 והשותף עלול לעצור בה, ולכן הכריזו משחק מלא: 3NT. ה${SUIT_NAME[open]} שלכם אמורים לספק את הלקיחות.`) };
     const other = SUITS.filter(z => z !== open && z !== rSuit && len[z] >= 4).sort((a, b) => len[b] - len[a] || rank(a) - rank(b))[0];
     if (other) {
       const level = (rank(other) < rank(rSuit) ? rLevel : rLevel + 1) + 1;
       return { bid: level + other, why: L(
-        `${you} with ${len[open]} ${SUIT_NAME[open]} and ${len[other]} ${SUIT_NAME[other]}. A jump to ${bh('3' + open)} shows only 15–17, so make a <em>jump shift</em> to ${bh(level + other)}: it shows 18+ and forces to game.`,
-        `${you}, עם ${len[open]} ${SUIT_NAME[open]} ו-${len[other]} ${SUIT_NAME[other]}. קפיצה ל-${bh('3' + open)} מראה רק 15-17, ולכן הכריזו <em>קפיצה בסדרה חדשה</em> ל-${bh(level + other)}: היא מראה 18 ומעלה ומחייבת עד משחק מלא.`) };
+        `${you} with ${len[open]} ${SUIT_NAME[open]} and ${len[other]} ${SUIT_NAME[other]}. A jump to ${bh('3' + open)} shows only 16–17, so make a <em>jump shift</em> to ${bh(level + other)}: it shows 18+ and forces to game.`,
+        `${you}, עם ${len[open]} ${SUIT_NAME[open]} ו-${len[other]} ${SUIT_NAME[other]}. קפיצה ל-${bh('3' + open)} מראה רק 16-17, ולכן הכריזו <em>קפיצה בסדרה חדשה</em> ל-${bh(level + other)}: היא מראה 18 ומעלה ומחייבת עד משחק מלא.`) };
     }
     return { bid: '3N', why: L(
-      `${you} with ${len[open]} ${SUIT_NAME[open]}. A jump to ${bh('3' + open)} shows only 15–17, and with no second suit to jump in, bid game directly: 3NT.`,
-      `${you}, עם ${len[open]} ${SUIT_NAME[open]}. קפיצה ל-${bh('3' + open)} מראה רק 15-17, ובלי סדרה שנייה לקפוץ בה, הכריזו משחק מלא ישירות: 3NT.`) };
+      `${you} with ${len[open]} ${SUIT_NAME[open]}. A jump to ${bh('3' + open)} shows only 16–17, and with no second suit to jump in, bid game directly: 3NT.`,
+      `${you}, עם ${len[open]} ${SUIT_NAME[open]}. קפיצה ל-${bh('3' + open)} מראה רק 16-17, ובלי סדרה שנייה לקפוץ בה, הכריזו משחק מלא ישירות: 3NT.`) };
   }
   const seconds = SUITS.filter(z => z !== open && z !== rSuit && len[z] >= 4)
     .sort((a, b) => len[b] - len[a] || rank(b) - rank(a));
@@ -879,8 +882,8 @@ function responderRebid(hand, open, resp, rebid) {
     const majorGame = isMajor(open) && len[open] >= 2;
     return accept
       ? { bid: majorGame ? '4' + open : '3N', why: L(
-        `You have ${pts} HCP. Partner's jump to ${bh('3' + open)} shows 15–17 with a good suit and invites game, and you have enough to accept.${majorGame ? ` With ${len[open]} ${name(open)} opposite partner's 6, bid ${bh('4' + open)}.` : ' Bid 3NT.'}`,
-        `יש לכם ${pts} נק'. הקפיצה של השותף ל-${bh('3' + open)} מראה 15-17 עם סדרה טובה ומזמינה למשחק מלא, ויש לכם מספיק כדי לקבל.${majorGame ? ` עם ${len[open]} ${name(open)} מול השישה של השותף, הכריזו ${bh('4' + open)}.` : ' הכריזו 3NT.'}`) }
+        `You have ${pts} HCP. Partner's jump to ${bh('3' + open)} shows 16–17 with a good suit and invites game, and you have enough to accept.${majorGame ? ` With ${len[open]} ${name(open)} opposite partner's 6, bid ${bh('4' + open)}.` : ' Bid 3NT.'}`,
+        `יש לכם ${pts} נק'. הקפיצה של השותף ל-${bh('3' + open)} מראה 16-17 עם סדרה טובה ומזמינה למשחק מלא, ויש לכם מספיק כדי לקבל.${majorGame ? ` עם ${len[open]} ${name(open)} מול השישה של השותף, הכריזו ${bh('4' + open)}.` : ' הכריזו 3NT.'}`) }
       : { bid: 'P', why: L(
         `You have ${pts} HCP. Partner's jump invites game, but with a bare minimum you decline by passing.`,
         `יש לכם ${pts} נק'. הקפיצה של השותף מזמינה למשחק מלא, אבל עם מינימום חשוף דחו את ההזמנה בפאס.`) };
@@ -959,7 +962,7 @@ function openerRebidMeaning(open, resp, rebid) {
   if (rz === open) {
     return rl === 2
       ? L(`12–14 HCP and 6+ ${SUIT_NAME[open]}`, `12-14 נק' ו-6 ${SUIT_NAME[open]} ומעלה`)
-      : L('15–17 HCP and a good 6-card suit, inviting game', '15-17 נק\' וסדרה טובה של 6 קלפים, הזמנה למשחק מלא');
+      : L('16–17 HCP and a good 6-card suit, inviting game', '16-17 נק\' וסדרה טובה של 6 קלפים, הזמנה למשחק מלא');
   }
   if (rl === 1) return L(`4 ${SUIT_NAME[rz]}; partner hasn't shown extra strength`, `4 ${SUIT_NAME[rz]}; השותף לא הראה כוח נוסף`);
   if (rl === 3) return L(`18+ HCP and 4+ ${SUIT_NAME[rz]}: a jump shift, forcing to game`, `18 נק' ומעלה ו-4 ${SUIT_NAME[rz]} ומעלה: קפיצה בסדרה חדשה, מחייבת עד משחק מלא`);

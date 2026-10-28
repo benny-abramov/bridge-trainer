@@ -226,6 +226,14 @@ const Play = (() => {
         && legal.length === 2 && hasTrump && Math.max(...legal.map(c => c.value)) <= 10) {
         return legal.reduce((a, b) => (b.value > a.value ? b : a));
       }
+      // Third hand high: partner led low and is winning only with a spot card, but the opponent
+      // after you can still beat it. Play your highest card, the lowest of touching honors (Q from K-Q).
+      const top = following && legal.reduce((a, b) => (b.value > a.value ? b : a));
+      if (following && seat % 2 === 1 && st.trick.length === 2 && lead.seat === (seat + 2) % 4 && winning.card.value < 11 && top.value > winning.card.value) {
+        let card = top;
+        while (legal.some(c => c.value === card.value - 1)) card = legal.find(c => c.value === card.value - 1);
+        return card;
+      }
       return following ? lowest(legal) : discard(legal);
     }
 

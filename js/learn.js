@@ -274,7 +274,7 @@ const LESSONS_EN = [
       <p><strong>When partner bids a new suit at the 2-level</strong> (a <em>two over one</em>, such as 1${S} – 2${C}), partner has 11+ HCP and you must bid again. Raise partner's hearts with 3 (or a minor with 4, if unbalanced). With a balanced hand, <strong>2NT shows 12–14</strong> and <strong>3NT shows 18–19</strong>. Otherwise use the unbalanced-hand rules; a new suit that needs the 3-level shows 15+.</p>
       <p><strong>Unbalanced hands:</strong></p>
       <ul>
-        <li>With a <strong>6-card suit</strong>, rebid it: at the 2-level with a minimum, or jump to the 3-level with 15+.</li>
+        <li>With a <strong>6-card suit</strong>, rebid it: at the 2-level with a minimum (12–15), or jump to the 3-level with 16–17. Count 1 extra point for each card beyond four. With 18+, bid game in a major, or 3NT, or jump in a second suit.</li>
         <li>With a <strong>lower-ranking second suit</strong> (4+ cards), bid it at the 2-level. With 18+, jump in it instead: a <em>jump shift</em>, forcing to game.</li>
         <li>Bidding a <strong>higher-ranking second suit</strong> at the 2-level, as in 1${D} – 1${S} – 2${H}, is a <em>reverse</em>. It needs 16+ HCP.</li>
         <li>With none of these, rebid your own suit at the 2-level.</li>
@@ -705,7 +705,7 @@ const LESSONS_HE = [
       <p><strong>כשהשותף מכריז סדרה חדשה ברמת 2</strong> (<em>שתיים על אחת</em>, כמו <bdi dir="ltr">${B('1S')} – ${B('2C')}</bdi>), לשותף יש 11 נק' ומעלה וחובה להכריז שוב. תמכו בהארט של השותף עם 3 (או בסדרת מיינור עם 4, ביד לא מאוזנת). ביד מאוזנת, <strong>2NT מראה 12-14</strong> ו-<strong>3NT מראה 18-19</strong>. אחרת, השתמשו בכללים לידיים לא מאוזנות; סדרה חדשה שדורשת את רמת 3 מראה 15 ומעלה.</p>
       <p><strong>ידיים לא מאוזנות:</strong></p>
       <ul>
-        <li>עם <strong>סדרה של 6 קלפים</strong>, הכריזו אותה שוב: ברמת 2 עם מינימום, או בקפיצה לרמת 3 עם 15 ומעלה.</li>
+        <li>עם <strong>סדרה של 6 קלפים</strong>, הכריזו אותה שוב: ברמת 2 עם מינימום (12-15), או בקפיצה לרמת 3 עם 16-17. ספרו נקודה נוספת על כל קלף מעבר לארבעה. עם 18 ומעלה, הכריזו משחק מלא בסדרת מייגור, או 3NT, או קפיצה בסדרה שנייה.</li>
         <li>עם <strong>סדרה שנייה נמוכה יותר</strong> (4 קלפים ומעלה), הכריזו אותה ברמת 2. עם 18 ומעלה, קפצו בה: <em>קפיצה בסדרה חדשה</em> (ג'אמפ שיפט), שמחייבת עד משחק מלא.</li>
         <li>הכרזה של <strong>סדרה שנייה גבוהה יותר</strong> ברמת 2, כמו <bdi dir="ltr">${B('1D')} – ${B('1S')} – ${B('2H')}</bdi>, נקראת <em>ריברס</em>. היא דורשת 16 נק' ומעלה.</li>
         <li>אם אף אחד מאלה לא מתאים, הכריזו שוב את הסדרה שלכם ברמת 2.</li>

@@ -275,7 +275,7 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
         // Rebidding a suit shows six, except opener's simple rebid after a two-over-one response.
         const afterTwoOverOne = opener && nth === 1 && !jumps && response && /^2[CDHS]$/.test(response.call) && response.call[1] !== open[1];
         atLeast(z, afterTwoOverOne ? 5 : 6);
-        if (!interfered) range(opener ? (jumps ? 15 : 12) : (jumps ? 11 : 6), opener ? (jumps ? 17 : 14) : (jumps ? 12 : 10));
+        if (!interfered) range(opener ? (jumps ? 16 : 12) : (jumps ? 11 : 6), opener ? (jumps ? 17 : 15) : (jumps ? 12 : 10));
         return;
       }
       atLeast(z, 4); // a new suit
@@ -313,15 +313,23 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
         `ללא שליט דורש עוצר ב${SUIT_NAME[unstopped]} שלהם, ול${SEAT_NAMES[seat]} אין. גם התאמה ידועה אין, ולכן פאס ותנו לשותף להחליט.`) };
       strain = suitFit;
     }
-    let points = myHcp + partnerPts;
-    if (strain !== 'N') points += myLen[strain] <= info.len[strain] ? supportPoints(me, strain) - myHcp : lengthPoints(me) - myHcp;
+    const extra = strain === 'N' ? 0 : myLen[strain] <= info.len[strain] ? supportPoints(me, strain) - myHcp : lengthPoints(me) - myHcp;
+    const points = myHcp + partnerPts + extra;
+    // The fewest points the partnership can have: a slam needs 33 even if partner has the minimum.
+    const surely = myHcp + info.min + extra;
     const target = { strain, level: levelFor(strain, points) };
+    if (target.level >= 6 && surely < 33) target.level = levelFor(strain, 32);
 
     const shownText = info.max >= 30
       ? (info.min ? L(`${info.min}+ HCP`, `${info.min} נק' ומעלה`) : L('no particular strength', 'כוח לא מוגדר'))
       : L(`${info.min}–${info.max} HCP`, `${info.min}-${info.max} נק'`);
-    const known = L(`${SEAT_NAMES[seat]} has ${myHcp} HCP and ${SEAT_NAMES[partnerSeat]} has shown ${shownText}, about ${points} points together`,
-      `ל${SEAT_NAMES[seat]} יש ${myHcp} נק', ו${SEAT_NAMES[partnerSeat]} הראה ${shownText}, בערך ${points} נקודות ביחד`);
+    const together = info.max >= 30
+      ? L(`${surely}+ points together`, `${surely} נקודות ומעלה ביחד`)
+      : surely + info.max - info.min > surely
+        ? L(`${surely}–${myHcp + info.max + extra} points together`, `${surely}-${myHcp + info.max + extra} נקודות ביחד`)
+        : L(`${surely} points together`, `${surely} נקודות ביחד`);
+    const known = L(`${SEAT_NAMES[seat]} has ${myHcp} HCP${extra ? ` (+${extra} for distribution)` : ''} and ${SEAT_NAMES[partnerSeat]} has shown ${shownText}, so ${together}`,
+      `ל${SEAT_NAMES[seat]} יש ${myHcp} נק'${extra ? ` (+${extra} על החלוקה)` : ''}, ו${SEAT_NAMES[partnerSeat]} הראה ${shownText}, כלומר ${together}`);
     const fit = strain === 'N' ? '' : L(`, with at least ${fitOf(strain)} ${SUIT_NAME[strain]} between them`, `, ולפחות ${fitOf(strain)} ${SUIT_NAME[strain]} בשתי הידיים`);
 
     // Partner's natural game stands unless there's a slam.
@@ -445,18 +453,22 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
   // 6-card suit or a lower second suit can be shown, and anything else passes.
   function reopen(hand, open, their) {
     const pts = hcp(hand), len = suitLengths(hand);
-    const theirSuit = their[1];
+    const theirSuit = their === 'X' ? null : their[1];
     const theirHtml = bidHtml(their);
+    const stopped = !theirSuit || theirSuit === 'N' || hasStopper(hand.filter(c => c.suit === theirSuit));
     const passedOpening = calls[2] && calls[2].seat === 0 && calls[2].call === 'P' && calls.indexOf(calls.find(c => c.call === their)) > 2;
     const partnerPassed = passedOpening
-      ? L(`Partner passed your opening (0–5 HCP), and then the opponents bid ${theirHtml}.`, `השותף הכריז פאס על הפתיחה שלכם (0-5 נק'), ואחר כך היריבים הכריזו ${theirHtml}.`)
+      ? (their === 'X'
+        ? L('Partner passed your opening (0–5 HCP), and then the opponents doubled.', `השותף הכריז פאס על הפתיחה שלכם (0-5 נק'), ואחר כך היריבים הכריזו דאבל.`)
+        : L(`Partner passed your opening (0–5 HCP), and then the opponents bid ${theirHtml}.`, `השותף הכריז פאס על הפתיחה שלכם (0-5 נק'), ואחר כך היריבים הכריזו ${theirHtml}.`))
       : L(`Partner passed ${theirHtml}, so partner may have very little.`, `השותף הכריז פאס על ${theirHtml}, כך שייתכן שיש לו מעט מאוד.`);
     const cheapest = strain => { let level = 1; while (level <= 3 && !legal(level + strain)) level++; return level <= 3 ? level + strain : null; };
-    if (isBalanced(hand) && pts >= 18 && theirSuit !== 'N' && hasStopper(hand.filter(c => c.suit === theirSuit))) {
+    if (isBalanced(hand) && pts >= 18 && theirSuit !== 'N' && stopped) {
       const bid = cheapest('N');
+      const stopText = theirSuit ? L(`, and a stopper in their ${SUIT_NAME[theirSuit]}`, ` ועוצר ב${SUIT_NAME[theirSuit]} שלהם`) : '';
       if (bid && Number(bid[0]) <= 2) return { call: bid, why: L(
-        `${partnerPassed} With ${pts} HCP, balanced, and a stopper in their ${SUIT_NAME[theirSuit]}, bid ${bidHtml(bid)}. Bidding no-trump on your own after partner's pass shows 18–19 balanced: with 15–17 you would have opened 1NT.`,
-        `${partnerPassed} עם ${pts} נק', יד מאוזנת ועוצר ב${SUIT_NAME[theirSuit]} שלהם, הכריזו ${bidHtml(bid)}. הכרזת ללא שליט לבד אחרי הפאס של השותף מראה 18-19 מאוזנת: עם 15-17 הייתם פותחים 1NT.`) };
+        `${partnerPassed} With ${pts} HCP, balanced${stopText}, bid ${bidHtml(bid)}. Bidding no-trump on your own after partner's pass shows 18–19 balanced: with 15–17 you would have opened 1NT.`,
+        `${partnerPassed} עם ${pts} נק', יד מאוזנת${stopText}, הכריזו ${bidHtml(bid)}. הכרזת ללא שליט לבד אחרי הפאס של השותף מראה 18-19 מאוזנת: עם 15-17 הייתם פותחים 1NT.`) };
     }
     if (len[open] >= 6) {
       const bid = cheapest(open);
@@ -464,14 +476,17 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
         `${partnerPassed} With ${pts} HCP and ${len[open]} ${SUIT_NAME[open]}, compete by rebidding your suit: ${bidHtml(bid)}.`,
         `${partnerPassed} עם ${pts} נק' ו-${len[open]} ${SUIT_NAME[open]}, התחרו בחזרה על הסדרה שלכם: ${bidHtml(bid)}.`) };
     }
-    const second = SUITS.find(z => z !== open && z !== theirSuit && len[z] >= 5 && SUITS.indexOf(z) > SUITS.indexOf(open));
-    if (second && pts >= 13) {
+    // A second suit: four cards you can still show at the 1-level, five in a lower suit, or any four with 16+.
+    const second = SUITS.filter(z => z !== open && z !== theirSuit && len[z] >= 4)
+      .sort((a, b) => len[b] - len[a] || SUITS.indexOf(a) - SUITS.indexOf(b))
+      .find(z => { const b = cheapest(z); return b && (b[0] === '1' || (len[z] >= 5 && SUITS.indexOf(z) > SUITS.indexOf(open)) || pts >= 16); });
+    if (second && pts >= 13 && !isBalanced(hand)) {
       const bid = cheapest(second);
       if (bid && Number(bid[0]) <= 2) return { call: bid, why: L(
         `${partnerPassed} With ${pts} HCP and a second suit of ${len[second]} ${SUIT_NAME[second]}, compete with ${bidHtml(bid)}.`,
         `${partnerPassed} עם ${pts} נק' וסדרה שנייה של ${len[second]} ${SUIT_NAME[second]}, התחרו ב-${bidHtml(bid)}.`) };
     }
-    if (isBalanced(hand) && pts >= 18 && theirSuit !== 'N') return { call: 'P', why: L(
+    if (isBalanced(hand) && pts >= 18 && theirSuit && theirSuit !== 'N') return { call: 'P', why: L(
       `${partnerPassed} You have ${pts} HCP and a balanced hand, but no stopper in their ${SUIT_NAME[theirSuit]}, so no-trump is too risky, and you have no long suit to show. Pass.`,
       `${partnerPassed} יש לכם ${pts} נק' ויד מאוזנת, אבל אין עוצר ב${SUIT_NAME[theirSuit]} שלהם, ולכן ללא שליט מסוכן מדי, ואין סדרה ארוכה להראות. פאס.`) };
     return { call: 'P', why: L(
@@ -782,7 +797,7 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
       return afterNegativeDouble(hand, openSuit);
     }
     if (seat === DEALER && mine.length === 1 && openSuit && partner[0] === 'P') {
-      const theirs = [...calls].reverse().find(c => c.seat % 2 === 1 && isBidCall(c.call));
+      const theirs = [...calls].reverse().find(c => c.seat % 2 === 1 && (isBidCall(c.call) || c.call === 'X'));
       if (theirs) return reopen(hand, openSuit, theirs.call); // the opponents competed and partner passed
     }
     if (seat === DEALER && mine.length === 1) { // South's second call
