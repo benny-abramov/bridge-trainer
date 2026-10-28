@@ -353,6 +353,13 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
           ` אחרי ה-${overHtml} של מערב, ללא שליט דורש גם עוצר ב${SUIT_NAME[theirs]} שלהם, ויש לכם.`) : '') };
       }
     }
+    // No-trump with a stopper in their suit: 1NT with 6–10, 2NT with 11–12.
+    if (theirs !== 'N' && !fit && hasStopper(hand.filter(c => c.suit === theirs)) && pts <= 12) {
+      const bid = pts <= 10 ? '1N' : '2N';
+      if (legal(bid)) return { call: bid, why: L(
+        `${pts} HCP with a stopper in West's ${SUIT_NAME[theirs]}: bid ${bidHtml(bid)}. After their overcall, ${bid === '1N' ? '1NT shows 6–10' : '2NT shows 11–12'} and promises a card that can win a trick in their suit.`,
+        `${pts} נק' עם עוצר ב${SUIT_NAME[theirs]} של מערב: הכריזו ${bidHtml(bid)}. אחרי ההתערבות שלהם, ${bid === '1N' ? '1NT מראה 6-10' : '2NT מראה 11-12'} ומבטיח קלף שיכול לזכות בלקיחה בסדרה שלהם.`) };
+    }
     if (pts >= 11) return place(0);
     return pass(L(`${count}. After West's ${overHtml} there's no good bid: no fit for partner, no suit to show cheaply and no stopper for no-trump. Pass for now.`,
       `${count}. אחרי ה-${overHtml} של מערב אין הכרזה טובה: אין התאמה לשותף, אין סדרה להראות בזול ואין עוצר בשביל ללא שליט. פאס בינתיים.`));
