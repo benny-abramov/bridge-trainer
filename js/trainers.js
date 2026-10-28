@@ -765,14 +765,21 @@ function responderRebid(hand, open, resp, rebid) {
           `${strength} and ${len[you]} ${name(you)}: rebid ${bh('2' + you)}. Repeating your suit shows 6+ cards and asks partner to pass.`,
           `${strength}, ו-${len[you]} ${name(you)}: הכריזו ${bh('2' + you)}. חזרה על הסדרה מראה 6 קלפים ומעלה ומבקשת מהשותף להכריז פאס.`) };
     }
-    // A weak two-suiter: show the lower-ranking second suit. It isn't forcing, and partner
-    // chooses between your two suits.
-    const second = !inv && len[you] >= 5 && !isBalanced(hand)
-      && SUITS.find(z => z !== you && z !== open && rank(z) > rank(you) && len[z] >= 4);
+    // A 5-4 hand: show the lower-ranking second suit (it may be partner's own suit) to find a
+    // better spot than 1NT. At the 2-level with 6–10 it isn't forcing; with 11–12 jump to the 3-level to invite.
+    const second = len[you] >= 5 && !isBalanced(hand)
+      && SUITS.find(z => z !== you && rank(z) > rank(you) && len[z] >= 4);
     if (second) {
-      return { bid: '2' + second, why: L(
-        `${strength}, with ${len[you]} ${name(you)} and ${len[second]} ${name(second)}. With an unbalanced hand 1NT may be a poor spot, so bid ${bh('2' + second)} to show your second suit. It isn't forcing: partner passes with ${name(second)} or goes back to ${bh('2' + you)} with three ${name(you)}.`,
-        `${strength}, עם ${len[you]} ${name(you)} ו-${len[second]} ${name(second)}. ביד לא מאוזנת 1NT עלול להיות חוזה גרוע, ולכן הכריזו ${bh('2' + second)} כדי להראות את הסדרה השנייה. ההכרזה לא מחייבת: השותף מכריז פאס עם ${name(second)} או חוזר ל-${bh('2' + you)} עם שלושה ${name(you)}.`) };
+      const bid = (inv ? '3' : '2') + second;
+      const partners = second === open;
+      const what = partners
+        ? L(`${len[second]} of partner's ${name(second)}`, `${len[second]} ב${name(second)} של השותף`)
+        : L(`${len[second]} ${name(second)}`, `${len[second]} ${name(second)}`);
+      return { bid, why: inv
+        ? L(`${strength}, with ${len[you]} ${name(you)} and ${what}. With an unbalanced hand, jump to ${bh(bid)} to invite game in a suit rather than no-trump.`,
+          `${strength}, עם ${len[you]} ${name(you)} ו-${what}. ביד לא מאוזנת, קפצו ל-${bh(bid)} כדי להזמין למשחק מלא בסדרה במקום בללא שליט.`)
+        : L(`${strength}, with ${len[you]} ${name(you)} and ${what}. With an unbalanced hand 1NT may be a poor spot, so bid ${bh(bid)}. It isn't forcing: partner ${partners ? 'passes, or' : `passes with ${name(second)} or`} goes back to ${bh('2' + you)} with three ${name(you)}.`,
+          `${strength}, עם ${len[you]} ${name(you)} ו-${what}. ביד לא מאוזנת 1NT עלול להיות חוזה גרוע, ולכן הכריזו ${bh(bid)}. ההכרזה לא מחייבת: השותף מכריז פאס${partners ? '' : ` עם ${name(second)}`}, או חוזר ל-${bh('2' + you)} עם שלושה ${name(you)}.`) };
     }
     return inv
       ? { bid: '2N', why: L(

@@ -833,10 +833,10 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
     // Opener answers responder's invitation (2NT, or a raise to the 3-level): accept with the top of the range.
     if (seat === DEALER && mine.length === 2 && openSuit && partner.length === 2 && !calls.some(c => c.seat % 2 === 1 && c.call !== 'P')) {
       const [resp, inv] = partner, myRebid = mine[1];
-      const raisedSuit = /^3[CDHS]$/.test(inv) && (inv[1] === openSuit || inv[1] === myRebid[1]) ? inv[1] : null;
-      if ((inv === '2N' || raisedSuit) && /^[12]/.test(resp) && resp !== '2N' && /^2[CDHS]$/.test(myRebid)) {
+      const raisedSuit = /^3[CDHS]$/.test(inv) && (inv[1] === openSuit || inv[1] === myRebid[1] || inv[1] === resp[1]) ? inv[1] : null;
+      if ((inv === '2N' || raisedSuit) && /^[12]/.test(resp) && resp !== '2N' && (/^2[CDHS]$/.test(myRebid) || myRebid === '1N')) {
         const pts = hcp(hand);
-        const rebidOwn = myRebid[1] === openSuit; // 12–14; a new suit is 12–17
+        const rebidOwn = myRebid[1] === openSuit || myRebid === '1N'; // 12–14; a new suit is 12–17
         const accept = pts >= (rebidOwn ? 14 : 15);
         const range = rebidOwn ? L('12–14', '12-14') : L('12–17', '12-17');
         const game = raisedSuit === 'H' || raisedSuit === 'S' ? '4' + raisedSuit : '3N';
