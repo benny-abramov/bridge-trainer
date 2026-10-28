@@ -196,6 +196,7 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
         range(6, 37);
         const over = before.find(x => x.seat % 2 === 1 && isBidCall(x.call));
         if (nth === 0 && !opener && over && (over.call === '1H' || over.call === '1S')) atLeast(over.call === '1H' ? 'S' : 'H', 4); // negative double
+        if (nth === 0 && !opener && over && over.call === '1D') { atLeast('H', 4); atLeast('S', 4); } // both majors
         return;
       }
       const level = Number(call[0]), z = call[1];
@@ -247,6 +248,8 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
         }
         return;
       }
+      // Opener's answer to a negative double: a minimum unless it jumps.
+      if (opener && nth === 1 && before.find(x => x.seat === partnerOf && x.call !== 'P')?.call === 'X') range(jumps ? 16 : 12, jumps ? 18 : 15);
       const partnerBid = new Set(before.filter((x, j) => x.seat === partnerOf && isBidCall(x.call) && !artificial.has(j)).map(x => x.call[1]));
       if (partnerBid.has(z)) { // a raise of partner's suit, or preference
         atLeast(z, opener ? 4 : 3);
@@ -364,6 +367,9 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
         `${count} and ${len[open]}-card support for partner's ${SUIT_NAME[open]}: raise to ${bidHtml(bid)} despite West's ${overHtml}. Showing the fit comes first.`,
         `${count} ותמיכה של ${len[open]} קלפים ב${SUIT_NAME[open]} של השותף: תמכו ב-${bidHtml(bid)} למרות ה-${overHtml} של מערב. הצגת ההתאמה קודמת לכל.`) };
     }
+    if (open === 'C' && over === '1D' && len.H === 4 && len.S === 4 && pts >= 6 && legal('X')) return { call: 'X', why: L(
+      `<strong>Negative double.</strong> After 1♣ – (1♦), a double shows both majors, four cards in each, and 6+ HCP. With ${len.S} spades and ${len.H} hearts, double and let partner choose the major.`,
+      `<strong>כפל שלילי.</strong> אחרי 1♣ – (1♦), דאבל מראה את שתי סדרות המייגור, ארבעה קלפים בכל אחת, ו-6 נק' ומעלה. עם ${len.S} ספייד ו-${len.H} הארט, הכריזו דאבל ותנו לשותף לבחור את סדרת המייגור.`) };
     const otherMajor = theirs === 'H' ? 'S' : 'H';
     if ((open === 'C' || open === 'D') && (theirs === 'H' || theirs === 'S') && over[0] === '1' && len[otherMajor] >= 4) {
       const r = negativeDouble(hand, theirs);
@@ -472,11 +478,14 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
   function afterNegativeDouble(hand, open) {
     const pts = hcp(hand), len = suitLengths(hand);
     const over = calls.find(c => c.seat === 3 && isBidCall(c.call)).call;
-    const major = over[1] === 'H' ? 'S' : 'H';
+    const shown = over[1] === 'D' ? ['H', 'S'] : [over[1] === 'H' ? 'S' : 'H'];
+    const major = shown.slice().sort((a, b) => len[b] - len[a] || (a === 'S' ? -1 : 1))[0]; // your longer one, spades on a tie
     const latest = [...calls].reverse().find(c => c.seat % 2 === 1 && isBidCall(c.call)).call;
     const theirSuits = new Set(calls.filter(c => c.seat % 2 === 1 && isBidCall(c.call)).map(c => c.call[1]));
     const eastBid = latest !== over;
-    const shows = L(`Partner's double shows four ${SUIT_NAME[major]}.`, `הדאבל של השותף מראה ארבעה ${SUIT_NAME[major]}.`);
+    const shows = shown.length === 2
+      ? L('Partner\'s double shows four cards in each major.', 'הדאבל של השותף מראה ארבעה קלפים בכל אחת מסדרות המייגור.')
+      : L(`Partner's double shows four ${SUIT_NAME[major]}.`, `הדאבל של השותף מראה ארבעה ${SUIT_NAME[major]}.`);
     const cheapest = z => { for (let level = 1; level <= 3; level++) if (legal(level + z)) return level + z; return null; };
     if (len[major] >= 4) {
       let bid = cheapest(major);
@@ -485,7 +494,7 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
         `${shows} With ${len[major]} of them you have an 8-card fit: bid ${bidHtml(bid)}${pts >= 15 ? ', jumping to show extra strength' : ''}.`,
         `${shows} עם ${len[major]} כאלה יש התאמה של 8 קלפים: הכריזו ${bidHtml(bid)}${pts >= 15 ? ', בקפיצה כדי להראות כוח נוסף' : ''}.`) };
     }
-    const second = SUITS.filter(z => z !== open && !theirSuits.has(z) && len[z] >= 4).sort((a, b) => len[b] - len[a])[0];
+    const second = SUITS.filter(z => z !== open && !theirSuits.has(z) && !shown.includes(z) && len[z] >= 4).sort((a, b) => len[b] - len[a])[0];
     const secondBid = second && cheapest(second);
     if (secondBid) return { call: secondBid, why: L(
       `${shows} You have only ${len[major]}, so show your second suit instead: ${bidHtml(secondBid)}.`,
