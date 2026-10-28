@@ -332,6 +332,20 @@ function responseBid(hand, open) {
         `${count}, no 4-card major and ${len[open]}-card support: raise to ${bh('2' + open)}.`,
         `${count}, בלי סדרת מייגור של 4, ותמיכה של ${len[open]} קלפים: תמכו ב-${bh('2' + open)}.`) };
     }
+    // 13+ is too strong for the limit raise (11–12): show a new suit first, then support later.
+    if (sp >= 13) {
+      const other = SUITS.filter(s => s !== open && SUITS.indexOf(s) > SUITS.indexOf(open) && len[s] >= 4)[0]
+        || (open === 'C' && len.D >= 4 ? 'D' : null);
+      if (other) {
+        const bid = (SUITS.indexOf(other) < SUITS.indexOf(open) ? '1' : '2') + other;
+        return { bid, gameForce: true, why: L(
+          `${count} and ${len[open]}-card support: too strong for the limit raise to ${bh('3' + open)}, which shows 11–12. Bid a new suit first, ${bh(bid)} with your ${len[other]} ${SUIT_NAME[other]}, and support partner's ${SUIT_NAME[open]} later.`,
+          `${count} ותמיכה של ${len[open]} קלפים: חזק מדי לתמיכה בקפיצה ל-${bh('3' + open)}, שמראה 11-12. הכריזו קודם סדרה חדשה, ${bh(bid)} עם ${len[other]} ה${SUIT_NAME[other]} שלכם, ותמכו ב${SUIT_NAME[open]} של השותף בהמשך.`) };
+      }
+      if (isBalanced(hand)) return { bid: '3N', gameForce: true, why: L(
+        `${count}, balanced, with ${len[open]}-card support: too strong for the limit raise (11–12). With game values and no other suit to show, bid 3NT.`,
+        `${count}, יד מאוזנת עם תמיכה של ${len[open]} קלפים: חזק מדי לתמיכה בקפיצה (11-12). עם כוח למשחק מלא ובלי סדרה אחרת להראות, הכריזו 3NT.`) };
+    }
     return { bid: '3' + open, gameForce: sp >= 13, why: L(
       `${count}, no 4-card major and ${len[open]}-card support: jump to ${bh('3' + open)}, a limit raise inviting game.`,
       `${count}, בלי סדרת מייגור של 4, ותמיכה של ${len[open]} קלפים: קפצו ל-${bh('3' + open)}, תמיכה בקפיצה שמזמינה למשחק מלא.`) };

@@ -281,7 +281,8 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
     const partnerSeat = (seat + 2) % 4;
     const me = hands[seat], myLen = suitLengths(me), myHcp = hcp(me);
     const info = shownBy(partnerSeat);
-    const partnerPts = info.max >= 30 ? info.min + 3 : Math.round((info.min + info.max) / 2);
+    // A narrow range counts its middle; a wide one (12–21, 16+) is usually near the bottom.
+    const partnerPts = info.max >= 30 ? info.min + 3 : info.max - info.min > 4 ? info.min + 2 : Math.round((info.min + info.max) / 2);
     // A suit is a fit only as far as the bidding shows it (an own 6-card suit assumes two opposite).
     const fitOf = z => myLen[z] + Math.max(info.len[z], myLen[z] >= 6 ? 2 : 0);
     const majors = ['S', 'H'].filter(z => fitOf(z) >= 8).sort((a, b) => fitOf(b) - fitOf(a));
