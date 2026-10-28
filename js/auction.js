@@ -243,6 +243,7 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
           if (!response || response.call === 'P') range(18, 19); // bidding no-trump alone after partner passed
           else if (level === 1 || twoOverOne) range(12, 14);
           else if (level === 2) range(18, 19);
+          else range(18, 21);
         }
         return;
       }
@@ -253,7 +254,7 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
         return;
       }
       const ownBefore = before.some((x, j) => x.seat === p && isBidCall(x.call) && x.call[1] === z && !artificial.has(j));
-      if (ownBefore) { atLeast(z, 6); if (opener && !interfered) range(jumps ? 15 : 12, jumps ? 21 : 14); return; }
+      if (ownBefore) { atLeast(z, 6); if (opener && !interfered) range(jumps ? 15 : 12, jumps ? 17 : 14); return; }
       atLeast(z, 4); // a new suit
       if (opener && open[0] === '1') {
         if (jumps) range(18, 21); // jump shift

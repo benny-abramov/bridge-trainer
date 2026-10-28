@@ -496,9 +496,24 @@ function rebidBid(hand, open, resp) {
     if (str === 'min') return { bid: '2' + open, why: L(
       `${you} with ${len[open]} ${SUIT_NAME[open]}: rebid your suit at the cheapest level, ${bh('2' + open)}. Rebidding a suit shows 6+ cards.`,
       `${you}, עם ${len[open]} ${SUIT_NAME[open]}: חזרו על הסדרה שלכם ברמה הזולה ביותר, ${bh('2' + open)}. חזרה על סדרה מראה 6 קלפים ומעלה.`) };
-    return { bid: '3' + open, why: L(
-      `${you} with ${len[open]} ${SUIT_NAME[open]}: jump to ${bh('3' + open)} to show a good 6-card suit and extra strength.`,
-      `${you}, עם ${len[open]} ${SUIT_NAME[open]}: קפצו ל-${bh('3' + open)} כדי להראות סדרה טובה של 6 קלפים וכוח נוסף.`) };
+    if (str === 'med') return { bid: '3' + open, why: L(
+      `${you} with ${len[open]} ${SUIT_NAME[open]}: jump to ${bh('3' + open)} to show a good 6-card suit and 15–17. It invites game.`,
+      `${you}, עם ${len[open]} ${SUIT_NAME[open]}: קפצו ל-${bh('3' + open)} כדי להראות סדרה טובה של 6 קלפים ו-15-17. זו הזמנה למשחק מלא.`) };
+    // 18+ is too strong for a jump rebid, which partner may pass: force to game instead.
+    const solid = ['A', 'K', 'Q'].every(r => hand.some(c => c.suit === open && c.rank === r));
+    if (solid) return { bid: '3N', why: L(
+      `${you} with a solid ${len[open]}-card ${SUIT_NAME[open]} suit (A, K and Q). A jump to ${bh('3' + open)} shows only 15–17 and partner may pass it, so bid game: 3NT. Your ${SUIT_NAME[open]} should provide the tricks.`,
+      `${you}, עם סדרת ${SUIT_NAME[open]} סגורה של ${len[open]} קלפים (A, K ו-Q). קפיצה ל-${bh('3' + open)} מראה רק 15-17 והשותף עלול לעצור בה, ולכן הכריזו משחק מלא: 3NT. ה${SUIT_NAME[open]} שלכם אמורים לספק את הלקיחות.`) };
+    const other = SUITS.filter(z => z !== open && z !== rSuit && len[z] >= 4).sort((a, b) => len[b] - len[a] || rank(a) - rank(b))[0];
+    if (other) {
+      const level = (rank(other) < rank(rSuit) ? rLevel : rLevel + 1) + 1;
+      return { bid: level + other, why: L(
+        `${you} with ${len[open]} ${SUIT_NAME[open]} and ${len[other]} ${SUIT_NAME[other]}. A jump to ${bh('3' + open)} shows only 15–17, so make a <em>jump shift</em> to ${bh(level + other)}: it shows 18+ and forces to game.`,
+        `${you}, עם ${len[open]} ${SUIT_NAME[open]} ו-${len[other]} ${SUIT_NAME[other]}. קפיצה ל-${bh('3' + open)} מראה רק 15-17, ולכן הכריזו <em>קפיצה בסדרה חדשה</em> ל-${bh(level + other)}: היא מראה 18 ומעלה ומחייבת עד משחק מלא.`) };
+    }
+    return { bid: '3N', why: L(
+      `${you} with ${len[open]} ${SUIT_NAME[open]}. A jump to ${bh('3' + open)} shows only 15–17, and with no second suit to jump in, bid game directly: 3NT.`,
+      `${you}, עם ${len[open]} ${SUIT_NAME[open]}. קפיצה ל-${bh('3' + open)} מראה רק 15-17, ובלי סדרה שנייה לקפוץ בה, הכריזו משחק מלא ישירות: 3NT.`) };
   }
   const seconds = SUITS.filter(z => z !== open && z !== rSuit && len[z] >= 4)
     .sort((a, b) => len[b] - len[a] || rank(b) - rank(a));
@@ -720,6 +735,11 @@ function responderRebid(hand, open, resp, rebid) {
       `ה-${bh(rebid)} של השותף מראה ${shows}, ויש לכם ${pts} נק': בערך ${pts + 18} ומעלה ביחד. 33 מספיקות לסלאם קטן${pts >= 19 ? ' ו-37 לסלאם גדול' : ''}, ולכן הכריזו ${bh(bid)}.`) };
   };
 
+  if (rebid === '3N') {
+    if (pts >= 15) return slam(L('18+ HCP', "18 נק' ומעלה"), 'N');
+    return { bid: 'P', why: L(`Partner's 3NT shows 18+ HCP with a long suit and is game. With ${pts} HCP there's no slam, so pass.`,
+      `ה-3NT של השותף מראה 18 נק' ומעלה עם סדרה ארוכה, וזה משחק מלא. עם ${pts} נק' אין סלאם, ולכן פאס.`) };
+  }
   if (rebid === '2N') {
     if (pts >= 15) return slam(L('18–19 balanced', '18-19 מאוזנת'), isMajor(you) && len[you] >= 6 ? you : 'N');
     if (isMajor(you) && len[you] >= 6) {
@@ -847,6 +867,7 @@ function openerRebidMeaning(open, resp, rebid) {
   const rank = s => SUITS.indexOf(s);
   if (resp === '2' + open) return L('15–17 HCP, inviting game', '15-17 נק\', הזמנה למשחק מלא');
   if (rebid === '1N') return L('12–14 HCP and a balanced hand', '12-14 נק\' ויד מאוזנת');
+  if (rebid === '3N') return L('18+ HCP with a long, strong suit: game', '18 נק\' ומעלה עם סדרה ארוכה וחזקה: משחק מלא');
   if (rebid === '2N') {
     return resp === '1N'
       ? L('18–19 HCP and a balanced hand, inviting 3NT', '18-19 נק\' ויד מאוזנת, הזמנה ל-3NT')
