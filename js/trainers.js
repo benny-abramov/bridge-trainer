@@ -470,8 +470,8 @@ function rebidBid(hand, open, resp) {
     }
     // 6. Nothing else to say: rebid your suit.
     return { bid: '2' + open, why: L(
-      `${forcing}. ${you}, with no fit, no second suit you can show cheaply and an unbalanced hand: rebid your ${SUIT_NAME[open]} at the 2-level, ${bh('2' + open)}.`,
-      `${forcing}. ${you}, בלי התאמה, בלי סדרה שנייה שאפשר להראות בזול וביד לא מאוזנת: הכריזו שוב את ה${SUIT_NAME[open]} שלכם ברמת 2, ${bh('2' + open)}.`) };
+      `${forcing}. ${you}, with no fit, no second suit you can show cheaply and an unbalanced hand: rebid your ${SUIT_NAME[open]} at the 2-level, ${bh('2' + open)}. After a two-over-one this shows a minimum and doesn't promise a 6-card suit.`,
+      `${forcing}. ${you}, בלי התאמה, בלי סדרה שנייה שאפשר להראות בזול וביד לא מאוזנת: הכריזו שוב את ה${SUIT_NAME[open]} שלכם ברמת 2, ${bh('2' + open)}. אחרי שתיים על אחת זה מראה מינימום ולא מבטיח סדרה של 6 קלפים.`) };
   }
 
   if (rLevel === 1 && rSuit !== 'N') {

@@ -271,7 +271,9 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
       }
       const ownBefore = before.some((x, j) => x.seat === p && isBidCall(x.call) && x.call[1] === z && !artificial.has(j));
       if (ownBefore) {
-        atLeast(z, 6);
+        // Rebidding a suit shows six, except opener's simple rebid after a two-over-one response.
+        const afterTwoOverOne = opener && nth === 1 && !jumps && response && /^2[CDHS]$/.test(response.call) && response.call[1] !== open[1];
+        atLeast(z, afterTwoOverOne ? 5 : 6);
         if (!interfered) range(opener ? (jumps ? 15 : 12) : (jumps ? 11 : 6), opener ? (jumps ? 17 : 14) : (jumps ? 12 : 10));
         return;
       }
