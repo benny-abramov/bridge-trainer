@@ -254,7 +254,11 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
         return;
       }
       const ownBefore = before.some((x, j) => x.seat === p && isBidCall(x.call) && x.call[1] === z && !artificial.has(j));
-      if (ownBefore) { atLeast(z, 6); if (opener && !interfered) range(jumps ? 15 : 12, jumps ? 17 : 14); return; }
+      if (ownBefore) {
+        atLeast(z, 6);
+        if (!interfered) range(opener ? (jumps ? 15 : 12) : (jumps ? 11 : 6), opener ? (jumps ? 17 : 14) : (jumps ? 12 : 10));
+        return;
+      }
       atLeast(z, 4); // a new suit
       if (opener && open[0] === '1') {
         if (jumps) range(18, 21); // jump shift
@@ -548,7 +552,19 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
   }
 
   function northSouth(seat) {
-    if (placed) return { call: 'P', why: '' };
+    if (placed) {
+      // A 7-card suit, already bid twice, corrects partner's no-trump part-score: it can be rebid again.
+      const last = lastBid();
+      const mine = callsBy(seat);
+      const len = suitLengths(hands[seat]);
+      const seven = last && last.seat === (seat + 2) % 4 && last.call[1] === 'N' && !isGame(last.call)
+        && SUITS.find(z => len[z] >= 7 && mine.filter(c => isBidCall(c) && c[1] === z).length >= 2);
+      const bid = seven && [2, 3].map(l => l + seven).find(legal);
+      if (bid) return { call: bid, why: L(
+        `Partner's ${bidHtml(last.call)} suggests no-trump, but you have ${len[seven]} ${SUIT_NAME[seven]}. A 7-card suit can be rebid a second time, so bid ${bidHtml(bid)} to play there.`,
+        `ה-${bidHtml(last.call)} של השותף מציע ללא שליט, אבל יש לכם ${len[seven]} ${SUIT_NAME[seven]}. סדרה של 7 קלפים אפשר לחזור עליה פעם שנייה, ולכן הכריזו ${bidHtml(bid)} כדי לשחק בה.`) };
+      return { call: 'P', why: '' };
+    }
     const hand = hands[seat];
     const len = suitLengths(hand);
     const mine = callsBy(seat), partner = callsBy((seat + 2) % 4);

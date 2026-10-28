@@ -262,7 +262,7 @@ const LESSONS_EN = [
         <li>Balanced: 1NT with 12–14, jump to 2NT with 18–19.</li>
         <li>Otherwise use the unbalanced-hand rules below.</li>
       </ol>
-      <p><strong>When partner responds 1NT</strong> (6–10, no fit): with a balanced minimum, pass. With balanced 18–19, raise to 2NT. Otherwise use the unbalanced-hand rules.</p>
+      <p><strong>When partner responds 1NT</strong> (6–10, no fit, not forcing): with a balanced minimum, pass. With balanced 18–19, raise to 2NT. Otherwise use the unbalanced-hand rules, but don't rebid a 5-card suit: rebidding promises six. With a minimum, a 5-card suit and no lower second suit (a higher one would be a reverse), pass 1NT.</p>
       <p><strong>When partner bids a new suit at the 2-level</strong> (a <em>two over one</em>, such as 1${S} – 2${C}), partner has 11+ HCP and you must bid again. Raise partner's hearts with 3 (or a minor with 4, if unbalanced). With a balanced hand, <strong>2NT shows 12–14</strong> and <strong>3NT shows 18–19</strong>. Otherwise use the unbalanced-hand rules; a new suit that needs the 3-level shows 15+.</p>
       <p><strong>Unbalanced hands:</strong></p>
       <ul>
@@ -684,7 +684,7 @@ const LESSONS_HE = [
         <li>מאוזנת: 1NT עם 12-14, קפיצה ל-2NT עם 18-19.</li>
         <li>אחרת, השתמשו בכללים לידיים לא מאוזנות שלמטה.</li>
       </ol>
-      <p><strong>כשהשותף משיב 1NT</strong> (6-10, בלי התאמה): עם מינימום מאוזן, פאס. עם 18-19 מאוזן, הכריזו 2NT. אחרת, השתמשו בכללים לידיים לא מאוזנות.</p>
+      <p><strong>כשהשותף משיב 1NT</strong> (6-10, בלי התאמה, לא מחייב): עם מינימום מאוזן, פאס. עם 18-19 מאוזן, הכריזו 2NT. אחרת, השתמשו בכללים לידיים לא מאוזנות, אבל אל תחזרו על סדרה של 5 קלפים: חזרה מבטיחה שישה. עם מינימום, סדרה של 5 ובלי סדרה שנייה נמוכה יותר (סדרה גבוהה יותר תהיה ריברס), הכריזו פאס על 1NT.</p>
       <p><strong>כשהשותף מכריז סדרה חדשה ברמת 2</strong> (<em>שתיים על אחת</em>, כמו <bdi dir="ltr">${B('1S')} – ${B('2C')}</bdi>), לשותף יש 11 נק' ומעלה וחובה להכריז שוב. תמכו בהארט של השותף עם 3 (או בסדרת מיינור עם 4, ביד לא מאוזנת). ביד מאוזנת, <strong>2NT מראה 12-14</strong> ו-<strong>3NT מראה 18-19</strong>. אחרת, השתמשו בכללים לידיים לא מאוזנות; סדרה חדשה שדורשת את רמת 3 מראה 15 ומעלה.</p>
       <p><strong>ידיים לא מאוזנות:</strong></p>
       <ul>

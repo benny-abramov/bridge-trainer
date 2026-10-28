@@ -532,6 +532,15 @@ function rebidBid(hand, open, resp) {
       `${you} with ${len[higher]} ${SUIT_NAME[higher]}: bid ${bh('2' + higher)}. Bidding a higher-ranking suit than your first at the 2-level is a <em>reverse</em>; it shows 16+ HCP because partner may have to go to the 3-level to choose between your suits.`,
       `${you}, עם ${len[higher]} ${SUIT_NAME[higher]}: הכריזו ${bh('2' + higher)}. הכרזה ברמת 2 של סדרה גבוהה מהסדרה הראשונה שלכם נקראת <em>ריברס</em>. היא מראה 16 נק' ומעלה, כי ייתכן שהשותף יצטרך לעלות לרמת 3 כדי לבחור בין הסדרות שלכם.`) };
   }
+  // After a 1NT response (not forcing) a 5-card suit isn't rebid: rebidding promises six.
+  if (rSuit === 'N' && len[open] < 6) {
+    const reason = higher
+      ? L(`showing your ${SUIT_NAME[higher]} would be a <em>reverse</em>, which needs 16+ HCP`, `הצגת ה${SUIT_NAME[higher]} תהיה <em>ריברס</em>, שדורש 16 נק' ומעלה`)
+      : L('you have no second suit to show', 'אין לכם סדרה שנייה להראות');
+    return { bid: 'P', why: L(
+      `${you}. Partner's 1NT isn't forcing, ${reason}, and rebidding your ${SUIT_NAME[open]} would promise six. With only ${len[open]}, pass: 1NT is a reasonable contract.`,
+      `${you}. ה-1NT של השותף לא מחייב, ${reason}, וחזרה על ה${SUIT_NAME[open]} שלכם הייתה מבטיחה שישה. עם ${len[open]} בלבד, פאס: 1NT הוא חוזה סביר.`) };
+  }
   const why = higher
     ? L(`${you}. Showing your ${SUIT_NAME[higher]} at the 2-level would be a <em>reverse</em>, which needs 16+ HCP. So rebid your ${SUIT_NAME[open]} at the cheapest level, ${bh('2' + open)}.`,
       `${you}. הצגת ה${SUIT_NAME[higher]} ברמת 2 תהיה <em>ריברס</em>, שדורש 16 נק' ומעלה. לכן חזרו על ה${SUIT_NAME[open]} שלכם ברמה הזולה ביותר, ${bh('2' + open)}.`)
