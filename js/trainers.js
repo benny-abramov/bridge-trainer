@@ -279,6 +279,21 @@ function responseBid(hand, open) {
     }
     // 13+ is game-forcing: the Responding drill leaves these hands out (see RespondingTrainer).
     if (sp >= 13 && len[open] >= 4) return { ...raiseMajor(hand, open), gameForce: true };
+    // 13+ with three-card support: a jump to game would be preemptive, so bid a new suit now and
+    // jump to game next round (a delayed game raise).
+    if (sp >= 13) {
+      const rk = s => SUITS.indexOf(s);
+      const side = SUITS.filter(s => s !== open && len[s] >= 3)
+        .sort((a, b) => len[b] - len[a] || rk(a) - rk(b))
+        // a lower suit at the 2-level (2♥ needs five), or 1♠ with four over 1♥
+        .find(s => (rk(s) > rk(open) && (s !== 'H' || len.H >= 5)) || (rk(s) < rk(open) && len[s] >= 4));
+      if (side) {
+        const bid = (rk(side) < rk(open) ? '1' : '2') + side;
+        return { bid, gameForce: true, why: L(
+          `${count} and ${len[open]}-card support: enough for game. A direct jump to ${bh('4' + open)} would show a weak, distributional hand, so first bid ${bh(bid)}, then jump to ${bh('4' + open)} on your next turn: a <em>delayed game raise</em>.`,
+          `${count} ותמיכה של ${len[open]} קלפים: מספיק למשחק מלא. קפיצה ישירה ל-${bh('4' + open)} הייתה מראה יד חלשה עם חלוקה, ולכן הכריזו קודם ${bh(bid)}, ובתור הבא קפצו ל-${bh('4' + open)}: <em>תמיכה מאוחרת למשחק מלא</em>.`) };
+      }
+    }
     return { bid: '3' + open, gameForce: sp >= 13, why: L(
       `${count} and ${len[open]}-card support: jump to ${bh('3' + open)}, a <em>limit raise</em>. It invites partner to bid game with a little extra.`,
       `${count} ותמיכה של ${len[open]} קלפים: קפצו ל-${bh('3' + open)}, <em>תמיכה בקפיצה</em>. היא מזמינה את השותף להכריז משחק מלא אם יש לו מעט יותר.`) };
@@ -596,6 +611,15 @@ function responderRebid(hand, open, resp, rebid) {
       `יש לכם ${pts} נק', תחתית הטווח שלכם (6-10). דחו את ההזמנה של השותף בפאס.`) });
 
   if (rebid === 'P') return null;
+
+  // A delayed game raise: a new suit first, then game in partner's major with three-card support.
+  if (isMajor(open) && len[open] >= 3 && pts >= 13 && resp[1] !== open && resp[1] !== 'N' && /^[123]/.test(rebid)) {
+    const bid = '4' + open;
+    if (rebid === bid || (rl === 4)) return null;
+    return { bid, why: L(
+      `You have ${pts} HCP and ${len[open]} of partner's ${name(open)}, an 8-card fit. You bid ${bh(resp)} first to show your strength; now jump to ${bh(bid)}. This <em>delayed game raise</em> shows 13+ with three-card support, more than a direct ${bh(bid)} would.`,
+      `יש לכם ${pts} נק' ו-${len[open]} ב${name(open)} של השותף, התאמה של 8 קלפים. הכרזתם קודם ${bh(resp)} כדי להראות כוח, ועכשיו קפצו ל-${bh(bid)}. <em>תמיכה מאוחרת למשחק מלא</em> זו מראה 13 ומעלה עם תמיכה של 3 קלפים, יותר מ-${bh(bid)} ישיר.`) };
+  }
 
   // You raised partner's suit and partner invited game: count your support points.
   if (resp === '2' + open) {
