@@ -237,7 +237,7 @@ const LESSONS_EN = [
         <tr><th>Your hand</th><th>Respond</th></tr>
         <tr><td>3+ cards in partner's major</td><td>Raise: 2 of the major with 6–10 support points, 3 (a <em>limit raise</em>) with 11–12</td></tr>
         <tr><td>A 4+ card suit you can bid at the 1-level</td><td>Bid it (majors before diamonds; hearts first with 4-4 in the majors)</td></tr>
-        <tr><td>Support for partner's minor (4+ ${D} or 5+ ${C})</td><td>Raise: 2 of the minor with 6–10 support points, 3 with 11–12</td></tr>
+        <tr><td>Support for partner's minor (4+ ${D} or 5+ ${C})</td><td>Raise: 2 of the minor with 6–10 support points, 3 with 11–12 and five cards (with only four, 2NT)</td></tr>
         <tr><td>6–10 HCP, none of the above</td><td>1NT</td></tr>
         <tr><td>11+ HCP, a 4+ card lower-ranking suit (5+ for ${H})</td><td>New suit at the 2-level</td></tr>
         <tr><td>11–12 HCP, none of the above</td><td>2NT, inviting game</td></tr>
@@ -668,7 +668,7 @@ const LESSONS_HE = [
         <tr><th>היד שלכם</th><th>תשובה</th></tr>
         <tr><td>3 קלפים ומעלה בסדרת המייגור של השותף</td><td>תמיכה: ל-2 עם 6-10 נקודות תמיכה, ל-3 (<em>תמיכה בקפיצה</em>) עם 11-12</td></tr>
         <tr><td>סדרה של 4 קלפים ומעלה שאפשר להכריז ברמת 1</td><td>הכריזו אותה (סדרות מייגור לפני דיאמונד; הארט קודם עם 4-4 בסדרות המייגור)</td></tr>
-        <tr><td>תמיכה בסדרת המיינור של השותף (4 ומעלה ב-${D} או 5 ומעלה ב-${C})</td><td>תמיכה: ל-2 עם 6-10 נקודות תמיכה, ל-3 עם 11-12</td></tr>
+        <tr><td>תמיכה בסדרת המיינור של השותף (4 ומעלה ב-${D} או 5 ומעלה ב-${C})</td><td>תמיכה: ל-2 עם 6-10 נקודות תמיכה, ל-3 עם 11-12 וחמישה קלפים (עם ארבעה בלבד, 2NT)</td></tr>
         <tr><td>6-10 נק', אף אחד מאלה</td><td>1NT</td></tr>
         <tr><td>11 נק' ומעלה, סדרה נמוכה יותר של 4 קלפים ומעלה (5 ומעלה ב-${H})</td><td>סדרה חדשה ברמת 2</td></tr>
         <tr><td>11-12 נק', אף אחד מאלה</td><td>2NT, הזמנה למשחק מלא</td></tr>

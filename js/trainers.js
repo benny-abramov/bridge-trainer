@@ -346,6 +346,15 @@ function responseBid(hand, open) {
         `${count}, balanced, with ${len[open]}-card support: too strong for the limit raise (11–12). With game values and no other suit to show, bid 3NT.`,
         `${count}, יד מאוזנת עם תמיכה של ${len[open]} קלפים: חזק מדי לתמיכה בקפיצה (11-12). עם כוח למשחק מלא ובלי סדרה אחרת להראות, הכריזו 3NT.`) };
     }
+    // A jump raise of a minor promises five: a minor opening can be short. With four, invite with 2NT.
+    if (len[open] < 5 && sp < 13) {
+      if (pts >= 11) return { bid: '2N', why: L(
+        `${pts} HCP with ${len[open]} ${SUIT_NAME[open]}: invite game with 2NT (11–12). A jump to ${bh('3' + open)} would promise five ${SUIT_NAME[open]}, because partner's ${bh('1' + open)} may be only three or four cards long.`,
+        `${pts} נק' עם ${len[open]} ${SUIT_NAME[open]}: הזמינו למשחק מלא ב-2NT (11-12). קפיצה ל-${bh('3' + open)} הייתה מבטיחה חמישה ${SUIT_NAME[open]}, כי ה-${bh('1' + open)} של השותף יכול להיות רק בן שלושה או ארבעה קלפים.`) };
+      return { bid: '2' + open, why: L(
+        `${count}, no 4-card major and ${len[open]}-card support: raise to ${bh('2' + open)}. A jump to ${bh('3' + open)} would promise five ${SUIT_NAME[open]}.`,
+        `${count}, בלי סדרת מייגור של 4, ותמיכה של ${len[open]} קלפים: תמכו ב-${bh('2' + open)}. קפיצה ל-${bh('3' + open)} הייתה מבטיחה חמישה ${SUIT_NAME[open]}.`) };
+    }
     return { bid: '3' + open, gameForce: sp >= 13, why: L(
       `${count}, no 4-card major and ${len[open]}-card support: jump to ${bh('3' + open)}, a limit raise inviting game.`,
       `${count}, בלי סדרת מייגור של 4, ותמיכה של ${len[open]} קלפים: קפצו ל-${bh('3' + open)}, תמיכה בקפיצה שמזמינה למשחק מלא.`) };
