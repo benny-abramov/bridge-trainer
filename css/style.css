@@ -18,7 +18,7 @@
   --red-suit: #c62828;
   /* Four-color suits, as on online bridge sites: diamonds orange and clubs green, so no two suits look alike. */
   --diamond-suit: #d35400;
-  --club-suit: #1a7f37;
+  --club-suit: #0f6a2c;
   --hint: #f2b705;
   --shadow: 0 1px 2px rgba(0, 0, 0, .06), 0 4px 14px rgba(0, 0, 0, .06);
   --cw: 58px; /* card width */
@@ -399,7 +399,7 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 .card.red { color: #c62828; }
 /* Cards stay white in dark mode, so they keep the light-mode suit colors. */
 .card.s-D { color: #d35400; }
-.card.s-C { color: #1a7f37; }
+.card.s-C { color: #0b5f26; }
 .card .corner { position: absolute; top: 3px; left: 5px; display: flex; flex-direction: column; align-items: center; line-height: 1; }
 .card .r { font-size: calc(var(--cw) * .3); letter-spacing: -.04em; }
 .card .s { font-size: calc(var(--cw) * .36); }
@@ -419,7 +419,7 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 
 .card.playable { cursor: pointer; }
 .card.playable:hover, .card.playable:focus-visible { transform: translateY(-10px); box-shadow: 0 6px 12px rgba(0, 0, 0, .3); }
-.card.dim { filter: brightness(.68) saturate(.7); }
+.card.dim { filter: brightness(.84) saturate(.85); }
 .card.hint { box-shadow: 0 0 0 3px var(--hint), 0 6px 12px rgba(0, 0, 0, .3); transform: translateY(-10px); }
 .card.counted { transform: translateY(-14px); }
 .card.winner { box-shadow: 0 0 0 3px var(--hint), 0 4px 10px rgba(0, 0, 0, .35); }
@@ -486,7 +486,7 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 .bi-dealer.right { right: -.6rem; top: 50%; transform: translate(-.12rem, -50%); }
 .bi-side { display: flex; flex-direction: column; gap: .3rem; }
 .bi-contract { display: flex; flex-direction: column; align-items: center; padding: .15rem .5rem; border-radius: 8px; background: #9ccbc9; color: #1a1a1a; font-size: .75rem; line-height: 1.2; box-shadow: 0 2px 6px rgba(0, 0, 0, .3); }
-.bi-bid { font-size: 1.15rem; font-weight: 800; --red-suit: #c62828; --diamond-suit: #d35400; --club-suit: #1a7f37; }
+.bi-bid { font-size: 1.15rem; font-weight: 800; --red-suit: #c62828; --diamond-suit: #d35400; --club-suit: #0f6a2c; }
 .bi-tricks { display: flex; gap: .25rem; }
 .bi-tricks div { display: flex; flex-direction: column; align-items: center; min-width: 2.1rem; padding: .1rem .3rem; border-radius: 6px; background: #17676b; color: #fff; }
 .bi-tricks span { font-size: .6rem; opacity: .85; }
@@ -496,7 +496,7 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 .auction-box .bid-box td { padding: 0; }
 .auction-box .bid-box button { font: inherit; width: 100%; height: 100%; min-height: 1.7rem; padding: 0 .3rem; border: 0; border-radius: 6px; background: none; color: inherit; cursor: pointer; }
 .auction-box .bid-box button:hover { box-shadow: inset 0 0 0 2px var(--accent); }
-.auction-box .bid-box button.final { background: var(--hint); color: #1a1a1a; font-weight: 700; --red-suit: #c62828; --diamond-suit: #d35400; --club-suit: #1a7f37; }
+.auction-box .bid-box button.final { background: var(--hint); color: #1a1a1a; font-weight: 700; --red-suit: #c62828; --diamond-suit: #d35400; --club-suit: #0f6a2c; }
 .auction-box .bid-box button.picked { box-shadow: inset 0 0 0 2px var(--accent); font-weight: 700; }
 /* Seat names like a real bidding box: white when not vulnerable, red when vulnerable. */
 .auction-box .bid-box th { background: #f1f1ee; color: #1a1a1a; border-radius: 6px; }
