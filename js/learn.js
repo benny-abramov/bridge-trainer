@@ -1255,11 +1255,48 @@ const TrickPicture = (() => {
       const card = createCardEl(c);
       if (seat === win) card.classList.add('winner');
       if (seat === lead && seat !== win) card.classList.add('led');
+      card.insertAdjacentHTML('beforeend', `<span class="tp-num" aria-hidden="true">${(seat - lead + 4) % 4 + 1}</span>`);
+      card.dataset.seat = seat;
       spot.appendChild(card);
       table.appendChild(spot);
     }
     box.innerHTML = '';
     box.appendChild(table);
+    // Curved arrows from card to card in the order of play, redrawn whenever the size changes.
+    const draw = () => drawArrows(table, lead);
+    requestAnimationFrame(draw);
+    if (window.ResizeObserver) new ResizeObserver(draw).observe(table);
+  }
+
+  function drawArrows(table, lead) {
+    table.querySelector('.tp-arrows')?.remove();
+    const box = table.getBoundingClientRect();
+    if (!box.width) return;
+    const at = seat => {
+      const r = table.querySelector(`.card[data-seat="${seat}"]`).getBoundingClientRect();
+      return { x: r.left - box.left + r.width / 2, y: r.top - box.top + r.height / 2, w: r.width, h: r.height };
+    };
+    const svgNS = 'http://www.w3.org/2000/svg';
+    const svg = document.createElementNS(svgNS, 'svg');
+    svg.setAttribute('class', 'tp-arrows');
+    svg.setAttribute('aria-hidden', 'true');
+    svg.setAttribute('viewBox', `0 0 ${box.width} ${box.height}`);
+    svg.innerHTML = `<defs><marker id="tp-head" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="rgba(255,255,255,.85)"/></marker></defs>`;
+    for (let i = 0; i < 3; i++) {
+      const fromSeat = (lead + i) % 4, toSeat = (lead + i + 1) % 4;
+      const a = at(fromSeat), b = at(toSeat);
+      // Bend around the table's corner: the side seat (West/East) gives x, North/South gives y.
+      const side = fromSeat % 2 ? a : b, end = fromSeat % 2 ? b : a;
+      const c = { x: side.x + (end.x - side.x) * 0.15, y: end.y + (side.y - end.y) * 0.15 };
+      const pull = (p, q, d) => { const dx = q.x - p.x, dy = q.y - p.y, len = Math.hypot(dx, dy) || 1; return { x: p.x + dx / len * d, y: p.y + dy / len * d }; };
+      const start = pull(a, c, Math.max(a.w, a.h) * 0.62);
+      const stop = pull(b, c, Math.max(b.w, b.h) * 0.66);
+      const path = document.createElementNS(svgNS, 'path');
+      path.setAttribute('d', `M${start.x},${start.y} Q${c.x},${c.y} ${stop.x},${stop.y}`);
+      path.setAttribute('marker-end', 'url(#tp-head)');
+      svg.appendChild(path);
+    }
+    table.appendChild(svg);
   }
 
   return { mount };
