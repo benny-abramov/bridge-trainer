@@ -73,6 +73,11 @@ const LESSONS_EN = [
         <li><strong>The auction</strong> — both sides bid to decide how many tricks one partnership promises to win, and which suit (if any) will be trumps.</li>
         <li><strong>The play</strong> — the 13 tricks are played out to see whether that promise is kept.</li>
       </ol>
+      <p><strong>What is a trick?</strong> A trick is four cards, one from each player in clockwise order. Everyone must play the suit that was led if they can,
+      and the highest card of that suit wins the trick for its partnership. Each deal has <strong>13 tricks</strong>.</p>
+      <p><strong>What is a trump?</strong> The auction may choose one suit as <strong>trumps</strong>. A trump beats any card of the other suits:
+      if you have no cards in the suit led, you may play a trump and win the trick (unless someone plays a higher trump).
+      A contract can also be in <strong>no-trump</strong>, where the highest card of the suit led always wins.</p>
       <p>You always work with your partner: your goal is to win tricks <em>as a team</em>.</p>`,
   },
   {
@@ -521,6 +526,11 @@ const LESSONS_HE = [
         <li><strong>המכרז</strong>: שני הצדדים מכריזים כדי לקבוע כמה לקיחות זוג אחד מתחייב לקחת, ואיזו סדרה (אם בכלל) תהיה השליט.</li>
         <li><strong>המשחק</strong>: משחקים את 13 הלקיחות כדי לראות אם ההתחייבות מתקיימת.</li>
       </ol>
+      <p><strong>מהי לקיחה?</strong> לקיחה היא ארבעה קלפים, אחד מכל שחקן, בסדר עם כיוון השעון. כל אחד חייב לשחק בסדרה שהובלה אם יש לו קלף בה,
+      והקלף הגבוה ביותר בסדרה הזו זוכה בלקיחה עבור הזוג שלו. בכל חלוקה יש <strong>13 לקיחות</strong>.</p>
+      <p><strong>מהו שליט?</strong> במכרז אפשר לבחור סדרה אחת כ<strong>שליט</strong>. קלף שליט גובר על כל קלף מהסדרות האחרות:
+      אם אין לכם קלפים בסדרה שהובלה, אפשר לשחק שליט ולזכות בלקיחה (אלא אם מישהו משחק שליט גבוה יותר).
+      חוזה יכול להיות גם <strong>ללא שליט</strong>, ואז הקלף הגבוה ביותר בסדרה שהובלה תמיד זוכה.</p>
       <p>תמיד משחקים יחד עם השותף: המטרה היא לזכות בלקיחות <em>כצוות</em>.</p>`,
   },
   {
