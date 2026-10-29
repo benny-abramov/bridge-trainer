@@ -321,17 +321,17 @@ const LESSONS_EN = [
     body: `
       <p>When an opponent opens the bidding, your side can still compete. Bidding after the opponents have opened is called <strong>overcalling</strong>.
       An overcall can win the contract, push the opponents too high, or tell partner which suit to lead.</p>
-      <p>When the opponent on your right opens one of a suit, find the row that fits your hand:</p>
+      <p>When the opponent on your right opens one of a suit, find the row that fits your hand. Tap a row to see examples:</p>
       <table class="tbl">
         <tr><th>Your hand</th><th>Action</th></tr>
-        <tr><td>8–16 HCP and a good 5+ card suit you can bid at the 1-level</td><td>1-level overcall</td></tr>
-        <tr><td>11–16 HCP and a good 5+ card suit at the 2-level</td><td>2-level overcall</td></tr>
-        <tr><td>12+ HCP, short in their suit, 3+ cards in every other suit</td><td><strong>Takeout double</strong></td></tr>
-        <tr><td>15–18 HCP, balanced, with a stopper in their suit</td><td>1NT</td></tr>
-        <tr><td>17+ HCP, too strong to overcall</td><td>Double, then bid your suit or no-trump</td></tr>
-        <tr><td>6–10 HCP and a good 6-card suit (two of A, K, Q, J)</td><td><strong>Weak jump overcall</strong> at the 2-level: one level higher than needed (1${H} – 2${S}). A jump to the 3-level needs seven cards.</td></tr>
-        <tr><td>6–10 HCP and a good 7-card suit (two of A, K, Q, J)</td><td><strong>Preempt</strong> at the 3-level (1${C} – 3${H})</td></tr>
-        <tr><td>Anything else</td><td>Pass</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-overcall="o1">8–16 HCP and a good 5+ card suit you can bid at the 1-level</button></td><td>1-level overcall</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-overcall="o2">11–16 HCP and a good 5+ card suit at the 2-level</button></td><td>2-level overcall</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-overcall="tox">12+ HCP, short in their suit, 3+ cards in every other suit</button></td><td><strong>Takeout double</strong></td></tr>
+        <tr><td><button class="finesse-link" type="button" data-overcall="nt">15–18 HCP, balanced, with a stopper in their suit</button></td><td>1NT</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-overcall="strongx">17+ HCP, too strong to overcall</button></td><td>Double, then bid your suit or no-trump</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-overcall="wjo">6–10 HCP and a good 6-card suit (two of A, K, Q, J)</button></td><td><strong>Weak jump overcall</strong> at the 2-level: one level higher than needed (1${H} – 2${S}). A jump to the 3-level needs seven cards.</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-overcall="pre">6–10 HCP and a good 7-card suit (two of A, K, Q, J)</button></td><td><strong>Preempt</strong> at the 3-level (1${C} – 3${H})</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-overcall="pass">Anything else</button></td><td>Pass</td></tr>
       </table>
       <ul>
         <li>When more than one row fits, a weak hand (6–10 HCP) with a 6- or 7-card suit makes the jump, not a simple overcall. A balanced 15–18 with a stopper prefers 1NT.</li>
@@ -758,17 +758,17 @@ const LESSONS_HE = [
     body: `
       <p>כשיריב פותח, הצד שלכם עדיין יכול להתחרות. הכרזה אחרי שהיריבים פתחו נקראת <strong>הכרזת התערבות</strong>.
       היא יכולה לזכות בחוזה, לדחוף את היריבים גבוה מדי, או לומר לשותף באיזו סדרה להוביל.</p>
-      <p>כשהיריב מימינכם פותח באחת בסדרה, מצאו את השורה שמתאימה ליד שלכם:</p>
+      <p>כשהיריב מימינכם פותח באחת בסדרה, מצאו את השורה שמתאימה ליד שלכם. לחצו על שורה כדי לראות דוגמאות:</p>
       <table class="tbl">
         <tr><th>היד שלכם</th><th>פעולה</th></tr>
-        <tr><td>8-16 נק' וסדרה טובה של 5 קלפים ומעלה שאפשר להכריז ברמת 1</td><td>התערבות ברמת 1</td></tr>
-        <tr><td>11-16 נק' וסדרה טובה של 5 קלפים ומעלה ברמת 2</td><td>התערבות ברמת 2</td></tr>
-        <tr><td>12 נק' ומעלה, קצר בסדרה שלהם, 3 קלפים ומעלה בכל סדרה אחרת</td><td><strong>כפל הוצאה</strong></td></tr>
-        <tr><td>15-18 נק', מאוזנת, עם עוצר בסדרה שלהם</td><td>1NT</td></tr>
-        <tr><td>17 נק' ומעלה, חזקה מדי להתערבות</td><td>דאבל, ואחר כך הכריזו את הסדרה שלכם או ללא שליט</td></tr>
-        <tr><td>6-10 נק' וסדרה טובה של 6 קלפים (שניים מ-A, K, Q, J)</td><td><strong>קפיצת התערבות חלשה</strong> ברמה 2: רמה אחת מעל הנדרש (<bdi dir="ltr">${B('1H')} – ${B('2S')}</bdi>). קפיצה לרמה 3 דורשת שבעה קלפים.</td></tr>
-        <tr><td>6-10 נק' וסדרה טובה של 7 קלפים (שניים מ-A, K, Q, J)</td><td><strong>הכרזת חסימה</strong> ברמה 3 (<bdi dir="ltr">${B('1C')} – ${B('3H')}</bdi>)</td></tr>
-        <tr><td>כל דבר אחר</td><td>פאס</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-overcall="o1">8-16 נק' וסדרה טובה של 5 קלפים ומעלה שאפשר להכריז ברמת 1</button></td><td>התערבות ברמת 1</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-overcall="o2">11-16 נק' וסדרה טובה של 5 קלפים ומעלה ברמת 2</button></td><td>התערבות ברמת 2</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-overcall="tox">12 נק' ומעלה, קצר בסדרה שלהם, 3 קלפים ומעלה בכל סדרה אחרת</button></td><td><strong>כפל הוצאה</strong></td></tr>
+        <tr><td><button class="finesse-link" type="button" data-overcall="nt">15-18 נק', מאוזנת, עם עוצר בסדרה שלהם</button></td><td>1NT</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-overcall="strongx">17 נק' ומעלה, חזקה מדי להתערבות</button></td><td>דאבל, ואחר כך הכריזו את הסדרה שלכם או ללא שליט</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-overcall="wjo">6-10 נק' וסדרה טובה של 6 קלפים (שניים מ-A, K, Q, J)</button></td><td><strong>קפיצת התערבות חלשה</strong> ברמה 2: רמה אחת מעל הנדרש (<bdi dir="ltr">${B('1H')} – ${B('2S')}</bdi>). קפיצה לרמה 3 דורשת שבעה קלפים.</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-overcall="pre">6-10 נק' וסדרה טובה של 7 קלפים (שניים מ-A, K, Q, J)</button></td><td><strong>הכרזת חסימה</strong> ברמה 3 (<bdi dir="ltr">${B('1C')} – ${B('3H')}</bdi>)</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-overcall="pass">כל דבר אחר</button></td><td>פאס</td></tr>
       </table>
       <ul>
         <li>כשיותר משורה אחת מתאימה, יד חלשה (6-10 נק') עם סדרה של 6 או 7 קלפים קופצת, ולא מתערבת התערבות פשוטה. יד מאוזנת של 15-18 עם עוצר מעדיפה 1NT.</li>
@@ -1470,6 +1470,88 @@ const AuctionPicture = (() => {
   return { mount };
 })();
 
+// The Overcalls lesson table: tap a row to deal random examples. East (on your right) opens one of a
+// suit and you hold a hand that fits the row, with the app's answer and explanation.
+const OvercallExamples = (() => {
+  const rank = z => SUITS.indexOf(z); // lower index = higher-ranking
+  // Which action each row describes, from the bid and the opening suit.
+  const ROWS = {
+    o1: (b) => /^1[CDHS]$/.test(b),
+    o2: (b, open) => /^2[CDHS]$/.test(b) && rank(b[1]) > rank(open), // a lower suit: the cheapest level
+    tox: (b, open, hand) => b === 'X' && hcp(hand) < 17,
+    nt: b => b === '1N',
+    strongx: (b, open, hand) => b === 'X' && hcp(hand) >= 17,
+    wjo: (b, open) => /^2[CDHS]$/.test(b) && rank(b[1]) < rank(open), // could have bid it at the 1-level: a jump
+    pre: b => /^[34][CDHS]$/.test(b),
+    pass: b => b === 'P',
+  };
+  let dialog, key, title;
+
+  function find() {
+    for (let i = 0; i < 30000; i++) {
+      const hands = dealHands();
+      const open = openingBid(hands[1]).bid;
+      if (!/^1[CDHS]$/.test(open)) continue;
+      const r = overcallBid(hands[2], open[1]);
+      if (ROWS[key](r.bid, open[1], hands[2])) return { hand: hands[2], open, r };
+    }
+    return null;
+  }
+
+  function render() {
+    const found = find();
+    dialog.innerHTML = `<h3>${title}</h3>`;
+    if (!found) {
+      dialog.insertAdjacentHTML('beforeend', `<p>${L('No example found this time. Try again.', 'לא נמצאה דוגמה הפעם. נסו שוב.')}</p>`);
+    } else {
+      const { hand, open, r } = found;
+      dialog.insertAdjacentHTML('beforeend', `<p class="fin-setup">${L(`East, on your right, opens <strong>${bidHtml(open)}</strong>. You are South. What do you do?`, `מזרח, מימינכם, פותח <strong>${bidHtml(open)}</strong>. אתם בדרום. מה תעשו?`)}</p>`);
+      const felt = document.createElement('div');
+      felt.className = 'shape-felt opening-felt';
+      renderFan(felt, hand);
+      const lens = Object.values(suitLengths(hand)).sort((a, b) => b - a).join('-');
+      const info = document.createElement('p');
+      info.className = 'opening-info';
+      info.innerHTML = `${L(`${hcp(hand)} HCP`, `${hcp(hand)} נק'`)} · ${ltr(lens)} · ${L('Bid', 'הכרזה')}: <strong>${bidHtml(r.bid)}</strong>`;
+      const why = document.createElement('p');
+      why.className = 'fin-chance';
+      why.innerHTML = r.why;
+      dialog.append(felt, info, why);
+    }
+    const buttons = document.createElement('div');
+    buttons.className = 'opening-buttons';
+    const next = document.createElement('button');
+    next.className = 'btn';
+    next.type = 'button';
+    next.textContent = L('Next hand', 'יד הבאה');
+    next.addEventListener('click', render);
+    const close = document.createElement('button');
+    close.className = 'btn secondary';
+    close.type = 'button';
+    close.textContent = L('Close', 'סגירה');
+    close.addEventListener('click', () => dialog.close());
+    buttons.append(next, close);
+    dialog.appendChild(buttons);
+  }
+
+  function show(k, label) {
+    if (!ROWS[k]) return;
+    if (!dialog) {
+      dialog = document.createElement('dialog');
+      dialog.className = 'finesse-dialog opening-dialog';
+      dialog.addEventListener('click', e => { if (e.target === dialog) dialog.close(); }); // the backdrop
+      document.body.appendChild(dialog);
+    }
+    key = k;
+    title = label;
+    render();
+    if (!dialog.open) dialog.showModal();
+    dialog.scrollTop = 0;
+  }
+
+  return { show };
+})();
+
 // The balanced and unbalanced hands in the point-counting lesson. Each caption's shape, points and
 // reason are worked out from the cards.
 const ShapeExamples = (() => {
@@ -2028,6 +2110,7 @@ const Learn = (() => {
     document.querySelectorAll('#lesson-body .auction-picture').forEach(AuctionPicture.mount);
     document.querySelectorAll('#lesson-body .trick-picture').forEach(TrickPicture.mount);
     document.querySelectorAll('#lesson-body [data-opening]').forEach(b => b.addEventListener('click', () => OpeningExamples.show(b.dataset.opening, b.innerHTML)));
+    document.querySelectorAll('#lesson-body [data-overcall]').forEach(b => b.addEventListener('click', () => OvercallExamples.show(b.dataset.overcall, b.innerHTML)));
     document.querySelectorAll('#lesson-body [data-finesse]').forEach(b => b.addEventListener('click', () => FinesseLayouts.show(b.dataset.finesse)));
     const auctionDemo = document.querySelector('#lesson-body .auction-demo');
     if (auctionDemo) AuctionDemo.mount(auctionDemo);

@@ -575,6 +575,8 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
 
   // East-West: West's direct action over South's 1-of-a-suit opening, then East's answer. Otherwise they pass.
   function eastWest(seat) {
+    const pd = afterPenalty(seat) || penaltyDouble(seat);
+    if (pd) return pd;
     const hand = hands[seat];
     const len = suitLengths(hand);
     const open = callsBy(DEALER)[0];
@@ -739,6 +741,38 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
     return null;
   }
 
+  // Penalty doubles of a high contract: the opponents sacrificed over our game (bid on at the 4-level
+  // or higher), or bid a game in a suit where this hand has a stack of trumps. Partner then passes.
+  const penalty = new Set(); // indexes of penalty doubles
+  function penaltyDouble(seat) {
+    const last = lastBid();
+    if (!last || last.seat % 2 === seat % 2 || !legal('X') || artificial.has(calls.indexOf(last))) return null;
+    const hand = hands[seat], z = last.call[1], level = Number(last.call[0]);
+    const weBidGame = calls.some((c, i) => c.seat % 2 === seat % 2 && isBidCall(c.call) && !artificial.has(i) && isGame(c.call));
+    const trumps = z === 'N' ? [] : hand.filter(c => c.suit === z);
+    const honors = trumps.filter(c => 'AKQJT'.includes(c.rank)).length;
+    const stack = z !== 'N' && isGame(last.call) && hcp(hand) >= 6 && (trumps.length >= 5 || (trumps.length >= 4 && honors >= 2));
+    // A sacrifice is bid over a game reached on strength: North-South's (the opponents' games here come from preempts).
+    const sacrifice = seat % 2 === 0 && weBidGame && level >= 4;
+    if (!stack && !sacrifice) return null;
+    penalty.add(calls.length);
+    placed = true;
+    return { call: 'X', why: stack
+      ? L(`<strong>Penalty double.</strong> The opponents bid game in ${SUIT_NAME[z]}, and you have ${trumps.length} of their trumps, ${honors} of them top honors. They will lose trump tricks to you, so double ${bidHtml(last.call)} for penalty.`,
+        `<strong>דאבל עונשין.</strong> היריבים הכריזו משחק מלא ב${SUIT_NAME[z]}, ויש לכם ${trumps.length} מהשליטים שלהם, ${honors} מהם הונורים עליונים. הם יפסידו לכם לקיחות שליט, ולכן הכפילו את ${bidHtml(last.call)} לעונשין.`)
+      : L(`<strong>Penalty double.</strong> Your side bid game, and the opponents bid ${bidHtml(last.call)} over it: a <em>sacrifice</em>, hoping to lose less than your game would score. Double it, so going down costs them as much as possible.`,
+        `<strong>דאבל עונשין.</strong> הצד שלכם הכריז משחק מלא, והיריבים הכריזו מעליו ${bidHtml(last.call)}: <em>הקרבה</em>, בתקווה להפסיד פחות ממה שהמשחק המלא שלכם היה מנקד. הכפילו, כדי שהנפילה תעלה להם כמה שיותר.`) };
+  }
+
+  // After a penalty double, both sides pass: partner leaves it in, and the doubled side doesn't run.
+  function afterPenalty(seat) {
+    const last = lastCall();
+    if (!last || last.call !== 'X' || !penalty.has(calls.indexOf(last))) return null;
+    return last.seat % 2 === seat % 2
+      ? { call: 'P', why: L("Partner's double is for penalty: leave it in and pass.", 'הדאבל של השותף הוא דאבל עונשין: השאירו אותו ופאס.') }
+      : { call: 'P', why: L('The opponents doubled for penalty. Your side has said what it has, so pass and play it.', 'היריבים הכפילו לעונשין. הצד שלכם כבר אמר מה יש לו, ולכן פאס ושחקו.') };
+  }
+
   // After North's redouble: double the opponents' new suit for penalty with four cards and two top
   // honors in it. Otherwise opener passes (partner promised to bid again) and North chooses the contract.
   function afterRedouble(seat, hand) {
@@ -759,6 +793,8 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
   }
 
   function northSouth(seat) {
+    const pass = afterPenalty(seat) || penaltyDouble(seat);
+    if (pass) return pass;
     if (calls.some(c => c.seat === 0 && c.call === 'XX') && !placed) {
       const r = afterRedouble(seat, hands[seat]);
       if (r) return r;

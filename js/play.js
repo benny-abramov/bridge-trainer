@@ -249,15 +249,30 @@ const Play = (() => {
 
   // ---------- Scoring (undoubled, from North-South's point of view) ----------
 
+  // Undoubled, doubled (x2) or redoubled (x4), from North-South's point of view.
   function score() {
     const { level, strain } = st.contract;
+    const dbl = st.contract.doubled || 0;
+    const mult = [1, 2, 4][dbl];
     const vul = st.vul.ns;
     const need = level + 6;
     const made = st.tricks[0];
-    if (made < need) return { text: L(`Down ${need - made}`, `נפילה של ${need - made}`), points: -(vul ? 100 : 50) * (need - made) };
+    if (made < need) {
+      const down = need - made;
+      let points;
+      if (!dbl) points = (vul ? 100 : 50) * down;
+      else {
+        // Doubled: 100 then 200 each (300 from the 4th) not vulnerable; 200 then 300 each vulnerable.
+        points = 0;
+        for (let i = 1; i <= down; i++) points += vul ? (i === 1 ? 200 : 300) : (i === 1 ? 100 : i <= 3 ? 200 : 300);
+        points *= dbl;
+      }
+      return { text: L(`Down ${down}`, `נפילה של ${down}`), points: -points };
+    }
     const per = strain === 'C' || strain === 'D' ? 20 : 30;
-    const contractPts = level * per + (strain === 'N' ? 10 : 0);
-    let points = contractPts + (made - need) * per + (contractPts >= 100 ? (vul ? 500 : 300) : 50);
+    const contractPts = (level * per + (strain === 'N' ? 10 : 0)) * mult;
+    const overEach = dbl ? (vul ? 200 : 100) * dbl : per;
+    let points = contractPts + (made - need) * overEach + (contractPts >= 100 ? (vul ? 500 : 300) : 50) + [0, 50, 100][dbl];
     if (level === 6) points += vul ? 750 : 500;
     if (level === 7) points += vul ? 1500 : 1000;
     const over = made - need;
@@ -269,7 +284,7 @@ const Play = (() => {
 
   // ---------- Rendering ----------
 
-  const contractHtml = () => bidHtml(st.contract.level + st.contract.strain);
+  const contractHtml = () => bidHtml(st.contract.level + st.contract.strain) + ['', 'X', 'XX'][st.contract.doubled || 0];
   const SEAT_SHORT = L(['N', 'E', 'S', 'W'], ['צ', 'מז', 'ד', 'מע']);
 
   function roleOf(seat) {
