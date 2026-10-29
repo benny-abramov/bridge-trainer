@@ -1297,7 +1297,7 @@ const FinesseLayouts = (() => {
         'השותף (מערב) מוביל את הרביעי מלמעלה, ה-5, מתוך K-Q-7-5-2. אתם במזרח: אתם זוכים בלקיחה עם האס, ועכשיו ההובלה שלכם.'],
       hands: { n: { S: 'xxx', H: 'xx' }, w: 'KQ752', e: { S: 'Ax', H: 'xxx' }, s: { S: 'Jxx', H: 'AK' } }, you: 'e', lead: ['w', 3],
       cases: [
-        { tricks: 0, play: ['e', 1], title: ["You return partner's suit", 'אתם מחזירים את הסדרה של השותף'],
+        { tricks: 0, play: ['e', [0, 1]], title: ["You return partner's suit", 'אתם מחזירים את הסדרה של השותף'],
           text: ["Your small spade comes through declarer's jack to partner's K-Q, and partner takes the rest of the suit. Switching to hearts would only help declarer, whose A-K win those tricks. Partner may have no other way to get the lead, so your return is what lets the long suit run.",
             'הספייד הקטן שלכם עובר דרך הנסיך של הכרוז אל ה-K-Q של השותף, והשותף לוקח את שאר הסדרה. מעבר להארט רק יעזור לכרוז, שה-A-K שלו זוכים בלקיחות האלה. ייתכן שלשותף אין דרך אחרת לקבל את ההובלה, ולכן ההחזרה שלכם היא מה שמאפשר לסדרה הארוכה לרוץ.'] },
       ],
@@ -1325,7 +1325,7 @@ const FinesseLayouts = (() => {
       const suits = typeof ranks === 'string' ? { S: ranks } : ranks;
       const fan = renderFan(box, Object.entries(suits).flatMap(([suit, r]) => [...r].map(rank => ({ suit, rank }))));
       if (led >= 0) fan.children[led].classList.add('led');
-      if (pick) fan.children[pick.index].classList.add('pick', pick.tone); // the card you play: green right, red wrong
+      if (pick) [].concat(pick.index).forEach(i => fan.children[i].classList.add('pick', pick.tone)); // the cards you play: green right, red wrong
     }
     return box;
   }
