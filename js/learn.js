@@ -205,12 +205,11 @@ const LESSONS_EN = [
   {
     title: 'Opening the bidding',
     body: `
-      <p>The first bid is the <strong>opening bid</strong>. This app teaches a simplified <em>Standard American</em> system. Tap a hand type to see an example:</p>
+      <p>The first bid is the <strong>opening bid</strong>. This app teaches a simplified <em>Standard American</em> system. Open your <strong>longest suit</strong>, but a major (${H} or ${S}) needs at least <strong>5 cards</strong>. Tap a hand type to see an example:</p>
       <table class="tbl">
         <tr><th>Your hand</th><th>Open</th></tr>
         <tr><td><button class="finesse-link" type="button" data-opening="pass">Fewer than 12 HCP (and no long suit)</button></td><td>Pass</td></tr>
         <tr><td><button class="finesse-link" type="button" data-opening="major">12–22 HCP with a 5+ card major</button></td><td>1${H} or 1${S} (longer major; spades with 5${S}-5${H})</td></tr>
-        <tr><td><button class="finesse-link" type="button" data-opening="longminor">12–22 HCP with a minor longer than your 5-card major</button></td><td>1 of the minor: open your longest suit first (1${D} with 6${D}-5${H})</td></tr>
         <tr><td><button class="finesse-link" type="button" data-opening="minor">12–22 HCP, no 5-card major</button></td><td>1${C} or 1${D} (longer minor; 1${C} with 3${C}-3${D}, 1${D} with 4${D}-4${C})</td></tr>
         <tr><td><button class="finesse-link" type="button" data-opening="nt1">15–17 HCP, balanced</button></td><td>1NT</td></tr>
         <tr><td><button class="finesse-link" type="button" data-opening="nt2">20–22 HCP, balanced</button></td><td>2NT</td></tr>
@@ -641,12 +640,11 @@ const LESSONS_HE = [
   {
     title: 'פתיחת המכרז',
     body: `
-      <p>ההכרזה הראשונה היא <strong>הכרזת הפתיחה</strong>. האפליקציה מלמדת גרסה פשוטה של <em>השיטה האמריקאית הסטנדרטית</em>. לחצו על סוג יד כדי לראות דוגמה:</p>
+      <p>ההכרזה הראשונה היא <strong>הכרזת הפתיחה</strong>. האפליקציה מלמדת גרסה פשוטה של <em>השיטה האמריקאית הסטנדרטית</em>. פתחו ב<strong>סדרה הארוכה ביותר</strong> שלכם, אבל סדרת מייגור (${H} או ${S}) דורשת לפחות <strong>5 קלפים</strong>. לחצו על סוג יד כדי לראות דוגמה:</p>
       <table class="tbl">
         <tr><th>היד שלכם</th><th>פתיחה</th></tr>
         <tr><td><button class="finesse-link" type="button" data-opening="pass">פחות מ-12 נק' (ואין סדרה ארוכה)</button></td><td>פאס</td></tr>
         <tr><td><button class="finesse-link" type="button" data-opening="major">12-22 נק' עם סדרת מייגור של 5 קלפים ומעלה</button></td><td>${B('1H')} או ${B('1S')} (סדרת המייגור הארוכה יותר; ספייד עם ${ltr(`5${S}-5${H}`)})</td></tr>
-        <tr><td><button class="finesse-link" type="button" data-opening="longminor">12-22 נק' עם סדרת מיינור ארוכה מסדרת המייגור של 5</button></td><td>1 בסדרת המיינור: פתחו קודם בסדרה הארוכה ביותר (${B('1D')} עם ${ltr(`6${D}-5${H}`)})</td></tr>
         <tr><td><button class="finesse-link" type="button" data-opening="minor">12-22 נק', בלי סדרת מייגור של 5</button></td><td>${B('1C')} או ${B('1D')} (סדרת המיינור הארוכה יותר; ${B('1C')} עם ${ltr(`3${C}-3${D}`)}, ${B('1D')} עם ${ltr(`4${D}-4${C}`)})</td></tr>
         <tr><td><button class="finesse-link" type="button" data-opening="nt1">15-17 נק', מאוזנת</button></td><td>1NT</td></tr>
         <tr><td><button class="finesse-link" type="button" data-opening="nt2">20-22 נק', מאוזנת</button></td><td>2NT</td></tr>
@@ -1169,7 +1167,6 @@ const OpeningExamples = (() => {
   const ROWS = {
     pass: b => b === 'P',
     major: b => b === '1H' || b === '1S',
-    longminor: (b, hand) => isMinor(b) && hasFiveMajor(hand),
     minor: (b, hand) => isMinor(b) && !hasFiveMajor(hand),
     nt1: b => b === '1N',
     nt2: b => b === '2N',
