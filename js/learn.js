@@ -126,6 +126,8 @@ const LESSONS_EN = [
         <li>The <strong>declarer</strong> is whichever player of the winning side first named the contract's strain.</li>
         <li><strong>Double</strong> raises the stakes of the opponents' last bid; <strong>Redouble</strong> raises them again.</li>
       </ul>
+      <p>Here is a whole auction:</p>
+      <div class="auction-picture"></div>
       <div class="auction-demo"></div>`,
   },
   {
@@ -560,6 +562,8 @@ const LESSONS_HE = [
         <li><strong>הכרוז</strong> הוא השחקן מהצד הזוכה שהיה הראשון להכריז את סוג ההכרזה של החוזה.</li>
         <li><strong>דאבל</strong> מעלה את הסיכון בהכרזה האחרונה של היריבים; <strong>רידאבל</strong> מעלה אותו שוב.</li>
       </ul>
+      <p>כך נראה מכרז שלם:</p>
+      <div class="auction-picture"></div>
       <div class="auction-demo"></div>`,
   },
   {
@@ -1385,6 +1389,48 @@ const TrickPicture = (() => {
   return { mount };
 })();
 
+// The whole auction shown in "The auction" lesson: a bidding box with the dealer underlined, the
+// final contract highlighted, the closing passes outlined, and numbered notes beside it.
+const AuctionPicture = (() => {
+  const COLUMNS = [3, 0, 1, 2]; // West, North, East, South
+  const DEALER = 2; // South
+  const CALLS = ['1H', '1S', '2H', 'P', '4H', 'P', 'P', 'P'];
+
+  function mount(box) {
+    const final = CALLS.reduce((j, c, i) => (/^\d/.test(c) ? i : j), -1);
+    const cells = Array(COLUMNS.indexOf(DEALER)).fill('<td></td>');
+    CALLS.forEach((c, i) => {
+      const cls = i === final ? 'final' : i > final ? 'closing' : '';
+      const mark = i === 0 ? 1 : i === final ? 3 : i === CALLS.length - 1 ? 4 : null;
+      cells.push(`<td class="${cls}">${bidHtml(c)}${mark ? `<span class="ap-num">${mark}</span>` : ''}</td>`);
+    });
+    while (cells.length % 4) cells.push('<td></td>');
+    const rows = [];
+    for (let i = 0; i < cells.length; i += 4) rows.push(`<tr>${cells.slice(i, i + 4).join('')}</tr>`);
+    const notes = L([
+      `South is the <strong>dealer</strong> (underlined), so South calls first and opens ${bidHtml('1H')}.`,
+      `Every bid is higher than the one before: ${bidHtml('1H')}, ${bidHtml('1S')}, ${bidHtml('2H')}, ${bidHtml('4H')}. A pass is always allowed.`,
+      `${bidHtml('4H')} is the last bid, so it becomes the <strong>contract</strong>: North-South must take 10 tricks with hearts as trumps.`,
+      `<strong>Three passes</strong> in a row end the auction. South is the <strong>declarer</strong>: the first of North-South to bid hearts.`,
+    ], [
+      `דרום הוא <strong>המחלק</strong> (מסומן בקו), ולכן דרום מכריז ראשון ופותח ${bidHtml('1H')}.`,
+      `כל הכרזה גבוהה מקודמתה: ${bidHtml('1H')}, ${bidHtml('1S')}, ${bidHtml('2H')}, ${bidHtml('4H')}. פאס מותר תמיד.`,
+      `${bidHtml('4H')} היא ההכרזה האחרונה, ולכן היא <strong>החוזה</strong>: צפון-דרום צריכים לקחת 10 לקיחות עם הארט כשליט.`,
+      `<strong>שלושה פאסים</strong> ברצף מסיימים את המכרז. דרום הוא <strong>הכרוז</strong>: הראשון מצפון-דרום שהכריז הארט.`,
+    ]);
+    box.innerHTML = `
+      <div class="ap-wrap">
+        <table class="bid-box ap-box">
+          <tr>${COLUMNS.map(s => `<th class="${s === DEALER ? 'dealer' : ''}">${SEAT_NAMES[s]}</th>`).join('')}</tr>
+          ${rows.join('')}
+        </table>
+        <ol class="ap-notes">${notes.map(n => `<li>${n}</li>`).join('')}</ol>
+      </div>`;
+  }
+
+  return { mount };
+})();
+
 // The balanced and unbalanced hands in the point-counting lesson. Each caption's shape, points and
 // reason are worked out from the cards.
 const ShapeExamples = (() => {
@@ -1940,6 +1986,7 @@ const Learn = (() => {
     document.querySelectorAll('#lesson-body .score-demo').forEach(ScoreDemo.mount);
     document.querySelectorAll('#lesson-body .shape-examples').forEach(ShapeExamples.mount);
     document.querySelectorAll('#lesson-body .roles-demo').forEach(RolesDemo.mount);
+    document.querySelectorAll('#lesson-body .auction-picture').forEach(AuctionPicture.mount);
     document.querySelectorAll('#lesson-body .trick-picture').forEach(TrickPicture.mount);
     document.querySelectorAll('#lesson-body [data-opening]').forEach(b => b.addEventListener('click', () => OpeningExamples.show(b.dataset.opening, b.innerHTML)));
     document.querySelectorAll('#lesson-body [data-finesse]').forEach(b => b.addEventListener('click', () => FinesseLayouts.show(b.dataset.finesse)));

@@ -524,6 +524,16 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 .bid-box { border-collapse: separate; border-spacing: 3px; background: rgba(0, 0, 0, .22); border-radius: 10px; padding: 3px; font-size: .85rem; }
 .bid-box th { color: var(--felt-text); font-weight: 600; font-size: .75rem; padding: .2rem .35rem; min-width: 2.9rem; }
 .bid-box th.dealer { text-decoration: underline; text-underline-offset: 3px; }
+/* The whole auction in "The auction" lesson: the box on the felt with numbered notes beside it. */
+.ap-wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.4rem; margin: .4rem 0 1rem; }
+.ap-box { background: var(--felt); padding: 6px; font-size: .95rem; border-spacing: 4px; direction: ltr; }
+.ap-box th { min-width: 3.4rem; }
+.ap-box td { position: relative; height: 2rem; }
+.ap-box td.final { background: var(--hint); color: #1a1a1a; font-weight: 700; --red-suit: #c62828; --diamond-suit: #d35400; --club-suit: #0f6a2c; }
+.ap-box td.closing { box-shadow: inset 0 0 0 2px #9cc7ff; }
+.ap-num { position: absolute; top: -7px; right: -7px; width: 16px; height: 16px; border-radius: 50%; background: #1a1a1a; color: #fff; font-size: 10px; font-weight: 700; line-height: 16px; text-align: center; box-shadow: 0 0 0 2px #fff; }
+.ap-notes { flex: 1 1 16rem; margin: 0; padding-inline-start: 1.3rem; }
+.ap-notes li { margin: .25rem 0; }
 .bid-box td { background: var(--surface); color: var(--text); border-radius: 6px; height: 1.7rem; padding: 0 .3rem; text-align: center; white-space: nowrap; }
 .bid-box td:empty { background: transparent; }
 .bid-box td.latest { box-shadow: 0 0 0 2px var(--hint); font-weight: 700; }
