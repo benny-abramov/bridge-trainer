@@ -205,7 +205,9 @@ const LESSONS_EN = [
   {
     title: 'Opening the bidding',
     body: `
-      <p>The first bid is the <strong>opening bid</strong>. This app teaches a simplified <em>Standard American</em> system. Open your <strong>longest suit</strong>, but a major (${H} or ${S}) needs at least <strong>5 cards</strong>. Tap a hand type to see an example:</p>
+      <p>The first bid is the <strong>opening bid</strong>. This app teaches a simplified <em>Standard American</em> system. Open your <strong>longest suit</strong>, but a major (${H} or ${S}) needs at least <strong>5 cards</strong>.</p>
+      <p>Because a major needs 5 cards, you will often hold a hand whose longest suit is a 4-card major (which you cannot open), or a balanced hand. Then you open a <strong>minor</strong> (${C} or ${D}), even if it is only 3 cards long.</p>
+      <p>Tap a hand type to see an example:</p>
       <table class="tbl">
         <tr><th>Your hand</th><th>Open</th></tr>
         <tr><td><button class="finesse-link" type="button" data-opening="pass">Fewer than 12 HCP (and no long suit)</button></td><td>Pass</td></tr>
@@ -640,7 +642,9 @@ const LESSONS_HE = [
   {
     title: 'פתיחת המכרז',
     body: `
-      <p>ההכרזה הראשונה היא <strong>הכרזת הפתיחה</strong>. האפליקציה מלמדת גרסה פשוטה של <em>השיטה האמריקאית הסטנדרטית</em>. פתחו ב<strong>סדרה הארוכה ביותר</strong> שלכם, אבל סדרת מייגור (${H} או ${S}) דורשת לפחות <strong>5 קלפים</strong>. לחצו על סוג יד כדי לראות דוגמה:</p>
+      <p>ההכרזה הראשונה היא <strong>הכרזת הפתיחה</strong>. האפליקציה מלמדת גרסה פשוטה של <em>השיטה האמריקאית הסטנדרטית</em>. פתחו ב<strong>סדרה הארוכה ביותר</strong> שלכם, אבל סדרת מייגור (${H} או ${S}) דורשת לפחות <strong>5 קלפים</strong>.</p>
+      <p>מכיוון שמייגור דורש 5 קלפים, לעתים קרובות תחזיקו יד שהסדרה הארוכה ביותר בה היא מייגור של 4 קלפים (שבו אי אפשר לפתוח), או יד מאוזנת. אז פותחים ב<strong>מיינור</strong> (${C} או ${D}), גם אם יש בו רק 3 קלפים.</p>
+      <p>לחצו על סוג יד כדי לראות דוגמה:</p>
       <table class="tbl">
         <tr><th>היד שלכם</th><th>פתיחה</th></tr>
         <tr><td><button class="finesse-link" type="button" data-opening="pass">פחות מ-12 נק' (ואין סדרה ארוכה)</button></td><td>פאס</td></tr>
