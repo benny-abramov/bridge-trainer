@@ -202,6 +202,7 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 .tbl { border-collapse: collapse; margin: .75rem 0; width: 100%; max-width: 560px; }
 .tbl th, .tbl td { border: 1px solid var(--border); padding: .4rem .65rem; text-align: start; }
 .tbl th { background: var(--accent-soft); font-weight: 600; }
+.holding { white-space: nowrap; } /* a card holding such as 9-7-5-2 stays on one line */
 .finesse-link { font: inherit; font-weight: 600; text-align: start; padding: 0; border: 0; background: none; color: var(--accent); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
 .finesse-dialog { width: min(760px, calc(100% - 32px)); max-height: calc(100% - 32px); box-sizing: border-box; padding: 1rem 1.2rem; border: 1px solid var(--border); border-radius: 14px; background: var(--surface); color: var(--text); text-align: center; }
 .finesse-dialog::backdrop { background: rgba(0, 0, 0, .55); }

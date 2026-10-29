@@ -407,22 +407,22 @@ const LESSONS_EN = [
       <p><strong>Against no-trump</strong>, set up your long suit. A suit with a sequence comes first:</p>
       <table class="tbl">
         <tr><th>Holding</th><th>Lead</th></tr>
-        <tr><td>Three touching honors: K-Q-J, Q-J-10, J-10-9</td><td>The top one</td></tr>
-        <tr><td>Broken sequence ("2½" honors): K-Q-10, Q-J-9, J-10-8</td><td>The top one</td></tr>
-        <tr><td>Interior sequence: A-J-10, K-J-10</td><td>The <strong>J</strong></td></tr>
-        <tr><td>Interior sequence: K-10-9, Q-10-9</td><td>The <strong>10</strong></td></tr>
-        <tr><td>No sequence: your longest, strongest suit, K-J-7-4-2</td><td>Fourth best: <strong>4</strong></td></tr>
+        <tr><td>Three touching honors: <span class="holding"><strong>K</strong>-Q-J</span>, <span class="holding"><strong>Q</strong>-J-10</span>, <span class="holding"><strong>J</strong>-10-9</span></td><td>The top one</td></tr>
+        <tr><td>Broken sequence ("2½" honors): <span class="holding"><strong>K</strong>-Q-10</span>, <span class="holding"><strong>Q</strong>-J-9</span>, <span class="holding"><strong>J</strong>-10-8</span></td><td>The top one</td></tr>
+        <tr><td>Interior sequence: <span class="holding">A-<strong>J</strong>-10</span>, <span class="holding">K-<strong>J</strong>-10</span></td><td>The <strong>J</strong></td></tr>
+        <tr><td>Interior sequence: <span class="holding">K-<strong>10</strong>-9</span>, <span class="holding">Q-<strong>10</strong>-9</span></td><td>The <strong>10</strong></td></tr>
+        <tr><td>No sequence: your longest, strongest suit, <span class="holding">K-J-7-<strong>4</strong>-2</span></td><td>Fourth best: <strong>4</strong></td></tr>
       </table>
       <p><strong>Against a suit contract</strong>, take your tricks quickly and look for ruffs. In order of preference:</p>
       <table class="tbl">
         <tr><th>Holding</th><th>Lead</th></tr>
-        <tr><td>A-K-x</td><td>The <strong>A</strong></td></tr>
-        <tr><td>Touching honors: K-Q-x, Q-J-x, J-10-x</td><td>The top one</td></tr>
+        <tr><td><strong>A</strong>-K-x</td><td>The <strong>A</strong></td></tr>
+        <tr><td>Touching honors: <span class="holding"><strong>K</strong>-Q-x</span>, <span class="holding"><strong>Q</strong>-J-x</span>, <span class="holding"><strong>J</strong>-10-x</span></td><td>The top one</td></tr>
         <tr><td>A small singleton (with trumps to ruff)</td><td>The singleton</td></tr>
-        <tr><td>A small doubleton: 7-3</td><td>The top: <strong>7</strong></td></tr>
-        <tr><td>An honor and 3+ cards: K-9-6-3</td><td>Fourth best: <strong>3</strong> (low from K-9-3)</td></tr>
-        <tr><td>Three small cards: 8-6-2</td><td>The top, "top of nothing": <strong>8</strong></td></tr>
-        <tr><td>Four or more small cards: 9-7-5-2</td><td>Second highest: <strong>7</strong></td></tr>
+        <tr><td>A small doubleton: <span class="holding"><strong>7</strong>-3</span></td><td>The top: <strong>7</strong></td></tr>
+        <tr><td>An honor and 3+ cards: <span class="holding">K-9-6-<strong>3</strong></span></td><td>Fourth best: <strong>3</strong> (low from <span class="holding">K-9-<strong>3</strong></span>)</td></tr>
+        <tr><td>Three small cards: <span class="holding"><strong>8</strong>-6-2</span></td><td>The top, "top of nothing": <strong>8</strong></td></tr>
+        <tr><td>Four or more small cards: <span class="holding">9-<strong>7</strong>-5-2</span></td><td>Second highest: <strong>7</strong></td></tr>
       </table>
       <p><strong>Avoid</strong> leading low from a suit headed by the ace against a suit contract, because declarer may win a cheap king and then ruff your ace. Also avoid leading from a doubleton honor such as K-x.
       When every lead looks dangerous, a small trump is often safe.</p>
@@ -844,22 +844,22 @@ const LESSONS_HE = [
       <p><strong>נגד ללא שליט</strong>, פתחו את הסדרה הארוכה שלכם. סדרה עם רצף קודמת:</p>
       <table class="tbl">
         <tr><th>החזקה</th><th>הובלה</th></tr>
-        <tr><td>שלושה הונורים צמודים: K-Q-J, Q-J-10, J-10-9</td><td>העליון</td></tr>
-        <tr><td>רצף שבור ("<bdi dir="ltr">2½</bdi>" הונורים): K-Q-10, Q-J-9, J-10-8</td><td>העליון</td></tr>
-        <tr><td>רצף פנימי: A-J-10, K-J-10</td><td>ה-<strong>J</strong></td></tr>
-        <tr><td>רצף פנימי: K-10-9, Q-10-9</td><td>ה-<strong>10</strong></td></tr>
-        <tr><td>בלי רצף: הסדרה הארוכה והחזקה ביותר, K-J-7-4-2</td><td>הרביעי מלמעלה: <strong>4</strong></td></tr>
+        <tr><td>שלושה הונורים צמודים: <bdi dir="ltr" class="holding"><strong>K</strong>-Q-J</bdi>, <bdi dir="ltr" class="holding"><strong>Q</strong>-J-10</bdi>, <bdi dir="ltr" class="holding"><strong>J</strong>-10-9</bdi></td><td>העליון</td></tr>
+        <tr><td>רצף שבור ("<bdi dir="ltr">2½</bdi>" הונורים): <bdi dir="ltr" class="holding"><strong>K</strong>-Q-10</bdi>, <bdi dir="ltr" class="holding"><strong>Q</strong>-J-9</bdi>, <bdi dir="ltr" class="holding"><strong>J</strong>-10-8</bdi></td><td>העליון</td></tr>
+        <tr><td>רצף פנימי: <bdi dir="ltr" class="holding">A-<strong>J</strong>-10</bdi>, <bdi dir="ltr" class="holding">K-<strong>J</strong>-10</bdi></td><td>ה-<strong>J</strong></td></tr>
+        <tr><td>רצף פנימי: <bdi dir="ltr" class="holding">K-<strong>10</strong>-9</bdi>, <bdi dir="ltr" class="holding">Q-<strong>10</strong>-9</bdi></td><td>ה-<strong>10</strong></td></tr>
+        <tr><td>בלי רצף: הסדרה הארוכה והחזקה ביותר, <bdi dir="ltr" class="holding">K-J-7-<strong>4</strong>-2</bdi></td><td>הרביעי מלמעלה: <strong>4</strong></td></tr>
       </table>
       <p><strong>נגד חוזה בשליט</strong>, קחו את הלקיחות שלכם מהר וחפשו חיתוכים. לפי סדר עדיפות:</p>
       <table class="tbl">
         <tr><th>החזקה</th><th>הובלה</th></tr>
-        <tr><td>A-K-x</td><td>ה-<strong>A</strong></td></tr>
-        <tr><td>הונורים צמודים: K-Q-x, Q-J-x, J-10-x</td><td>העליון</td></tr>
+        <tr><td><bdi dir="ltr" class="holding"><strong>A</strong>-K-x</bdi></td><td>ה-<strong>A</strong></td></tr>
+        <tr><td>הונורים צמודים: <bdi dir="ltr" class="holding"><strong>K</strong>-Q-x</bdi>, <bdi dir="ltr" class="holding"><strong>Q</strong>-J-x</bdi>, <bdi dir="ltr" class="holding"><strong>J</strong>-10-x</bdi></td><td>העליון</td></tr>
         <tr><td>סינגלטון קטן (עם שליטים לחיתוך)</td><td>הסינגלטון</td></tr>
-        <tr><td>דאבלטון קטן: 7-3</td><td>העליון: <strong>7</strong></td></tr>
-        <tr><td>הונור ו-3 קלפים ומעלה: K-9-6-3</td><td>הרביעי מלמעלה: <strong>3</strong> (הנמוך מתוך K-9-3)</td></tr>
-        <tr><td>שלושה קלפים קטנים: 8-6-2</td><td>העליון, "עליון מכלום": <strong>8</strong></td></tr>
-        <tr><td>ארבעה קלפים קטנים ומעלה: 9-7-5-2</td><td>השני מלמעלה: <strong>7</strong></td></tr>
+        <tr><td>דאבלטון קטן: <bdi dir="ltr" class="holding"><strong>7</strong>-3</bdi></td><td>העליון: <strong>7</strong></td></tr>
+        <tr><td>הונור ו-3 קלפים ומעלה: <bdi dir="ltr" class="holding">K-9-6-<strong>3</strong></bdi></td><td>הרביעי מלמעלה: <strong>3</strong> (הנמוך מתוך <bdi dir="ltr" class="holding">K-9-<strong>3</strong></bdi>)</td></tr>
+        <tr><td>שלושה קלפים קטנים: <bdi dir="ltr" class="holding"><strong>8</strong>-6-2</bdi></td><td>העליון, "עליון מכלום": <strong>8</strong></td></tr>
+        <tr><td>ארבעה קלפים קטנים ומעלה: <bdi dir="ltr" class="holding">9-<strong>7</strong>-5-2</bdi></td><td>השני מלמעלה: <strong>7</strong></td></tr>
       </table>
       <p><strong>הימנעו</strong> מהובלה נמוכה מסדרה שבראשה אס נגד חוזה בשליט: הכרוז עשוי לזכות במלך בזול ואחר כך לחתוך את האס שלכם. הימנעו גם מהובלה מדאבלטון עם הונור, כמו K-x.
       כשכל הובלה נראית מסוכנת, שליט קטן הוא לעיתים קרובות הובלה בטוחה.</p>
