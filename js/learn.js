@@ -260,7 +260,7 @@ const LESSONS_EN = [
       <table class="tbl">
         <tr><th>Partner's bid</th><th>Minimum</th><th>Medium</th><th>Maximum</th></tr>
         <tr><td>Simple raise (6–10)</td><td>Pass</td><td>Raise again to invite</td><td>Bid game</td></tr>
-        <tr><td>Limit raise (11–12)</td><td>Pass</td><td>Bid game</td><td>Bid game</td></tr>
+        <tr><td>Limit raise (11–12)</td><td>Pass with 12–13, bid game with 14</td><td>Bid game</td><td>Bid game</td></tr>
       </table>
       <p>Game in a major is 4${H}/4${S}. With a minor-suit fit, 3NT is usually easier than 5${C}/5${D}.</p>
       <p><strong>When partner bids a new suit at the 1-level</strong>, you must bid again. Choose the first of these that fits:</p>
@@ -446,6 +446,12 @@ const LESSONS_EN = [
         <li><strong>Compare with the target</strong>: how many more tricks do you need?</li>
         <li><strong>Choose how to find them</strong>, using the techniques below.</li>
       </ol>
+      <h3>Drawing trumps</h3>
+      <ul>
+        <li>In a trump contract the defenders' trumps are a danger: they can <strong>ruff your winners</strong>. <em>Drawing trumps</em> means leading trumps until the defenders have none left, so your winners in the other suits are safe.</li>
+        <li><strong>Count the defenders' trumps.</strong> With eight trumps between your hand and dummy, they hold five. Watch them follow, and stop once they're all gone: don't waste trumps you may need later.</li>
+        <li><strong>Draw trumps early</strong>, before cashing winners in the side suits, unless you need dummy's trumps for ruffing (see below) or must first get rid of a fast loser.</li>
+      </ul>
       <h3>Developing suits</h3>
       <ul>
         <li><strong>Promotion:</strong> with K-Q-J, give up one trick to the ace and the other two cards become winners.</li>
@@ -691,7 +697,7 @@ const LESSONS_HE = [
       <table class="tbl">
         <tr><th>ההכרזה של השותף</th><th>מינימום</th><th>בינוני</th><th>מקסימום</th></tr>
         <tr><td>תמיכה פשוטה (6-10)</td><td>פאס</td><td>תמיכה נוספת כהזמנה</td><td>משחק מלא</td></tr>
-        <tr><td>תמיכה בקפיצה (11-12)</td><td>פאס</td><td>משחק מלא</td><td>משחק מלא</td></tr>
+        <tr><td>תמיכה בקפיצה (11-12)</td><td>פאס עם 12-13, משחק מלא עם 14</td><td>משחק מלא</td><td>משחק מלא</td></tr>
       </table>
       <p>משחק מלא בסדרת מייגור הוא ${B('4H')} או ${B('4S')}. עם התאמה בסדרת מיינור, 3NT בדרך כלל קל יותר מ-${B('5C')} או ${B('5D')}.</p>
       <p><strong>כשהשותף מכריז סדרה חדשה ברמת 1</strong>, חובה להכריז שוב. בחרו את הראשונה שמתאימה:</p>
@@ -877,6 +883,12 @@ const LESSONS_HE = [
         <li><strong>השוו ליעד</strong>: כמה לקיחות עוד חסרות?</li>
         <li><strong>בחרו איך להשיג אותן</strong>, בעזרת הטכניקות שלמטה.</li>
       </ol>
+      <h3>הוצאת שליטים</h3>
+      <ul>
+        <li>בחוזה שליט, השליטים של המגינים מסוכנים: הם יכולים <strong>לחתוך את הזוכים שלכם</strong>. <em>הוצאת שליטים</em> פירושה להוביל שליטים עד שלמגינים לא נשאר אף שליט, וכך הזוכים שלכם בסדרות האחרות בטוחים.</li>
+        <li><strong>ספרו את השליטים של המגינים.</strong> עם שמונה שליטים ביד שלכם ובדומם, למגינים יש חמישה. עקבו אחריהם כשהם משרתים, ועצרו כשכולם יצאו: אל תבזבזו שליטים שאולי תצטרכו בהמשך.</li>
+        <li><strong>הוציאו שליטים מוקדם</strong>, לפני שאתם לוקחים זוכים בסדרות הצד, אלא אם אתם צריכים את השליטים של הדומם לחיתוך (ראו בהמשך) או שקודם צריך להיפטר ממפסיד מהיר.</li>
+      </ul>
       <h3>פיתוח סדרות</h3>
       <ul>
         <li><strong>קידום:</strong> עם K-Q-J, מוסרים לקיחה אחת לאס, ושני הקלפים האחרים הופכים לזוכים.</li>

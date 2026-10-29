@@ -422,9 +422,14 @@ function rebidBid(hand, open, resp) {
         `${you}. Even opposite 6 points you have enough for game: bid ${bh(game)}.${minorGame}`,
         `${you}. גם מול 6 נקודות יש לכם מספיק למשחק מלא: הכריזו ${bh(game)}.${minorGame}`) };
     }
-    if (str === 'min') return { bid: 'P', why: L(
-      `${you}. Partner's limit raise invites game. With a minimum, decline by passing.`,
-      `${you}. התמיכה בקפיצה של השותף מזמינה למשחק מלא. עם מינימום, דחו את ההזמנה בפאס.`) };
+    // A limit raise (11–12) invites game: decline only at the bottom of a minimum (12–13).
+    const total = lengthPoints(hand);
+    if (total <= 13) return { bid: 'P', why: L(
+      `${you}. Partner's limit raise invites game. With the bottom of a minimum, decline by passing.`,
+      `${you}. התמיכה בקפיצה של השותף מזמינה למשחק מלא. עם תחתית המינימום, דחו את ההזמנה בפאס.`) };
+    if (str === 'min') return { bid: game, why: L(
+      `${you}, the top of a minimum. Partner's limit raise shows 11–12, so ${total} is enough to accept: bid ${bh(game)}.${minorGame}`,
+      `${you}, ראש המינימום. התמיכה בקפיצה של השותף מראה 11-12, כך ש-${total} מספיקות כדי לקבל: הכריזו ${bh(game)}.${minorGame}`) };
     return { bid: game, why: L(
       `${you}. That's more than a minimum, so accept partner's invitation and bid game: ${bh(game)}.${minorGame}`,
       `${you}. זה יותר ממינימום, ולכן קבלו את ההזמנה של השותף והכריזו משחק מלא: ${bh(game)}.${minorGame}`) };
