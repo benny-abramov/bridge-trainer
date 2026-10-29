@@ -361,7 +361,7 @@ const LESSONS_EN = [
         <li><strong>Puppet Stayman (3${C})</strong>: with game values and a 3- or 4-card major, ask partner for a 4- or 5-card major. Partner bids 3${H} or 3${S} with five cards, 3${D} with a 4-card major, or 3NT with neither.
           After 3${D}, bid the major you <em>don't</em> have (3${H} shows four spades, 3${S} shows four hearts), so the strong hand plays the contract.</li>
         <li><strong>Jacoby transfers (2${D}, 2${H}, 4${D}, 4${H})</strong>: with 5+ cards in a major, bid the suit just below it. Partner must bid your major. Use them with any strength.
-          With a 6+ card major and enough for game, transfer at the 4-level: <strong>4${D}</strong> asks partner to bid 4${H}, and <strong>4${H}</strong> asks for 4${S}.
+          With a 6+ card major and enough for game, transfer at the 4-level (<strong>Texas transfers</strong>): <strong>4${D}</strong> asks partner to bid 4${H}, and <strong>4${H}</strong> asks for 4${S}.
           <details class="why-more">
             <summary class="btn secondary">💡 Why use transfers?</summary>
             <div class="why-body">
@@ -373,7 +373,7 @@ const LESSONS_EN = [
                 <li><strong>Invitational (8–9 HCP):</strong> transfer, then 2NT with five cards or 3 of the major with six. Partner goes to game with a maximum.</li>
                 <li><strong>Game (10+ HCP):</strong> transfer, then 3NT with five cards (partner chooses 3NT or 4 of the major) or 4 of the major with six.</li>
               </ul>
-              <p><strong>4-level transfers</strong> (4${D}, 4${H}) are for a 6+ card major, game values and no interest in slam. With slam interest, start with
+              <p><strong>4-level transfers</strong> (<strong>Texas transfers</strong>, 4${D} and 4${H}) are for a 6+ card major, game values and no interest in slam. With slam interest, start with
               a 2-level transfer and bid again after it.</p>
             </div>
           </details></li>
@@ -384,7 +384,7 @@ const LESSONS_EN = [
       <ul>
         <li><strong>Stayman (3${C})</strong>: with 4+ HCP and a 4-card major, ask for partner's 4-card major: 3${H}, 3${S}, or 3${D} with neither. Many pairs play 3${C} as <strong>Puppet Stayman</strong>, which also finds a 5-card major.</li>
         <li><strong>Jacoby transfers (3${D}, 3${H}, 4${D}, 4${H})</strong>: with 5+ cards in a major, bid 3${D} or 3${H} and partner bids 3${H} or 3${S}. With five, then bid 3NT and let partner choose; with six, raise to game.
-          With a 6+ card major you can also transfer at the 4-level: <strong>4${D}</strong> asks partner to bid 4${H}, and <strong>4${H}</strong> asks for 4${S}.</li>
+          With a 6+ card major you can also transfer at the 4-level (<strong>Texas transfers</strong>): <strong>4${D}</strong> asks partner to bid 4${H}, and <strong>4${H}</strong> asks for 4${S}.</li>
         <li><strong>3NT</strong>: to play, with 4–10 HCP and no major to show. <strong>4${C}</strong> is Gerber, asking for aces.</li>
       </ul>
 
@@ -830,7 +830,7 @@ const LESSONS_HE = [
         <li><strong>פאפט סטיימן (${B('3C')})</strong>: עם כוח למשחק מלא וסדרת מייגור של 3 או 4 קלפים, שאלו את השותף אם יש לו סדרת מייגור של 4 או 5. השותף מכריז ${B('3H')} או ${B('3S')} עם חמישה קלפים, ${B('3D')} עם מייגור של 4, או 3NT בלי.
           אחרי ${B('3D')}, הכריזו את המייגור <em>שאין</em> לכם (${B('3H')} מראה ארבעה ספייד, ${B('3S')} מראה ארבעה הארט), כדי שהיד החזקה תשחק את החוזה.</li>
         <li><strong>טרנספר ג'ייקובי (${B('2D')}, ${B('2H')}, ${B('4D')}, ${B('4H')})</strong>: עם 5 קלפים ומעלה בסדרת מייגור, הכריזו את הסדרה שמתחתיה. השותף חייב להכריז את הסדרה שלכם. משתמשים בו עם כל כוח.
-          עם מייגור של 6 קלפים ומעלה וכוח למשחק מלא, הכריזו טרנספר ברמת 4: <strong>${B('4D')}</strong> מבקש מהשותף להכריז ${B('4H')}, ו-<strong>${B('4H')}</strong> מבקש ${B('4S')}.
+          עם מייגור של 6 קלפים ומעלה וכוח למשחק מלא, הכריזו טרנספר ברמת 4 (<strong>טרנספר טקסס</strong>): <strong>${B('4D')}</strong> מבקש מהשותף להכריז ${B('4H')}, ו-<strong>${B('4H')}</strong> מבקש ${B('4S')}.
           <details class="why-more">
             <summary class="btn secondary">💡 למה להשתמש בטרנספר?</summary>
             <div class="why-body">
@@ -842,7 +842,7 @@ const LESSONS_HE = [
                 <li><strong>מזמינה (8-9 נק'):</strong> טרנספר ואחר כך 2NT עם חמישה קלפים, או 3 בסדרת המייגור עם שישה. השותף עולה למשחק מלא עם מקסימום.</li>
                 <li><strong>משחק מלא (10 נק' ומעלה):</strong> טרנספר ואחר כך 3NT עם חמישה קלפים (השותף בוחר בין 3NT ל-4 במייגור), או 4 במייגור עם שישה.</li>
               </ul>
-              <p><strong>טרנספר ברמת 4</strong> (${B('4D')}, ${B('4H')}) מתאים למייגור של 6 קלפים ומעלה, כוח למשחק מלא ובלי עניין בסלאם. עם עניין בסלאם, התחילו
+              <p><strong>טרנספר ברמת 4</strong> (<strong>טרנספר טקסס</strong>, ${B('4D')} ו-${B('4H')}) מתאים למייגור של 6 קלפים ומעלה, כוח למשחק מלא ובלי עניין בסלאם. עם עניין בסלאם, התחילו
               בטרנספר ברמת 2 והכריזו שוב אחריו.</p>
             </div>
           </details></li>
@@ -853,7 +853,7 @@ const LESSONS_HE = [
       <ul>
         <li><strong>סטיימן (${B('3C')})</strong>: עם 4 נק' ומעלה וסדרת מייגור של 4 קלפים, שאלו על סדרת מייגור של 4 אצל השותף: ${B('3H')}, ${B('3S')}, או ${B('3D')} בלי. זוגות רבים משחקים את ${B('3C')} כ<strong>פאפט סטיימן</strong>, שמוצא גם סדרת מייגור של 5.</li>
         <li><strong>טרנספר ג'ייקובי (${B('3D')}, ${B('3H')}, ${B('4D')}, ${B('4H')})</strong>: עם 5 קלפים ומעלה בסדרת מייגור, הכריזו ${B('3D')} או ${B('3H')} והשותף מכריז ${B('3H')} או ${B('3S')}. עם חמישה, הכריזו אחר כך 3NT ותנו לשותף לבחור; עם שישה, העלו למשחק מלא.
-          עם מייגור של 6 קלפים ומעלה אפשר גם טרנספר ברמת 4: <strong>${B('4D')}</strong> מבקש מהשותף להכריז ${B('4H')}, ו-<strong>${B('4H')}</strong> מבקש ${B('4S')}.</li>
+          עם מייגור של 6 קלפים ומעלה אפשר גם טרנספר ברמת 4 (<strong>טרנספר טקסס</strong>): <strong>${B('4D')}</strong> מבקש מהשותף להכריז ${B('4H')}, ו-<strong>${B('4H')}</strong> מבקש ${B('4S')}.</li>
         <li><strong>3NT</strong>: לשחק, עם 4-10 נק' ובלי מייגור להראות. <strong>${B('4C')}</strong> הוא גרבר, ששואל על אסים.</li>
       </ul>
 
