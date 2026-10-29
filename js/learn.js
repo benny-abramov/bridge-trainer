@@ -1385,8 +1385,8 @@ const TrickPicture = (() => {
     if (why) box.insertAdjacentHTML('beforeend', `<p class="tp-why">${why}</p>`);
     const button = document.createElement('button');
     button.type = 'button';
-    button.className = 'btn secondary tp-random';
-    button.textContent = L('Random trick', 'לקיחה אקראית');
+    button.className = 'btn tp-random';
+    button.textContent = '🎲 ' + L('Random trick', 'לקיחה אקראית');
     button.addEventListener('click', () => {
       // The lesson's own explanation fits only the first trick.
       const own = box.parentElement && box.parentElement.querySelector(':scope > p.small');
@@ -1510,7 +1510,7 @@ const AuctionPicture = (() => {
         </table>
         <ol class="ap-notes">${notesFor(auction).map(n => `<li>${n}</li>`).join('')}</ol>
       </div>
-      <button class="btn secondary ap-random" type="button">${L('Random auction', 'מכרז אקראי')}</button>`;
+      <button class="btn ap-random" type="button">🎲 ${L('Random auction', 'מכרז אקראי')}</button>`;
     box.querySelector('.ap-random').addEventListener('click', () => render(box, randomAuction()));
   }
 
