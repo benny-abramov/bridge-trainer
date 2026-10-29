@@ -251,7 +251,14 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 .trick-row span { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: .2rem .55rem; }
 .trick-row .win { border-color: var(--good); color: var(--good); font-weight: 700; }
 /* A finished trick on a small table (Tricks and Trumps lessons). */
-.trick-picture-table { --cw: 46px; direction: ltr; display: grid; grid-template-areas: ". n ." "w . e" ". s ."; grid-template-columns: 1fr auto 1fr; align-items: center; justify-items: center; gap: .2rem .6rem; max-width: 420px; margin: .4rem auto .6rem; padding: .7rem; border-radius: 16px; background: radial-gradient(ellipse at center, var(--felt) 55%, var(--felt-edge)); color: var(--felt-text); box-shadow: inset 0 0 0 6px rgba(120, 86, 54, .55); }
+/* A table seen in perspective: a trapezoid (narrower at the far side) with a wooden rim and the
+   cloth inside, behind upright cards and labels. */
+.trick-picture-table { --cw: 48px; position: relative; isolation: isolate; direction: ltr; display: grid; grid-template-areas: ". n ." "w . e" ". s ."; grid-template-columns: 1fr auto 1fr; align-items: center; justify-items: center; gap: .1rem .8rem; max-width: 460px; margin: .6rem auto 1rem; padding: 1.1rem 2.2rem 1.4rem; color: var(--felt-text); filter: drop-shadow(0 10px 12px rgba(0, 0, 0, .35)); }
+.trick-picture-table::before, .trick-picture-table::after { content: ''; position: absolute; z-index: -1; clip-path: polygon(9% 0, 91% 0, 100% 100%, 0 100%); }
+.trick-picture-table::before { inset: 0; background: linear-gradient(#b07a48, #7a4a26); }
+.trick-picture-table::after { inset: 11px 13px 13px; background: radial-gradient(ellipse at 50% 55%, #2f8a5c 0%, var(--felt) 55%, var(--felt-edge) 100%); }
+.trick-picture-table .card { box-shadow: 0 6px 12px rgba(0, 0, 0, .45); }
+.tp-seat.n .card { transform: rotate(-3deg); } .tp-seat.w .card { transform: rotate(-9deg); } .tp-seat.e .card { transform: rotate(8deg); } .tp-seat.s .card { transform: rotate(4deg); }
 .tp-seat { display: flex; flex-direction: column; align-items: center; gap: .25rem; }
 .tp-seat.n { grid-area: n; } .tp-seat.e { grid-area: e; } .tp-seat.s { grid-area: s; } .tp-seat.w { grid-area: w; }
 .tp-seat.w, .tp-seat.e { flex-direction: row; }
@@ -260,8 +267,8 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 [dir="rtl"] .tp-label { direction: rtl; }
 .tp-role { margin-top: .1rem; padding: .05rem .4rem; border-radius: 999px; background: rgba(0, 0, 0, .3); font-size: .7rem; font-weight: 700; }
 .tp-seat.winner .tp-role { background: var(--hint); color: #1a1a1a; }
-.trick-picture-table .card.winner { box-shadow: 0 0 0 3px var(--hint), 0 0 16px 4px rgba(242, 183, 5, .7); }
-.trick-picture-table .card.led { box-shadow: 0 0 0 2px #fff, 0 4px 10px rgba(0, 0, 0, .35); }
+.trick-picture-table .card.winner { box-shadow: 0 0 0 3px var(--hint), 0 0 18px 6px rgba(242, 183, 5, .75), 0 6px 12px rgba(0, 0, 0, .45); }
+.trick-picture-table .card.led { box-shadow: 0 0 0 2px #fff, 0 6px 12px rgba(0, 0, 0, .45); }
 .ranking { display: flex; align-items: center; gap: .6rem; font-size: 1.5rem; font-weight: 700; margin: .5rem 0; }
 .ranking span { color: var(--muted); font-size: 1rem; }
 .score-card { border-radius: 12px; padding: .7rem .9rem .8rem; margin: .4rem 0 .6rem; border: 1px solid var(--border); background: var(--surface); }
@@ -663,6 +670,8 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 }
 
 @media (max-width: 560px) {
+  .trick-picture-table { --cw: 40px; padding: 1rem 1.6rem 1.2rem; gap: .1rem .4rem; }
+  .tp-seat.w, .tp-seat.e { flex-direction: column; }
   .roles-table { --cw: 30px; padding: .4rem; gap: .35rem; }
   .fin-cases { grid-template-columns: minmax(0, 1fr); }
   .finesse-dialog { padding: .8rem; }
