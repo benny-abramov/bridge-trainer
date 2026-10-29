@@ -1243,7 +1243,7 @@ const TrickPicture = (() => {
 
   // A random legal trick: a random leader leads a random card; the others follow suit when they can,
   // and otherwise discard, or sometimes ruff when there's a trump suit.
-  function randomTrick(trump) {
+  function dealTrick(trump) {
     const hands = dealHands();
     const lead = Math.floor(Math.random() * 4);
     const pick = cards => cards[Math.floor(Math.random() * cards.length)];
@@ -1259,6 +1259,20 @@ const TrickPicture = (() => {
     return { plays, lead };
   }
 
+  // Discards are what the lesson is about, so most random tricks have one, and often a discard that
+  // is higher than the winning card (an ace of another suit that still doesn't win).
+  function randomTrick(trump) {
+    const wantDiscard = Math.random() < 2 / 3, wantHigh = wantDiscard && Math.random() < 0.5;
+    let t = dealTrick(trump);
+    for (let tries = 0; tries < 3000; tries++) {
+      const led = t.plays[t.lead].suit, win = t.plays[winnerOf(t.plays, t.lead, trump)];
+      const discards = Object.values(t.plays).filter(c => c.suit !== led && c.suit !== trump);
+      if (!wantDiscard || (discards.length && (!wantHigh || discards.some(c => c.value > win.value)))) break;
+      t = dealTrick(trump);
+    }
+    return t;
+  }
+
   // Who won and why, plus any discards and ruffs.
   function explain(plays, lead, trump, win) {
     const led = plays[lead].suit;
@@ -1271,7 +1285,10 @@ const TrickPicture = (() => {
       if (c.suit === led || seat === win) continue;
       notes.push(c.suit === trump
         ? L(`${name(seat)} has no ${ledName} and ruffs with ${card(seat)}, but it isn't the highest trump.`, `ל${name(seat)} אין ${ledName}, והוא חותך עם ${card(seat)}, אבל זה לא השליט הגבוה ביותר.`)
-        : L(`${name(seat)} has no ${ledName} and discards ${card(seat)}.`, `ל${name(seat)} אין ${ledName}, והוא משליך ${card(seat)}.`));
+        : c.value > plays[win].value
+          ? L(`${name(seat)} has no ${ledName} and discards ${card(seat)}. It's higher than ${card(win)}, but it isn't a ${ledName.replace(/s$/, '')}, the suit led, so it can't win the trick.`,
+            `ל${name(seat)} אין ${ledName}, והוא משליך ${card(seat)}. הקלף הזה גבוה מ-${card(win)}, אבל הוא לא ${ledName}, הסדרה שהובלה, ולכן הוא לא יכול לזכות בלקיחה.`)
+          : L(`${name(seat)} has no ${ledName} and discards ${card(seat)}.`, `ל${name(seat)} אין ${ledName}, והוא משליך ${card(seat)}.`));
     }
     const trumpsPlayed = [0, 1, 2, 3].filter(seat => plays[seat].suit === trump && trump !== led).length;
     const main = plays[win].suit !== led
@@ -1354,7 +1371,7 @@ const TrickPicture = (() => {
       // Bend around the table's corner: the side seat (West/East) gives x, North/South gives y.
       const side = fromSeat % 2 ? a : b, end = fromSeat % 2 ? b : a;
       const c = { x: side.x + (end.x - side.x) * 0.15, y: end.y + (side.y - end.y) * 0.15 };
-      const pull = (p, q, d) => { const dx = q.x - p.x, dy = q.y - p.y, len = Math.hypot(dx, dy) || 1; return { x: p.x + dx / len * d, y: p.y + dy / len * d }; };
+      const pull = (p, q, d) => { const dx = q.x - p.x, dy = q.y - p.y, len = Math.hypot(dx, dy) || 1; d = Math.min(d, len * 0.6); return { x: p.x + dx / len * d, y: p.y + dy / len * d }; }; // never past the bend, or the head turns around
       const start = pull(a, c, Math.max(a.w, a.h) * 0.62);
       const stop = pull(b, c, Math.max(b.w, b.h) * 0.66);
       const path = document.createElementNS(svgNS, 'path');
