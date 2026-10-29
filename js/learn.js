@@ -174,6 +174,8 @@ const LESSONS_EN = [
         <li>The declarer plays <strong>both</strong> their own cards and dummy's. Dummy's owner just watches.</li>
         <li>The other two players are the <strong>defenders</strong>. They try to win enough tricks to defeat the contract.</li>
       </ol>
+      <p>For example, North is the declarer in 4${S}. East, on North's left, makes the opening lead, and then South puts dummy on the table:</p>
+      <div class="roles-demo"></div>
       <p>In this app's <em>Play a Hand</em> tab you can declare as South, also playing North's (dummy's) cards against computer defenders,
       or defend as West against a computer declarer.</p>`,
     tryIt: 'play',
@@ -610,6 +612,8 @@ const LESSONS_HE = [
         <li>הכרוז משחק <strong>גם</strong> את הקלפים שלו וגם את קלפי הדומם. בעל הדומם רק צופה.</li>
         <li>שני השחקנים האחרים הם <strong>המגינים</strong>. הם מנסים לזכות במספיק לקיחות כדי להפיל את החוזה.</li>
       </ol>
+      <p>לדוגמה, צפון הוא הכרוז ב-${B('4S')}. מזרח, משמאל לצפון, מבצע את הובלת הפתיחה, ואז דרום פורש את הדומם על השולחן:</p>
+      <div class="roles-demo"></div>
       <p>בלשונית <em>שחקו יד</em> אפשר לשחק ככרוז בדרום (ולשחק גם את קלפי הדומם בצפון) מול מגינים ממוחשבים,
       או להגן במערב מול כרוז ממוחשב.</p>`,
     tryIt: 'play',
@@ -1098,6 +1102,49 @@ const ScoreDemo = (() => {
       const again = box.querySelector(`[data-act="${which}"]`);
       (again.disabled ? box.querySelector('[data-act]:not(:disabled)') : again).focus({ preventScroll: true });
     }));
+  }
+
+  return { mount };
+})();
+
+// The picture in "Declarer, dummy and defenders": a whole deal with North declaring 4♠, each
+// seat framed and labeled by its role, and East's opening lead in the middle of the table.
+const RolesDemo = (() => {
+  const DEAL = {
+    n: 'S:AKJ94 H:K7 D:A82 C:Q63',
+    e: 'S:7 H:QJT93 D:QJ6 C:K874',
+    s: 'S:QT62 H:A85 D:K74 C:J92',
+    w: 'S:853 H:642 D:T953 C:AT5',
+  };
+  const LEAD = { suit: 'H', rank: 'Q' };
+
+  function seat(area, name, role, cls, cards, rows) {
+    const box = document.createElement('div');
+    box.className = `roles-seat ${area} ${cls}`;
+    box.innerHTML = `<div class="roles-label"><strong>${name}</strong> <span class="role-badge">${role}</span></div>`;
+    (rows ? renderSuitRows : renderFan)(box, sortForTrump(cards, 'S'));
+    return box;
+  }
+
+  function mount(box) {
+    box.innerHTML = '';
+    const table = document.createElement('div');
+    table.className = 'roles-table';
+    const east = parseHand(DEAL.e).filter(c => !(c.suit === LEAD.suit && c.rank === LEAD.rank));
+    const center = document.createElement('div');
+    center.className = 'roles-center';
+    center.innerHTML = `<div class="roles-contract">${bidHtml('4S')} ${L('by North', 'של צפון')}</div>`;
+    const lead = createCardEl({ ...LEAD, value: 12 });
+    lead.classList.add('led');
+    center.appendChild(lead);
+    center.insertAdjacentHTML('beforeend', `<div class="roles-note">${L("East's opening lead", 'הובלת הפתיחה של מזרח')}</div>`);
+    table.append(
+      seat('n', L('North', 'צפון'), L("Declarer: plays both North's and South's cards", 'כרוז: משחק גם את הקלפים של צפון וגם של דרום'), 'declarer', parseHand(DEAL.n)),
+      seat('w', L('West', 'מערב'), L("Defender: East's partner", 'מגן: השותף של מזרח'), 'defender', parseHand(DEAL.w), true),
+      center,
+      seat('e', L('East', 'מזרח'), L("Defender: on declarer's left, makes the opening lead", 'מגן: משמאל לכרוז, מבצע את הובלת הפתיחה'), 'defender leader', east, true),
+      seat('s', L('South', 'דרום'), L('Dummy: face up on the table, played by declarer', 'דומם: גלוי על השולחן, הכרוז משחק בו'), 'dummy', parseHand(DEAL.s)));
+    box.appendChild(table);
   }
 
   return { mount };
@@ -1657,6 +1704,7 @@ const Learn = (() => {
     document.querySelectorAll('#lesson-body .trick-demo').forEach(TrickDemo.mount);
     document.querySelectorAll('#lesson-body .score-demo').forEach(ScoreDemo.mount);
     document.querySelectorAll('#lesson-body .shape-examples').forEach(ShapeExamples.mount);
+    document.querySelectorAll('#lesson-body .roles-demo').forEach(RolesDemo.mount);
     document.querySelectorAll('#lesson-body [data-finesse]').forEach(b => b.addEventListener('click', () => FinesseLayouts.show(b.dataset.finesse)));
     const auctionDemo = document.querySelector('#lesson-body .auction-demo');
     if (auctionDemo) AuctionDemo.mount(auctionDemo);
