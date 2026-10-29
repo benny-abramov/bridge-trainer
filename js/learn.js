@@ -360,7 +360,7 @@ const LESSONS_EN = [
         <li><strong>Stayman (2${C})</strong>: with 8+ HCP and a 4-card major, ask partner for a 4-card major. Partner bids 2${H} or 2${S} with one, or 2${D} with neither.</li>
         <li><strong>Puppet Stayman (3${C})</strong>: with game values and a 3- or 4-card major, ask partner for a 4- or 5-card major. Partner bids 3${H} or 3${S} with five cards, 3${D} with a 4-card major, or 3NT with neither.
           After 3${D}, bid the major you <em>don't</em> have (3${H} shows four spades, 3${S} shows four hearts), so the strong hand plays the contract.</li>
-        <li><strong>Jacoby transfers (2${D}, 2${H})</strong>: with 5+ cards in a major, bid the suit just below it. Partner must bid your major. Use them with any strength.
+        <li><strong>Jacoby transfers (2${D}, 2${H}, 4${D}, 4${H})</strong>: with 5+ cards in a major, bid the suit just below it. Partner must bid your major. Use them with any strength.
           With a 6+ card major and enough for game, transfer at the 4-level: <strong>4${D}</strong> asks partner to bid 4${H}, and <strong>4${H}</strong> asks for 4${S}.</li>
       </ul>
 
@@ -368,8 +368,8 @@ const LESSONS_EN = [
       <p>A 2NT opening shows 20–22 HCP, balanced, so 4–5 HCP opposite are enough for game. The conventions work one level higher:</p>
       <ul>
         <li><strong>Stayman (3${C})</strong>: with 4+ HCP and a 4-card major, ask for partner's 4-card major: 3${H}, 3${S}, or 3${D} with neither. Many pairs play 3${C} as <strong>Puppet Stayman</strong>, which also finds a 5-card major.</li>
-        <li><strong>Jacoby transfers (3${D}, 3${H})</strong>: with 5+ cards in a major, partner bids 3${H} or 3${S}. With five, then bid 3NT and let partner choose; with six, raise to game.</li>
-        <li><strong>Transfers at the 4-level (4${D}, 4${H})</strong>: with a 6+ card major, partner bids 4${H} or 4${S}.</li>
+        <li><strong>Jacoby transfers (3${D}, 3${H}, 4${D}, 4${H})</strong>: with 5+ cards in a major, bid 3${D} or 3${H} and partner bids 3${H} or 3${S}. With five, then bid 3NT and let partner choose; with six, raise to game.
+          With a 6+ card major you can also transfer at the 4-level: <strong>4${D}</strong> asks partner to bid 4${H}, and <strong>4${H}</strong> asks for 4${S}.</li>
         <li><strong>3NT</strong>: to play, with 4–10 HCP and no major to show. <strong>4${C}</strong> is Gerber, asking for aces.</li>
       </ul>
 
@@ -814,7 +814,7 @@ const LESSONS_HE = [
         <li><strong>סטיימן (${B('2C')})</strong>: עם 8 נק' ומעלה וסדרת מייגור של 4 קלפים, שאלו את השותף אם יש לו סדרת מייגור של 4. השותף מכריז ${B('2H')} או ${B('2S')} עם סדרה כזו, או ${B('2D')} בלי.</li>
         <li><strong>פאפט סטיימן (${B('3C')})</strong>: עם כוח למשחק מלא וסדרת מייגור של 3 או 4 קלפים, שאלו את השותף אם יש לו סדרת מייגור של 4 או 5. השותף מכריז ${B('3H')} או ${B('3S')} עם חמישה קלפים, ${B('3D')} עם מייגור של 4, או 3NT בלי.
           אחרי ${B('3D')}, הכריזו את המייגור <em>שאין</em> לכם (${B('3H')} מראה ארבעה ספייד, ${B('3S')} מראה ארבעה הארט), כדי שהיד החזקה תשחק את החוזה.</li>
-        <li><strong>טרנספר ג'ייקובי (${B('2D')}, ${B('2H')})</strong>: עם 5 קלפים ומעלה בסדרת מייגור, הכריזו את הסדרה שמתחתיה. השותף חייב להכריז את הסדרה שלכם. משתמשים בו עם כל כוח.
+        <li><strong>טרנספר ג'ייקובי (${B('2D')}, ${B('2H')}, ${B('4D')}, ${B('4H')})</strong>: עם 5 קלפים ומעלה בסדרת מייגור, הכריזו את הסדרה שמתחתיה. השותף חייב להכריז את הסדרה שלכם. משתמשים בו עם כל כוח.
           עם מייגור של 6 קלפים ומעלה וכוח למשחק מלא, הכריזו טרנספר ברמת 4: <strong>${B('4D')}</strong> מבקש מהשותף להכריז ${B('4H')}, ו-<strong>${B('4H')}</strong> מבקש ${B('4S')}.</li>
       </ul>
 
@@ -822,8 +822,8 @@ const LESSONS_HE = [
       <p>פתיחה של 2NT מראה 20-22 נק', יד מאוזנת, ולכן 4-5 נק' מולה מספיקות למשחק מלא. המוסכמות עובדות רמה אחת גבוה יותר:</p>
       <ul>
         <li><strong>סטיימן (${B('3C')})</strong>: עם 4 נק' ומעלה וסדרת מייגור של 4 קלפים, שאלו על סדרת מייגור של 4 אצל השותף: ${B('3H')}, ${B('3S')}, או ${B('3D')} בלי. זוגות רבים משחקים את ${B('3C')} כ<strong>פאפט סטיימן</strong>, שמוצא גם סדרת מייגור של 5.</li>
-        <li><strong>טרנספר ג'ייקובי (${B('3D')}, ${B('3H')})</strong>: עם 5 קלפים ומעלה בסדרת מייגור, השותף מכריז ${B('3H')} או ${B('3S')}. עם חמישה, הכריזו אחר כך 3NT ותנו לשותף לבחור; עם שישה, העלו למשחק מלא.</li>
-        <li><strong>טרנספר ברמת 4 (${B('4D')}, ${B('4H')})</strong>: עם מייגור של 6 קלפים ומעלה, השותף מכריז ${B('4H')} או ${B('4S')}.</li>
+        <li><strong>טרנספר ג'ייקובי (${B('3D')}, ${B('3H')}, ${B('4D')}, ${B('4H')})</strong>: עם 5 קלפים ומעלה בסדרת מייגור, הכריזו ${B('3D')} או ${B('3H')} והשותף מכריז ${B('3H')} או ${B('3S')}. עם חמישה, הכריזו אחר כך 3NT ותנו לשותף לבחור; עם שישה, העלו למשחק מלא.
+          עם מייגור של 6 קלפים ומעלה אפשר גם טרנספר ברמת 4: <strong>${B('4D')}</strong> מבקש מהשותף להכריז ${B('4H')}, ו-<strong>${B('4H')}</strong> מבקש ${B('4S')}.</li>
         <li><strong>3NT</strong>: לשחק, עם 4-10 נק' ובלי מייגור להראות. <strong>${B('4C')}</strong> הוא גרבר, ששואל על אסים.</li>
       </ul>
 
