@@ -12,6 +12,13 @@ function suitQuality(cards) {
   return cards.filter(c => 'AKQJT'.includes(c.rank)).length;
 }
 
+// A 2-level overcall needs a strong suit: three of A, K, Q, J, 10 with five cards, two of A, K, Q, J with more.
+function strongSuit(cards) {
+  return cards.length === 5
+    ? cards.filter(c => 'AKQJT'.includes(c.rank)).length >= 3
+    : cards.filter(c => 'AKQJ'.includes(c.rank)).length >= 2;
+}
+
 // A weak jump overcall or a preempt needs a good suit: two of the top four honors (A, K, Q, J).
 function goodPreemptSuit(cards) {
   return cards.filter(c => 'AKQJ'.includes(c.rank)).length >= 2;
@@ -72,10 +79,12 @@ function overcallBid(hand, open, { balancing = false } = {}) {
         `${count} with ${n} ${name}${good ? ' and good honors' : ''}: overcall ${bidHtml('1' + best)}.${seat} A 1-level overcall shows 8–16 HCP and a good 5+ card suit. It competes for the contract and tells partner what to lead.`,
         `${count} עם ${n} ${name}${good ? ' והונורים טובים' : ''}: התערבו ב-${bidHtml('1' + best)}.${seat} התערבות ברמת 1 מראה 8-16 נק' וסדרה טובה של 5 קלפים ומעלה. היא מתחרה על החוזה ואומרת לשותף מה להוביל.`) };
     }
-    if (!above && worth >= 11 && (n >= 6 || good)) {
+    // The 2-level is riskier: 11+ HCP (length doesn't count) and a strong suit, three of A-K-Q-J-10
+    // in a 5-card suit or two of A-K-Q-J in a longer one.
+    if (!above && pts + (balancing ? 3 : 0) >= 11 && strongSuit(cardsIn(best))) {
       return { bid: '2' + best, why: L(
-        `${count} with a good ${n}-card ${name} suit: overcall ${bidHtml('2' + best)}.${seat} A 2-level overcall is riskier, so it needs about 11–16 points and a good suit.`,
-        `${count} עם סדרה טובה של ${n} ${name}: התערבו ב-${bidHtml('2' + best)}.${seat} התערבות ברמת 2 מסוכנת יותר, ולכן היא דורשת בערך 11-16 נקודות וסדרה טובה.`) };
+        `${pts} HCP with a strong ${n}-card ${name} suit: overcall ${bidHtml('2' + best)}.${seat} A 2-level overcall is riskier, so it needs 11+ HCP (not counting length) and a strong suit: three of A, K, Q, J, 10 in a 5-card suit, or two of A, K, Q, J in a 6-card suit.`,
+        `${pts} נק' עם סדרת ${name} חזקה של ${n} קלפים: התערבו ב-${bidHtml('2' + best)}.${seat} התערבות ברמת 2 מסוכנת יותר, ולכן היא דורשת 11 נק' ומעלה (בלי נקודות אורך) וסדרה חזקה: שלושה מ-A, K, Q, J, 10 בסדרה של 5 קלפים, או שניים מ-A, K, Q, J בסדרה של 6 קלפים.`) };
     }
   }
 
@@ -96,8 +105,8 @@ function overcallBid(hand, open, { balancing = false } = {}) {
     why = L(`${pts} HCP, but your ${name} are too weak to overcall. With fewer than 12 HCP, a 1-level overcall needs a good suit (at least two of A, K, Q, J, 10). Pass.`,
       `${pts} נק', אבל סדרת ה${name} שלכם חלשה מדי להתערבות. עם פחות מ-12 נק', התערבות ברמת 1 דורשת סדרה טובה (לפחות שניים מ-A, K, Q, J, 10). פאס.`);
   } else if (n >= 5 && pts >= 8) {
-    why = L(`Your ${name} would have to be bid at the 2-level, which needs about 11+ HCP and a good suit. Pass.`,
-      `את ה${name} שלכם הייתם צריכים להכריז ברמת 2, וזה דורש בערך 11 נק' ומעלה וסדרה טובה. פאס.`);
+    why = L(`Your ${name} would have to be bid at the 2-level, which needs 11+ HCP (not counting length) and a strong suit: three of A, K, Q, J, 10 in a 5-card suit, or two of A, K, Q, J in a 6-card suit. Pass.`,
+      `את ה${name} שלכם הייתם צריכים להכריז ברמת 2, וזה דורש 11 נק' ומעלה (בלי נקודות אורך) וסדרה חזקה: שלושה מ-A, K, Q, J, 10 בסדרה של 5 קלפים, או שניים מ-A, K, Q, J בסדרה של 6 קלפים. פאס.`);
   } else if (pts >= 12) {
     why = L(`${pts} HCP, but you have no 5-card suit to overcall and no balanced 15–18 with a stopper for 1NT. You also have the wrong shape for a takeout double, which needs shortness in their suit and support for the others. Pass.`,
       `${pts} נק', אבל אין לכם סדרה של 5 קלפים להתערבות, ואין לכם יד מאוזנת של 15-18 עם עוצר בשביל 1NT. גם המבנה לא מתאים לכפל הוצאה, שדורש קוצר בסדרה שלהם ותמיכה באחרות. פאס.`);

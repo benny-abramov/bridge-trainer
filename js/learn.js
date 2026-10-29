@@ -325,7 +325,7 @@ const LESSONS_EN = [
       <table class="tbl">
         <tr><th>Your hand</th><th>Action</th></tr>
         <tr><td><button class="finesse-link" type="button" data-overcall="o1">8–16 HCP and a good 5+ card suit you can bid at the 1-level</button></td><td>1-level overcall</td></tr>
-        <tr><td><button class="finesse-link" type="button" data-overcall="o2">11–16 HCP and a good 5+ card suit at the 2-level</button></td><td>2-level overcall</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-overcall="o2">11–16 HCP (not counting length) and a strong suit at the 2-level: three of A-K-Q-J-10 with five cards, two of A-K-Q-J with six</button></td><td>2-level overcall</td></tr>
         <tr><td><button class="finesse-link" type="button" data-overcall="tox">12+ HCP, short in their suit, 3+ cards in every other suit</button></td><td><strong>Takeout double</strong></td></tr>
         <tr><td><button class="finesse-link" type="button" data-overcall="nt">15–18 HCP, balanced, with a stopper in their suit</button></td><td>1NT</td></tr>
         <tr><td><button class="finesse-link" type="button" data-overcall="strongx">17+ HCP, too strong to overcall</button></td><td>Double, then bid your suit or no-trump</td></tr>
@@ -762,7 +762,7 @@ const LESSONS_HE = [
       <table class="tbl">
         <tr><th>היד שלכם</th><th>פעולה</th></tr>
         <tr><td><button class="finesse-link" type="button" data-overcall="o1">8-16 נק' וסדרה טובה של 5 קלפים ומעלה שאפשר להכריז ברמת 1</button></td><td>התערבות ברמת 1</td></tr>
-        <tr><td><button class="finesse-link" type="button" data-overcall="o2">11-16 נק' וסדרה טובה של 5 קלפים ומעלה ברמת 2</button></td><td>התערבות ברמת 2</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-overcall="o2">11-16 נק' (בלי נקודות אורך) וסדרה חזקה ברמת 2: שלושה מ-A-K-Q-J-10 עם חמישה קלפים, שניים מ-A-K-Q-J עם שישה</button></td><td>התערבות ברמת 2</td></tr>
         <tr><td><button class="finesse-link" type="button" data-overcall="tox">12 נק' ומעלה, קצר בסדרה שלהם, 3 קלפים ומעלה בכל סדרה אחרת</button></td><td><strong>כפל הוצאה</strong></td></tr>
         <tr><td><button class="finesse-link" type="button" data-overcall="nt">15-18 נק', מאוזנת, עם עוצר בסדרה שלהם</button></td><td>1NT</td></tr>
         <tr><td><button class="finesse-link" type="button" data-overcall="strongx">17 נק' ומעלה, חזקה מדי להתערבות</button></td><td>דאבל, ואחר כך הכריזו את הסדרה שלכם או ללא שליט</td></tr>
