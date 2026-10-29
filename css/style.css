@@ -226,6 +226,10 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 /* Every card is positioned so the raised one keeps its place in the fan and doesn't hide the next card's corner. */
 .fin-table .card { position: relative; }
 .fin-table .card.led { transform: translateY(-10px); box-shadow: 0 0 0 3px var(--hint), 0 6px 12px rgba(0, 0, 0, .35); }
+/* The card a defender plays in an example: an ellipse around it, green when right, red when wrong. */
+.fin-table .card.pick::after { content: ''; position: absolute; inset: -7px -5px; border: 3px solid; border-radius: 50%; z-index: 2; pointer-events: none; }
+.fin-table .card.pick.right::after { border-color: #2e9e4f; }
+.fin-table .card.pick.wrong::after { border-color: #d32f2f; }
 .fin-cases.single { grid-template-columns: minmax(0, 1fr); max-width: 26rem; margin-inline: auto; }
 .fin-chance { margin: .9rem 0; padding: .5rem .7rem; border: 1px solid var(--border); border-radius: 8px; background: var(--accent-soft); font-weight: 600; }
 
