@@ -209,8 +209,10 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 .finesse-dialog h3 { margin: 0 0 .75rem; }
 /* Example hands from the "Opening the bidding" table. */
 .opening-dialog { width: min(560px, calc(100% - 32px)); }
-.opening-felt { --cw: 44px; display: flex; justify-content: center; padding: .6rem; }
-.opening-info { margin: .6rem 0 0; font-size: 1rem; }
+.opening-felt { --cw: 44px; display: flex; flex-direction: column; align-items: center; gap: .5rem; padding: .7rem .8rem .8rem; color: var(--felt-text); }
+.opening-info { margin: 0; font-size: 1rem; }
+.opening-info, .example-why { --red-suit: #ff8a80; --diamond-suit: #ffb877; --club-suit: #8ff0b0; }
+.example-why { margin: 0; align-self: stretch; padding-bottom: .5rem; border-bottom: 1px solid rgba(255, 255, 255, .25); line-height: 1.45; text-align: start; }
 .opening-buttons { display: flex; justify-content: center; gap: .6rem; }
 .fin-cases { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; text-align: start; }
 .fin-case { border: 2px solid var(--border); border-radius: 10px; padding: .5rem .6rem; }

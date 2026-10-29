@@ -1206,9 +1206,10 @@ const OpeningExamples = (() => {
       info.className = 'opening-info';
       info.innerHTML = `${L(`${hcp(hand)} HCP`, `${hcp(hand)} נק'`)} · ${ltr(lens)} · ${L('Open', 'פתחו')}: <strong>${bidHtml(r.bid)}</strong>`;
       const why = document.createElement('p');
-      why.className = 'fin-chance';
+      why.className = 'example-why';
       why.innerHTML = r.why;
-      dialog.append(felt, info, why);
+      felt.prepend(why, info); // the explanation on the felt, above the hand
+      dialog.append(felt);
     }
     const buttons = document.createElement('div');
     buttons.className = 'opening-buttons';
@@ -1529,9 +1530,10 @@ const OvercallExamples = (() => {
       info.className = 'opening-info';
       info.innerHTML = `${L(`${hcp(hand)} HCP`, `${hcp(hand)} נק'`)} · ${ltr(lens)} · ${L('Bid', 'הכרזה')}: <strong>${bidHtml(r.bid)}</strong>`;
       const why = document.createElement('p');
-      why.className = 'fin-chance';
+      why.className = 'example-why';
       why.innerHTML = r.why;
-      dialog.append(felt, info, why);
+      felt.prepend(why, info); // the explanation on the felt, above the hand
+      dialog.append(felt);
     }
     const buttons = document.createElement('div');
     buttons.className = 'opening-buttons';
