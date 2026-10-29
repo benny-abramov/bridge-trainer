@@ -1385,8 +1385,8 @@ const FinesseLayouts = (() => {
       (k.trump ? `<p class="fin-trump">${suitHtml(k.trump)} ${trumpText(k.trump)}</p>` : '') +
       (k.setup ? `<p class="fin-setup">${t(k.setup)}</p>` : '') +
       (k.lead ? `<p class="fin-legend">${k.defense
-        ? L('The raised, outlined card is the one led. The circled card is the one you play: green for the right play, red for the wrong one.',
-          'הקלף המורם והמסומן הוא הקלף שמובילים. הקלף המוקף הוא הקלף שאתם משחקים: בירוק המשחק הנכון, באדום המשחק השגוי.')
+        ? L('The raised, outlined card is the one led. The card set apart with a colored frame is the one you play: green for the right play, red for the wrong one.',
+          'הקלף המורם והמסומן הוא הקלף שמובילים. הקלף המופרד עם המסגרת הצבעונית הוא הקלף שאתם משחקים: בירוק המשחק הנכון, באדום המשחק השגוי.')
         : L('The raised, outlined card is the one led.', 'הקלף המורם והמסומן הוא הקלף שמובילים.')}</p>` : '');
     const grid = document.createElement('div');
     grid.className = 'fin-cases' + (k.cases.length === 1 ? ' single' : '');
