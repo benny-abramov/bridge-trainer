@@ -1231,16 +1231,65 @@ const TrickPicture = (() => {
   const SEATS = { N: 0, E: 1, S: 2, W: 3 };
   const AREA = ['n', 'e', 's', 'w'];
 
-  function mount(box) {
-    const plays = Object.fromEntries(box.dataset.trick.split(' ').map(t => [SEATS[t[0]], { suit: t[2], rank: t[3], value: RANKS.indexOf(t[3]) + 2 }]));
-    const lead = SEATS[box.dataset.lead];
-    const trump = box.dataset.trump || null;
-    const led = plays[lead].suit;
+  // The seat that wins: the highest trump if any was played, otherwise the highest card of the suit led.
+  function winnerOf(plays, lead, trump) {
     let win = lead;
     for (let i = 1; i < 4; i++) {
       const seat = (lead + i) % 4, c = plays[seat], b = plays[win];
       if ((c.suit === b.suit && c.value > b.value) || (c.suit === trump && b.suit !== trump)) win = seat;
     }
+    return win;
+  }
+
+  // A random legal trick: a random leader leads a random card; the others follow suit when they can,
+  // and otherwise discard, or sometimes ruff when there's a trump suit.
+  function randomTrick(trump) {
+    const hands = dealHands();
+    const lead = Math.floor(Math.random() * 4);
+    const pick = cards => cards[Math.floor(Math.random() * cards.length)];
+    const plays = {};
+    plays[lead] = pick(hands[lead]);
+    const led = plays[lead].suit;
+    for (let i = 1; i < 4; i++) {
+      const seat = (lead + i) % 4, hand = hands[seat];
+      const follow = hand.filter(c => c.suit === led);
+      const trumps = trump ? hand.filter(c => c.suit === trump) : [];
+      plays[seat] = follow.length ? pick(follow) : trumps.length && Math.random() < 0.6 ? pick(trumps) : pick(hand);
+    }
+    return { plays, lead };
+  }
+
+  // Who won and why, plus any discards and ruffs.
+  function explain(plays, lead, trump, win) {
+    const led = plays[lead].suit;
+    const name = seat => SEAT_NAMES[seat];
+    const card = seat => cardHtml(plays[seat]);
+    const ledName = SUIT_NAME[led];
+    const notes = [];
+    for (let i = 1; i < 4; i++) {
+      const seat = (lead + i) % 4, c = plays[seat];
+      if (c.suit === led || seat === win) continue;
+      notes.push(c.suit === trump
+        ? L(`${name(seat)} has no ${ledName} and ruffs with ${card(seat)}, but it isn't the highest trump.`, `ל${name(seat)} אין ${ledName}, והוא חותך עם ${card(seat)}, אבל זה לא השליט הגבוה ביותר.`)
+        : L(`${name(seat)} has no ${ledName} and discards ${card(seat)}.`, `ל${name(seat)} אין ${ledName}, והוא משליך ${card(seat)}.`));
+    }
+    const trumpsPlayed = [0, 1, 2, 3].filter(seat => plays[seat].suit === trump && trump !== led).length;
+    const main = plays[win].suit !== led
+      ? (trumpsPlayed > 1
+        ? L(`${name(win)} wins with ${card(win)}: more than one trump was played, and the highest trump wins.`, `${name(win)} זוכה עם ${card(win)}: שוחק יותר משליט אחד, והשליט הגבוה ביותר זוכה.`)
+        : L(`${name(win)} has no ${ledName} and ruffs with ${card(win)}: a trump beats every card of the other suits, so ${name(win)} wins.`, `ל${name(win)} אין ${ledName}, והוא חותך עם ${card(win)}: שליט גובר על כל קלף מהסדרות האחרות, ולכן ${name(win)} זוכה.`))
+      : L(`${name(win)} wins: ${card(win)} is the highest card in the suit led, ${ledName}.`, `${name(win)} זוכה: ${card(win)} הוא הקלף הגבוה ביותר בסדרה שהובלה.`);
+    return [main, ...notes].join(' ');
+  }
+
+  function mount(box) {
+    const plays = Object.fromEntries(box.dataset.trick.split(' ').map(t => [SEATS[t[0]], { suit: t[2], rank: t[3], value: RANKS.indexOf(t[3]) + 2 }]));
+    render(box, plays, SEATS[box.dataset.lead], box.dataset.trump || null, null);
+  }
+
+  function render(box, plays, lead, trump, why) {
+    const led = plays[lead].suit;
+    const win = winnerOf(plays, lead, trump);
     const table = document.createElement('div');
     table.className = 'trick-picture-table';
     for (let seat = 0; seat < 4; seat++) {
@@ -1248,7 +1297,8 @@ const TrickPicture = (() => {
       const role = seat === win
         ? (c.suit !== led ? L('Winner ✓ (ruff)', 'זוכה ✓ (חיתוך)') : L('Winner ✓', 'זוכה ✓'))
         : seat === lead ? L('Leader', 'מוביל')
-        : c.suit !== led ? L('Discard', 'השלכה') : '';
+        : c.suit === led ? ''
+        : c.suit === trump ? L('Ruff', 'חיתוך') : L('Discard', 'השלכה');
       const spot = document.createElement('div');
       spot.className = `tp-seat ${AREA[seat]}${seat === win ? ' winner' : ''}${seat === lead ? ' leader' : ''}`;
       spot.innerHTML = `<div class="tp-label"><strong>${SEAT_NAMES[seat]}</strong>${role ? `<span class="tp-role">${role}</span>` : ''}</div>`;
@@ -1262,6 +1312,22 @@ const TrickPicture = (() => {
     }
     box.innerHTML = '';
     box.appendChild(table);
+    if (why) box.insertAdjacentHTML('beforeend', `<p class="tp-why">${why}</p>`);
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'btn secondary tp-random';
+    button.textContent = L('Random trick', 'לקיחה אקראית');
+    button.addEventListener('click', () => {
+      // The lesson's own explanation fits only the first trick.
+      const own = box.parentElement && box.parentElement.querySelector(':scope > p.small');
+      if (own) own.hidden = true;
+      const title = box.parentElement && box.parentElement.querySelector(':scope > .example-title');
+      if (title) title.innerHTML = L('Random trick', 'לקיחה אקראית') + (trump ? ` — ${trumpText(trump)}` : '');
+      const t = randomTrick(trump);
+      Sound.cardPlayed();
+      render(box, t.plays, t.lead, trump, explain(t.plays, t.lead, trump, winnerOf(t.plays, t.lead, trump)));
+    });
+    box.appendChild(button);
     // Curved arrows from card to card in the order of play, redrawn whenever the size changes.
     const draw = () => drawArrows(table, lead);
     requestAnimationFrame(draw);
