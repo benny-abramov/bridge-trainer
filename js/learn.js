@@ -1146,6 +1146,20 @@ const RolesDemo = (() => {
   return { mount };
 })();
 
+// A small bidding box for the example windows: West, North, East, South, the dealer underlined,
+// the calls so far, and a dashed "?" where you (South) are to call.
+function askBox(dealer, calls) {
+  const cols = [3, 0, 1, 2];
+  const cells = Array(cols.indexOf(dealer)).fill('<td></td>');
+  calls.forEach(c => cells.push(`<td>${bidHtml(c)}</td>`));
+  cells.push('<td class="ask">?</td>');
+  while (cells.length % 4) cells.push('<td></td>');
+  const rows = [];
+  for (let i = 0; i < cells.length; i += 4) rows.push(`<tr>${cells.slice(i, i + 4).join('')}</tr>`);
+  const name = s => (s === 2 ? L('South (you)', 'דרום (אתם)') : SEAT_NAMES[s]);
+  return `<table class="bid-box ap-box ask-box"><tr>${cols.map(s => `<th class="${s === dealer ? 'dealer' : ''}">${name(s)}</th>`).join('')}</tr>${rows.join('')}</table>`;
+}
+
 // The "Opening the bidding" table: tap a hand type to deal random examples of it, with the
 // opening bid and the app's explanation.
 const OpeningExamples = (() => {
@@ -1183,6 +1197,7 @@ const OpeningExamples = (() => {
       dialog.insertAdjacentHTML('beforeend', `<p>${L('No example found this time. Try again.', 'לא נמצאה דוגמה הפעם. נסו שוב.')}</p>`);
     } else {
       const { hand, r } = found;
+      dialog.insertAdjacentHTML('beforeend', `<p class="fin-setup">${L('You are South and the dealer, so you call first. What do you open?', 'אתם בדרום והמחלקים, ולכן אתם מכריזים ראשונים. במה תפתחו?')}</p>${askBox(2, [])}`);
       const felt = document.createElement('div');
       felt.className = 'shape-felt opening-felt';
       renderFan(felt, hand);
@@ -1505,7 +1520,7 @@ const OvercallExamples = (() => {
       dialog.insertAdjacentHTML('beforeend', `<p>${L('No example found this time. Try again.', 'לא נמצאה דוגמה הפעם. נסו שוב.')}</p>`);
     } else {
       const { hand, open, r } = found;
-      dialog.insertAdjacentHTML('beforeend', `<p class="fin-setup">${L(`East, on your right, opens <strong>${bidHtml(open)}</strong>. You are South. What do you do?`, `מזרח, מימינכם, פותח <strong>${bidHtml(open)}</strong>. אתם בדרום. מה תעשו?`)}</p>`);
+      dialog.insertAdjacentHTML('beforeend', `<p class="fin-setup">${L(`East, on your right, opens <strong>${bidHtml(open)}</strong>. You are South. What do you do?`, `מזרח, מימינכם, פותח <strong>${bidHtml(open)}</strong>. אתם בדרום. מה תעשו?`)}</p>${askBox(1, [open])}`);
       const felt = document.createElement('div');
       felt.className = 'shape-felt opening-felt';
       renderFan(felt, hand);
