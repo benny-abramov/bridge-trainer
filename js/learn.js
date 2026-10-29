@@ -1393,40 +1393,73 @@ const TrickPicture = (() => {
 // final contract highlighted, the closing passes outlined, and numbered notes beside it.
 const AuctionPicture = (() => {
   const COLUMNS = [3, 0, 1, 2]; // West, North, East, South
-  const DEALER = 2; // South
-  const CALLS = ['1H', '1S', '2H', 'P', '4H', 'P', 'P', 'P'];
+  const EXAMPLE = { dealer: 2, declarer: 2, calls: ['1H', '1S', '2H', 'P', '4H', 'P', 'P', 'P'] };
+  const side = seat => (seat % 2 ? L('East-West', 'מזרח-מערב') : L('North-South', 'צפון-דרום'));
 
-  function mount(box) {
-    const final = CALLS.reduce((j, c, i) => (/^\d/.test(c) ? i : j), -1);
-    const cells = Array(COLUMNS.indexOf(DEALER)).fill('<td></td>');
-    CALLS.forEach((c, i) => {
+  // A random auction from the app's own bidding rules (the ones Play a Hand uses). They always deal
+  // South, so the seats are turned round to give a random dealer.
+  function randomAuction() {
+    for (let tries = 0; tries < 200; tries++) {
+      const a = bidAuction(dealHands(), { anyDeclarer: true });
+      if (!a) continue;
+      const turn = Math.floor(Math.random() * 4);
+      const seat = x => (x + turn) % 4;
+      return { dealer: seat(a.dealer), declarer: seat(a.declarer), calls: a.calls.map(c => c.call) };
+    }
+    return EXAMPLE;
+  }
+
+  function notesFor({ dealer, declarer, calls }) {
+    const final = calls.reduce((j, c, i) => (/^\d/.test(c) ? i : j), -1);
+    const contract = calls[final];
+    const strain = contract[1];
+    const bids = calls.filter(c => /^\d/.test(c)).map(bidHtml).join(', ');
+    const single = calls.filter(c => /^\d/.test(c)).length === 1;
+    const doubled = calls.slice(final + 1).includes('X') || calls.slice(0, final).some(c => c === 'X');
+    const tricks = Number(contract[0]) + 6;
+    const what = strain === 'N' ? L('in no-trump', 'בללא שליט') : L(`with ${SUIT_NAME[strain]} as trumps`, `עם ${SUIT_NAME[strain]} כשליט`);
+    const strainName = strain === 'N' ? L('no-trump', 'ללא שליט') : SUIT_NAME[strain];
+    const D = SEAT_NAMES[dealer], C = SEAT_NAMES[declarer];
+    return L([
+      `${D} is the <strong>dealer</strong> (underlined), so ${D} calls first and opens ${bidHtml(calls[0])}.`,
+      single ? `${bidHtml(contract)} is the only bid: everyone else passes. A pass is always allowed.`
+        : `Every bid is higher than the one before: ${bids}. A pass is always allowed${doubled ? ', and a double (Dbl) is not a bid' : ''}.`,
+      `${bidHtml(contract)} is the last bid, so it becomes the <strong>contract</strong>: ${side(declarer)} must take ${tricks} tricks ${what}.`,
+      `<strong>Three passes</strong> in a row end the auction. ${C} is the <strong>declarer</strong>: the first of ${side(declarer)} to bid ${strainName}.`,
+    ], [
+      `${D} הוא <strong>המחלק</strong> (מסומן בקו), ולכן ${D} מכריז ראשון ופותח ${bidHtml(calls[0])}.`,
+      single ? `${bidHtml(contract)} היא ההכרזה היחידה: כל השאר מכריזים פאס. פאס מותר תמיד.`
+        : `כל הכרזה גבוהה מקודמתה: ${bids}. פאס מותר תמיד${doubled ? ', ודאבל אינו הכרזה' : ''}.`,
+      `${bidHtml(contract)} היא ההכרזה האחרונה, ולכן היא <strong>החוזה</strong>: ${side(declarer)} צריכים לקחת ${tricks} לקיחות ${what}.`,
+      `<strong>שלושה פאסים</strong> ברצף מסיימים את המכרז. ${C} הוא <strong>הכרוז</strong>: הראשון מ${side(declarer)} שהכריז ${strainName}.`,
+    ]);
+  }
+
+  function render(box, auction) {
+    const { dealer, calls } = auction;
+    const final = calls.reduce((j, c, i) => (/^\d/.test(c) ? i : j), -1);
+    const cells = Array(COLUMNS.indexOf(dealer)).fill('<td></td>');
+    calls.forEach((c, i) => {
       const cls = i === final ? 'final' : i > final ? 'closing' : '';
-      const mark = i === 0 ? 1 : i === final ? 3 : i === CALLS.length - 1 ? 4 : null;
+      const mark = i === 0 ? 1 : i === final ? 3 : i === calls.length - 1 ? 4 : null;
       cells.push(`<td class="${cls}">${bidHtml(c)}${mark ? `<span class="ap-num">${mark}</span>` : ''}</td>`);
     });
     while (cells.length % 4) cells.push('<td></td>');
     const rows = [];
     for (let i = 0; i < cells.length; i += 4) rows.push(`<tr>${cells.slice(i, i + 4).join('')}</tr>`);
-    const notes = L([
-      `South is the <strong>dealer</strong> (underlined), so South calls first and opens ${bidHtml('1H')}.`,
-      `Every bid is higher than the one before: ${bidHtml('1H')}, ${bidHtml('1S')}, ${bidHtml('2H')}, ${bidHtml('4H')}. A pass is always allowed.`,
-      `${bidHtml('4H')} is the last bid, so it becomes the <strong>contract</strong>: North-South must take 10 tricks with hearts as trumps.`,
-      `<strong>Three passes</strong> in a row end the auction. South is the <strong>declarer</strong>: the first of North-South to bid hearts.`,
-    ], [
-      `דרום הוא <strong>המחלק</strong> (מסומן בקו), ולכן דרום מכריז ראשון ופותח ${bidHtml('1H')}.`,
-      `כל הכרזה גבוהה מקודמתה: ${bidHtml('1H')}, ${bidHtml('1S')}, ${bidHtml('2H')}, ${bidHtml('4H')}. פאס מותר תמיד.`,
-      `${bidHtml('4H')} היא ההכרזה האחרונה, ולכן היא <strong>החוזה</strong>: צפון-דרום צריכים לקחת 10 לקיחות עם הארט כשליט.`,
-      `<strong>שלושה פאסים</strong> ברצף מסיימים את המכרז. דרום הוא <strong>הכרוז</strong>: הראשון מצפון-דרום שהכריז הארט.`,
-    ]);
     box.innerHTML = `
       <div class="ap-wrap">
         <table class="bid-box ap-box">
-          <tr>${COLUMNS.map(s => `<th class="${s === DEALER ? 'dealer' : ''}">${SEAT_NAMES[s]}</th>`).join('')}</tr>
+          <tr>${COLUMNS.map(s => `<th class="${s === dealer ? 'dealer' : ''}">${SEAT_NAMES[s]}</th>`).join('')}</tr>
           ${rows.join('')}
         </table>
-        <ol class="ap-notes">${notes.map(n => `<li>${n}</li>`).join('')}</ol>
-      </div>`;
+        <ol class="ap-notes">${notesFor(auction).map(n => `<li>${n}</li>`).join('')}</ol>
+      </div>
+      <button class="btn secondary ap-random" type="button">${L('Random auction', 'מכרז אקראי')}</button>`;
+    box.querySelector('.ap-random').addEventListener('click', () => render(box, randomAuction()));
   }
+
+  const mount = box => render(box, EXAMPLE);
 
   return { mount };
 })();

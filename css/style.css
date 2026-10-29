@@ -534,6 +534,7 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 .ap-num { position: absolute; top: -7px; right: -7px; width: 16px; height: 16px; border-radius: 50%; background: #1a1a1a; color: #fff; font-size: 10px; font-weight: 700; line-height: 16px; text-align: center; box-shadow: 0 0 0 2px #fff; }
 .ap-notes { flex: 1 1 16rem; margin: 0; padding-inline-start: 1.3rem; }
 .ap-notes li { margin: .25rem 0; }
+.auction-picture .ap-random { margin: 0 0 1rem; }
 .bid-box td { background: var(--surface); color: var(--text); border-radius: 6px; height: 1.7rem; padding: 0 .3rem; text-align: center; white-space: nowrap; }
 .bid-box td:empty { background: transparent; }
 .bid-box td.latest { box-shadow: 0 0 0 2px var(--hint); font-weight: 700; }
