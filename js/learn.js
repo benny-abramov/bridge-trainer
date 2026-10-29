@@ -88,9 +88,7 @@ const LESSONS_EN = [
       </ul>
       <div class="example">
         <div class="example-title">Example — West leads the 5${H}</div>
-        <div class="trick-row">
-          <span>West 5${H}</span><span>North Q${H}</span><span class="win">East K${H} ✓</span><span>South 2${C}</span>
-        </div>
+        <div class="trick-picture" data-trick="W:H5 N:HQ E:HK S:C2" data-lead="W"></div>
         <p class="small">South has no hearts and discards a club. East's King is the highest heart, so East wins.</p>
       </div>
       <div class="trick-demo" data-lesson="tricks"></div>`,
@@ -107,9 +105,7 @@ const LESSONS_EN = [
       <p>A contract in <strong>no-trump (NT)</strong> has no trump suit: the highest card of the suit led always wins.</p>
       <div class="example">
         <div class="example-title">Example — spades are trumps, North leads the A${D}</div>
-        <div class="trick-row">
-          <span>North A${D}</span><span class="win">East 3${S} ✓</span><span>South 4${D}</span><span>West 7${D}</span>
-        </div>
+        <div class="trick-picture" data-trick="N:DA E:S3 S:D4 W:D7" data-lead="N" data-trump="S"></div>
         <p class="small">East has no diamonds and ruffs with a small trump, beating the Ace.</p>
       </div>
       <div class="trick-demo" data-lesson="trumps"></div>`,
@@ -526,9 +522,7 @@ const LESSONS_HE = [
       </ul>
       <div class="example">
         <div class="example-title">דוגמה: מערב מוביל ${cardText(5, H)}</div>
-        <div class="trick-row">
-          <span>מערב ${cardText(5, H)}</span><span>צפון ${cardText('Q', H)}</span><span class="win">מזרח ${cardText('K', H)} ✓</span><span>דרום ${cardText(2, C)}</span>
-        </div>
+        <div class="trick-picture" data-trick="W:H5 N:HQ E:HK S:C2" data-lead="W"></div>
         <p class="small">לדרום אין הארט, והוא משליך קלאב. המלך של מזרח הוא ההארט הגבוה ביותר, ולכן מזרח זוכה.</p>
       </div>
       <div class="trick-demo" data-lesson="tricks"></div>`,
@@ -545,9 +539,7 @@ const LESSONS_HE = [
       <p>בחוזה <strong>ללא שליט (NT)</strong> אין סדרת שליט: הקלף הגבוה בסדרה שהובלה זוכה תמיד.</p>
       <div class="example">
         <div class="example-title">דוגמה: ספייד הוא השליט, צפון מוביל ${cardText('A', D)}</div>
-        <div class="trick-row">
-          <span>צפון ${cardText('A', D)}</span><span class="win">מזרח ${cardText(3, S)} ✓</span><span>דרום ${cardText(4, D)}</span><span>מערב ${cardText(7, D)}</span>
-        </div>
+        <div class="trick-picture" data-trick="N:DA E:S3 S:D4 W:D7" data-lead="N" data-trump="S"></div>
         <p class="small">למזרח אין דיאמונד, והוא חותך בשליט קטן שגובר על האס.</p>
       </div>
       <div class="trick-demo" data-lesson="trumps"></div>`,
@@ -1233,6 +1225,46 @@ const OpeningExamples = (() => {
   return { show };
 })();
 
+// A finished trick drawn on a small table, each card labeled by what it did: the lead, the
+// winner (a ruff when it's a trump) and any discard. Used for the examples in Tricks and Trumps.
+const TrickPicture = (() => {
+  const SEATS = { N: 0, E: 1, S: 2, W: 3 };
+  const AREA = ['n', 'e', 's', 'w'];
+
+  function mount(box) {
+    const plays = Object.fromEntries(box.dataset.trick.split(' ').map(t => [SEATS[t[0]], { suit: t[2], rank: t[3], value: RANKS.indexOf(t[3]) + 2 }]));
+    const lead = SEATS[box.dataset.lead];
+    const trump = box.dataset.trump || null;
+    const led = plays[lead].suit;
+    let win = lead;
+    for (let i = 1; i < 4; i++) {
+      const seat = (lead + i) % 4, c = plays[seat], b = plays[win];
+      if ((c.suit === b.suit && c.value > b.value) || (c.suit === trump && b.suit !== trump)) win = seat;
+    }
+    const table = document.createElement('div');
+    table.className = 'trick-picture-table';
+    for (let seat = 0; seat < 4; seat++) {
+      const c = plays[seat];
+      const role = seat === win
+        ? (c.suit !== led ? L('Winner ✓ (ruff)', 'זוכה ✓ (חיתוך)') : L('Winner ✓', 'זוכה ✓'))
+        : seat === lead ? L('Leader', 'מוביל')
+        : c.suit !== led ? L('Discard', 'השלכה') : '';
+      const spot = document.createElement('div');
+      spot.className = `tp-seat ${AREA[seat]}${seat === win ? ' winner' : ''}${seat === lead ? ' leader' : ''}`;
+      spot.innerHTML = `<div class="tp-label"><strong>${SEAT_NAMES[seat]}</strong>${role ? `<span class="tp-role">${role}</span>` : ''}</div>`;
+      const card = createCardEl(c);
+      if (seat === win) card.classList.add('winner');
+      if (seat === lead && seat !== win) card.classList.add('led');
+      spot.appendChild(card);
+      table.appendChild(spot);
+    }
+    box.innerHTML = '';
+    box.appendChild(table);
+  }
+
+  return { mount };
+})();
+
 // The balanced and unbalanced hands in the point-counting lesson. Each caption's shape, points and
 // reason are worked out from the cards.
 const ShapeExamples = (() => {
@@ -1788,6 +1820,7 @@ const Learn = (() => {
     document.querySelectorAll('#lesson-body .score-demo').forEach(ScoreDemo.mount);
     document.querySelectorAll('#lesson-body .shape-examples').forEach(ShapeExamples.mount);
     document.querySelectorAll('#lesson-body .roles-demo').forEach(RolesDemo.mount);
+    document.querySelectorAll('#lesson-body .trick-picture').forEach(TrickPicture.mount);
     document.querySelectorAll('#lesson-body [data-opening]').forEach(b => b.addEventListener('click', () => OpeningExamples.show(b.dataset.opening, b.innerHTML)));
     document.querySelectorAll('#lesson-body [data-finesse]').forEach(b => b.addEventListener('click', () => FinesseLayouts.show(b.dataset.finesse)));
     const auctionDemo = document.querySelector('#lesson-body .auction-demo');
