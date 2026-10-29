@@ -1247,7 +1247,7 @@ const FinesseLayouts = (() => {
       title: ['Second hand low', 'יד שנייה נמוך'], defense: true,
       setup: ["Declarer (South) leads a small card toward dummy's queen. You are West, the second hand to play.",
         'הכרוז (דרום) מוביל קלף קטן לעבר המלכה של הדומם. אתם במערב, היד השנייה לשחק.'],
-      hands: { n: 'Qxx', w: 'Axx', e: 'JTx', s: 'Kxx' }, lead: ['s', 1],
+      hands: { n: 'Qxx', w: 'Axx', e: 'JTx', s: 'Kxx' }, lead: ['s', 2],
       cases: [
         { tricks: 1, play: ['w', 2], title: ['You play low', 'אתם משחקים נמוך'],
           text: ["Dummy's queen wins. When declarer later plays the king, you play after it and your ace captures it, and then partner's jack is the highest card left. You win two tricks; declarer makes only the queen.",
