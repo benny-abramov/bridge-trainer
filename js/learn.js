@@ -361,7 +361,22 @@ const LESSONS_EN = [
         <li><strong>Puppet Stayman (3${C})</strong>: with game values and a 3- or 4-card major, ask partner for a 4- or 5-card major. Partner bids 3${H} or 3${S} with five cards, 3${D} with a 4-card major, or 3NT with neither.
           After 3${D}, bid the major you <em>don't</em> have (3${H} shows four spades, 3${S} shows four hearts), so the strong hand plays the contract.</li>
         <li><strong>Jacoby transfers (2${D}, 2${H}, 4${D}, 4${H})</strong>: with 5+ cards in a major, bid the suit just below it. Partner must bid your major. Use them with any strength.
-          With a 6+ card major and enough for game, transfer at the 4-level: <strong>4${D}</strong> asks partner to bid 4${H}, and <strong>4${H}</strong> asks for 4${S}.</li>
+          With a 6+ card major and enough for game, transfer at the 4-level: <strong>4${D}</strong> asks partner to bid 4${H}, and <strong>4${H}</strong> asks for 4${S}.
+          <details class="why-more">
+            <summary class="btn secondary">💡 Why use transfers?</summary>
+            <div class="why-body">
+              <p><strong>The strong hand is hidden.</strong> Partner bids your major first, so the 1NT opener becomes declarer. Their strong hand stays face-down,
+              and the opening lead comes <em>into</em> their honors (like A-Q) instead of through them.</p>
+              <p><strong>You get a second bid.</strong> Partner's answer is automatic, so you can bid again and show your strength:</p>
+              <ul>
+                <li><strong>Weak (0–7 HCP):</strong> transfer, then pass. You play in your long suit at the 2-level, safer than 1NT.</li>
+                <li><strong>Invitational (8–9 HCP):</strong> transfer, then 2NT with five cards or 3 of the major with six. Partner goes to game with a maximum.</li>
+                <li><strong>Game (10+ HCP):</strong> transfer, then 3NT with five cards (partner chooses 3NT or 4 of the major) or 4 of the major with six.</li>
+              </ul>
+              <p><strong>4-level transfers</strong> (4${D}, 4${H}) are for a 6+ card major, game values and no interest in slam. With slam interest, start with
+              a 2-level transfer and bid again after it.</p>
+            </div>
+          </details></li>
       </ul>
 
       <h3>Over partner's 2NT</h3>
@@ -815,7 +830,22 @@ const LESSONS_HE = [
         <li><strong>פאפט סטיימן (${B('3C')})</strong>: עם כוח למשחק מלא וסדרת מייגור של 3 או 4 קלפים, שאלו את השותף אם יש לו סדרת מייגור של 4 או 5. השותף מכריז ${B('3H')} או ${B('3S')} עם חמישה קלפים, ${B('3D')} עם מייגור של 4, או 3NT בלי.
           אחרי ${B('3D')}, הכריזו את המייגור <em>שאין</em> לכם (${B('3H')} מראה ארבעה ספייד, ${B('3S')} מראה ארבעה הארט), כדי שהיד החזקה תשחק את החוזה.</li>
         <li><strong>טרנספר ג'ייקובי (${B('2D')}, ${B('2H')}, ${B('4D')}, ${B('4H')})</strong>: עם 5 קלפים ומעלה בסדרת מייגור, הכריזו את הסדרה שמתחתיה. השותף חייב להכריז את הסדרה שלכם. משתמשים בו עם כל כוח.
-          עם מייגור של 6 קלפים ומעלה וכוח למשחק מלא, הכריזו טרנספר ברמת 4: <strong>${B('4D')}</strong> מבקש מהשותף להכריז ${B('4H')}, ו-<strong>${B('4H')}</strong> מבקש ${B('4S')}.</li>
+          עם מייגור של 6 קלפים ומעלה וכוח למשחק מלא, הכריזו טרנספר ברמת 4: <strong>${B('4D')}</strong> מבקש מהשותף להכריז ${B('4H')}, ו-<strong>${B('4H')}</strong> מבקש ${B('4S')}.
+          <details class="why-more">
+            <summary class="btn secondary">💡 למה להשתמש בטרנספר?</summary>
+            <div class="why-body">
+              <p><strong>היד החזקה מוסתרת.</strong> השותף מכריז ראשון את סדרת המייגור שלכם, ולכן פותח ה-1NT הופך לכרוז. היד החזקה שלו נשארת סגורה,
+              וההובלה הראשונה מגיעה <em>אל</em> ההונורים שלו (כמו A-Q) במקום לעבור דרכם.</p>
+              <p><strong>מקבלים הכרזה שנייה.</strong> התשובה של השותף אוטומטית, ולכן אפשר להכריז שוב ולהראות את הכוח:</p>
+              <ul>
+                <li><strong>חלשה (0-7 נק'):</strong> טרנספר ואחר כך פאס. משחקים בסדרה הארוכה שלכם ברמת 2, בטוח יותר מ-1NT.</li>
+                <li><strong>מזמינה (8-9 נק'):</strong> טרנספר ואחר כך 2NT עם חמישה קלפים, או 3 בסדרת המייגור עם שישה. השותף עולה למשחק מלא עם מקסימום.</li>
+                <li><strong>משחק מלא (10 נק' ומעלה):</strong> טרנספר ואחר כך 3NT עם חמישה קלפים (השותף בוחר בין 3NT ל-4 במייגור), או 4 במייגור עם שישה.</li>
+              </ul>
+              <p><strong>טרנספר ברמת 4</strong> (${B('4D')}, ${B('4H')}) מתאים למייגור של 6 קלפים ומעלה, כוח למשחק מלא ובלי עניין בסלאם. עם עניין בסלאם, התחילו
+              בטרנספר ברמת 2 והכריזו שוב אחריו.</p>
+            </div>
+          </details></li>
       </ul>
 
       <h3>מעל 2NT של השותף</h3>
