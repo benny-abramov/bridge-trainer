@@ -168,6 +168,7 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
   const lastCall = () => [...calls].reverse().find(c => c.call !== 'P');
   const legal = call => call === 'P'
     || (call === 'X' && !!lastCall() && isBidCall(lastCall().call) && lastCall().seat % 2 !== (DEALER + calls.length) % 2) // double an opponent's bid
+    || (call === 'XX' && !!lastCall() && lastCall().call === 'X' && lastCall().seat % 2 !== (DEALER + calls.length) % 2) // redouble their double
     || (isBidCall(call) && (!lastBid() || callRank(call) > callRank(lastBid().call)));
   const callsBy = seat => calls.filter(c => c.seat === seat).map(c => c.call);
 
@@ -196,6 +197,7 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
         return;
       }
       if (!isBidCall(call)) {
+        if (call === 'XX') { range(10, 37); return; } // the redouble after their takeout double
         if (call !== 'X') return;
         range(6, 37);
         const over = before.find(x => x.seat % 2 === 1 && isBidCall(x.call));
@@ -616,6 +618,15 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
     if (calls.slice(actIndex + 1).some(c => c.seat === seat)) return pass; // already had the chance
     const nsSince = calls.slice(actIndex + 1).some(c => c.seat % 2 === 0 && acted(c));
     if (theirCall === 'X') {
+      const redoubled = calls.slice(actIndex + 1).some(c => c.call === 'XX');
+      if (redoubled) {
+        const suit = SUITS.filter(z => !nsSuits.has(z)).sort((a, b) => len[b] - len[a] || SUITS.indexOf(a) - SUITS.indexOf(b))[0];
+        let level = 1;
+        while (level <= 3 && !legal(level + suit)) level++;
+        if (level <= 3) return { call: level + suit, why: L(
+          `North's redouble shows strength, and passing would leave partner playing a redoubled contract. Run to your longest unbid suit: ${bidHtml(level + suit)}.`,
+          `הרידאבל של צפון מראה כוח, ופאס היה משאיר את השותף לשחק בחוזה ברידאבל. ברחו לסדרה הארוכה ביותר שלכם שלא הוכרזה: ${bidHtml(level + suit)}.`) };
+      }
       if (nsSince) return { call: 'P', why: L(
         `North-South bid, so ${me} no longer has to answer partner's takeout double. With ${pts} HCP, pass.`,
         `צפון-דרום הכריזו, ולכן ${me} כבר לא חייב לענות לכפל ההוצאה של השותף. עם ${pts} נק', פאס.`) };
@@ -728,7 +739,30 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
     return null;
   }
 
+  // After North's redouble: double the opponents' new suit for penalty with four cards and two top
+  // honors in it. Otherwise opener passes (partner promised to bid again) and North chooses the contract.
+  function afterRedouble(seat, hand) {
+    const last = lastCall();
+    if (!last || last.seat % 2 !== 1 || !isBidCall(last.call) || last.call[1] === 'N') return null;
+    const z = last.call[1], cards = hand.filter(c => c.suit === z);
+    const honors = cards.filter(c => 'AKQJT'.includes(c.rank)).length;
+    if (cards.length >= 4 && honors >= 2 && legal('X')) {
+      placed = true;
+      return { call: 'X', why: L(
+        `<strong>Penalty double.</strong> The redouble showed that your side has most of the strength. With ${cards.length} ${SUIT_NAME[z]} including ${honors} top honors, double ${bidHtml(last.call)}: the opponents should go down.`,
+        `<strong>דאבל עונשין.</strong> הרידאבל הראה שלצד שלכם יש את רוב הכוח. עם ${cards.length} ${SUIT_NAME[z]}, מהם ${honors} הונורים עליונים, הכפילו את ${bidHtml(last.call)}: היריבים אמורים ליפול.`) };
+    }
+    if (seat === DEALER) return { call: 'P', why: L(
+      `Partner's redouble promises another bid, and you have no length in their ${SUIT_NAME[z]} to double for penalty. Pass and let partner decide.`,
+      `הרידאבל של השותף מבטיח הכרזה נוספת, ואין לכם אורך ב${SUIT_NAME[z]} שלהם כדי להכפיל לעונשין. פאס, ותנו לשותף להחליט.`) };
+    return null;
+  }
+
   function northSouth(seat) {
+    if (calls.some(c => c.seat === 0 && c.call === 'XX') && !placed) {
+      const r = afterRedouble(seat, hands[seat]);
+      if (r) return r;
+    }
     // A player who has only passed, when partner has just passed too, has nothing to add.
     const ownCalls = callsBy(seat), partnerCalls = callsBy((seat + 2) % 4);
     if (ownCalls.length && ownCalls.every(c => c === 'P') && partnerCalls[partnerCalls.length - 1] === 'P') return { call: 'P', why: '' };
@@ -764,6 +798,11 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
         `ה-${bidHtml(calls[1].call)} של מערב מבטל את הסטיימן והטרנספרים. עם ${hcp(hand)} נק' ו-${len[suit]} ${SUIT_NAME[suit]}, הכריזו ${bidHtml('2' + suit)} כדי לשחק שם.`) };
       return { call: 'P', why: L(`${hcp(hand)} HCP: too weak to compete after West's ${bidHtml(calls[1].call)}. Pass.`,
         `${hcp(hand)} נק': חלש מדי כדי להתחרות אחרי ה-${bidHtml(calls[1].call)} של מערב. פאס.`) };
+    }
+    if (seat === 0 && !mine.length && openSuit && calls[1].call === 'X' && hcp(hand) >= 10 && legal('XX')) {
+      return { call: 'XX', why: L(
+        `<strong>Redouble.</strong> After West's takeout double, a redouble shows 10+ HCP. With ${hcp(hand)} HCP, your side has most of the strength, and if the opponents run to a new suit you may double them for penalty.`,
+        `<strong>רידאבל.</strong> אחרי כפל ההוצאה של מערב, רידאבל מראה 10 נק' ומעלה. עם ${hcp(hand)} נק', לצד שלכם יש את רוב הכוח, ואם היריבים בורחים לסדרה חדשה אפשר להכפיל אותם לעונשין.`) };
     }
     if (seat === 0 && !mine.length && openSuit && calls[1].call !== 'P' && calls[1].call !== 'X') {
       return competitiveResponse(hand, openSuit, calls[1].call); // North responds after West's overcall
@@ -905,5 +944,7 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
   const side = final.seat % 2;
   const declarer = calls.find(c => isBidCall(c.call) && c.call[1] === strain && c.seat % 2 === side && !artificial.has(calls.indexOf(c)))?.seat;
   if (declarer !== 2 && !anyDeclarer) return null;
-  return { calls, contract: { level: Number(final.call[0]), strain }, declarer, dealer: DEALER };
+  const after = calls.slice(calls.indexOf(final) + 1).map(c => c.call);
+  const doubled = after.includes('XX') ? 2 : after.includes('X') ? 1 : 0;
+  return { calls, contract: { level: Number(final.call[0]), strain, doubled }, declarer, dealer: DEALER };
 }

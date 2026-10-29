@@ -1399,9 +1399,13 @@ const AuctionPicture = (() => {
   // A random auction from the app's own bidding rules (the ones Play a Hand uses). They always deal
   // South, so the seats are turned round to give a random dealer.
   function randomAuction() {
-    for (let tries = 0; tries < 200; tries++) {
+    // Doubles and redoubles are rare in real deals, so some clicks look for an auction that has one.
+    const roll = Math.random();
+    const want = roll < 0.1 ? 'XX' : roll < 0.25 ? 'X' : null;
+    for (let tries = 0; tries < 4000; tries++) {
       const a = bidAuction(dealHands(), { anyDeclarer: true });
       if (!a) continue;
+      if (want && tries < 3999 && !a.calls.some(c => c.call === want)) continue;
       const turn = Math.floor(Math.random() * 4);
       const seat = x => (x + turn) % 4;
       return { dealer: seat(a.dealer), declarer: seat(a.declarer), calls: a.calls.map(c => c.call) };
@@ -1415,7 +1419,9 @@ const AuctionPicture = (() => {
     const strain = contract[1];
     const bids = calls.filter(c => /^\d/.test(c)).map(bidHtml).join(', ');
     const single = calls.filter(c => /^\d/.test(c)).length === 1;
-    const doubled = calls.slice(final + 1).includes('X') || calls.slice(0, final).some(c => c === 'X');
+    const doubles = calls.includes('X') || calls.includes('XX');
+    const after = calls.slice(final + 1);
+    const level = after.includes('XX') ? L(' redoubled', ' ברידאבל') : after.includes('X') ? L(' doubled', ' בדאבל') : '';
     const tricks = Number(contract[0]) + 6;
     const what = strain === 'N' ? L('in no-trump', 'בללא שליט') : L(`with ${SUIT_NAME[strain]} as trumps`, `עם ${SUIT_NAME[strain]} כשליט`);
     const strainName = strain === 'N' ? L('no-trump', 'ללא שליט') : SUIT_NAME[strain];
@@ -1423,14 +1429,14 @@ const AuctionPicture = (() => {
     return L([
       `${D} is the <strong>dealer</strong> (underlined), so ${D} calls first and opens ${bidHtml(calls[0])}.`,
       single ? `${bidHtml(contract)} is the only bid: everyone else passes. A pass is always allowed.`
-        : `Every bid is higher than the one before: ${bids}. A pass is always allowed${doubled ? ', and a double (Dbl) is not a bid' : ''}.`,
-      `${bidHtml(contract)} is the last bid, so it becomes the <strong>contract</strong>: ${side(declarer)} must take ${tricks} tricks ${what}.`,
+        : `Every bid is higher than the one before: ${bids}. A pass is always allowed${doubles ? ', and a double or redouble (Dbl, Rdbl) is not a bid' : ''}.`,
+      `${bidHtml(contract)} is the last bid, so it becomes the <strong>contract</strong>${level}: ${side(declarer)} must take ${tricks} tricks ${what}.`,
       `<strong>Three passes</strong> in a row end the auction. ${C} is the <strong>declarer</strong>: the first of ${side(declarer)} to bid ${strainName}.`,
     ], [
       `${D} הוא <strong>המחלק</strong> (מסומן בקו), ולכן ${D} מכריז ראשון ופותח ${bidHtml(calls[0])}.`,
       single ? `${bidHtml(contract)} היא ההכרזה היחידה: כל השאר מכריזים פאס. פאס מותר תמיד.`
-        : `כל הכרזה גבוהה מקודמתה: ${bids}. פאס מותר תמיד${doubled ? ', ודאבל אינו הכרזה' : ''}.`,
-      `${bidHtml(contract)} היא ההכרזה האחרונה, ולכן היא <strong>החוזה</strong>: ${side(declarer)} צריכים לקחת ${tricks} לקיחות ${what}.`,
+        : `כל הכרזה גבוהה מקודמתה: ${bids}. פאס מותר תמיד${doubles ? ', ודאבל או רידאבל אינם הכרזות' : ''}.`,
+      `${bidHtml(contract)} היא ההכרזה האחרונה, ולכן היא <strong>החוזה</strong>${level}: ${side(declarer)} צריכים לקחת ${tricks} לקיחות ${what}.`,
       `<strong>שלושה פאסים</strong> ברצף מסיימים את המכרז. ${C} הוא <strong>הכרוז</strong>: הראשון מ${side(declarer)} שהכריז ${strainName}.`,
     ]);
   }
@@ -1440,7 +1446,7 @@ const AuctionPicture = (() => {
     const final = calls.reduce((j, c, i) => (/^\d/.test(c) ? i : j), -1);
     const cells = Array(COLUMNS.indexOf(dealer)).fill('<td></td>');
     calls.forEach((c, i) => {
-      const cls = i === final ? 'final' : i > final ? 'closing' : '';
+      const cls = i === final ? 'final' : i > final && c === 'P' ? 'closing' : '';
       const mark = i === 0 ? 1 : i === final ? 3 : i === calls.length - 1 ? 4 : null;
       cells.push(`<td class="${cls}">${bidHtml(c)}${mark ? `<span class="ap-num">${mark}</span>` : ''}</td>`);
     });
