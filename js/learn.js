@@ -357,9 +357,31 @@ const LESSONS_EN = [
 
       <h3>Over partner's 1NT</h3>
       <ul>
-        <li><strong>Stayman (2${C})</strong>: with 8+ HCP and a 4-card major, ask partner for a 4-card major. Partner bids 2${H} or 2${S} with one, or 2${D} with neither.</li>
+        <li><strong>Stayman (2${C})</strong>: with 8+ HCP and a 4-card major, ask partner for a 4-card major. Partner bids 2${H} or 2${S} with one, or 2${D} with neither.
+          <details class="why-more">
+            <summary class="btn secondary">💡 Why use Stayman?</summary>
+            <div class="why-body">
+              <p><strong>A major fit plays better than no-trump.</strong> With eight trumps between you, the opponents can't run a long suit against you,
+              and you can ruff their winners. 4${H} or 4${S} often makes when 3NT fails.</p>
+              <p><strong>A balanced 1NT can hide a 4-card major.</strong> Opener doesn't show it, and you can't bid your own major naturally:
+              2${D} and 2${H} are transfers. Stayman asks the question directly.</p>
+              <p><strong>No fit? You are still fine.</strong> After 2${D} (or the other major), bid 2NT to invite with 8–9 HCP, or 3NT with 10+.
+              That is why Stayman needs about 8 HCP: you must be safe to bid again.</p>
+            </div>
+          </details></li>
         <li><strong>Puppet Stayman (3${C})</strong>: with game values and a 3- or 4-card major, ask partner for a 4- or 5-card major. Partner bids 3${H} or 3${S} with five cards, 3${D} with a 4-card major, or 3NT with neither.
-          After 3${D}, bid the major you <em>don't</em> have (3${H} shows four spades, 3${S} shows four hearts), so the strong hand plays the contract.</li>
+          After 3${D}, bid the major you <em>don't</em> have (3${H} shows four spades, 3${S} shows four hearts), so the strong hand plays the contract.
+          <details class="why-more">
+            <summary class="btn secondary">💡 Why use Puppet Stayman?</summary>
+            <div class="why-body">
+              <p><strong>Balanced hands can have a 5-card major.</strong> A 5-3-3-2 hand opens 1NT or 2NT, and ordinary Stayman only finds 4-card majors.
+              With three cards in partner's 5-card major, you would miss an 8-card fit.</p>
+              <p><strong>It finds both kinds of fit.</strong> 3${H} or 3${S} shows five cards (a 5-3 fit), and 3${D} lets you look for a 4-4 fit.</p>
+              <p><strong>The strong hand stays hidden.</strong> By bidding the major you don't have, you let opener bid the fitting major first, so
+              opener declares, just as with transfers.</p>
+              <p>Many pairs use it mainly over a <strong>2NT</strong> opening, where a 5-card major in the strong hand is common.</p>
+            </div>
+          </details></li>
         <li><strong>Jacoby transfers (2${D}, 2${H}, 4${D}, 4${H})</strong>: with 5+ cards in a major, bid the suit just below it. Partner must bid your major. Use them with any strength.
           With a 6+ card major and enough for game, transfer at the 4-level (<strong>Texas transfers</strong>): <strong>4${D}</strong> asks partner to bid 4${H}, and <strong>4${H}</strong> asks for 4${S}.
           <details class="why-more">
@@ -826,9 +848,31 @@ const LESSONS_HE = [
 
       <h3>מעל 1NT של השותף</h3>
       <ul>
-        <li><strong>סטיימן (${B('2C')})</strong>: עם 8 נק' ומעלה וסדרת מייגור של 4 קלפים, שאלו את השותף אם יש לו סדרת מייגור של 4. השותף מכריז ${B('2H')} או ${B('2S')} עם סדרה כזו, או ${B('2D')} בלי.</li>
+        <li><strong>סטיימן (${B('2C')})</strong>: עם 8 נק' ומעלה וסדרת מייגור של 4 קלפים, שאלו את השותף אם יש לו סדרת מייגור של 4. השותף מכריז ${B('2H')} או ${B('2S')} עם סדרה כזו, או ${B('2D')} בלי.
+          <details class="why-more">
+            <summary class="btn secondary">💡 למה להשתמש בסטיימן?</summary>
+            <div class="why-body">
+              <p><strong>התאמה במייגור משחקת טוב יותר מללא שליט.</strong> עם שמונה שליטים ביחד, היריבים לא יכולים להריץ נגדכם סדרה ארוכה,
+              ואתם יכולים לחתוך את הקלפים הזוכים שלהם. ${B('4H')} או ${B('4S')} מצליחים לעתים קרובות כש-3NT נכשל.</p>
+              <p><strong>יד 1NT מאוזנת יכולה להסתיר מייגור של 4.</strong> הפותח לא מראה אותו, ואתם לא יכולים להכריז את המייגור שלכם באופן טבעי:
+              ${B('2D')} ו-${B('2H')} הם טרנספר. סטיימן שואל את השאלה ישירות.</p>
+              <p><strong>אין התאמה? עדיין בסדר.</strong> אחרי ${B('2D')} (או המייגור האחר), הכריזו 2NT כדי להזמין עם 8-9 נק', או 3NT עם 10 ומעלה.
+              לכן סטיימן דורש בערך 8 נק': צריך להיות בטוח להכריז שוב.</p>
+            </div>
+          </details></li>
         <li><strong>פאפט סטיימן (${B('3C')})</strong>: עם כוח למשחק מלא וסדרת מייגור של 3 או 4 קלפים, שאלו את השותף אם יש לו סדרת מייגור של 4 או 5. השותף מכריז ${B('3H')} או ${B('3S')} עם חמישה קלפים, ${B('3D')} עם מייגור של 4, או 3NT בלי.
-          אחרי ${B('3D')}, הכריזו את המייגור <em>שאין</em> לכם (${B('3H')} מראה ארבעה ספייד, ${B('3S')} מראה ארבעה הארט), כדי שהיד החזקה תשחק את החוזה.</li>
+          אחרי ${B('3D')}, הכריזו את המייגור <em>שאין</em> לכם (${B('3H')} מראה ארבעה ספייד, ${B('3S')} מראה ארבעה הארט), כדי שהיד החזקה תשחק את החוזה.
+          <details class="why-more">
+            <summary class="btn secondary">💡 למה להשתמש בפאפט סטיימן?</summary>
+            <div class="why-body">
+              <p><strong>יד מאוזנת יכולה להכיל מייגור של 5.</strong> יד 5-3-3-2 פותחת 1NT או 2NT, וסטיימן רגיל מוצא רק מייגור של 4.
+              עם שלושה קלפים במייגור של 5 אצל השותף, הייתם מפספסים התאמה של 8 קלפים.</p>
+              <p><strong>הוא מוצא את שני סוגי ההתאמה.</strong> ${B('3H')} או ${B('3S')} מראה חמישה קלפים (התאמה 5-3), ו-${B('3D')} מאפשר לחפש התאמה 4-4.</p>
+              <p><strong>היד החזקה נשארת מוסתרת.</strong> כשאתם מכריזים את המייגור שאין לכם, הפותח מכריז ראשון את המייגור המתאים,
+              ולכן הוא הכרוז, בדיוק כמו בטרנספר.</p>
+              <p>זוגות רבים משתמשים בו בעיקר מעל פתיחה של <strong>2NT</strong>, שבה מייגור של 5 ביד החזקה נפוץ.</p>
+            </div>
+          </details></li>
         <li><strong>טרנספר ג'ייקובי (${B('2D')}, ${B('2H')}, ${B('4D')}, ${B('4H')})</strong>: עם 5 קלפים ומעלה בסדרת מייגור, הכריזו את הסדרה שמתחתיה. השותף חייב להכריז את הסדרה שלכם. משתמשים בו עם כל כוח.
           עם מייגור של 6 קלפים ומעלה וכוח למשחק מלא, הכריזו טרנספר ברמת 4 (<strong>טרנספר טקסס</strong>): <strong>${B('4D')}</strong> מבקש מהשותף להכריז ${B('4H')}, ו-<strong>${B('4H')}</strong> מבקש ${B('4S')}.
           <details class="why-more">
