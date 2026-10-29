@@ -207,6 +207,11 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 .finesse-dialog { width: min(760px, calc(100% - 32px)); max-height: calc(100% - 32px); box-sizing: border-box; padding: 1rem 1.2rem; border: 1px solid var(--border); border-radius: 14px; background: var(--surface); color: var(--text); text-align: center; }
 .finesse-dialog::backdrop { background: rgba(0, 0, 0, .55); }
 .finesse-dialog h3 { margin: 0 0 .75rem; }
+/* Example hands from the "Opening the bidding" table. */
+.opening-dialog { width: min(560px, calc(100% - 32px)); }
+.opening-felt { --cw: 44px; display: flex; justify-content: center; padding: .6rem; }
+.opening-info { margin: .6rem 0 0; font-size: 1rem; }
+.opening-buttons { display: flex; justify-content: center; gap: .6rem; }
 .fin-cases { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; text-align: start; }
 .fin-case { border: 2px solid var(--border); border-radius: 10px; padding: .5rem .6rem; }
 .fin-case.good { border-color: var(--good); background: var(--good-soft); }

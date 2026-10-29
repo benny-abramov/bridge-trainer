@@ -207,19 +207,19 @@ const LESSONS_EN = [
   {
     title: 'Opening the bidding',
     body: `
-      <p>The first bid is the <strong>opening bid</strong>. This app teaches a simplified <em>Standard American</em> system:</p>
+      <p>The first bid is the <strong>opening bid</strong>. This app teaches a simplified <em>Standard American</em> system. Tap a hand type to see an example:</p>
       <table class="tbl">
         <tr><th>Your hand</th><th>Open</th></tr>
-        <tr><td>Fewer than 12 HCP (and no long suit)</td><td>Pass</td></tr>
-        <tr><td>12–22 HCP with a 5+ card major</td><td>1${H} or 1${S} (longer major; spades with 5${S}-5${H})</td></tr>
-        <tr><td>12–22 HCP with a minor longer than your 5-card major</td><td>1 of the minor: open your longest suit first (1${D} with 6${D}-5${H})</td></tr>
-        <tr><td>12–22 HCP, no 5-card major</td><td>1${C} or 1${D} (longer minor; 1${C} with 3${C}-3${D}, 1${D} with 4${D}-4${C})</td></tr>
-        <tr><td>15–17 HCP, balanced</td><td>1NT</td></tr>
-        <tr><td>20–22 HCP, balanced</td><td>2NT</td></tr>
-        <tr><td>23+ HCP, any shape</td><td>2${C} (strong and artificial)</td></tr>
-        <tr><td>5–10 HCP with a good 6-card ${D}, ${H} or ${S} suit</td><td>Weak two: 2${D}, 2${H} or 2${S}</td></tr>
-        <tr><td>5–10 HCP with a good 7-card suit</td><td>Preempt at the 3-level</td></tr>
-        <tr><td>5–10 HCP with a good 8-card suit</td><td>Preempt at the 4-level</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-opening="pass">Fewer than 12 HCP (and no long suit)</button></td><td>Pass</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-opening="major">12–22 HCP with a 5+ card major</button></td><td>1${H} or 1${S} (longer major; spades with 5${S}-5${H})</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-opening="longminor">12–22 HCP with a minor longer than your 5-card major</button></td><td>1 of the minor: open your longest suit first (1${D} with 6${D}-5${H})</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-opening="minor">12–22 HCP, no 5-card major</button></td><td>1${C} or 1${D} (longer minor; 1${C} with 3${C}-3${D}, 1${D} with 4${D}-4${C})</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-opening="nt1">15–17 HCP, balanced</button></td><td>1NT</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-opening="nt2">20–22 HCP, balanced</button></td><td>2NT</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-opening="c2">23+ HCP, any shape</button></td><td>2${C} (strong and artificial)</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-opening="weak2">5–10 HCP with a good 6-card ${D}, ${H} or ${S} suit</button></td><td>Weak two: 2${D}, 2${H} or 2${S}</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-opening="pre3">5–10 HCP with a good 7-card suit</button></td><td>Preempt at the 3-level</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-opening="pre4">5–10 HCP with a good 8-card suit</button></td><td>Preempt at the 4-level</td></tr>
       </table>
       <p>A <strong>good suit</strong> for a weak two or a preempt has two of the top four honors (A, K, Q, J). With a weaker suit, pass.</p>
       <p><strong>Rule of 20:</strong> with 10–11 HCP, add your HCP to the number of cards in your two longest suits.
@@ -645,19 +645,19 @@ const LESSONS_HE = [
   {
     title: 'פתיחת המכרז',
     body: `
-      <p>ההכרזה הראשונה היא <strong>הכרזת הפתיחה</strong>. האפליקציה מלמדת גרסה פשוטה של <em>השיטה האמריקאית הסטנדרטית</em>:</p>
+      <p>ההכרזה הראשונה היא <strong>הכרזת הפתיחה</strong>. האפליקציה מלמדת גרסה פשוטה של <em>השיטה האמריקאית הסטנדרטית</em>. לחצו על סוג יד כדי לראות דוגמה:</p>
       <table class="tbl">
         <tr><th>היד שלכם</th><th>פתיחה</th></tr>
-        <tr><td>פחות מ-12 נק' (ואין סדרה ארוכה)</td><td>פאס</td></tr>
-        <tr><td>12-22 נק' עם סדרת מייגור של 5 קלפים ומעלה</td><td>${B('1H')} או ${B('1S')} (סדרת המייגור הארוכה יותר; ספייד עם ${ltr(`5${S}-5${H}`)})</td></tr>
-        <tr><td>12-22 נק' עם סדרת מיינור ארוכה מסדרת המייגור של 5</td><td>1 בסדרת המיינור: פתחו קודם בסדרה הארוכה ביותר (${B('1D')} עם ${ltr(`6${D}-5${H}`)})</td></tr>
-        <tr><td>12-22 נק', בלי סדרת מייגור של 5</td><td>${B('1C')} או ${B('1D')} (סדרת המיינור הארוכה יותר; ${B('1C')} עם ${ltr(`3${C}-3${D}`)}, ${B('1D')} עם ${ltr(`4${D}-4${C}`)})</td></tr>
-        <tr><td>15-17 נק', מאוזנת</td><td>1NT</td></tr>
-        <tr><td>20-22 נק', מאוזנת</td><td>2NT</td></tr>
-        <tr><td>23 נק' ומעלה, כל חלוקה</td><td>${B('2C')} (חזקה ומלאכותית)</td></tr>
-        <tr><td>5-10 נק' עם סדרה טובה של 6 קלפים ב-${D}, ${H} או ${S}</td><td>הכרזת שתיים חלשה: ${B('2D')}, ${B('2H')} או ${B('2S')}</td></tr>
-        <tr><td>5-10 נק' עם סדרה טובה של 7 קלפים</td><td>הכרזת חסימה ברמת 3</td></tr>
-        <tr><td>5-10 נק' עם סדרה טובה של 8 קלפים</td><td>הכרזת חסימה ברמת 4</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-opening="pass">פחות מ-12 נק' (ואין סדרה ארוכה)</button></td><td>פאס</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-opening="major">12-22 נק' עם סדרת מייגור של 5 קלפים ומעלה</button></td><td>${B('1H')} או ${B('1S')} (סדרת המייגור הארוכה יותר; ספייד עם ${ltr(`5${S}-5${H}`)})</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-opening="longminor">12-22 נק' עם סדרת מיינור ארוכה מסדרת המייגור של 5</button></td><td>1 בסדרת המיינור: פתחו קודם בסדרה הארוכה ביותר (${B('1D')} עם ${ltr(`6${D}-5${H}`)})</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-opening="minor">12-22 נק', בלי סדרת מייגור של 5</button></td><td>${B('1C')} או ${B('1D')} (סדרת המיינור הארוכה יותר; ${B('1C')} עם ${ltr(`3${C}-3${D}`)}, ${B('1D')} עם ${ltr(`4${D}-4${C}`)})</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-opening="nt1">15-17 נק', מאוזנת</button></td><td>1NT</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-opening="nt2">20-22 נק', מאוזנת</button></td><td>2NT</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-opening="c2">23 נק' ומעלה, כל חלוקה</button></td><td>${B('2C')} (חזקה ומלאכותית)</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-opening="weak2">5-10 נק' עם סדרה טובה של 6 קלפים ב-${D}, ${H} או ${S}</button></td><td>הכרזת שתיים חלשה: ${B('2D')}, ${B('2H')} או ${B('2S')}</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-opening="pre3">5-10 נק' עם סדרה טובה של 7 קלפים</button></td><td>הכרזת חסימה ברמת 3</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-opening="pre4">5-10 נק' עם סדרה טובה של 8 קלפים</button></td><td>הכרזת חסימה ברמת 4</td></tr>
       </table>
       <p><strong>סדרה טובה</strong> להכרזת שתיים חלשה או להכרזת חסימה כוללת שניים מארבעת ההונורים העליונים (A, K, Q, J). עם סדרה חלשה יותר, פאס.</p>
       <p><strong>סדרות המייגור</strong> הן הארט וספייד; <strong>סדרות המיינור</strong> הן קלאב ודיאמונד.</p>
@@ -1148,6 +1148,89 @@ const RolesDemo = (() => {
   }
 
   return { mount };
+})();
+
+// The "Opening the bidding" table: tap a hand type to deal random examples of it, with the
+// opening bid and the app's explanation.
+const OpeningExamples = (() => {
+  const isMinor = b => b === '1C' || b === '1D';
+  const hasFiveMajor = hand => { const len = suitLengths(hand); return len.H >= 5 || len.S >= 5; };
+  // Which opening each row of the table describes.
+  const ROWS = {
+    pass: b => b === 'P',
+    major: b => b === '1H' || b === '1S',
+    longminor: (b, hand) => isMinor(b) && hasFiveMajor(hand),
+    minor: (b, hand) => isMinor(b) && !hasFiveMajor(hand),
+    nt1: b => b === '1N',
+    nt2: b => b === '2N',
+    c2: b => b === '2C',
+    weak2: b => b === '2D' || b === '2H' || b === '2S',
+    pre3: b => /^3[CDHS]$/.test(b),
+    pre4: b => /^4[CDHS]$/.test(b),
+  };
+  let dialog, key, title;
+
+  function find() {
+    for (let i = 0; i < 20000; i++) {
+      for (const hand of dealHands()) {
+        const r = openingBid(hand);
+        if (ROWS[key](r.bid, hand)) return { hand, r };
+      }
+    }
+    return null;
+  }
+
+  function render() {
+    const found = find();
+    dialog.innerHTML = `<h3>${title}</h3>`;
+    if (!found) {
+      dialog.insertAdjacentHTML('beforeend', `<p>${L('No example found this time. Try again.', 'לא נמצאה דוגמה הפעם. נסו שוב.')}</p>`);
+    } else {
+      const { hand, r } = found;
+      const felt = document.createElement('div');
+      felt.className = 'shape-felt opening-felt';
+      renderFan(felt, hand);
+      const lens = Object.values(suitLengths(hand)).sort((a, b) => b - a).join('-');
+      const info = document.createElement('p');
+      info.className = 'opening-info';
+      info.innerHTML = `${L(`${hcp(hand)} HCP`, `${hcp(hand)} נק'`)} · ${ltr(lens)} · ${L('Open', 'פתחו')}: <strong>${bidHtml(r.bid)}</strong>`;
+      const why = document.createElement('p');
+      why.className = 'fin-chance';
+      why.innerHTML = r.why;
+      dialog.append(felt, info, why);
+    }
+    const buttons = document.createElement('div');
+    buttons.className = 'opening-buttons';
+    const next = document.createElement('button');
+    next.className = 'btn';
+    next.type = 'button';
+    next.textContent = L('Next hand', 'יד הבאה');
+    next.addEventListener('click', render);
+    const close = document.createElement('button');
+    close.className = 'btn secondary';
+    close.type = 'button';
+    close.textContent = L('Close', 'סגירה');
+    close.addEventListener('click', () => dialog.close());
+    buttons.append(next, close);
+    dialog.appendChild(buttons);
+  }
+
+  function show(k, label) {
+    if (!ROWS[k]) return;
+    if (!dialog) {
+      dialog = document.createElement('dialog');
+      dialog.className = 'finesse-dialog opening-dialog';
+      dialog.addEventListener('click', e => { if (e.target === dialog) dialog.close(); }); // the backdrop
+      document.body.appendChild(dialog);
+    }
+    key = k;
+    title = label;
+    render();
+    if (!dialog.open) dialog.showModal();
+    dialog.scrollTop = 0;
+  }
+
+  return { show };
 })();
 
 // The balanced and unbalanced hands in the point-counting lesson. Each caption's shape, points and
@@ -1705,6 +1788,7 @@ const Learn = (() => {
     document.querySelectorAll('#lesson-body .score-demo').forEach(ScoreDemo.mount);
     document.querySelectorAll('#lesson-body .shape-examples').forEach(ShapeExamples.mount);
     document.querySelectorAll('#lesson-body .roles-demo').forEach(RolesDemo.mount);
+    document.querySelectorAll('#lesson-body [data-opening]').forEach(b => b.addEventListener('click', () => OpeningExamples.show(b.dataset.opening, b.innerHTML)));
     document.querySelectorAll('#lesson-body [data-finesse]').forEach(b => b.addEventListener('click', () => FinesseLayouts.show(b.dataset.finesse)));
     const auctionDemo = document.querySelector('#lesson-body .auction-demo');
     if (auctionDemo) AuctionDemo.mount(auctionDemo);
