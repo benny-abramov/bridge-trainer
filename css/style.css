@@ -227,6 +227,10 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 .balanced-table td:first-child { white-space: nowrap; font-weight: 700; }
 .balanced-table td:nth-child(2) { white-space: nowrap; }
 .balanced-table tr.nt-open td { background: var(--accent-soft); }
+/* The "Supporting partner's major" table in the Responding lesson: short bullet lists in the cells. */
+.support-table td:first-child { white-space: nowrap; font-weight: 700; }
+.support-table ul { margin: 0; padding-inline-start: 1.1rem; }
+.support-table li { margin: .1rem 0; }
 .fin-cases { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; text-align: start; }
 .fin-case { border: 2px solid var(--border); border-radius: 10px; padding: .5rem .6rem; }
 .fin-case.good { border-color: var(--good); background: var(--good-soft); }

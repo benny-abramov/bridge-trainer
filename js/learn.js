@@ -241,15 +241,22 @@ const LESSONS_EN = [
       <p>With 6+ HCP, choose the <strong>first</strong> of these that fits your hand. Tap a hand type to see an example:</p>
       <table class="tbl">
         <tr><th>Your hand</th><th>Respond</th></tr>
-        <tr><td><button class="finesse-link" type="button" data-response="mraise">3+ cards in partner's major</button></td><td>Raise: 2 of the major with 6–10 support points, 3 (a <em>limit raise</em>) with 11–12.
-          4 of the major is <em>preemptive</em>: 5+ trumps, a singleton or void and fewer than 10 HCP.
-          With 13+, bid a new suit first and raise to game on your next turn (a <em>delayed game raise</em>).</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-response="mraise">3+ cards in partner's major</button></td><td>Raise partner's major: see <em>Supporting partner's major</em> below</td></tr>
         <tr><td><button class="finesse-link" type="button" data-response="new1">A 4+ card suit you can bid at the 1-level</button></td><td>Bid it (majors before diamonds; hearts first with 4-4 in the majors)</td></tr>
         <tr><td><button class="finesse-link" type="button" data-response="minraise">Support for partner's minor (4+ ${D} or 5+ ${C})</button></td><td>Raise: 2 of the minor with 6–10 support points, 3 with 11–12 and five cards (with only four, 2NT)</td></tr>
         <tr><td><button class="finesse-link" type="button" data-response="nt1">6–10 HCP, none of the above</button></td><td>1NT</td></tr>
         <tr><td><button class="finesse-link" type="button" data-response="two">11+ HCP, a 4+ card lower-ranking suit (5+ for ${H})</button></td><td>New suit at the 2-level</td></tr>
         <tr><td><button class="finesse-link" type="button" data-response="nt2">11–12 HCP, none of the above</button></td><td>2NT, inviting game</td></tr>
         <tr><td><button class="finesse-link" type="button" data-response="nt3">13–15 HCP, none of the above</button></td><td>3NT, bidding game</td></tr>
+      </table>
+      <h3>${S}${H} Supporting partner's major</h3>
+      <table class="tbl support-table">
+        <tr><th>Bid</th><th>Strength</th><th>Hand</th></tr>
+        <tr><td>2${S} / 2${H}</td><td>6–10 support points</td><td><ul><li><strong>Simple raise</strong></li><li>3+ trumps</li></ul></td></tr>
+        <tr><td>3${S} / 3${H}</td><td>11–12 support points</td><td><ul><li><strong>Limit raise</strong>: invites game</li><li>3+ trumps</li></ul></td></tr>
+        <tr><td>4${S} / 4${H}</td><td>Fewer than 10 HCP</td><td><ul><li><strong>Preemptive raise</strong></li><li>5+ trumps</li><li>A singleton or a void</li></ul></td></tr>
+        <tr><td>New suit</td><td>13+ points</td><td><ul><li><strong>Delayed game raise</strong></li><li>3 trumps</li><li>Bid a new suit first, then jump to game on your next turn</li></ul></td></tr>
+        <tr><td>2NT</td><td>13+ points</td><td><ul><li><strong>Jacoby 2NT</strong> (see Conventions)</li><li>4+ trumps</li><li>Forcing to game</li></ul></td></tr>
       </table>
       <p><strong>Support points.</strong> When you have support for partner's suit, your short suits help too: as dummy you can ruff declarer's losers in them. So add <strong>1 point for a doubleton, 2 for a singleton and 3 for a void</strong> to your HCP. For example, after partner's 1${S}, a hand with 4 spades, 8 HCP and a singleton has 10 support points: raise to 2${S}. The same goes for any hand that raises partner, including opener raising responder's suit. Only the hand with the shorter trumps counts its short suits. The hand with the longer trumps, the one partner raised, counts <strong>length points</strong> instead: 1 for each card beyond four in any suit, trumps or a long side suit (1 for five, 2 for six, and so on).</p>
       <p>The aim of the auction is to find an <strong>8-card fit</strong> (or settle in no-trump) and the right level for your combined strength.
@@ -734,15 +741,22 @@ const LESSONS_HE = [
       <p>עם 6 נק' ומעלה, בחרו את <strong>הראשונה</strong> מבין האפשרויות הבאות שמתאימה ליד. לחצו על סוג יד כדי לראות דוגמה:</p>
       <table class="tbl">
         <tr><th>היד שלכם</th><th>תשובה</th></tr>
-        <tr><td><button class="finesse-link" type="button" data-response="mraise">3 קלפים ומעלה בסדרת המייגור של השותף</button></td><td>תמיכה: ל-2 עם 6-10 נקודות תמיכה, ל-3 (<em>תמיכה בקפיצה</em>) עם 11-12.
-          4 בסדרת המייגור היא <em>תמיכה מנוע</em>: 5 שליטים ומעלה, סינגלטון או חוסר ופחות מ-10 נק'.
-          עם 13 ומעלה, הכריזו קודם סדרה חדשה ותמכו למשחק מלא בתור הבא (<em>תמיכה מאוחרת למשחק מלא</em>).</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-response="mraise">3 קלפים ומעלה בסדרת המייגור של השותף</button></td><td>תמכו בסדרת המייגור של השותף: ראו <em>תמיכה בסדרת המייגור של השותף</em> בהמשך</td></tr>
         <tr><td><button class="finesse-link" type="button" data-response="new1">סדרה של 4 קלפים ומעלה שאפשר להכריז ברמת 1</button></td><td>הכריזו אותה (סדרות מייגור לפני דיאמונד; הארט קודם עם 4-4 בסדרות המייגור)</td></tr>
         <tr><td><button class="finesse-link" type="button" data-response="minraise">תמיכה בסדרת המיינור של השותף (4 ומעלה ב-${D} או 5 ומעלה ב-${C})</button></td><td>תמיכה: ל-2 עם 6-10 נקודות תמיכה, ל-3 עם 11-12 וחמישה קלפים (עם ארבעה בלבד, 2NT)</td></tr>
         <tr><td><button class="finesse-link" type="button" data-response="nt1">6-10 נק', אף אחד מאלה</button></td><td>1NT</td></tr>
         <tr><td><button class="finesse-link" type="button" data-response="two">11 נק' ומעלה, סדרה נמוכה יותר של 4 קלפים ומעלה (5 ומעלה ב-${H})</button></td><td>סדרה חדשה ברמת 2</td></tr>
         <tr><td><button class="finesse-link" type="button" data-response="nt2">11-12 נק', אף אחד מאלה</button></td><td>2NT, הזמנה למשחק מלא</td></tr>
         <tr><td><button class="finesse-link" type="button" data-response="nt3">13-15 נק', אף אחד מאלה</button></td><td>3NT, הכרזת משחק מלא</td></tr>
+      </table>
+      <h3>${S}${H} תמיכה בסדרת המייגור של השותף</h3>
+      <table class="tbl support-table">
+        <tr><th>הכרזה</th><th>כוח</th><th>היד</th></tr>
+        <tr><td>${B('2S')} / ${B('2H')}</td><td>6-10 נקודות תמיכה</td><td><ul><li><strong>תמיכה פשוטה</strong></li><li>3 שליטים ומעלה</li></ul></td></tr>
+        <tr><td>${B('3S')} / ${B('3H')}</td><td>11-12 נקודות תמיכה</td><td><ul><li><strong>תמיכה בקפיצה</strong>: הזמנה למשחק מלא</li><li>3 שליטים ומעלה</li></ul></td></tr>
+        <tr><td>${B('4S')} / ${B('4H')}</td><td>פחות מ-10 נק'</td><td><ul><li><strong>תמיכה מנוע</strong></li><li>5 שליטים ומעלה</li><li>סינגלטון או חוסר</li></ul></td></tr>
+        <tr><td>סדרה חדשה</td><td>13 נקודות ומעלה</td><td><ul><li><strong>תמיכה מאוחרת למשחק מלא</strong></li><li>3 שליטים</li><li>הכריזו קודם סדרה חדשה, ובתור הבא קפצו למשחק מלא</li></ul></td></tr>
+        <tr><td>2NT</td><td>13 נקודות ומעלה</td><td><ul><li><strong>ג'ייקובי 2NT</strong> (ראו מוסכמות)</li><li>4 שליטים ומעלה</li><li>מחייב עד משחק מלא</li></ul></td></tr>
       </table>
       <p><strong>נקודות תמיכה.</strong> כשיש לכם תמיכה בסדרה של השותף, גם הסדרות הקצרות שלכם עוזרות: כדומם אפשר לחתוך בהן את המפסידים של הכרוז. לכן הוסיפו לנקודות <strong>נקודה אחת על דאבלטון, 2 על סינגלטון ו-3 על חוסר</strong>. לדוגמה, אחרי 1${S} של השותף, יד עם 4 ספייד, 8 נק' וסינגלטון שווה 10 נקודות תמיכה: תמכו ב-2${S}. כך גם בכל יד שתומכת בשותף, כולל הפותח שתומך בסדרה של המשיב. רק היד עם השליטים הקצרים יותר סופרת את הסדרות הקצרות שלה. היד עם השליטים הארוכים יותר, זו שהשותף תמך בה, סופרת במקום זאת <strong>נקודות אורך</strong>: נקודה על כל קלף מעבר לארבעה בכל סדרה, בשליט או בסדרה צדדית ארוכה (1 על חמישה, 2 על שישה וכן הלאה).</p>
       <p>מטרת המכרז היא למצוא <strong>התאמה של 8 קלפים</strong> (או להתייצב בללא שליט) ואת הרמה הנכונה לכוח המשותף.
