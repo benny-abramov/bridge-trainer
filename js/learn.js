@@ -241,7 +241,9 @@ const LESSONS_EN = [
       <p>With 6+ HCP, choose the <strong>first</strong> of these that fits your hand. Tap a hand type to see an example:</p>
       <table class="tbl">
         <tr><th>Your hand</th><th>Respond</th></tr>
-        <tr><td><button class="finesse-link" type="button" data-response="mraise">3+ cards in partner's major</button></td><td>Raise: 2 of the major with 6–10 support points, 3 (a <em>limit raise</em>) with 11–12</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-response="mraise">3+ cards in partner's major</button></td><td>Raise: 2 of the major with 6–10 support points, 3 (a <em>limit raise</em>) with 11–12.
+          4 of the major is <em>preemptive</em>: 5+ trumps, a singleton or void and fewer than 10 HCP.
+          With 13+, bid a new suit first and raise to game on your next turn (a <em>delayed game raise</em>).</td></tr>
         <tr><td><button class="finesse-link" type="button" data-response="new1">A 4+ card suit you can bid at the 1-level</button></td><td>Bid it (majors before diamonds; hearts first with 4-4 in the majors)</td></tr>
         <tr><td><button class="finesse-link" type="button" data-response="minraise">Support for partner's minor (4+ ${D} or 5+ ${C})</button></td><td>Raise: 2 of the minor with 6–10 support points, 3 with 11–12 and five cards (with only four, 2NT)</td></tr>
         <tr><td><button class="finesse-link" type="button" data-response="nt1">6–10 HCP, none of the above</button></td><td>1NT</td></tr>
@@ -732,7 +734,9 @@ const LESSONS_HE = [
       <p>עם 6 נק' ומעלה, בחרו את <strong>הראשונה</strong> מבין האפשרויות הבאות שמתאימה ליד. לחצו על סוג יד כדי לראות דוגמה:</p>
       <table class="tbl">
         <tr><th>היד שלכם</th><th>תשובה</th></tr>
-        <tr><td><button class="finesse-link" type="button" data-response="mraise">3 קלפים ומעלה בסדרת המייגור של השותף</button></td><td>תמיכה: ל-2 עם 6-10 נקודות תמיכה, ל-3 (<em>תמיכה בקפיצה</em>) עם 11-12</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-response="mraise">3 קלפים ומעלה בסדרת המייגור של השותף</button></td><td>תמיכה: ל-2 עם 6-10 נקודות תמיכה, ל-3 (<em>תמיכה בקפיצה</em>) עם 11-12.
+          4 בסדרת המייגור היא <em>תמיכה מנוע</em>: 5 שליטים ומעלה, סינגלטון או חוסר ופחות מ-10 נק'.
+          עם 13 ומעלה, הכריזו קודם סדרה חדשה ותמכו למשחק מלא בתור הבא (<em>תמיכה מאוחרת למשחק מלא</em>).</td></tr>
         <tr><td><button class="finesse-link" type="button" data-response="new1">סדרה של 4 קלפים ומעלה שאפשר להכריז ברמת 1</button></td><td>הכריזו אותה (סדרות מייגור לפני דיאמונד; הארט קודם עם 4-4 בסדרות המייגור)</td></tr>
         <tr><td><button class="finesse-link" type="button" data-response="minraise">תמיכה בסדרת המיינור של השותף (4 ומעלה ב-${D} או 5 ומעלה ב-${C})</button></td><td>תמיכה: ל-2 עם 6-10 נקודות תמיכה, ל-3 עם 11-12 וחמישה קלפים (עם ארבעה בלבד, 2NT)</td></tr>
         <tr><td><button class="finesse-link" type="button" data-response="nt1">6-10 נק', אף אחד מאלה</button></td><td>1NT</td></tr>
@@ -1737,7 +1741,7 @@ const ResponseExamples = (() => {
   // Which response each row describes, from the bid and partner's suit.
   const ROWS = {
     pass: b => b === 'P',
-    mraise: (b, open) => isMajor(open) && (b === '2' + open || b === '3' + open),
+    mraise: (b, open) => isMajor(open) && ['2', '3', '4'].some(l => b === l + open),
     new1: (b, open) => /^1[DHS]$/.test(b) && b[1] !== open,
     minraise: (b, open) => !isMajor(open) && (b === '2' + open || b === '3' + open),
     nt1: b => b === '1N',

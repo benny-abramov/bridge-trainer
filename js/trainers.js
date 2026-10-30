@@ -251,6 +251,16 @@ function openingBid(hand) {
 
 // Simplified Standard American responses to partner's 1-of-a-suit opening, for hands of 0–12 HCP.
 // `open` is the opening suit. Returns { bid, why }.
+// 1M – 4M is a preemptive raise: 5+ trumps, a singleton or void and fewer than 10 HCP. It takes
+// away the opponents' bidding room; with real strength, responder goes slowly instead.
+function preemptiveRaise(hand, major) {
+  const pts = hcp(hand), len = suitLengths(hand);
+  if (len[major] < 5 || pts > 9 || !SUITS.some(s => len[s] <= 1)) return null;
+  return { bid: '4' + major, why: L(
+    `${pts} HCP, ${len[major]}-card support and a short suit: jump to ${bh('4' + major)}, a <em>preemptive raise</em>. With a big fit and few high cards, the opponents probably have a good contract too, so take away their bidding room. With 13+ points you would go slowly instead: a new suit first, then game.`,
+    `${pts} נק', תמיכה של ${len[major]} קלפים וסדרה קצרה: קפצו ל-${bh('4' + major)}, <em>תמיכה מנוע</em>. עם התאמה גדולה ומעט קלפים גבוהים, כנראה שגם ליריבים יש חוזה טוב, ולכן קחו להם את מרחב ההכרזה. עם 13 נקודות ומעלה הייתם מתקדמים לאט: קודם סדרה חדשה, ואחר כך משחק מלא.`) };
+}
+
 function responseBid(hand, open) {
   const pts = hcp(hand);
   const len = suitLengths(hand);
@@ -272,6 +282,8 @@ function responseBid(hand, open) {
 
   // 1. Support partner's major.
   if (majorFit) {
+    const pre = preemptiveRaise(hand, open);
+    if (pre) return pre;
     if (sp <= 10) {
       return { bid: '2' + open, why: L(
         `${count} and ${len[open]}-card support for partner's major: raise to ${bh('2' + open)}. Showing an 8-card major fit comes first.`,
@@ -411,6 +423,9 @@ function rebidBid(hand, open, resp) {
   if (rSuit === open) {
     const str = raiseStr(lengthPoints(hand));
     const you = `${lengthText(hand, open)}: ${STRENGTH_TEXT[str]}`;
+    if (rLevel >= 4) return { bid: 'P', why: L(
+      `Partner's ${bh(resp)} is a preemptive raise: five or more ${SUIT_NAME[open]}, a short suit and fewer than 10 HCP. Game is already bid and slam is out of reach, so pass.`,
+      `ה-${bh(resp)} של השותף הוא תמיכה מנוע: חמישה ${SUIT_NAME[open]} ומעלה, סדרה קצרה ופחות מ-10 נק'. משחק מלא כבר הוכרז וסלאם לא בהישג יד, ולכן פאס.`) };
     if (rLevel === 2) {
       if (str === 'min') return { bid: 'P', why: L(
         `${you}. Partner's raise shows 6–10 points, so you can't reach the 25 needed for game. Pass.`,

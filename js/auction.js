@@ -235,6 +235,7 @@ function bidAuction(hands, { anyDeclarer = false } = {}) {
         if (open === '2C') { if (call === '2D') range(0, 7); else { range(8, 37); if (z !== 'N') atLeast(z, 5); } return; }
         const o = open[1];
         if (call === '2N' && art) { range(13, 37); atLeast(o, 4); return; } // Jacoby 2NT
+        if (z === o && level === 4 && isMaj(o)) { atLeast(o, 5); range(3, 9); return; } // the preemptive raise
         if (z === o) { atLeast(o, isMaj(o) ? 3 : 4); if (level === 2) range(6, 10); else if (level === 3) range(11, 12); else range(13, 37); return; }
         if (call === '1N') { range(6, 10); return; }
         if (call === '2N') { range(11, 12); return; }

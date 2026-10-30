@@ -49,6 +49,8 @@ function raiseMajor(hand, major) {
   if (pts < 6) return { bid: 'P', why: L(
     `${count}: even counting your short suits you have fewer than 6, so pass.`,
     `${count}: גם עם הסדרות הקצרות יש לכם פחות מ-6, ולכן פאס.`) };
+  const pre = preemptiveRaise(hand, major);
+  if (pre) return pre;
   if (pts >= 13) {
     return { bid: '2N', why: L(
       `<strong>Jacoby 2NT.</strong> ${count}. With 4+ card support and 13+ points, respond 2NT. It's a game-forcing raise of partner's major. Partner then describes their hand: a new suit at the 3-level shows a singleton or void, and ${bidHtml('4' + major)} shows a minimum.`,
