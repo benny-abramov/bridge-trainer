@@ -235,19 +235,19 @@ const LESSONS_EN = [
     body: `
       <p>When partner opens one of a suit, these simple guidelines get you started:</p>
       <ul>
-        <li><strong>0–5 HCP:</strong> pass.</li>
+        <li><button class="finesse-link" type="button" data-response="pass">0–5 HCP</button>: pass.</li>
         <li><strong>6+ HCP:</strong> respond. Partner may still pass, so with more strength you keep bidding.</li>
       </ul>
-      <p>With 6+ HCP, choose the <strong>first</strong> of these that fits your hand:</p>
+      <p>With 6+ HCP, choose the <strong>first</strong> of these that fits your hand. Tap a hand type to see an example:</p>
       <table class="tbl">
         <tr><th>Your hand</th><th>Respond</th></tr>
-        <tr><td>3+ cards in partner's major</td><td>Raise: 2 of the major with 6–10 support points, 3 (a <em>limit raise</em>) with 11–12</td></tr>
-        <tr><td>A 4+ card suit you can bid at the 1-level</td><td>Bid it (majors before diamonds; hearts first with 4-4 in the majors)</td></tr>
-        <tr><td>Support for partner's minor (4+ ${D} or 5+ ${C})</td><td>Raise: 2 of the minor with 6–10 support points, 3 with 11–12 and five cards (with only four, 2NT)</td></tr>
-        <tr><td>6–10 HCP, none of the above</td><td>1NT</td></tr>
-        <tr><td>11+ HCP, a 4+ card lower-ranking suit (5+ for ${H})</td><td>New suit at the 2-level</td></tr>
-        <tr><td>11–12 HCP, none of the above</td><td>2NT, inviting game</td></tr>
-        <tr><td>13–15 HCP, none of the above</td><td>3NT, bidding game</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-response="mraise">3+ cards in partner's major</button></td><td>Raise: 2 of the major with 6–10 support points, 3 (a <em>limit raise</em>) with 11–12</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-response="new1">A 4+ card suit you can bid at the 1-level</button></td><td>Bid it (majors before diamonds; hearts first with 4-4 in the majors)</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-response="minraise">Support for partner's minor (4+ ${D} or 5+ ${C})</button></td><td>Raise: 2 of the minor with 6–10 support points, 3 with 11–12 and five cards (with only four, 2NT)</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-response="nt1">6–10 HCP, none of the above</button></td><td>1NT</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-response="two">11+ HCP, a 4+ card lower-ranking suit (5+ for ${H})</button></td><td>New suit at the 2-level</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-response="nt2">11–12 HCP, none of the above</button></td><td>2NT, inviting game</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-response="nt3">13–15 HCP, none of the above</button></td><td>3NT, bidding game</td></tr>
       </table>
       <p><strong>Support points.</strong> When you have support for partner's suit, your short suits help too: as dummy you can ruff declarer's losers in them. So add <strong>1 point for a doubleton, 2 for a singleton and 3 for a void</strong> to your HCP. For example, after partner's 1${S}, a hand with 4 spades, 8 HCP and a singleton has 10 support points: raise to 2${S}. The same goes for any hand that raises partner, including opener raising responder's suit. Only the hand with the shorter trumps counts its short suits. The hand with the longer trumps, the one partner raised, counts <strong>length points</strong> instead: 1 for each card beyond four in any suit, trumps or a long side suit (1 for five, 2 for six, and so on).</p>
       <p>The aim of the auction is to find an <strong>8-card fit</strong> (or settle in no-trump) and the right level for your combined strength.
@@ -726,19 +726,19 @@ const LESSONS_HE = [
     body: `
       <p>כשהשותף פותח באחת בסדרה, ההנחיות הפשוטות האלה יעזרו לכם להתחיל:</p>
       <ul>
-        <li><strong>0-5 נק':</strong> פאס.</li>
+        <li><button class="finesse-link" type="button" data-response="pass">0-5 נק'</button>: פאס.</li>
         <li><strong>6 נק' ומעלה:</strong> השיבו. השותף עדיין עשוי להכריז פאס, ולכן עם יותר כוח ממשיכים להכריז.</li>
       </ul>
-      <p>עם 6 נק' ומעלה, בחרו את <strong>הראשונה</strong> מבין האפשרויות הבאות שמתאימה ליד:</p>
+      <p>עם 6 נק' ומעלה, בחרו את <strong>הראשונה</strong> מבין האפשרויות הבאות שמתאימה ליד. לחצו על סוג יד כדי לראות דוגמה:</p>
       <table class="tbl">
         <tr><th>היד שלכם</th><th>תשובה</th></tr>
-        <tr><td>3 קלפים ומעלה בסדרת המייגור של השותף</td><td>תמיכה: ל-2 עם 6-10 נקודות תמיכה, ל-3 (<em>תמיכה בקפיצה</em>) עם 11-12</td></tr>
-        <tr><td>סדרה של 4 קלפים ומעלה שאפשר להכריז ברמת 1</td><td>הכריזו אותה (סדרות מייגור לפני דיאמונד; הארט קודם עם 4-4 בסדרות המייגור)</td></tr>
-        <tr><td>תמיכה בסדרת המיינור של השותף (4 ומעלה ב-${D} או 5 ומעלה ב-${C})</td><td>תמיכה: ל-2 עם 6-10 נקודות תמיכה, ל-3 עם 11-12 וחמישה קלפים (עם ארבעה בלבד, 2NT)</td></tr>
-        <tr><td>6-10 נק', אף אחד מאלה</td><td>1NT</td></tr>
-        <tr><td>11 נק' ומעלה, סדרה נמוכה יותר של 4 קלפים ומעלה (5 ומעלה ב-${H})</td><td>סדרה חדשה ברמת 2</td></tr>
-        <tr><td>11-12 נק', אף אחד מאלה</td><td>2NT, הזמנה למשחק מלא</td></tr>
-        <tr><td>13-15 נק', אף אחד מאלה</td><td>3NT, הכרזת משחק מלא</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-response="mraise">3 קלפים ומעלה בסדרת המייגור של השותף</button></td><td>תמיכה: ל-2 עם 6-10 נקודות תמיכה, ל-3 (<em>תמיכה בקפיצה</em>) עם 11-12</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-response="new1">סדרה של 4 קלפים ומעלה שאפשר להכריז ברמת 1</button></td><td>הכריזו אותה (סדרות מייגור לפני דיאמונד; הארט קודם עם 4-4 בסדרות המייגור)</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-response="minraise">תמיכה בסדרת המיינור של השותף (4 ומעלה ב-${D} או 5 ומעלה ב-${C})</button></td><td>תמיכה: ל-2 עם 6-10 נקודות תמיכה, ל-3 עם 11-12 וחמישה קלפים (עם ארבעה בלבד, 2NT)</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-response="nt1">6-10 נק', אף אחד מאלה</button></td><td>1NT</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-response="two">11 נק' ומעלה, סדרה נמוכה יותר של 4 קלפים ומעלה (5 ומעלה ב-${H})</button></td><td>סדרה חדשה ברמת 2</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-response="nt2">11-12 נק', אף אחד מאלה</button></td><td>2NT, הזמנה למשחק מלא</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-response="nt3">13-15 נק', אף אחד מאלה</button></td><td>3NT, הכרזת משחק מלא</td></tr>
       </table>
       <p><strong>נקודות תמיכה.</strong> כשיש לכם תמיכה בסדרה של השותף, גם הסדרות הקצרות שלכם עוזרות: כדומם אפשר לחתוך בהן את המפסידים של הכרוז. לכן הוסיפו לנקודות <strong>נקודה אחת על דאבלטון, 2 על סינגלטון ו-3 על חוסר</strong>. לדוגמה, אחרי 1${S} של השותף, יד עם 4 ספייד, 8 נק' וסינגלטון שווה 10 נקודות תמיכה: תמכו ב-2${S}. כך גם בכל יד שתומכת בשותף, כולל הפותח שתומך בסדרה של המשיב. רק היד עם השליטים הקצרים יותר סופרת את הסדרות הקצרות שלה. היד עם השליטים הארוכים יותר, זו שהשותף תמך בה, סופרת במקום זאת <strong>נקודות אורך</strong>: נקודה על כל קלף מעבר לארבעה בכל סדרה, בשליט או בסדרה צדדית ארוכה (1 על חמישה, 2 על שישה וכן הלאה).</p>
       <p>מטרת המכרז היא למצוא <strong>התאמה של 8 קלפים</strong> (או להתייצב בללא שליט) ואת הרמה הנכונה לכוח המשותף.
@@ -1729,6 +1729,90 @@ const OvercallExamples = (() => {
   return { show };
 })();
 
+// The "Responding to partner" table: tap a hand type to deal random examples. North opens one of a
+// suit, East passes, and you (South) hold a hand that fits the row, with the app's answer.
+const ResponseExamples = (() => {
+  const rank = z => SUITS.indexOf(z); // lower index = higher-ranking
+  const isMajor = z => z === 'H' || z === 'S';
+  // Which response each row describes, from the bid and partner's suit.
+  const ROWS = {
+    pass: b => b === 'P',
+    mraise: (b, open) => isMajor(open) && (b === '2' + open || b === '3' + open),
+    new1: (b, open) => /^1[DHS]$/.test(b) && b[1] !== open,
+    minraise: (b, open) => !isMajor(open) && (b === '2' + open || b === '3' + open),
+    nt1: b => b === '1N',
+    two: (b, open) => /^2[CDH]$/.test(b) && rank(b[1]) > rank(open), // a lower suit: the cheapest level
+    nt2: b => b === '2N',
+    nt3: b => b === '3N',
+  };
+  let dialog, key, title;
+
+  function find() {
+    for (let i = 0; i < 30000; i++) {
+      const hands = dealHands();
+      const open = openingBid(hands[0]).bid;
+      if (!/^1[CDHS]$/.test(open) || hcp(hands[2]) > 15) continue;
+      const r = responseBid(hands[2], open[1]);
+      if (ROWS[key](r.bid, open[1])) return { hand: hands[2], open, r };
+    }
+    return null;
+  }
+
+  function render() {
+    const found = find();
+    dialog.innerHTML = `<h3>${title}</h3>`;
+    if (!found) {
+      dialog.insertAdjacentHTML('beforeend', `<p>${L('No example found this time. Try again.', 'לא נמצאה דוגמה הפעם. נסו שוב.')}</p>`);
+    } else {
+      const { hand, open, r } = found;
+      dialog.insertAdjacentHTML('beforeend', `<p class="fin-setup">${L(`Partner (North) opens <strong>${bidHtml(open)}</strong> and East passes. What do you respond?`, `השותף (צפון) פותח <strong>${bidHtml(open)}</strong> ומזרח עובר. מה תשיבו?`)}</p>${askBox(0, [open, 'P'])}`);
+      const felt = document.createElement('div');
+      felt.className = 'shape-felt opening-felt';
+      renderFan(felt, hand);
+      const lens = Object.values(suitLengths(hand)).sort((a, b) => b - a).join('-');
+      const info = document.createElement('p');
+      info.className = 'opening-info';
+      info.innerHTML = `${L(`${hcp(hand)} HCP`, `${hcp(hand)} נק'`)} · ${ltr(lens)} · ${L('Respond', 'תשובה')}: <strong>${bidHtml(r.bid)}</strong>`;
+      const why = document.createElement('p');
+      why.className = 'example-why';
+      why.innerHTML = r.why;
+      felt.prepend(why, info); // the explanation on the felt, above the hand
+      dialog.append(felt);
+    }
+    const buttons = document.createElement('div');
+    buttons.className = 'opening-buttons';
+    const next = document.createElement('button');
+    next.className = 'btn';
+    next.type = 'button';
+    next.textContent = L('Next hand', 'יד הבאה');
+    next.addEventListener('click', render);
+    const close = document.createElement('button');
+    close.className = 'btn secondary';
+    close.type = 'button';
+    close.textContent = L('Close', 'סגירה');
+    close.addEventListener('click', () => dialog.close());
+    buttons.append(next, close);
+    dialog.appendChild(buttons);
+  }
+
+  function show(k, label) {
+    if (!ROWS[k]) return;
+    if (!dialog) {
+      dialog = document.createElement('dialog');
+      dialog.className = 'finesse-dialog opening-dialog';
+      dialog.addEventListener('click', e => { if (e.target === dialog) dialog.close(); }); // the backdrop
+      document.body.appendChild(dialog);
+    }
+    key = k;
+    title = label;
+    render();
+    if (!dialog.open) dialog.showModal();
+    dialog.scrollTop = 0;
+  }
+
+  return { show };
+})();
+
 // The balanced and unbalanced hands in the point-counting lesson. Each caption's shape, points and
 // reason are worked out from the cards.
 const ShapeExamples = (() => {
@@ -2288,6 +2372,7 @@ const Learn = (() => {
     document.querySelectorAll('#lesson-body .trick-picture').forEach(TrickPicture.mount);
     document.querySelectorAll('#lesson-body [data-opening]').forEach(b => b.addEventListener('click', () => OpeningExamples.show(b.dataset.opening, b.innerHTML)));
     document.querySelectorAll('#lesson-body [data-overcall]').forEach(b => b.addEventListener('click', () => OvercallExamples.show(b.dataset.overcall, b.innerHTML)));
+    document.querySelectorAll('#lesson-body [data-response]').forEach(b => b.addEventListener('click', () => ResponseExamples.show(b.dataset.response, b.innerHTML)));
     document.querySelectorAll('#lesson-body [data-balanced]').forEach(b => b.addEventListener('click', BalancedRanges.show));
     document.querySelectorAll('#lesson-body [data-finesse]').forEach(b => b.addEventListener('click', () => FinesseLayouts.show(b.dataset.finesse)));
     const auctionDemo = document.querySelector('#lesson-body .auction-demo');
