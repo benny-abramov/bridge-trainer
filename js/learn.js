@@ -226,6 +226,20 @@ const LESSONS_EN = [
         <tr><td><button class="finesse-link" type="button" data-opening="pre4">5–10 HCP with a good 8-card suit</button></td><td>Preempt at the 4-level</td></tr>
       </table>
       <p>A <strong>good suit</strong> for a weak two or a preempt has two of the top four honors (A, K, Q, J). With a weaker suit, pass.</p>
+      <details class="why-more">
+        <summary class="btn secondary">💡 Why open with a preempt?</summary>
+        <div class="why-body">
+          <p><strong>It takes away the opponents' bidding room.</strong> With so few high cards, the opponents probably hold most of the strength.
+          After your 2${S}, 3${H} or 4${S} they must start at a high level, with less room to find their best fit and level, so they often guess wrong.</p>
+          <p><strong>It describes your hand in one bid.</strong> Partner knows you have a weak hand and a long, good suit, so partner can judge the
+          right contract, raise you to block the opponents further, or pass.</p>
+          <p><strong>The risk is small.</strong> A long suit takes tricks even with few high cards. Even if you go down, it often costs less than the game the
+          opponents could have made.</p>
+          <p><strong>It helps partner on defense.</strong> If the opponents win the auction, partner knows a good suit to lead.</p>
+          <p><strong>The longer the suit, the higher you go:</strong> six cards open at the 2-level, seven at the 3-level, eight at the 4-level.
+          Be more careful when vulnerable, because going down costs more.</p>
+        </div>
+      </details>
       <p><strong>Rule of 20:</strong> with 10–11 HCP, add your HCP to the number of cards in your two longest suits.
       If the total is 20 or more, open at the 1-level anyway.</p>`,
     tryIt: 'opening',
@@ -725,6 +739,20 @@ const LESSONS_HE = [
         <tr><td><button class="finesse-link" type="button" data-opening="pre4">5-10 נק' עם סדרה טובה של 8 קלפים</button></td><td>הכרזת חסימה ברמת 4</td></tr>
       </table>
       <p><strong>סדרה טובה</strong> להכרזת שתיים חלשה או להכרזת חסימה כוללת שניים מארבעת ההונורים העליונים (A, K, Q, J). עם סדרה חלשה יותר, פאס.</p>
+      <details class="why-more">
+        <summary class="btn secondary">💡 למה לפתוח בהכרזת חסימה?</summary>
+        <div class="why-body">
+          <p><strong>היא לוקחת ליריבים את מרחב ההכרזה.</strong> עם כל כך מעט קלפים גבוהים, כנראה שרוב הכוח אצל היריבים.
+          אחרי ${B('2S')}, ${B('3H')} או ${B('4S')} שלכם הם חייבים להתחיל ברמה גבוהה, עם פחות מקום למצוא את ההתאמה והרמה הנכונות, ולכן הם טועים לעתים קרובות.</p>
+          <p><strong>היא מתארת את היד בהכרזה אחת.</strong> השותף יודע שיש לכם יד חלשה וסדרה ארוכה וטובה, ולכן הוא יכול להעריך את החוזה הנכון,
+          לתמוך בכם כדי לחסום עוד יותר, או לעבור.</p>
+          <p><strong>הסיכון קטן.</strong> סדרה ארוכה לוקחת לקיחות גם עם מעט קלפים גבוהים. גם אם נופלים, זה עולה לעתים קרובות פחות מהמשחק המלא
+          שהיריבים יכלו לבצע.</p>
+          <p><strong>היא עוזרת לשותף בהגנה.</strong> אם היריבים זוכים במכרז, השותף יודע איזו סדרה טובה להוביל.</p>
+          <p><strong>ככל שהסדרה ארוכה יותר, עולים גבוה יותר:</strong> שישה קלפים פותחים ברמת 2, שבעה ברמת 3, שמונה ברמת 4.
+          היו זהירים יותר כשאתם פגיעים, כי נפילה עולה יותר.</p>
+        </div>
+      </details>
       <p><strong>סדרות המייגור</strong> הן הארט וספייד; <strong>סדרות המיינור</strong> הן קלאב ודיאמונד.</p>
       <p><strong>חוק ה-20:</strong> עם 10-11 נק', חברו את הנקודות למספר הקלפים בשתי הסדרות הארוכות שלכם.
       אם הסכום 20 או יותר, פתחו בכל זאת ברמת 1.</p>`,
