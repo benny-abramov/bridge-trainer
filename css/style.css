@@ -220,6 +220,13 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 .opening-info, .example-why { --red-suit: #ff8a80; --diamond-suit: #ffb877; --club-suit: #8ff0b0; }
 .example-why { margin: 0; align-self: stretch; padding-bottom: .5rem; border-bottom: 1px solid rgba(255, 255, 255, .25); line-height: 1.45; text-align: start; }
 .opening-buttons { display: flex; justify-content: center; gap: .6rem; }
+/* The "All balanced ranges" window from the 1NT row of the opening table. */
+.balanced-btn { margin-inline-start: .5rem; padding: .15rem .55rem; font-size: .85rem; }
+.balanced-intro { text-align: start; }
+.balanced-table { margin: .6rem auto; text-align: start; }
+.balanced-table td:first-child { white-space: nowrap; font-weight: 700; }
+.balanced-table td:nth-child(2) { white-space: nowrap; }
+.balanced-table tr.nt-open td { background: var(--accent-soft); }
 .fin-cases { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; text-align: start; }
 .fin-case { border: 2px solid var(--border); border-radius: 10px; padding: .5rem .6rem; }
 .fin-case.good { border-color: var(--good); background: var(--good-soft); }

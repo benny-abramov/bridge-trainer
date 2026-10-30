@@ -218,7 +218,7 @@ const LESSONS_EN = [
         <tr><td><button class="finesse-link" type="button" data-opening="pass">Fewer than 12 HCP (and no long suit)</button></td><td>Pass</td></tr>
         <tr><td><button class="finesse-link" type="button" data-opening="major">12–22 HCP with a 5+ card major</button></td><td>1${H} or 1${S} (longer major; spades with 5${S}-5${H})</td></tr>
         <tr><td><button class="finesse-link" type="button" data-opening="minor">12–22 HCP, no 5-card major</button></td><td>1${C} or 1${D} (longer minor; 1${C} with 3${C}-3${D}, 1${D} with 4${D}-4${C})</td></tr>
-        <tr><td><button class="finesse-link" type="button" data-opening="nt1">15–17 HCP, balanced</button></td><td>1NT</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-opening="nt1">15–17 HCP, balanced</button></td><td>1NT <button class="btn secondary balanced-btn" type="button" data-balanced>All balanced ranges</button></td></tr>
         <tr><td><button class="finesse-link" type="button" data-opening="nt2">20–22 HCP, balanced</button></td><td>2NT</td></tr>
         <tr><td><button class="finesse-link" type="button" data-opening="c2">23+ HCP, any shape</button></td><td>2${C} (strong and artificial)</td></tr>
         <tr><td><button class="finesse-link" type="button" data-opening="weak2">5–10 HCP with a good 6-card ${D}, ${H} or ${S} suit</button></td><td>Weak two: 2${D}, 2${H} or 2${S}</td></tr>
@@ -708,7 +708,7 @@ const LESSONS_HE = [
         <tr><td><button class="finesse-link" type="button" data-opening="pass">פחות מ-12 נק' (ואין סדרה ארוכה)</button></td><td>פאס</td></tr>
         <tr><td><button class="finesse-link" type="button" data-opening="major">12-22 נק' עם סדרת מייגור של 5 קלפים ומעלה</button></td><td>${B('1H')} או ${B('1S')} (סדרת המייגור הארוכה יותר; ספייד עם ${ltr(`5${S}-5${H}`)})</td></tr>
         <tr><td><button class="finesse-link" type="button" data-opening="minor">12-22 נק', בלי סדרת מייגור של 5</button></td><td>${B('1C')} או ${B('1D')} (סדרת המיינור הארוכה יותר; ${B('1C')} עם ${ltr(`3${C}-3${D}`)}, ${B('1D')} עם ${ltr(`4${D}-4${C}`)})</td></tr>
-        <tr><td><button class="finesse-link" type="button" data-opening="nt1">15-17 נק', מאוזנת</button></td><td>1NT</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-opening="nt1">15-17 נק', מאוזנת</button></td><td>1NT <button class="btn secondary balanced-btn" type="button" data-balanced>כל הטווחים של יד מאוזנת</button></td></tr>
         <tr><td><button class="finesse-link" type="button" data-opening="nt2">20-22 נק', מאוזנת</button></td><td>2NT</td></tr>
         <tr><td><button class="finesse-link" type="button" data-opening="c2">23 נק' ומעלה, כל חלוקה</button></td><td>${B('2C')} (חזקה ומלאכותית)</td></tr>
         <tr><td><button class="finesse-link" type="button" data-opening="weak2">5-10 נק' עם סדרה טובה של 6 קלפים ב-${D}, ${H} או ${S}</button></td><td>הכרזת שתיים חלשה: ${B('2D')}, ${B('2H')} או ${B('2S')}</td></tr>
@@ -1267,6 +1267,59 @@ function askBox(dealer, calls) {
   const name = s => (s === 2 ? L('South (you)', 'דרום (אתם)') : SEAT_NAMES[s]);
   return `<table class="bid-box ap-box ask-box"><tr>${cols.map(s => `<th class="${s === dealer ? 'dealer' : ''}">${name(s)}</th>`).join('')}</tr>${rows.join('')}</table>`;
 }
+
+// The 1NT row of "Opening the bidding": a window with every range of a balanced hand, showing
+// which ranges open in no-trump and which open a suit and show the range with the rebid.
+const BalancedRanges = (() => {
+  let dialog;
+
+  function show() {
+    if (!dialog) {
+      dialog = document.createElement('dialog');
+      dialog.className = 'finesse-dialog balanced-dialog';
+      dialog.addEventListener('click', e => { if (e.target === dialog) dialog.close(); }); // the backdrop
+      document.body.appendChild(dialog);
+    }
+    const B = bidHtml;
+    const rows = L([
+      ['12–14', `1 of a suit`, `${B('1N')} (or ${B('2N')} after partner's new suit at the 2-level)`],
+      ['15–17', B('1N'), '—'],
+      ['18–19', `1 of a suit`, `Jump to ${B('2N')} (or ${B('3N')} after partner's new suit at the 2-level)`],
+      ['20–22', B('2N'), '—'],
+      ['23–24', B('2C'), `${B('2N')} after partner's ${B('2D')}`],
+      ['25–27', B('2C'), `${B('3N')} after partner's ${B('2D')}`],
+    ], [
+      ['12-14', 'אחת בסדרה', `${B('1N')} (או ${B('2N')} אחרי סדרה חדשה של השותף ברמת 2)`],
+      ['15-17', B('1N'), '—'],
+      ['18-19', 'אחת בסדרה', `קפיצה ל-${B('2N')} (או ${B('3N')} אחרי סדרה חדשה של השותף ברמת 2)`],
+      ['20-22', B('2N'), '—'],
+      ['23-24', B('2C'), `${B('2N')} אחרי ${B('2D')} של השותף`],
+      ['25-27', B('2C'), `${B('3N')} אחרי ${B('2D')} של השותף`],
+    ]);
+    dialog.innerHTML = `
+      <h3>${L('Balanced hands: every range', 'ידיים מאוזנות: כל הטווחים')}</h3>
+      <p class="balanced-intro">${L(
+        'A balanced hand bids no-trump. Three ranges open in no-trump. The ranges between them open a suit and show their strength with the no-trump rebid.',
+        'יד מאוזנת מכריזה ללא שליט. שלושה טווחים פותחים בללא שליט. הטווחים שביניהם פותחים בסדרה ומראים את הכוח שלהם בהכרזה החוזרת בללא שליט.')}</p>
+      <table class="tbl balanced-table">
+        <tr><th>${L('HCP', "נק'")}</th><th>${L('Open', 'פתיחה')}</th><th>${L('Rebid', 'הכרזה חוזרת')}</th></tr>
+        ${rows.map(([pts, open, rebid]) => `<tr class="${rebid === '—' ? 'nt-open' : ''}"><td>${pts}</td><td>${open}</td><td>${rebid}</td></tr>`).join('')}
+      </table>
+      <p class="balanced-intro">${L(
+        `When you open a suit, choose it as usual: a 5-card major, otherwise your longer minor. If partner shows a fit for your major, or a major you also hold four of, support it instead of bidding no-trump.`,
+        `כשפותחים בסדרה, בוחרים אותה כרגיל: מייגור של 5, אחרת המיינור הארוך יותר. אם השותף מראה התאמה למייגור שלכם, או מכריז מייגור שגם לכם יש בו ארבעה קלפים, תמכו בו במקום להכריז ללא שליט.`)}</p>`;
+    const close = document.createElement('button');
+    close.className = 'btn secondary';
+    close.type = 'button';
+    close.textContent = L('Close', 'סגירה');
+    close.addEventListener('click', () => dialog.close());
+    dialog.appendChild(close);
+    if (!dialog.open) dialog.showModal();
+    dialog.scrollTop = 0;
+  }
+
+  return { show };
+})();
 
 // The "Opening the bidding" table: tap a hand type to deal random examples of it, with the
 // opening bid and the app's explanation.
@@ -2235,6 +2288,7 @@ const Learn = (() => {
     document.querySelectorAll('#lesson-body .trick-picture').forEach(TrickPicture.mount);
     document.querySelectorAll('#lesson-body [data-opening]').forEach(b => b.addEventListener('click', () => OpeningExamples.show(b.dataset.opening, b.innerHTML)));
     document.querySelectorAll('#lesson-body [data-overcall]').forEach(b => b.addEventListener('click', () => OvercallExamples.show(b.dataset.overcall, b.innerHTML)));
+    document.querySelectorAll('#lesson-body [data-balanced]').forEach(b => b.addEventListener('click', BalancedRanges.show));
     document.querySelectorAll('#lesson-body [data-finesse]').forEach(b => b.addEventListener('click', () => FinesseLayouts.show(b.dataset.finesse)));
     const auctionDemo = document.querySelector('#lesson-body .auction-demo');
     if (auctionDemo) AuctionDemo.mount(auctionDemo);
