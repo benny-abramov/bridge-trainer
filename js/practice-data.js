@@ -1073,12 +1073,12 @@ const PRACTICE = {
    "contract": "3N",
    "leader": 2,
    "hands": [
-    "H:2 D:KQJ",
-    "S:54 C:KQ",
-    "H:A D:32 C:A",
-    "H:KQ D:A C:4"
+    "H:2 D:KQJ C:7",
+    "S:854 C:KQ",
+    "H:A D:852 C:A",
+    "H:KQ D:A C:82"
    ],
-   "need": 3,
+   "need": 4,
    "why": {
     "en": "<p><strong>Lead a diamond now.</strong> West can win the ♦A and lead the ♥K, but your ♥A is still there to stop the suit. Then lead your other diamond to dummy's winners.</p> <p>If you cash the ♥A first, West's hearts become winners. When West wins the ♦A, they take two heart tricks. Develop your suit while you still have a stopper in theirs.</p>",
     "he": "<p><strong>הובילו דיאמונד עכשיו.</strong> מערב יכול לזכות ב-♦A ולהוביל את ה-♥K, אבל ה-♥A שלכם עדיין שם כדי לעצור את הסדרה. אחר כך הובילו את הדיאמונד השני שלכם אל הזוכים של הדומם.</p> <p>אם תממשו קודם את ה-♥A, קלפי ההארט של מערב יהפכו לזוכים. כשמערב יזכה ב-♦A, הוא ייקח שתי לקיחות בהארט. פתחו את הסדרה שלכם כל עוד יש לכם עוצר בסדרה שלהם.</p>"

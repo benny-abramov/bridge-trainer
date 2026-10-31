@@ -41,11 +41,11 @@ Title: Knock out the ace first
 כותרת: קודם הוציאו את האס
 Contract: 3NT
 Leader: S
-Need: 3
-North: H 2  D KQJ
-East:  S 54 C KQ 
-South: H A  D 32  C A
-West:  H KQ  D A C x
+Need: 4
+North: H 2  D KQJ C x
+East:  S xxx C KQ 
+South: H A  D xxx  C A
+West:  H KQ  D A C xx
 Note: West has the ♦A and a strong heart suit, and you have just one heart stopper. In what order should you play?
 הערה: למערב יש את ה-♦A וסדרת הארט חזקה, ולכם יש עוצר אחד בלבד בהארט. באיזה סדר כדאי לשחק?
 Explanation: <p><strong>Lead a diamond now.</strong> West can win the ♦A and lead the ♥K, but your ♥A is still there to stop the suit. Then lead your other diamond to dummy's winners.</p> <p>If you cash the ♥A first, West's hearts become winners. When West wins the ♦A, they take two heart tricks. Develop your suit while you still have a stopper in theirs.</p>
