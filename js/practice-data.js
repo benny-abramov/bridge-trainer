@@ -1313,15 +1313,15 @@ const PRACTICE = {
    "contract": "4S",
    "leader": 2,
    "hands": [
-    "H:AKQ D:5",
+    "H:AKQ D:6",
     "S:7 C:653",
-    "S:AK H:6 D:A",
+    "S:AK H:3 D:8",
     "S:9 H:87 C:K"
    ],
    "need": 4,
    "why": {
-    "en": "<p><strong>Draw trumps first</strong>: cash the ♠A and the ♠K, and each defender's last trump falls. Then lead the ♥6 to dummy and take the heart winners.</p> <p>If you lead a heart first, East has none and ruffs dummy's ace. Cashing the ♦A first doesn't help either: the defenders still hold their trumps.</p>",
-    "he": "<p><strong>הוציאו שליטים קודם</strong>: ממשו את ה-♠A ואת ה-♠K, והשליט האחרון של כל מגן נופל. אחר כך הובילו את ה-♥6 לדומם וקחו את זוכי ההארט.</p> <p>אם תובילו הארט קודם, למזרח אין הארט והוא חותך את האס של הדומם. גם מימוש ה-♦A קודם לא עוזר: השליטים עדיין אצל המגינים.</p>"
+    "en": "<p><strong>Draw trumps first</strong>: cash the ♠A and the ♠K, and each defender's last trump falls. Then lead small ♥ to dummy and take the heart winners.</p> <p>If you lead a heart first, East has none and ruffs dummy's ace. Leading your diamond first doesn't help either: West ruffs it with the ♠9.</p>",
+    "he": "<p><strong>הוציאו שליטים קודם</strong>: ממשו את ה-♠A ואת ה-♠K, והשליט האחרון של כל מגן נופל. אחר כך הובילו הארט קטן לדומם וקחו את זוכי ההארט.</p> <p>אם תובילו הארט קודם, למזרח אין הארט והוא חותך את האס של הדומם. גם הובלת הדיאמונד שלכם קודם לא עוזרת: מערב חותך אותו עם ה-♠9.</p>"
    },
    "note": {
     "en": "Dummy has three heart winners, and each defender still has one trump.",
@@ -1337,23 +1337,23 @@ const PRACTICE = {
    "contract": "4S",
    "leader": 2,
    "hands": [
-    "S:54 D:A C:32",
-    "S:T D:KQJ C:K",
-    "S:AKQ H:32",
-    "S:J9 H:AKQ"
+    "S:7543 D:76",
+    "S:9 H:KQ C:AK7",
+    "S:AKQ6 H:54",
+    "S:J D:KQ C:965"
    ],
-   "need": 4,
+   "need": 6,
    "why": {
-    "en": "<p><strong>Lead a heart before drawing all the trumps.</strong> When you lead the second heart, ruff it in dummy. Even if the defenders win the first heart and lead a trump, dummy still has a trump left for the ruff.</p> <p>If you draw trumps first, dummy's two trumps fall under your ace-king-queen and both hearts are losers.</p>",
-    "he": "<p><strong>הובילו הארט לפני שאתם מוציאים את כל השליטים.</strong> כשתובילו את ההארט השני, חתכו אותו בדומם. גם אם המגינים יזכו בהארט הראשון ויובילו שליט, לדומם עדיין יישאר שליט לחיתוך.</p> <p>אם תוציאו קודם שליטים, שני השליטים של הדומם ייפלו תחת האס, המלך והמלכה שלכם, ושני קלפי ההארט יהיו מפסידים.</p>"
+    "en": "<p>Draw trumps before ruffing your losers in dummy, to prevent opponents from overruffing.</p>",
+    "he": "<p>הוציאו שליטים לפני שאתם חותכים את המפסידים שלכם בדומם, כדי שהיריבים לא יוכלו לחתוך מעליכם.</p>"
    },
    "note": {
-    "en": "You have two heart losers, and dummy (the hand with fewer trumps) has no hearts.",
-    "he": "יש לכם שני מפסידים בהארט, ולדומם (היד עם פחות שליטים) אין הארט."
+    "en": "You have two heart losers, and dummy (the hand with fewer trumps) has no hearts. Draw trumps and then ruff losers in dummy.",
+    "he": "יש לכם שני מפסידים בהארט, ולדומם (היד עם פחות שליטים) אין הארט. הוציאו שליטים ואז חתכו את המפסידים בדומם."
    },
    "title": {
-    "en": "Ruff in the short hand",
-    "he": "חיתוך ביד הקצרה"
+    "en": "Draw trumps and then ruff 2 losers in dummy",
+    "he": "הוציאו שליטים ואז חתכו 2 מפסידים בדומם"
    }
   },
   {
@@ -1361,23 +1361,23 @@ const PRACTICE = {
    "contract": "4S",
    "leader": 2,
    "hands": [
-    "S:JT D:A C:432",
-    "S:9 D:QJ C:KQJ",
-    "S:AKQ H:32 C:A",
-    "S:54 H:AKQ D:K"
+    "S:763 D:743",
+    "S:JT2 H:Q8 D:6",
+    "S:AKQ H:63 D:A",
+    "S:85 H:AK D:92"
    ],
    "need": 6,
    "why": {
-    "en": "<p>Lead a heart and <strong>ruff it in dummy with a high trump</strong> (the ♠10 or ♠J), so East's ♠9 can't overruff. Use your entries, the ♣A in hand and the ♦A in dummy, to go back and forth and ruff the second heart too. Then draw trumps with the ♠A-K-Q.</p> <p>Drawing trumps first takes away dummy's trumps, and both hearts lose. Ruffing with a low trump lets East overruff.</p>",
-    "he": "<p>הובילו הארט ו<strong>חתכו אותו בדומם בשליט גבוה</strong> (ה-♠10 או ה-♠J), כדי שה-♠9 של מזרח לא יוכל לחתוך מעליכם. השתמשו בכניסות שלכם, ה-♣A ביד וה-♦A בדומם, כדי לעבור הלוך ושוב ולחתוך גם את ההארט השני. אחר כך הוציאו שליטים עם ה-♠A-K-Q.</p> <p>הוצאת שליטים קודם לוקחת מהדומם את השליטים, ושני קלפי ההארט מפסידים. חיתוך בשליט נמוך מאפשר למזרח לחתוך מעליכם.</p>"
+    "en": "<p>Lead a heart and <strong>ruff it in dummy, get back to hand and ruff another heart.</strong> Only then draw trumps.</p>",
+    "he": "<p>הובילו הארט ו<strong>חתכו אותו בדומם, חזרו ליד וחתכו הארט נוסף.</strong> רק אחר כך הוציאו שליטים.</p>"
    },
    "note": {
-    "en": "You need every trick. Two heart losers, no hearts in dummy, and East has the ♠9.",
-    "he": "אתם צריכים את כל הלקיחות. שני מפסידים בהארט, אין הארט בדומם, ולמזרח יש את ה-♠9."
+    "en": "You need every trick. Before drawing trumps, ruff heart losers in dummy.",
+    "he": "אתם צריכים את כל הלקיחות. לפני הוצאת שליטים, חתכו בדומם את המפסידים בהארט."
    },
    "title": {
-    "en": "Two ruffs in dummy",
-    "he": "שני חיתוכים בדומם"
+    "en": "Before drawing trumps use dummy's trumps to ruff losers",
+    "he": "לפני הוצאת שליטים, חתכו מפסידים עם השליטים של הדומם"
    }
   },
   {

@@ -192,44 +192,44 @@ Title: Draw trumps first
 Contract: 4S
 Leader: S
 Need: 4
-North: H AKQ  D 5
-East:  S 7  C 653
-South: S AK  H 6  D A
-West:  S 9  H 87  C K
+North: H AKQ  D x
+East:  S 7 C 653
+South: S AK  H x  D x
+West:  S 9  H 87 C K
 Note: Dummy has three heart winners, and each defender still has one trump.
 הערה: לדומם יש שלושה זוכים בהארט, ולכל מגן עדיין יש שליט אחד.
-Explanation: <p><strong>Draw trumps first</strong>: cash the ♠A and the ♠K, and each defender's last trump falls. Then lead the ♥6 to dummy and take the heart winners.</p> <p>If you lead a heart first, East has none and ruffs dummy's ace. Cashing the ♦A first doesn't help either: the defenders still hold their trumps.</p>
-הסבר: <p><strong>הוציאו שליטים קודם</strong>: ממשו את ה-♠A ואת ה-♠K, והשליט האחרון של כל מגן נופל. אחר כך הובילו את ה-♥6 לדומם וקחו את זוכי ההארט.</p> <p>אם תובילו הארט קודם, למזרח אין הארט והוא חותך את האס של הדומם. גם מימוש ה-♦A קודם לא עוזר: השליטים עדיין אצל המגינים.</p>
+Explanation: <p><strong>Draw trumps first</strong>: cash the ♠A and the ♠K, and each defender's last trump falls. Then lead small ♥ to dummy and take the heart winners.</p> <p>If you lead a heart first, East has none and ruffs dummy's ace. Leading your diamond first doesn't help either: West ruffs it with the ♠9.</p>
+הסבר: <p><strong>הוציאו שליטים קודם</strong>: ממשו את ה-♠A ואת ה-♠K, והשליט האחרון של כל מגן נופל. אחר כך הובילו הארט קטן לדומם וקחו את זוכי ההארט.</p> <p>אם תובילו הארט קודם, למזרח אין הארט והוא חותך את האס של הדומם. גם הובלת הדיאמונד שלכם קודם לא עוזרת: מערב חותך אותו עם ה-♠9.</p>
 
 Section: ruff
-Title: Ruff in the short hand
-כותרת: חיתוך ביד הקצרה
-Contract: 4S
-Leader: S
-Need: 4
-North: S 54  D A  C 32
-East:  S 10  D KQJ  C K
-South: S AKQ  H 32
-West:  S J9  H AKQ
-Note: You have two heart losers, and dummy (the hand with fewer trumps) has no hearts.
-הערה: יש לכם שני מפסידים בהארט, ולדומם (היד עם פחות שליטים) אין הארט.
-Explanation: <p><strong>Lead a heart before drawing all the trumps.</strong> When you lead the second heart, ruff it in dummy. Even if the defenders win the first heart and lead a trump, dummy still has a trump left for the ruff.</p> <p>If you draw trumps first, dummy's two trumps fall under your ace-king-queen and both hearts are losers.</p>
-הסבר: <p><strong>הובילו הארט לפני שאתם מוציאים את כל השליטים.</strong> כשתובילו את ההארט השני, חתכו אותו בדומם. גם אם המגינים יזכו בהארט הראשון ויובילו שליט, לדומם עדיין יישאר שליט לחיתוך.</p> <p>אם תוציאו קודם שליטים, שני השליטים של הדומם ייפלו תחת האס, המלך והמלכה שלכם, ושני קלפי ההארט יהיו מפסידים.</p>
-
-Section: ruff
-Title: Two ruffs in dummy
-כותרת: שני חיתוכים בדומם
+Title: Draw trumps and then ruff 2 losers in dummy
+כותרת: הוציאו שליטים ואז חתכו 2 מפסידים בדומם
 Contract: 4S
 Leader: S
 Need: 6
-North: S J10  D A  C 432
-East:  S 9  D QJ  C KQJ
-South: S AKQ  H 32  C A
-West:  S 54  H AKQ  D K
-Note: You need every trick. Two heart losers, no hearts in dummy, and East has the ♠9.
-הערה: אתם צריכים את כל הלקיחות. שני מפסידים בהארט, אין הארט בדומם, ולמזרח יש את ה-♠9.
-Explanation: <p>Lead a heart and <strong>ruff it in dummy with a high trump</strong> (the ♠10 or ♠J), so East's ♠9 can't overruff. Use your entries, the ♣A in hand and the ♦A in dummy, to go back and forth and ruff the second heart too. Then draw trumps with the ♠A-K-Q.</p> <p>Drawing trumps first takes away dummy's trumps, and both hearts lose. Ruffing with a low trump lets East overruff.</p>
-הסבר: <p>הובילו הארט ו<strong>חתכו אותו בדומם בשליט גבוה</strong> (ה-♠10 או ה-♠J), כדי שה-♠9 של מזרח לא יוכל לחתוך מעליכם. השתמשו בכניסות שלכם, ה-♣A ביד וה-♦A בדומם, כדי לעבור הלוך ושוב ולחתוך גם את ההארט השני. אחר כך הוציאו שליטים עם ה-♠A-K-Q.</p> <p>הוצאת שליטים קודם לוקחת מהדומם את השליטים, ושני קלפי ההארט מפסידים. חיתוך בשליט נמוך מאפשר למזרח לחתוך מעליכם.</p>
+North: S xxxx  D xx  
+East:  S x  H KQ C AKx
+South: S AKQx  H xx   
+West:  S J  D KQ C xxx
+Note: You have two heart losers, and dummy (the hand with fewer trumps) has no hearts. Draw trumps and then ruff losers in dummy.
+הערה: יש לכם שני מפסידים בהארט, ולדומם (היד עם פחות שליטים) אין הארט. הוציאו שליטים ואז חתכו את המפסידים בדומם.
+Explanation: <p>Draw trumps before ruffing your losers in dummy, to prevent opponents from overruffing.</p>
+הסבר: <p>הוציאו שליטים לפני שאתם חותכים את המפסידים שלכם בדומם, כדי שהיריבים לא יוכלו לחתוך מעליכם.</p>
+
+Section: ruff
+Title: Before drawing trumps use dummy's trumps to ruff losers
+כותרת: לפני הוצאת שליטים, חתכו מפסידים עם השליטים של הדומם
+Contract: 4S
+Leader: S
+Need: 6
+North: S xxx  D xxx 
+East:  S J10x  H Qx D x
+South: S AKQ  H xx D A  
+West:  S xx  H AK D xx 
+Note: You need every trick. Before drawing trumps, ruff heart losers in dummy.
+הערה: אתם צריכים את כל הלקיחות. לפני הוצאת שליטים, חתכו בדומם את המפסידים בהארט.
+Explanation: <p>Lead a heart and <strong>ruff it in dummy, get back to hand and ruff another heart.</strong> Only then draw trumps.</p>
+הסבר: <p>הובילו הארט ו<strong>חתכו אותו בדומם, חזרו ליד וחתכו הארט נוסף.</strong> רק אחר כך הוציאו שליטים.</p>
 
 Section: crossruff
 Title: Ruff back and forth

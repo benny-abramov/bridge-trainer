@@ -782,7 +782,7 @@ const LESSONS_HE = [
         <tr><th>הכרזה</th><th>כוח</th><th>היד</th></tr>
         <tr><td>${B('2S')} / ${B('2H')}</td><td>6-10 נקודות תמיכה</td><td><ul><li><strong>תמיכה פשוטה</strong></li><li>3 שליטים ומעלה</li></ul></td></tr>
         <tr><td>${B('3S')} / ${B('3H')}</td><td>11-12 נקודות תמיכה</td><td><ul><li><strong>תמיכה בקפיצה</strong>: הזמנה למשחק מלא</li><li>3 שליטים ומעלה</li></ul></td></tr>
-        <tr><td>${B('4S')} / ${B('4H')}</td><td>פחות מ-10 נק'</td><td><ul><li><strong>תמיכה מנוע</strong></li><li>5 שליטים ומעלה</li><li>סינגלטון או חוסר</li></ul></td></tr>
+        <tr><td>${B('4S')} / ${B('4H')}</td><td>פחות מ-10 נק'</td><td><ul><li><strong>הכרזת חסימה</strong></li><li>5 שליטים ומעלה</li><li>סינגלטון או חוסר</li></ul></td></tr>
         <tr><td>סדרה חדשה</td><td>13 נקודות ומעלה</td><td><ul><li><strong>תמיכה מאוחרת למשחק מלא</strong></li><li>3 שליטים</li><li>הכריזו קודם סדרה חדשה, ובתור הבא קפצו למשחק מלא</li></ul></td></tr>
         <tr><td>2NT</td><td>13 נקודות ומעלה</td><td><ul><li><strong>ג'ייקובי 2NT</strong> (ראו מוסכמות)</li><li>4 שליטים ומעלה</li><li>מחייב עד משחק מלא</li></ul></td></tr>
       </table>
