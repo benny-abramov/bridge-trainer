@@ -1433,12 +1433,12 @@ const PRACTICE = {
    "contract": "3N",
    "leader": 2,
    "hands": [
-    "S:AK432",
-    "S:T9 D:KQJ",
-    "S:765 H:A D:2",
-    "S:QJ8 H:KQ"
+    "S:AK432 H:3",
+    "S:T9 H:KT82",
+    "S:765 H:A74",
+    "S:QJ8 H:QJ5"
    ],
-   "need": 4,
+   "need": 5,
    "why": {
     "en": "<p><strong>Lead a spade and play low from dummy</strong>: you <em>duck</em> the first round. The defenders win it, but you still have two spades in hand. When you get the lead back with the ♥A, lead a spade to dummy's A-K. The defenders' spades are gone by then, so dummy's last small spade wins too.</p> <p>If you cash the ace and king first and then give up a spade, dummy's remaining winner is stranded: you have no spade left to reach it.</p>",
     "he": "<p><strong>הובילו ספייד ושחקו נמוך מהדומם</strong>: אתם <em>מוותרים</em> (דאק) על הסיבוב הראשון. המגינים זוכים בו, אבל עדיין נשארו לכם שני קלפי ספייד ביד. כשתחזרו להובלה עם ה-♥A, הובילו ספייד ל-A-K של הדומם. עד אז קלפי הספייד של המגינים כבר נגמרו, כך שגם הספייד הקטן האחרון של הדומם זוכה.</p> <p>אם תממשו קודם את האס והמלך ורק אז תמסרו ספייד, הזוכה שנשאר לדומם תקוע: אין לכם ספייד כדי להגיע אליו.</p>"

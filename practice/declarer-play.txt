@@ -266,11 +266,11 @@ Title: Duck to keep a link
 כותרת: ויתור כדי לשמור על קשר
 Contract: 3NT
 Leader: S
-Need: 4
-North: S AK432
-East:  S 109  D KQJ
-South: S 765  H A  D 2
-West:  S QJ8  H KQ
+Need: 5
+North: S AK432 H x 
+East:  S 109  H K10xx
+South: S 765  H Axx
+West:  S QJ8  H QJX
 Note: Dummy has five spades but no other way in. How do you set them up and still reach them?
 הערה: לדומם יש חמישה קלפי ספייד ואין לו שום כניסה אחרת. איך תפתחו אותם ועדיין תגיעו אליהם?
 Explanation: <p><strong>Lead a spade and play low from dummy</strong>: you <em>duck</em> the first round. The defenders win it, but you still have two spades in hand. When you get the lead back with the ♥A, lead a spade to dummy's A-K. The defenders' spades are gone by then, so dummy's last small spade wins too.</p> <p>If you cash the ace and king first and then give up a spade, dummy's remaining winner is stranded: you have no spade left to reach it.</p>
