@@ -1457,7 +1457,7 @@ const PRACTICE = {
    "contract": "3N",
    "leader": 2,
    "hands": [
-    "H:AKJT2",
+    "H:AKJT D:7",
     "H:Q C:KQJT",
     "H:543 D:A C:A",
     "H:9876 D:K"
@@ -1468,8 +1468,8 @@ const PRACTICE = {
     "he": "<p>הובילו הארט ו<strong>שחקו קודם את האס של הדומם</strong>. זה לא עולה כלום, וזה זוכה בכל פעם שהמלכה בודדת: כאן ה-♥Q של מזרח נופלת, וההארט של הדומם רץ.</p> <p>אם תעקפו מיד עם הנסיך, מזרח יזכה במלכה הבודדת. ליד השולחן אי אפשר לראות את המלכה, ולכן מימוש הונור עליון אחד לפני העקיפה הוא <em>משחק ביטחון</em>: הוא מגן מפני החלוקה היחידה שהייתה עולה לקיחה.</p>"
    },
    "note": {
-    "en": "You have eight hearts missing the queen, and you need all five tricks.",
-    "he": "יש לכם שמונה קלפי הארט, וחסרה המלכה. אתם צריכים את כל חמש הלקיחות."
+    "en": "You have seven hearts missing the queen, and you need all five tricks.",
+    "he": "יש לכם שבעה קלפי הארט, וחסרה המלכה. אתם צריכים את כל חמש הלקיחות."
    },
    "title": {
     "en": "Cash the ace first",

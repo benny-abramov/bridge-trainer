@@ -282,12 +282,12 @@ Title: Cash the ace first
 Contract: 3NT
 Leader: S
 Need: 5
-North: H AKJ102
+North: H AKJ10 D x
 East:  H Q  C KQJ10
 South: H 543  D A  C A
 West:  H 9876  D K
-Note: You have eight hearts missing the queen, and you need all five tricks.
-הערה: יש לכם שמונה קלפי הארט, וחסרה המלכה. אתם צריכים את כל חמש הלקיחות.
+Note: You have seven hearts missing the queen, and you need all five tricks.
+הערה: יש לכם שבעה קלפי הארט, וחסרה המלכה. אתם צריכים את כל חמש הלקיחות.
 Explanation: <p>Lead a heart and <strong>play dummy's ace first</strong>. It costs nothing, and it wins whenever the queen is singleton: here East's ♥Q drops, and dummy's hearts run.</p> <p>If you finesse the jack straight away, East wins the bare queen. At the table you can't see the queen, so cashing one top honor before finessing is a <em>safety play</em>: it guards against the one layout that would cost a trick.</p>
 הסבר: <p>הובילו הארט ו<strong>שחקו קודם את האס של הדומם</strong>. זה לא עולה כלום, וזה זוכה בכל פעם שהמלכה בודדת: כאן ה-♥Q של מזרח נופלת, וההארט של הדומם רץ.</p> <p>אם תעקפו מיד עם הנסיך, מזרח יזכה במלכה הבודדת. ליד השולחן אי אפשר לראות את המלכה, ולכן מימוש הונור עליון אחד לפני העקיפה הוא <em>משחק ביטחון</em>: הוא מגן מפני החלוקה היחידה שהייתה עולה לקיחה.</p>
 
