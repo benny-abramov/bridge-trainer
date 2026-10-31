@@ -1074,9 +1074,9 @@ const PRACTICE = {
    "leader": 2,
    "hands": [
     "H:2 D:KQJ",
-    "S:5432",
+    "S:54 C:KQ",
     "H:A D:32 C:A",
-    "H:KQJ D:A"
+    "H:KQ D:A C:4"
    ],
    "need": 3,
    "why": {
