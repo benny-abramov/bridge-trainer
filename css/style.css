@@ -751,3 +751,14 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 /* ---------- Right-to-left (Hebrew) ---------- */
 
 [dir="rtl"] .breakdown { text-align: right; }
+
+/* Glossary: marked words in the lessons, their popup, and the glossary page. */
+.term { font: inherit; color: inherit; padding: 0; border: 0; background: none; cursor: help; text-decoration: underline dotted; text-decoration-color: var(--accent); text-underline-offset: 3px; text-decoration-thickness: 1.5px; }
+.term:hover, .term[aria-expanded="true"] { color: var(--accent); }
+.term-pop { position: absolute; z-index: 50; width: min(320px, calc(100vw - 32px)); box-sizing: border-box; padding: .7rem .9rem; border: 1px solid var(--border); border-radius: 10px; background: var(--surface); color: var(--text); box-shadow: 0 6px 20px rgba(0, 0, 0, .18); text-align: start; }
+.term-pop p { margin: .35rem 0 .5rem; }
+.term-other { color: var(--muted); font-size: .9em; font-weight: 400; }
+.glossary-search { width: 100%; max-width: 360px; box-sizing: border-box; padding: .5rem .7rem; margin: .5rem 0 1rem; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--text); font: inherit; }
+.glossary-list { margin: 0; }
+.glossary-item { padding: .55rem 0; border-bottom: 1px solid var(--border); }
+.glossary-item dd { margin: .2rem 0 0; }

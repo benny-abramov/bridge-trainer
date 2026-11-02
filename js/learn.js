@@ -565,6 +565,13 @@ const LESSONS_EN = [
       <p>The Declarer Play tab explains both in more detail (under <em>Expert play</em>), with practice hands against perfect defense.</p>`,
     tryIt: 'declarer',
   },
+  {
+    title: 'Glossary',
+    glossary: true,
+    body: `
+      <p>The bridge words used in these lessons. In the lessons, tap an underlined word to see its meaning.</p>
+      <div class="glossary-page"></div>`,
+  },
 ];
 
 const LESSONS_HE = [
@@ -1078,6 +1085,13 @@ const LESSONS_HE = [
       <p>נקו את הסדרות הצדדיות, ואז הכניסו מגן ללקיחה שהוא חייב לזכות בה. אז הוא חייב להוביל לתוך המזלג שלכם (כמו A-Q), או לתת לכם חיתוך והשלכה.</p>
       <p>בלשונית "משחק הכרוז" יש הסבר מפורט על שתיהן (תחת <em>משחק מומחים</em>), עם ידיים לתרגול מול הגנה מושלמת.</p>`,
     tryIt: 'declarer',
+  },
+  {
+    title: 'מילון מונחים',
+    glossary: true,
+    body: `
+      <p>מונחי הברידג' שמופיעים בשיעורים. בשיעורים, הקישו על מילה עם קו תחתון כדי לראות את פירושה.</p>
+      <div class="glossary-page"></div>`,
   },
 ];
 
@@ -2373,7 +2387,7 @@ const Learn = (() => {
       { hcp: 'Practice counting points', opening: 'Practice opening bids', responding: 'Practice responding', rebid: "Practice opener's rebids", rrebid: "Practice responder's rebids", overcalls: 'Practice overcalls', conventions: 'Practice conventions', defense: 'Practice opening leads', declarer: 'Practice declarer play', advanced: 'Practice advanced techniques', play: 'Play a hand' },
       { hcp: 'תרגול ספירת נקודות', opening: 'תרגול הכרזות פתיחה', responding: 'תרגול תשובות', rebid: 'תרגול הכרזה חוזרת של הפותח', rrebid: 'תרגול הכרזה חוזרת של המשיב', overcalls: 'תרגול הכרזות התערבות', conventions: 'תרגול מוסכמות', defense: 'תרגול הובלות פתיחה', declarer: 'תרגול משחק הכרוז', advanced: 'תרגול טכניקות מתקדמות', play: 'שחקו יד' });
     document.getElementById('lesson-body').innerHTML = `
-      <div class="eyebrow">${L(`Lesson ${index + 1} of ${LESSONS.length}`, `שיעור ${index + 1} מתוך ${LESSONS.length}`)}</div>
+      <div class="eyebrow">${lesson.glossary ? L('Reference', 'עזר') : L(`Lesson ${index + 1} of ${LESSONS.length - 1}`, `שיעור ${index + 1} מתוך ${LESSONS.length - 1}`)}</div>
       <h2>${lesson.title}</h2>
       ${lesson.body}
       ${lesson.tryIt ? `<p><button class="btn" data-goto="${lesson.tryIt}" data-lesson="${index}">${tryLabels[lesson.tryIt]} ${L('→', '←')}</button></p>` : ''}
@@ -2381,6 +2395,10 @@ const Learn = (() => {
         <button class="btn secondary" id="lesson-prev" ${index === 0 ? 'disabled' : ''}>${L('← Previous', '→ הקודם')}</button>
         <button class="btn" id="lesson-next" ${index === LESSONS.length - 1 ? 'disabled' : ''}>${L('Next →', 'הבא ←')}</button>
       </div>`;
+    // Mark the glossary words before the pictures are added, so only the lesson's text is marked.
+    Glossary.hide();
+    if (lesson.glossary) document.querySelectorAll('#lesson-body .glossary-page').forEach(Glossary.mount);
+    else Glossary.mark(document.getElementById('lesson-body'));
     document.querySelectorAll('#lesson-body .ladder').forEach(ladder => {
       const caption = ladder.nextElementSibling;
       ladder.querySelectorAll('.step').forEach(step => {
@@ -2469,5 +2487,5 @@ const Learn = (() => {
     document.querySelectorAll('.lesson-return').forEach(bar => bar.remove());
   }
 
-  return { init: render, showReturnBar };
+  return { init: render, showReturnBar, showGlossary: () => go(LESSONS.length - 1) };
 })();
