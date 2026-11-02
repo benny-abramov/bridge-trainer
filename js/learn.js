@@ -252,6 +252,31 @@ const LESSONS_EN = [
         <li><button class="finesse-link" type="button" data-response="pass">0–5 HCP</button>: pass.</li>
         <li><strong>6+ HCP:</strong> respond. Partner may still pass, so with more strength you keep bidding.</li>
       </ul>
+      <details class="why-more">
+        <summary class="btn secondary">💡 When to continue bidding</summary>
+        <div class="why-body">
+          <p>Every bid tells partner whether they may pass. There are three kinds:</p>
+          <ul>
+            <li><strong>Forcing</strong>: partner must bid again. The hand has no upper limit yet, so game is still possible.</li>
+            <li><strong>Limit bid</strong>: shows a narrow range of points. Partner adds them up and decides: pass when game is out of reach, invite, or bid game.</li>
+            <li><strong>Signoff</strong>: "stop here". Partner passes.</li>
+          </ul>
+          <p>Your response to partner's opening:</p>
+          <table class="tbl">
+            <tr><th>Your response</th><th>Kind</th><th>Can opener pass?</th></tr>
+            <tr><td>New suit at the 1-level (1${D} – 1${S})</td><td>Forcing: 6+ HCP, no upper limit</td><td>No</td></tr>
+            <tr><td>New suit at the 2-level (1${S} – 2${C})</td><td>Forcing: 11+ HCP</td><td>No</td></tr>
+            <tr><td>2NT over a major (Jacoby)</td><td>Forcing to game</td><td>No</td></tr>
+            <tr><td>1NT, or a simple raise (1${H} – 2${H})</td><td>Limit: 6–10</td><td>Yes, with a minimum</td></tr>
+            <tr><td>2NT over a minor, or a limit raise (1${H} – 3${H})</td><td>Limit: 11–12, invites game</td><td>Yes, with a minimum</td></tr>
+            <tr><td>3NT, or 4 of partner's major</td><td>Signoff: game is already bid</td><td>Yes, and usually does</td></tr>
+          </table>
+          <p><strong>Why a new suit is forcing:</strong> 1${S} could be 6 HCP or 18. Opener can't tell whether you have game, so opener must bid again to let you show more.
+          This is why with 13+ points you can bid a new suit first, without jumping: partner won't pass, and you raise to game on your next turn.</p>
+          <p><strong>Why a limit bid lets opener decide:</strong> after 1NT or a raise, opener knows your strength to within a few points and adds it to their own.
+          With no chance of 25 combined, opener passes or stops in the best suit at the lowest level.</p>
+        </div>
+      </details>
       <p>With 6+ HCP, choose the <strong>first</strong> of these that fits your hand. Tap a hand type to see an example:</p>
       <table class="tbl">
         <tr><th>Your hand</th><th>Respond</th></tr>
@@ -285,6 +310,30 @@ const LESSONS_EN = [
         <tr><th>Minimum</th><th>Medium</th><th>Maximum</th></tr>
         <tr><td>12–14 HCP</td><td>15–17 HCP</td><td>18–22 HCP</td></tr>
       </table>
+      <details class="why-more">
+        <summary class="btn secondary">💡 When to continue bidding</summary>
+        <div class="why-body">
+          <p>Every bid tells partner whether they may pass. There are three kinds:</p>
+          <ul>
+            <li><strong>Forcing</strong>: partner must bid again. The hand has no upper limit yet, so game is still possible.</li>
+            <li><strong>Limit bid</strong>: shows a narrow range of points. Partner adds them up and decides: pass when game is out of reach, invite, or bid game.</li>
+            <li><strong>Signoff</strong>: "stop here". Partner passes.</li>
+          </ul>
+          <p>So first look at partner's response: is it forcing, or did partner limit their hand?</p>
+          <p><strong>Partner bid a new suit: you must bid again.</strong> Partner's hand is unlimited (1${D} – 1${S} can hold 6 HCP or 18), so game may be on even when you have a minimum.
+          Never pass. Your rebid tells partner which part of your range you hold, and partner decides.</p>
+          <p><strong>Partner made a limit bid</strong> (a raise, 1NT or 2NT): partner's strength is known to within a few points, so <strong>you</strong> decide. Add your points to partner's range:</p>
+          <table class="tbl">
+            <tr><th>Combined points</th><th>What to do</th></tr>
+            <tr><td>Below 25 even if partner has the maximum</td><td><strong>Sign off</strong>: pass, or move to a better suit at the lowest level</td></tr>
+            <tr><td>25 only if partner is at the top of the range</td><td><strong>Invite</strong>: raise once more, or bid 2NT</td></tr>
+            <tr><td>25+ even if partner has the minimum</td><td><strong>Bid game</strong></td></tr>
+          </table>
+          <p>For example, after 1${H} – 2${H} (6–10): with 13 HCP you have at most 23 together, so pass. With 16 you have 22–26, so invite with 3${H}. With 19 you have at least 25, so bid 4${H}.</p>
+          <p><strong>Your own rebid can be forcing too.</strong> A jump shift (18+) is forcing to game, and a reverse (16+) is forcing for one round.
+          A 1NT rebid, rebidding your suit or a new lower suit at the 2-level are not forcing, so partner may pass them.</p>
+        </div>
+      </details>
       <p><strong>When partner raises your suit</strong>, you already have a fit. Only the level is left to decide:</p>
       <table class="tbl">
         <tr><th>Partner's bid</th><th>Minimum</th><th>Medium</th><th>Maximum</th></tr>
@@ -320,6 +369,32 @@ const LESSONS_EN = [
         <tr><td>6–10 HCP</td><td>11–12 HCP</td><td>13+ HCP</td></tr>
       </table>
       <p>Add your points to what partner's rebid showed. With <strong>25+</strong> combined, bid game. If game depends on whether partner is at the top of their range, invite. If not, stop.</p>
+      <details class="why-more">
+        <summary class="btn secondary">💡 When to continue bidding</summary>
+        <div class="why-body">
+          <p>Every bid tells partner whether they may pass. There are three kinds:</p>
+          <ul>
+            <li><strong>Forcing</strong>: partner must bid again. The hand has no upper limit yet, so game is still possible.</li>
+            <li><strong>Limit bid</strong>: shows a narrow range of points. Partner adds them up and decides: pass when game is out of reach, invite, or bid game.</li>
+            <li><strong>Signoff</strong>: "stop here". Partner passes.</li>
+          </ul>
+          <p>Opener's rebid has usually limited opener's hand: a 1NT rebid shows 12–14, rebidding the suit or a simple raise shows a minimum, and 2NT shows 18–19.
+          Now you know the strength of both hands, so <strong>you</strong> place the contract:</p>
+          <table class="tbl">
+            <tr><th>Combined points</th><th>What to do</th></tr>
+            <tr><td>Game is out of reach</td><td><strong>Sign off</strong> at the lowest level: pass, give preference to opener's first suit, or bid your own 6-card suit at the 2-level. Opener usually passes.</td></tr>
+            <tr><td>Game depends on opener's extras</td><td><strong>Invite</strong>: 2NT, or raise to the 3-level. Opener passes with a minimum and bids game with a maximum.</td></tr>
+            <tr><td>25+</td><td><strong>Bid game</strong> yourself.</td></tr>
+          </table>
+          <p><strong>Preference is a signoff.</strong> 1${S} – 1NT – 2${H} – 2${S} only says which suit you prefer. It shows no extra strength, and opener usually passes.</p>
+          <p><strong>When opener's rebid is forcing, you must not pass</strong>, even with only 6 HCP:</p>
+          <ul>
+            <li>A <em>reverse</em> (1${D} – 1${S} – 2${H}, 16+): forcing for one round. With a minimum, rebid a 5-card suit or give preference.</li>
+            <li>A <em>jump shift</em> (1${H} – 1${S} – 3${C}, 18+): forcing to game. Keep bidding until you reach game.</li>
+          </ul>
+          <p>Opener's new lower suit without a jump (1${H} – 1${S} – 2${C}) is not forcing: pass when that suit makes a longer fit, otherwise give preference.</p>
+        </div>
+      </details>
       <p><strong>When partner invites game</strong> (for example 1${H} – 2${H} – 3${H}, or 1${S} – 1NT – 2NT):</p>
       <ul>
         <li>Accept with the top of your range (9–10 after a 6–10 response) by bidding game.</li>
@@ -773,6 +848,31 @@ const LESSONS_HE = [
         <li><button class="finesse-link" type="button" data-response="pass">0-5 נק'</button>: פאס.</li>
         <li><strong>6 נק' ומעלה:</strong> השיבו. השותף עדיין עשוי להכריז פאס, ולכן עם יותר כוח ממשיכים להכריז.</li>
       </ul>
+      <details class="why-more">
+        <summary class="btn secondary">💡 מתי להמשיך להכריז</summary>
+        <div class="why-body">
+          <p>כל הכרזה אומרת לשותף אם מותר לו להכריז פאס. יש שלושה סוגים:</p>
+          <ul>
+            <li><strong>מחייבת</strong>: השותף חייב להכריז שוב. ליד עדיין אין גבול עליון, ולכן משחק מלא עדיין אפשרי.</li>
+            <li><strong>הכרזה מוגבלת</strong>: מראה טווח צר של נקודות. השותף מחבר ומחליט: פאס כשמשחק מלא לא בהישג יד, הזמנה, או משחק מלא.</li>
+            <li><strong>הכרזת עצירה</strong>: "עוצרים כאן". השותף מכריז פאס.</li>
+          </ul>
+          <p>התשובה שלכם לפתיחה של השותף:</p>
+          <table class="tbl">
+            <tr><th>התשובה שלכם</th><th>סוג</th><th>מותר לפותח פאס?</th></tr>
+            <tr><td>סדרה חדשה ברמת 1 (<bdi dir="ltr">${B('1D')} – ${B('1S')}</bdi>)</td><td>מחייבת: 6 נק' ומעלה, בלי גבול עליון</td><td>לא</td></tr>
+            <tr><td>סדרה חדשה ברמת 2 (<bdi dir="ltr">${B('1S')} – ${B('2C')}</bdi>)</td><td>מחייבת: 11 נק' ומעלה</td><td>לא</td></tr>
+            <tr><td>2NT אחרי פתיחה בסדרת מייגור (ג'ייקובי)</td><td>מחייבת עד משחק מלא</td><td>לא</td></tr>
+            <tr><td>1NT, או תמיכה פשוטה (<bdi dir="ltr">${B('1H')} – ${B('2H')}</bdi>)</td><td>מוגבלת: 6-10</td><td>כן, עם מינימום</td></tr>
+            <tr><td>2NT אחרי פתיחה בסדרת מיינור, או תמיכה בקפיצה (<bdi dir="ltr">${B('1H')} – ${B('3H')}</bdi>)</td><td>מוגבלת: 11-12, הזמנה למשחק מלא</td><td>כן, עם מינימום</td></tr>
+            <tr><td>3NT, או 4 בסדרת המייגור של השותף</td><td>עצירה: המשחק המלא כבר הוכרז</td><td>כן, ובדרך כלל מכריז פאס</td></tr>
+          </table>
+          <p><strong>למה סדרה חדשה מחייבת:</strong> ${B('1S')} יכול להיות 6 נק' או 18. הפותח לא יודע אם יש לכם משחק מלא, ולכן הוא חייב להכריז שוב כדי לתת לכם להראות עוד.
+          בגלל זה עם 13 נקודות ומעלה אפשר להכריז קודם סדרה חדשה בלי לקפוץ: השותף לא יכריז פאס, ובתור הבא תקפצו למשחק מלא.</p>
+          <p><strong>למה אחרי הכרזה מוגבלת הפותח מחליט:</strong> אחרי 1NT או תמיכה, הפותח יודע את הכוח שלכם בטווח של כמה נקודות, ומחבר אותו לנקודות שלו.
+          אם אין סיכוי ל-25 במשותף, הוא מכריז פאס או עוצר בסדרה הטובה ביותר ברמה הנמוכה ביותר.</p>
+        </div>
+      </details>
       <p>עם 6 נק' ומעלה, בחרו את <strong>הראשונה</strong> מבין האפשרויות הבאות שמתאימה ליד. לחצו על סוג יד כדי לראות דוגמה:</p>
       <table class="tbl">
         <tr><th>היד שלכם</th><th>תשובה</th></tr>
@@ -806,6 +906,30 @@ const LESSONS_HE = [
         <tr><th>מינימום</th><th>בינוני</th><th>מקסימום</th></tr>
         <tr><td>12-14 נק'</td><td>15-17 נק'</td><td>18-22 נק'</td></tr>
       </table>
+      <details class="why-more">
+        <summary class="btn secondary">💡 מתי להמשיך להכריז</summary>
+        <div class="why-body">
+          <p>כל הכרזה אומרת לשותף אם מותר לו להכריז פאס. יש שלושה סוגים:</p>
+          <ul>
+            <li><strong>מחייבת</strong>: השותף חייב להכריז שוב. ליד עדיין אין גבול עליון, ולכן משחק מלא עדיין אפשרי.</li>
+            <li><strong>הכרזה מוגבלת</strong>: מראה טווח צר של נקודות. השותף מחבר ומחליט: פאס כשמשחק מלא לא בהישג יד, הזמנה, או משחק מלא.</li>
+            <li><strong>הכרזת עצירה</strong>: "עוצרים כאן". השותף מכריז פאס.</li>
+          </ul>
+          <p>לכן קודם הסתכלו על התשובה של השותף: האם היא מחייבת, או שהשותף הגביל את היד שלו?</p>
+          <p><strong>השותף הכריז סדרה חדשה: חובה להכריז שוב.</strong> היד של השותף לא מוגבלת (ב-<bdi dir="ltr">${B('1D')} – ${B('1S')}</bdi> יכולות להיות 6 נק' או 18), ולכן ייתכן משחק מלא גם כשיש לכם מינימום.
+          אל תכריזו פאס. ההכרזה החוזרת שלכם מספרת לשותף באיזה חלק של הטווח אתם, והשותף מחליט.</p>
+          <p><strong>השותף הכריז הכרזה מוגבלת</strong> (תמיכה, 1NT או 2NT): הכוח של השותף ידוע בטווח של כמה נקודות, ולכן <strong>אתם</strong> מחליטים. חברו את הנקודות שלכם לטווח של השותף:</p>
+          <table class="tbl">
+            <tr><th>נקודות משותפות</th><th>מה עושים</th></tr>
+            <tr><td>פחות מ-25 גם אם לשותף יש מקסימום</td><td><strong>עצירה</strong>: פאס, או מעבר לסדרה טובה יותר ברמה הנמוכה ביותר</td></tr>
+            <tr><td>25 רק אם השותף בראש הטווח</td><td><strong>הזמנה</strong>: תמיכה נוספת, או 2NT</td></tr>
+            <tr><td>25 ומעלה גם אם לשותף יש מינימום</td><td><strong>משחק מלא</strong></td></tr>
+          </table>
+          <p>לדוגמה, אחרי <bdi dir="ltr">${B('1H')} – ${B('2H')}</bdi> (6-10): עם 13 נק' יש לכם יחד 23 לכל היותר, ולכן פאס. עם 16 יש לכם 22-26, ולכן הזמינו ב-${B('3H')}. עם 19 יש לכם לפחות 25, ולכן הכריזו ${B('4H')}.</p>
+          <p><strong>גם ההכרזה החוזרת שלכם יכולה להיות מחייבת.</strong> קפיצה בסדרה חדשה (18 ומעלה) מחייבת עד משחק מלא, וריברס (16 ומעלה) מחייב לסיבוב אחד.
+          הכרזה חוזרת של 1NT, חזרה על הסדרה שלכם או סדרה חדשה נמוכה יותר ברמת 2 לא מחייבות, והשותף רשאי להכריז עליהן פאס.</p>
+        </div>
+      </details>
       <p><strong>כשהשותף תומך בסדרה שלכם</strong>, כבר יש התאמה. נשאר להחליט רק על הרמה:</p>
       <table class="tbl">
         <tr><th>ההכרזה של השותף</th><th>מינימום</th><th>בינוני</th><th>מקסימום</th></tr>
@@ -841,6 +965,32 @@ const LESSONS_HE = [
         <tr><td>6-10 נק'</td><td>11-12 נק'</td><td>13 נק' ומעלה</td></tr>
       </table>
       <p>חברו את הנקודות שלכם למה שהשותף הראה. עם <strong>25 ומעלה</strong> במשותף, הכריזו משחק מלא. אם המשחק המלא תלוי בכך שהשותף בראש הטווח שלו, הזמינו. אחרת, עצרו.</p>
+      <details class="why-more">
+        <summary class="btn secondary">💡 מתי להמשיך להכריז</summary>
+        <div class="why-body">
+          <p>כל הכרזה אומרת לשותף אם מותר לו להכריז פאס. יש שלושה סוגים:</p>
+          <ul>
+            <li><strong>מחייבת</strong>: השותף חייב להכריז שוב. ליד עדיין אין גבול עליון, ולכן משחק מלא עדיין אפשרי.</li>
+            <li><strong>הכרזה מוגבלת</strong>: מראה טווח צר של נקודות. השותף מחבר ומחליט: פאס כשמשחק מלא לא בהישג יד, הזמנה, או משחק מלא.</li>
+            <li><strong>הכרזת עצירה</strong>: "עוצרים כאן". השותף מכריז פאס.</li>
+          </ul>
+          <p>ההכרזה החוזרת של הפותח בדרך כלל הגבילה את היד שלו: 1NT מראה 12-14, חזרה על הסדרה או תמיכה פשוטה מראות מינימום, ו-2NT מראה 18-19.
+          עכשיו אתם יודעים את הכוח של שתי הידיים, ולכן <strong>אתם</strong> קובעים את החוזה:</p>
+          <table class="tbl">
+            <tr><th>נקודות משותפות</th><th>מה עושים</th></tr>
+            <tr><td>משחק מלא לא בהישג יד</td><td><strong>עצירה</strong> ברמה הנמוכה ביותר: פאס, העדפה לסדרה הראשונה של הפותח, או הסדרה שלכם של 6 קלפים ברמת 2. הפותח בדרך כלל מכריז פאס.</td></tr>
+            <tr><td>משחק מלא תלוי בתוספת של הפותח</td><td><strong>הזמנה</strong>: 2NT, או תמיכה ברמת 3. הפותח מכריז פאס עם מינימום ומשחק מלא עם מקסימום.</td></tr>
+            <tr><td>25 ומעלה</td><td><strong>משחק מלא</strong>: הכריזו אותו בעצמכם.</td></tr>
+          </table>
+          <p><strong>העדפה היא הכרזת עצירה.</strong> <bdi dir="ltr">${B('1S')} – 1NT – ${B('2H')} – ${B('2S')}</bdi> רק אומר איזו סדרה אתם מעדיפים. היא לא מראה כוח נוסף, והפותח בדרך כלל מכריז פאס.</p>
+          <p><strong>כשההכרזה החוזרת של הפותח מחייבת, אסור לכם להכריז פאס</strong>, גם עם 6 נק' בלבד:</p>
+          <ul>
+            <li><em>ריברס</em> (<bdi dir="ltr">${B('1D')} – ${B('1S')} – ${B('2H')}</bdi>, 16 ומעלה): מחייב לסיבוב אחד. עם מינימום, חזרו על סדרה של 5 קלפים או תנו העדפה.</li>
+            <li><em>קפיצה בסדרה חדשה</em> (<bdi dir="ltr">${B('1H')} – ${B('1S')} – ${B('3C')}</bdi>, 18 ומעלה): מחייבת עד משחק מלא. המשיכו להכריז עד שמגיעים למשחק מלא.</li>
+          </ul>
+          <p>סדרה חדשה נמוכה יותר של הפותח בלי קפיצה (<bdi dir="ltr">${B('1H')} – ${B('1S')} – ${B('2C')}</bdi>) לא מחייבת: הכריזו פאס כשהסדרה הזו יוצרת התאמה ארוכה יותר, ואחרת תנו העדפה.</p>
+        </div>
+      </details>
       <p><strong>כשהשותף מזמין למשחק מלא</strong> (למשל <bdi dir="ltr">${B('1H')} – ${B('2H')} – ${B('3H')}</bdi>, או <bdi dir="ltr">${B('1S')} – 1NT – 2NT</bdi>):</p>
       <ul>
         <li>קבלו את ההזמנה עם ראש הטווח שלכם (9-10 אחרי תשובה של 6-10) בהכרזת משחק מלא.</li>
