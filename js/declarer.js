@@ -247,6 +247,7 @@ const DECLARER_SECTIONS = {
       When you cash the squeeze card, each defender must keep their own guard, so both throw a card in the shared suit, and your last card in it wins.</p>
       <p>It needs three threats: one against each defender, and a shared threat that comes with its own winner and entry, such as ♠A-9 opposite a small spade.
       West, who plays before North, is squeezed first. North then throws the threat it no longer needs, and East, who plays after North, is squeezed next.</p>
+      <p><button class="btn secondary" type="button" data-squeeze-diagram="double">Example</button></p>
       <h3>Triple squeeze</h3>
       <p>In a <strong>triple squeeze</strong>, one defender guards <em>three</em> suits. The squeeze card forces them to give up one guard. Cash that suit, and its last winner squeezes them again in the two suits left.
       So a triple squeeze can win <strong>two</strong> extra tricks.</p>
@@ -267,6 +268,7 @@ const DECLARER_SECTIONS = {
       כשאתם מממשים את קלף הלחץ, כל מגן חייב לשמור את השמירה שלו, ולכן שניהם משליכים קלף בסדרה המשותפת, והקלף האחרון שלכם בה זוכה.</p>
       <p>צריך שלושה איומים: אחד נגד כל מגן, ואיום משותף שיש לו זוכה וכניסה משלו, כמו ♠A-9 מול ספייד קטן.
       מערב, שמשחק לפני צפון, נלחץ ראשון. צפון משליך אז את האיום שכבר לא צריך, ומזרח, שמשחק אחרי צפון, נלחץ אחריו.</p>
+      <p><button class="btn secondary" type="button" data-squeeze-diagram="double">דוגמה</button></p>
       <h3>לחץ משולש</h3>
       <p>ב<strong>לחץ משולש</strong> מגן אחד שומר על <em>שלוש</em> סדרות. קלף הלחץ מאלץ אותו לוותר על שמירה אחת. ממשו את הסדרה הזו, והזוכה האחרון בה לוחץ אותו שוב בשתי הסדרות שנשארו.
       כך לחץ משולש יכול לזכות ב<strong>שתי</strong> לקיחות נוספות.</p>
@@ -327,7 +329,7 @@ const DeclarerPlay = makePuzzleSection('dp', DECLARER_TOPICS, DECLARER_GROUPS);
 const SqueezeDiagram = (() => {
   const sym = suitHtml;
   // `hands` gives each seat's holding by suit; `tags` labels a seat's suit (seat letter + suit);
-  // `arrows` join a threat to its guard.
+  // `arrows` join a threat to its guard ('shared' for the suit both defenders guard).
   const DIAGRAMS = {
     simple: {
       title: ['The simple squeeze', 'הלחץ הפשוט'],
@@ -346,7 +348,23 @@ const SqueezeDiagram = (() => {
       ],
     },
   };
-  const TAG = { threat: ['Threat', 'איום'], guard: ['Guard', 'שמירה'], free: ['Free suit', 'סדרה חופשית'] };
+  DIAGRAMS.double = {
+    title: ['The double squeeze', 'הלחץ הכפול'],
+    hands: { n: { S: 'A9', H: 'J' }, e: { S: 'JT', D: 'K' }, s: { S: '3', D: 'Q', C: 'A' }, w: { S: 'KQ', H: 'K' } },
+    tags: { nS: 'shared', nH: 'threat', sD: 'threat', wS: 'guard', wH: 'guard', eS: 'guard', eD: 'guard', sC: 'free' },
+    arrows: [['nH', 'wH'], ['sD', 'eD'], ['nS', 'wS', 'shared'], ['nS', 'eS', 'shared']],
+    text: [
+      `<p>Each defender guards one suit alone: West's ${sym('H')}K stops dummy's ${sym('H')}J, and East's ${sym('D')}K stops your ${sym('D')}Q.
+      And <strong>both</strong> defenders guard spades against dummy's ${sym('S')}9: West with the ${sym('S')}K-Q, East with the ${sym('S')}J-10.</p>
+      <p>Lead the ${sym('C')}A, the squeeze card. West must keep the ${sym('H')}K, so West throws a spade; North then throws the ${sym('H')}J, no longer needed.
+      East must keep the ${sym('D')}K, so East throws a spade too. Now nobody guards spades: the ${sym('S')}3 to the ${sym('S')}A drops both honors, and the ${sym('S')}9 wins.</p>`,
+      `<p>כל מגן שומר לבדו על סדרה אחת: ה-${sym('H')}K של מערב עוצר את ה-${sym('H')}J של הדומם, וה-${sym('D')}K של מזרח עוצר את ה-${sym('D')}Q שלכם.
+      ו<strong>שניהם</strong> שומרים על הספייד מול ה-${sym('S')}9 של הדומם: מערב עם ה-${sym('S')}K-Q, מזרח עם ה-${sym('S')}J-10.</p>
+      <p>הובילו את ה-${sym('C')}A, קלף הלחץ. מערב חייב לשמור את ה-${sym('H')}K, ולכן הוא משליך ספייד; צפון משליך אז את ה-${sym('H')}J, שכבר לא נחוץ.
+      מזרח חייב לשמור את ה-${sym('D')}K, ולכן גם הוא משליך ספייד. עכשיו אף אחד לא שומר על הספייד: ה-${sym('S')}3 ל-${sym('S')}A מפיל את שני ההונורים, וה-${sym('S')}9 זוכה.</p>`,
+    ],
+  };
+  const TAG = { threat: ['Threat', 'איום'], guard: ['Guard', 'שמירה'], free: ['Free suit', 'סדרה חופשית'], shared: ['Threat vs both', 'איום על שניהם'] };
   const LABEL = { n: ['North (dummy)', 'צפון (דומם)'], e: ['East', 'מזרח'], s: ['South (you)', 'דרום (אתם)'], w: ['West', 'מערב'] };
   let dialog, current;
 
@@ -367,16 +385,22 @@ const SqueezeDiagram = (() => {
     const base = box.getBoundingClientRect();
     svg.setAttribute('viewBox', `0 0 ${base.width} ${base.height}`);
     svg.querySelectorAll('path.sq-arrow').forEach(p => p.remove());
-    for (const [from, to] of current.arrows) {
-      const a = box.querySelector(`[data-row="${from}"] .sq-suit`).getBoundingClientRect();
-      const tagEl = box.querySelector(`[data-row="${to}"] .sq-tag`) || box.querySelector(`[data-row="${to}"] .sq-ranks`);
-      const b = tagEl.getBoundingClientRect();
-      const x1 = a.left - base.left - 6, y1 = a.top + a.height / 2 - base.top;
-      const x2 = b.right - base.left + 6, y2 = b.top + b.height / 2 - base.top;
+    // A row's left edge is its suit symbol; its right edge is its label, or its cards.
+    const edges = key => {
+      const row = box.querySelector(`[data-row="${key}"]`);
+      const left = row.querySelector('.sq-suit').getBoundingClientRect();
+      const right = (row.querySelector('.sq-tag') || row.querySelector('.sq-ranks')).getBoundingClientRect();
+      return { left: left.left - base.left - 6, right: right.right - base.left + 6, y: left.top + left.height / 2 - base.top };
+    };
+    for (const [from, to, kind] of current.arrows) {
+      const a = edges(from), b = edges(to);
+      // Leave from the side facing the target and arrive at the side facing the source.
+      const rightward = b.left > a.right;
+      const x1 = rightward ? a.right : a.left, x2 = rightward ? b.left : b.right;
       const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-      path.setAttribute('class', 'sq-arrow');
-      path.setAttribute('d', `M${x1},${y1} Q${x2 + (x1 - x2) * 0.15},${y1} ${x2},${y2}`);
-      path.setAttribute('marker-end', 'url(#sq-head)');
+      path.setAttribute('class', 'sq-arrow' + (kind ? ' ' + kind : ''));
+      path.setAttribute('d', `M${x1},${a.y} Q${x2 + (x1 - x2) * 0.15},${a.y} ${x2},${b.y}`);
+      path.setAttribute('marker-end', `url(#sq-head${kind ? '-' + kind : ''})`);
       svg.appendChild(path);
     }
   }
@@ -395,7 +419,10 @@ const SqueezeDiagram = (() => {
       <div class="sq-diagram">
         ${['n', 'w', 'e', 's'].map(seat => handHtml(current, seat)).join('')}
         <div class="sq-table" aria-hidden="true"></div>
-        <svg class="sq-arrows" aria-hidden="true"><defs><marker id="sq-head" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z"/></marker></defs></svg>
+        <svg class="sq-arrows" aria-hidden="true"><defs>
+          <marker id="sq-head" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z"/></marker>
+          <marker id="sq-head-shared" class="shared" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z"/></marker>
+        </defs></svg>
       </div>
       <div class="sq-text">${L(...current.text)}</div>`;
     const close = document.createElement('button');
