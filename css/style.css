@@ -765,3 +765,6 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 /* The responding lesson's row for partner's 1NT: short steps, each with its "Why" box. */
 .nt-respond p { margin: 0 0 .4rem; }
 .nt-respond .why-more { margin: 0 0 .6rem; }
+.nowrap { white-space: nowrap; }
+/* Tables inside a "Why" box (the transfer follow-ups): a little tighter. */
+.why-body .tbl { margin: .4rem 0 .6rem; }

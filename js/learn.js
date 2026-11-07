@@ -86,9 +86,19 @@ const WHY_TRANSFERS = L(`
       <p><strong>You get a second bid.</strong> Partner's answer is automatic, so you can bid again and show your strength:</p>
       <ul>
         <li><strong>Weak (0–7 HCP):</strong> transfer, then pass. You play in your long suit at the 2-level, safer than 1NT.</li>
-        <li><strong>Invitational (8–9 HCP):</strong> transfer, then 2NT with five cards or 3 of the major with six. Partner goes to game with a maximum.</li>
-        <li><strong>Game (10+ HCP):</strong> transfer, then 3NT with five cards (partner chooses 3NT or 4 of the major) or 4 of the major with six.
-          With a second suit of 4+ cards, transfer, then bid that suit: it's forcing, and partner chooses the contract.</li>
+        <li><strong>Invitational (8–9 HCP):</strong> transfer, then invite game. For example, with hearts, after <span class="nowrap">1NT – 2${D} – 2${H}</span>:
+          <table class="tbl">
+            <tr><th>Your hand</th><th>Bid</th><th>Then partner</th></tr>
+            <tr><td>5 hearts</td><td>2NT</td><td>With a minimum: passes, or 3${H} with 3+ hearts. With a maximum: 3NT, or 4${H} with 3+ hearts</td></tr>
+            <tr><td>6+ hearts</td><td>3${H}</td><td>Passes with a minimum, bids 4${H} with a maximum</td></tr>
+          </table></li>
+        <li><strong>Game (10+ HCP):</strong> transfer, then make sure you reach game. For example, with hearts, after <span class="nowrap">1NT – 2${D} – 2${H}</span>:
+          <table class="tbl">
+            <tr><th>Your hand</th><th>Bid</th><th>Then partner</th></tr>
+            <tr><td>5 hearts, balanced</td><td>3NT</td><td>Chooses: 4${H} with 3+ hearts, otherwise passes 3NT</td></tr>
+            <tr><td>6+ hearts</td><td>4${H}</td><td>Passes: game is bid</td></tr>
+            <tr><td>5 hearts and a second suit of 4+ cards</td><td>The second suit, such as 3${C}</td><td>Must bid again (it's forcing) and chooses the contract</td></tr>
+          </table></li>
       </ul>
       <p><strong>4-level transfers</strong> (<strong>Texas transfers</strong>, 4${D} and 4${H}) are for a 6+ card major, game values and no interest in slam. With slam interest, start with
       a 2-level transfer and bid again after it.</p>
@@ -102,9 +112,19 @@ const WHY_TRANSFERS = L(`
       <p><strong>מקבלים הכרזה שנייה.</strong> התשובה של השותף אוטומטית, ולכן אפשר להכריז שוב ולהראות את הכוח:</p>
       <ul>
         <li><strong>חלשה (0-7 נק'):</strong> טרנספר ואחר כך פאס. משחקים בסדרה הארוכה שלכם ברמת 2, בטוח יותר מ-1NT.</li>
-        <li><strong>מזמינה (8-9 נק'):</strong> טרנספר ואחר כך 2NT עם חמישה קלפים, או 3 בסדרת המייגור עם שישה. השותף עולה למשחק מלא עם מקסימום.</li>
-        <li><strong>משחק מלא (10 נק' ומעלה):</strong> טרנספר ואחר כך 3NT עם חמישה קלפים (השותף בוחר בין 3NT ל-4 במייגור), או 4 במייגור עם שישה.
-          עם סדרה שנייה של 4 קלפים ומעלה, טרנספר ואחר כך הכריזו את הסדרה הזו: ההכרזה מחייבת, והשותף בוחר את החוזה.</li>
+        <li><strong>מזמינה (8-9 נק'):</strong> טרנספר ואחר כך הזמנה למשחק מלא. לדוגמה, עם הארט, אחרי <bdi dir="ltr" class="nowrap">1NT – ${B('2D')} – ${B('2H')}</bdi>:
+          <table class="tbl">
+            <tr><th>היד שלכם</th><th>הכרזה</th><th>ואז השותף</th></tr>
+            <tr><td>5 הארט</td><td>2NT</td><td>עם מינימום: פאס, או ${B('3H')} עם 3 הארט ומעלה. עם מקסימום: 3NT, או ${B('4H')} עם 3 הארט ומעלה</td></tr>
+            <tr><td>6 הארט ומעלה</td><td>${B('3H')}</td><td>מכריז פאס עם מינימום, ${B('4H')} עם מקסימום</td></tr>
+          </table></li>
+        <li><strong>משחק מלא (10 נק' ומעלה):</strong> טרנספר ואחר כך דאגו להגיע למשחק מלא. לדוגמה, עם הארט, אחרי <bdi dir="ltr" class="nowrap">1NT – ${B('2D')} – ${B('2H')}</bdi>:
+          <table class="tbl">
+            <tr><th>היד שלכם</th><th>הכרזה</th><th>ואז השותף</th></tr>
+            <tr><td>5 הארט, יד מאוזנת</td><td>3NT</td><td>בוחר: ${B('4H')} עם 3 הארט ומעלה, ואחרת פאס על 3NT</td></tr>
+            <tr><td>6 הארט ומעלה</td><td>${B('4H')}</td><td>מכריז פאס: המשחק המלא הוכרז</td></tr>
+            <tr><td>5 הארט וסדרה שנייה של 4 קלפים ומעלה</td><td>הסדרה השנייה, כמו ${B('3C')}</td><td>חייב להכריז שוב (ההכרזה מחייבת) ובוחר את החוזה</td></tr>
+          </table></li>
       </ul>
       <p><strong>טרנספר ברמת 4</strong> (<strong>טרנספר טקסס</strong>, ${B('4D')} ו-${B('4H')}) מתאים למייגור של 6 קלפים ומעלה, כוח למשחק מלא ובלי עניין בסלאם. עם עניין בסלאם, התחילו
       בטרנספר ברמת 2 והכריזו שוב אחריו.</p>
