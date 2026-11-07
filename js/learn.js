@@ -2315,9 +2315,9 @@ const FinesseLayouts = (() => {
     },
     third: {
       title: ['Third hand high', 'יד שלישית גבוה'], defense: true,
-      setup: ['Partner (West) leads low from Q-10-x-x and dummy plays low. You are East, the third hand; declarer (South) plays after you.',
-        'השותף (מערב) מוביל נמוך מתוך Q-10-x-x והדומם משחק נמוך. אתם במזרח, היד השלישית; הכרוז (דרום) משחק אחריכם.'],
-      hands: { n: 'xxx', w: 'QTxx', e: 'Kxx', s: 'AJx' }, you: 'e', lead: ['w', 3],
+      setup: ['Partner (West) leads low from Q-10-x and dummy plays low. You are East, the third hand; declarer (South) plays after you.',
+        'השותף (מערב) מוביל נמוך מתוך Q-10-x והדומם משחק נמוך. אתם במזרח, היד השלישית; הכרוז (דרום) משחק אחריכם.'],
+      hands: { n: 'xxx', w: 'QTx', e: 'Kxx', s: 'AJx' }, you: 'e', lead: ['w', 2],
       cases: [
         { tricks: 1, play: ['e', 0], title: ['You play the king', 'אתם משחקים את המלך'],
           text: ["Declarer has to spend the ace on your king. Partner's Q-10 are now higher than declarer's jack, so declarer makes only the ace.",
@@ -2400,7 +2400,7 @@ const FinesseLayouts = (() => {
     ],
     third: [
       ['W:x N:x E:K S:A', 'E:x S:J W:Q N:x', 'W:T N:x E:x S:x'],
-      ['W:x N:x E:x S:J', 'S:A W:x N:x E:x', 'S:x W:Q N:x E:K'],
+      ['W:x N:x E:x S:J', 'S:A W:T N:x E:x', 'S:x W:Q N:x E:K'],
     ],
     cover: [
       ['S:Q W:K N:A E:x', 'N:x E:J S:x W:x', 'E:T S:x W:x N:x'],
