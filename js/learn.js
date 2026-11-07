@@ -665,6 +665,21 @@ const LESSONS_EN = [
         <tr><td><button class="finesse-link" type="button" data-overcall="wjo">6–10 HCP and a good 6-card suit (two of A, K, Q, J)</button></td><td><strong>Weak jump overcall</strong> at the 2-level: one level higher than needed (1${H} – 2${S}). A jump to the 3-level needs seven cards.</td></tr>
         <tr><td><button class="finesse-link" type="button" data-overcall="pre">6–10 HCP and a good 7-card suit (two of A, K, Q, J)</button></td><td><strong>Preempt</strong> at the 3-level (1${C} – 3${H})</td></tr>
         <tr><td><button class="finesse-link" type="button" data-overcall="pre4">6–10 HCP and a good 8-card suit (two of A, K, Q, J)</button></td><td><strong>Preempt</strong> at the 4-level (1${C} – 4${H})</td></tr>
+        <tr><td colspan="2">
+          <details class="why-more">
+            <summary class="btn secondary">💡 Why overcall with a preempt?</summary>
+            <div class="why-body">
+              <p><strong>It takes away the opponents' bidding room.</strong> The opener has shown strength, so the opponents may well have a game. After 1${H} – 3${S},
+              opener's partner has to start at the 3- or 4-level, with less room to find their best fit and level, so they often guess wrong.</p>
+              <p><strong>It describes your hand in one bid.</strong> Partner knows you have a weak hand and a long, good suit, so partner can raise you to block
+              the opponents further, or pass.</p>
+              <p><strong>The risk is small.</strong> A long suit takes tricks even with few high cards. Even if you go down, it often costs less than the contract
+              the opponents could have made.</p>
+              <p><strong>It helps partner on defense.</strong> If the opponents win the auction, partner knows a good suit to lead.</p>
+              <p><strong>The longer the suit, the higher you jump:</strong> six cards at the 2-level (a weak jump overcall), seven at the 3-level, eight at the 4-level.
+              Be more careful when vulnerable, because going down costs more.</p>
+            </div>
+          </details></td></tr>
         <tr class="tbl-section neutral"><th colspan="2">Otherwise</th></tr>
         <tr><td><button class="finesse-link" type="button" data-overcall="pass">Anything else</button></td><td>Pass</td></tr>
       </table>
@@ -1387,6 +1402,21 @@ const LESSONS_HE = [
         <tr><td><button class="finesse-link" type="button" data-overcall="wjo">6-10 נק' וסדרה טובה של 6 קלפים (שניים מ-A, K, Q, J)</button></td><td><strong>קפיצת התערבות חלשה</strong> ברמה 2: רמה אחת מעל הנדרש (<bdi dir="ltr">${B('1H')} – ${B('2S')}</bdi>). קפיצה לרמה 3 דורשת שבעה קלפים.</td></tr>
         <tr><td><button class="finesse-link" type="button" data-overcall="pre">6-10 נק' וסדרה טובה של 7 קלפים (שניים מ-A, K, Q, J)</button></td><td><strong>הכרזת חסימה</strong> ברמה 3 (<bdi dir="ltr">${B('1C')} – ${B('3H')}</bdi>)</td></tr>
         <tr><td><button class="finesse-link" type="button" data-overcall="pre4">6-10 נק' וסדרה טובה של 8 קלפים (שניים מ-A, K, Q, J)</button></td><td><strong>הכרזת חסימה</strong> ברמה 4 (<bdi dir="ltr">${B('1C')} – ${B('4H')}</bdi>)</td></tr>
+        <tr><td colspan="2">
+          <details class="why-more">
+            <summary class="btn secondary">💡 למה להתערב בהכרזת חסימה?</summary>
+            <div class="why-body">
+              <p><strong>היא לוקחת ליריבים את מרחב ההכרזה.</strong> הפותח הראה כוח, ולכן ייתכן מאוד שליריבים יש משחק מלא. אחרי <bdi dir="ltr">${B('1H')} – ${B('3S')}</bdi>,
+              השותף של הפותח חייב להתחיל ברמה 3 או 4, עם פחות מקום למצוא את ההתאמה והרמה הנכונות, ולכן הם טועים לעתים קרובות.</p>
+              <p><strong>היא מתארת את היד בהכרזה אחת.</strong> השותף יודע שיש לכם יד חלשה וסדרה ארוכה וטובה, ולכן הוא יכול לתמוך בכם כדי לחסום עוד יותר,
+              או לעבור.</p>
+              <p><strong>הסיכון קטן.</strong> סדרה ארוכה לוקחת לקיחות גם עם מעט קלפים גבוהים. גם אם נופלים, זה עולה לעתים קרובות פחות מהחוזה
+              שהיריבים יכלו לבצע.</p>
+              <p><strong>היא עוזרת לשותף בהגנה.</strong> אם היריבים זוכים במכרז, השותף יודע איזו סדרה טובה להוביל.</p>
+              <p><strong>ככל שהסדרה ארוכה יותר, קופצים גבוה יותר:</strong> שישה קלפים ברמת 2 (קפיצת התערבות חלשה), שבעה ברמת 3, שמונה ברמת 4.
+              היו זהירים יותר כשאתם פגיעים, כי נפילה עולה יותר.</p>
+            </div>
+          </details></td></tr>
         <tr class="tbl-section neutral"><th colspan="2">אחרת</th></tr>
         <tr><td><button class="finesse-link" type="button" data-overcall="pass">כל דבר אחר</button></td><td>פאס</td></tr>
       </table>
