@@ -559,15 +559,17 @@ const LESSONS_EN = [
       <details class="why-more">
         <summary class="btn secondary">💡 Examples</summary>
         <div class="why-body">
-          <p>Partner's big hand means game is close even when you have a minimum, so don't pass: a jump shift is forcing to game, and a reverse is forcing for one round.</p>
+          <p>Partner's big hand means game is close even when you have a minimum. Pass a 2NT rebid (18–19 HCP) only with an absolute minimum; a jump shift is forcing to game, and a reverse is forcing for one round.</p>
           <table class="tbl">
             <tr><th>Auction</th><th>Partner shows</th><th>Your hand</th><th>You bid</th></tr>
-            <tr><td rowspan="2" class="nowrap">1${S} – 1NT – 3${H}</td><td rowspan="2">A jump shift: 18+ HCP with 5+ spades and 4 hearts, forcing to game</td><td>6+ and 4 hearts</td><td>4${H}</td></tr>
-            <tr><td>6+ and fewer than 4 hearts</td><td>3NT</td></tr>
-            <tr><td rowspan="4" class="nowrap">1${D} – 1${S} – 2${H}</td><td rowspan="4">A reverse: 16+ HCP with 5+ diamonds and 4 hearts, forcing for one round</td><td>6+ and 5+ spades</td><td>2${S}</td></tr>
-            <tr><td>6–7, no support for diamonds or hearts</td><td>2NT</td></tr>
-            <tr><td>6+ and 3+ diamonds</td><td>3${D}</td></tr>
-            <tr><td>8+, no support for hearts or diamonds</td><td>3NT</td></tr>
+            <tr><td rowspan="2" class="nowrap">1${S} – 1NT – 2NT</td><td rowspan="2">18–19 HCP and a balanced hand, like a jump rebid of 2NT</td><td>6 HCP, an absolute minimum</td><td>Pass</td></tr>
+            <tr><td>7+ HCP</td><td>Keep bidding: 3NT, or show your minor suit</td></tr>
+            <tr><td rowspan="2" class="nowrap">1${S} – 1NT – 3${H}</td><td rowspan="2">A jump shift: 18+ HCP with 5+ spades and 4 hearts, forcing to game</td><td>6+ HCP and 4 hearts</td><td>4${H}</td></tr>
+            <tr><td>6+ HCP and fewer than 4 hearts</td><td>3NT</td></tr>
+            <tr><td rowspan="4" class="nowrap">1${D} – 1${S} – 2${H}</td><td rowspan="4">A reverse: 16+ HCP with 5+ diamonds and 4 hearts, forcing for one round</td><td>6+ HCP and 5+ spades</td><td>2${S}</td></tr>
+            <tr><td>6–7 HCP, no support for diamonds or hearts</td><td>2NT</td></tr>
+            <tr><td>6+ HCP and 3+ diamonds</td><td>3${D}</td></tr>
+            <tr><td>8+ HCP, no support for hearts or diamonds</td><td>3NT</td></tr>
           </table>
         </div>
       </details>
@@ -1273,15 +1275,17 @@ const LESSONS_HE = [
       <details class="why-more">
         <summary class="btn secondary">💡 דוגמאות</summary>
         <div class="why-body">
-          <p>היד הגדולה של השותף פירושה שמשחק מלא קרוב גם כשיש לכם מינימום, ולכן אל תכריזו פאס: קפיצה בסדרה חדשה מחייבת עד משחק מלא, וריברס מחייב לסיבוב אחד.</p>
+          <p>היד הגדולה של השותף פירושה שמשחק מלא קרוב גם כשיש לכם מינימום. על הכרזה חוזרת של 2NT (18-19 נק') הכריזו פאס רק עם מינימום מוחלט; קפיצה בסדרה חדשה מחייבת עד משחק מלא, וריברס מחייב לסיבוב אחד.</p>
           <table class="tbl">
             <tr><th>המכרז</th><th>השותף מראה</th><th>היד שלכם</th><th>אתם מכריזים</th></tr>
-            <tr><td rowspan="2" class="nowrap"><bdi dir="ltr">${B('1S')} – 1NT – ${B('3H')}</bdi></td><td rowspan="2">קפיצה בסדרה חדשה: 18 נק' ומעלה עם 5 ספייד ומעלה ו-4 הארט, מחייבת עד משחק מלא</td><td>6 ומעלה ו-4 הארט</td><td>${B('4H')}</td></tr>
-            <tr><td>6 ומעלה ופחות מ-4 הארט</td><td>3NT</td></tr>
-            <tr><td rowspan="4" class="nowrap"><bdi dir="ltr">${B('1D')} – ${B('1S')} – ${B('2H')}</bdi></td><td rowspan="4">ריברס: 16 נק' ומעלה עם 5 דיאמונד ומעלה ו-4 הארט, מחייב לסיבוב אחד</td><td>6 ומעלה ו-5 ספייד ומעלה</td><td>${B('2S')}</td></tr>
-            <tr><td>6-7, בלי תמיכה בדיאמונד או בהארט</td><td>2NT</td></tr>
-            <tr><td>6 ומעלה ו-3 דיאמונד ומעלה</td><td>${B('3D')}</td></tr>
-            <tr><td>8 ומעלה, בלי תמיכה בהארט או בדיאמונד</td><td>3NT</td></tr>
+            <tr><td rowspan="2" class="nowrap"><bdi dir="ltr">${B('1S')} – 1NT – 2NT</bdi></td><td rowspan="2">18-19 נק' ויד מאוזנת, כמו קפיצה ל-2NT בהכרזה החוזרת</td><td>6 נק', מינימום מוחלט</td><td>פאס</td></tr>
+            <tr><td>7 נק' ומעלה</td><td>המשיכו להכריז: 3NT, או הראו את סדרת המיינור שלכם</td></tr>
+            <tr><td rowspan="2" class="nowrap"><bdi dir="ltr">${B('1S')} – 1NT – ${B('3H')}</bdi></td><td rowspan="2">קפיצה בסדרה חדשה: 18 נק' ומעלה עם 5 ספייד ומעלה ו-4 הארט, מחייבת עד משחק מלא</td><td>6 נק' ומעלה ו-4 הארט</td><td>${B('4H')}</td></tr>
+            <tr><td>6 נק' ומעלה ופחות מ-4 הארט</td><td>3NT</td></tr>
+            <tr><td rowspan="4" class="nowrap"><bdi dir="ltr">${B('1D')} – ${B('1S')} – ${B('2H')}</bdi></td><td rowspan="4">ריברס: 16 נק' ומעלה עם 5 דיאמונד ומעלה ו-4 הארט, מחייב לסיבוב אחד</td><td>6 נק' ומעלה ו-5 ספייד ומעלה</td><td>${B('2S')}</td></tr>
+            <tr><td>6-7 נק', בלי תמיכה בדיאמונד או בהארט</td><td>2NT</td></tr>
+            <tr><td>6 נק' ומעלה ו-3 דיאמונד ומעלה</td><td>${B('3D')}</td></tr>
+            <tr><td>8 נק' ומעלה, בלי תמיכה בהארט או בדיאמונד</td><td>3NT</td></tr>
           </table>
         </div>
       </details>
