@@ -508,6 +508,26 @@ const LESSONS_EN = [
         <li>With 11–12, invite: raise to the 3-level with a fit, or bid 2NT.</li>
         <li>With 13+, bid game: in your 8-card fit if you have one, otherwise 3NT.</li>
       </ul>
+      <details class="why-more">
+        <summary class="btn secondary">💡 Examples</summary>
+        <div class="why-body">
+          <p>Partner has shown a minimum (12–14). Add your points: with 6–10 game is out of reach, so stop low; with 11–12, invite; with 13+, bid game.</p>
+          <table class="tbl">
+            <tr><th>Auction</th><th>Partner shows</th><th>Your hand</th><th>You bid</th></tr>
+            <tr><td rowspan="8" class="nowrap">1${C} – 1${S} – 1NT</td><td rowspan="8">A balanced minimum (12–14)</td><td>6–10</td><td>Pass</td></tr>
+            <tr><td>11–12</td><td>2NT, inviting game</td></tr>
+            <tr><td>13+</td><td>3NT</td></tr>
+            <tr><td>6–10 and 6 spades</td><td>2${S}</td></tr>
+            <tr><td>11–12 and 6 spades</td><td>3${S}, inviting game</td></tr>
+            <tr><td>13+ and 6 spades</td><td>4${S}</td></tr>
+            <tr><td>6–10, a second suit: 5 spades and 4 hearts</td><td>2${H}</td></tr>
+            <tr><td>11–12, a second suit: 5 spades and 4 hearts</td><td>3${H}</td></tr>
+            <tr><td rowspan="3" class="nowrap">1${C} – 1${S} – 2${S}</td><td rowspan="3">4-card spade support and a minimum (12–14)</td><td>6–10</td><td>Pass</td></tr>
+            <tr><td>11–12</td><td>3${S}, inviting game</td></tr>
+            <tr><td>13+</td><td>4${S}</td></tr>
+          </table>
+        </div>
+      </details>
       <p><strong>When partner shows a second suit:</strong></p>
       <ul>
         <li>With 4 cards in a newly shown major, raise it: to 2 with a minimum, to 3 to invite.</li>
@@ -1169,6 +1189,26 @@ const LESSONS_HE = [
         <li>עם 11-12, הזמינו: תמיכה ברמת 3 עם התאמה, או 2NT.</li>
         <li>עם 13 ומעלה, הכריזו משחק מלא: בסדרה שבה יש לכם התאמה של 8 קלפים, אם יש, ואחרת 3NT.</li>
       </ul>
+      <details class="why-more">
+        <summary class="btn secondary">💡 דוגמאות</summary>
+        <div class="why-body">
+          <p>השותף הראה מינימום (12-14). חברו את הנקודות שלכם: עם 6-10 משחק מלא לא בהישג יד, ולכן עצרו נמוך; עם 11-12, הזמינו; עם 13 ומעלה, הכריזו משחק מלא.</p>
+          <table class="tbl">
+            <tr><th>המכרז</th><th>השותף מראה</th><th>היד שלכם</th><th>אתם מכריזים</th></tr>
+            <tr><td rowspan="8" class="nowrap"><bdi dir="ltr">${B('1C')} – ${B('1S')} – 1NT</bdi></td><td rowspan="8">מינימום מאוזן (12-14)</td><td>6-10</td><td>פאס</td></tr>
+            <tr><td>11-12</td><td>2NT, הזמנה למשחק מלא</td></tr>
+            <tr><td>13 ומעלה</td><td>3NT</td></tr>
+            <tr><td>6-10 ו-6 ספייד</td><td>${B('2S')}</td></tr>
+            <tr><td>11-12 ו-6 ספייד</td><td>${B('3S')}, הזמנה למשחק מלא</td></tr>
+            <tr><td>13 ומעלה ו-6 ספייד</td><td>${B('4S')}</td></tr>
+            <tr><td>6-10, סדרה שנייה: 5 ספייד ו-4 הארט</td><td>${B('2H')}</td></tr>
+            <tr><td>11-12, סדרה שנייה: 5 ספייד ו-4 הארט</td><td>${B('3H')}</td></tr>
+            <tr><td rowspan="3" class="nowrap"><bdi dir="ltr">${B('1C')} – ${B('1S')} – ${B('2S')}</bdi></td><td rowspan="3">תמיכה של 4 קלפים בספייד ומינימום (12-14)</td><td>6-10</td><td>פאס</td></tr>
+            <tr><td>11-12</td><td>${B('3S')}, הזמנה למשחק מלא</td></tr>
+            <tr><td>13 ומעלה</td><td>${B('4S')}</td></tr>
+          </table>
+        </div>
+      </details>
       <p><strong>כשהשותף מראה סדרה שנייה:</strong></p>
       <ul>
         <li>עם 4 קלפים בסדרת מייגור שהשותף הראה זה עתה, תמכו בה: ברמת 2 עם מינימום, ברמת 3 כהזמנה.</li>
