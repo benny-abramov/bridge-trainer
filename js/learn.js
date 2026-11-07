@@ -536,6 +536,24 @@ const LESSONS_EN = [
         <li>Preference shows no extra strength. With 11–12, raise or bid 2NT to invite instead.</li>
         <li>With 13+, bid game: 4 of a major with an 8-card fit, otherwise 3NT.</li>
       </ul>
+      <details class="why-more">
+        <summary class="btn secondary">💡 Examples</summary>
+        <div class="why-body">
+          <p>A second suit without a jump can still be as strong as 17 HCP, so pass it only with 6–7 HCP. With more, keep bidding: raise, give preference, or invite.</p>
+          <table class="tbl">
+            <tr><th>Auction</th><th>Partner shows</th><th>Your hand</th><th>You bid</th></tr>
+            <tr><td rowspan="3" class="nowrap">1${C} – 1${H} – 1${S}</td><td rowspan="3">4 spades and 3+ clubs (opened the better minor)</td><td>6–10 and 4 spades</td><td>2${S}</td></tr>
+            <tr><td>11–12 and 4 spades</td><td>3${S}, inviting game</td></tr>
+            <tr><td>13+ and 4 spades</td><td>4${S}</td></tr>
+            <tr><td rowspan="6" class="nowrap">1${D} – 1${H} – 2${C}</td><td rowspan="6">5+ diamonds and 4 clubs, up to 17 HCP</td><td>6–7 and 4 clubs</td><td>Pass</td></tr>
+            <tr><td>8–9 and 4 clubs</td><td>3${C}</td></tr>
+            <tr><td>6–10, preference for diamonds (prefer diamonds even with 2 diamonds and 3 clubs)</td><td>2${D}</td></tr>
+            <tr><td>11–12 and 3+ diamonds</td><td>3${D}, inviting game</td></tr>
+            <tr><td>11–12</td><td>2NT, inviting game</td></tr>
+            <tr><td>13+</td><td>3NT</td></tr>
+          </table>
+        </div>
+      </details>
       <p><strong>When partner shows a big hand</strong> (a 2NT rebid with 18–19, or a jump shift with 18+), bid game: 3NT, or 4 of a major when you have a fit.
       A <strong>reverse</strong> (16+) is forcing for one round: with a minimum, rebid a 5-card suit or give preference.</p>
       <p>The drill uses hands of 6–12 HCP. Hands with 13+ often need further bidding tools, so they aren't included.</p>
@@ -1217,6 +1235,24 @@ const LESSONS_HE = [
         <li>העדפה לא מראה כוח נוסף. עם 11-12, תמכו או הכריזו 2NT כדי להזמין.</li>
         <li>עם 13 ומעלה, הכריזו משחק מלא: 4 בסדרת מייגור עם התאמה של 8 קלפים, ואחרת 3NT.</li>
       </ul>
+      <details class="why-more">
+        <summary class="btn secondary">💡 דוגמאות</summary>
+        <div class="why-body">
+          <p>סדרה שנייה בלי קפיצה יכולה להיות עם עד 17 נק', ולכן הכריזו עליה פאס רק עם 6-7 נק'. עם יותר, המשיכו להכריז: תמכו, תנו העדפה, או הזמינו.</p>
+          <table class="tbl">
+            <tr><th>המכרז</th><th>השותף מראה</th><th>היד שלכם</th><th>אתם מכריזים</th></tr>
+            <tr><td rowspan="3" class="nowrap"><bdi dir="ltr">${B('1C')} – ${B('1H')} – ${B('1S')}</bdi></td><td rowspan="3">4 ספייד ו-3 קלאב ומעלה (פתח בסדרת המיינור הטובה יותר)</td><td>6-10 ו-4 ספייד</td><td>${B('2S')}</td></tr>
+            <tr><td>11-12 ו-4 ספייד</td><td>${B('3S')}, הזמנה למשחק מלא</td></tr>
+            <tr><td>13 ומעלה ו-4 ספייד</td><td>${B('4S')}</td></tr>
+            <tr><td rowspan="6" class="nowrap"><bdi dir="ltr">${B('1D')} – ${B('1H')} – ${B('2C')}</bdi></td><td rowspan="6">5 דיאמונד ומעלה ו-4 קלאב, עד 17 נק'</td><td>6-7 ו-4 קלאב</td><td>פאס</td></tr>
+            <tr><td>8-9 ו-4 קלאב</td><td>${B('3C')}</td></tr>
+            <tr><td>6-10, העדפה לדיאמונד (העדיפו דיאמונד גם עם 2 דיאמונד ו-3 קלאב)</td><td>${B('2D')}</td></tr>
+            <tr><td>11-12 ו-3 דיאמונד ומעלה</td><td>${B('3D')}, הזמנה למשחק מלא</td></tr>
+            <tr><td>11-12</td><td>2NT, הזמנה למשחק מלא</td></tr>
+            <tr><td>13 ומעלה</td><td>3NT</td></tr>
+          </table>
+        </div>
+      </details>
       <p><strong>כשהשותף מראה יד גדולה</strong> (הכרזה חוזרת של 2NT עם 18-19, או קפיצה בסדרה חדשה עם 18 ומעלה), הכריזו משחק מלא: 3NT, או 4 בסדרת מייגור כשיש התאמה.
       <strong>ריברס</strong> (16 ומעלה) מחייב לסיבוב אחד: עם מינימום, חזרו על סדרה של 5 קלפים או תנו העדפה.</p>
       <p>התרגול משתמש בידיים של 6-12 נק'. ידיים של 13 ומעלה דורשות לעיתים קרובות כלי הכרזה נוספים, ולכן הן לא כלולות.</p>
