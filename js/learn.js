@@ -87,7 +87,8 @@ const WHY_TRANSFERS = L(`
       <ul>
         <li><strong>Weak (0–7 HCP):</strong> transfer, then pass. You play in your long suit at the 2-level, safer than 1NT.</li>
         <li><strong>Invitational (8–9 HCP):</strong> transfer, then 2NT with five cards or 3 of the major with six. Partner goes to game with a maximum.</li>
-        <li><strong>Game (10+ HCP):</strong> transfer, then 3NT with five cards (partner chooses 3NT or 4 of the major) or 4 of the major with six.</li>
+        <li><strong>Game (10+ HCP):</strong> transfer, then 3NT with five cards (partner chooses 3NT or 4 of the major) or 4 of the major with six.
+          With a second suit of 4+ cards, transfer, then bid that suit: it's forcing, and partner chooses the contract.</li>
       </ul>
       <p><strong>4-level transfers</strong> (<strong>Texas transfers</strong>, 4${D} and 4${H}) are for a 6+ card major, game values and no interest in slam. With slam interest, start with
       a 2-level transfer and bid again after it.</p>
@@ -102,7 +103,8 @@ const WHY_TRANSFERS = L(`
       <ul>
         <li><strong>חלשה (0-7 נק'):</strong> טרנספר ואחר כך פאס. משחקים בסדרה הארוכה שלכם ברמת 2, בטוח יותר מ-1NT.</li>
         <li><strong>מזמינה (8-9 נק'):</strong> טרנספר ואחר כך 2NT עם חמישה קלפים, או 3 בסדרת המייגור עם שישה. השותף עולה למשחק מלא עם מקסימום.</li>
-        <li><strong>משחק מלא (10 נק' ומעלה):</strong> טרנספר ואחר כך 3NT עם חמישה קלפים (השותף בוחר בין 3NT ל-4 במייגור), או 4 במייגור עם שישה.</li>
+        <li><strong>משחק מלא (10 נק' ומעלה):</strong> טרנספר ואחר כך 3NT עם חמישה קלפים (השותף בוחר בין 3NT ל-4 במייגור), או 4 במייגור עם שישה.
+          עם סדרה שנייה של 4 קלפים ומעלה, טרנספר ואחר כך הכריזו את הסדרה הזו: ההכרזה מחייבת, והשותף בוחר את החוזה.</li>
       </ul>
       <p><strong>טרנספר ברמת 4</strong> (<strong>טרנספר טקסס</strong>, ${B('4D')} ו-${B('4H')}) מתאים למייגור של 6 קלפים ומעלה, כוח למשחק מלא ובלי עניין בסלאם. עם עניין בסלאם, התחילו
       בטרנספר ברמת 2 והכריזו שוב אחריו.</p>
