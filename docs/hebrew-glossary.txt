@@ -103,6 +103,7 @@ part score = חוזה חלקי
 small slam / grand slam = סלאם קטן / סלאם גדול
 vulnerable = פגיע
 overtrick = לקיחה עודפת
+sacrifice = הקרבה
 undertrick / down = לקיחה חסרה / נפילה
 
 # ---- Card play ----

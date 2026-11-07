@@ -673,6 +673,8 @@ const LESSONS_EN = [
               opener's partner has to start at the 3- or 4-level, with less room to find their best fit and level, so they often guess wrong.</p>
               <p><strong>It describes your hand in one bid.</strong> Partner knows you have a weak hand and a long, good suit, so partner can raise you to block
               the opponents further, or pass.</p>
+              <p>These hands usually take many tricks on offense but very few on defense, because the opponents are usually short in your long suit.
+              So partner may often find a <strong>sacrifice</strong> against the opponents' game: a contract that goes down, but costs less than their game.</p>
               <p><strong>The risk is small.</strong> A long suit takes tricks even with few high cards. Even if you go down, it often costs less than the contract
               the opponents could have made.</p>
               <p><strong>It helps partner on defense.</strong> If the opponents win the auction, partner knows a good suit to lead.</p>
@@ -1410,6 +1412,8 @@ const LESSONS_HE = [
               השותף של הפותח חייב להתחיל ברמה 3 או 4, עם פחות מקום למצוא את ההתאמה והרמה הנכונות, ולכן הם טועים לעתים קרובות.</p>
               <p><strong>היא מתארת את היד בהכרזה אחת.</strong> השותף יודע שיש לכם יד חלשה וסדרה ארוכה וטובה, ולכן הוא יכול לתמוך בכם כדי לחסום עוד יותר,
               או לעבור.</p>
+              <p>ידיים כאלה לוקחות בדרך כלל הרבה לקיחות בהתקפה אבל מעט מאוד בהגנה, כי ליריבים בדרך כלל יש מעט קלפים בסדרה הארוכה שלכם.
+              לכן לעתים קרובות השותף יכול למצוא <strong>הקרבה</strong> מול המשחק המלא של היריבים: חוזה שנופל, אבל עולה פחות מהמשחק המלא שלהם.</p>
               <p><strong>הסיכון קטן.</strong> סדרה ארוכה לוקחת לקיחות גם עם מעט קלפים גבוהים. גם אם נופלים, זה עולה לעתים קרובות פחות מהחוזה
               שהיריבים יכלו לבצע.</p>
               <p><strong>היא עוזרת לשותף בהגנה.</strong> אם היריבים זוכים במכרז, השותף יודע איזו סדרה טובה להוביל.</p>
