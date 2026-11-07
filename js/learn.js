@@ -518,18 +518,7 @@ const LESSONS_EN = [
         <tr><th>Your hand</th><th>Action</th></tr>
         <tr><td><button class="finesse-link" type="button" data-overcall="o1">8–16 HCP and a good 5+ card suit you can bid at the 1-level</button></td><td>1-level overcall</td></tr>
         <tr><td><button class="finesse-link" type="button" data-overcall="o2">11–16 HCP and a good 5+ card suit at the 2-level</button></td><td>2-level overcall</td></tr>
-        <tr><td><button class="finesse-link" type="button" data-overcall="tox">12+ HCP, short in their suit, 3+ cards in every other suit</button></td><td><strong>Takeout double</strong></td></tr>
-        <tr><td><button class="finesse-link" type="button" data-overcall="nt">15–18 HCP, balanced, with a stopper in their suit</button></td><td>1NT</td></tr>
-        <tr><td><button class="finesse-link" type="button" data-overcall="strongx">17+ HCP, too strong to overcall</button></td><td>Double, then bid your suit or no-trump</td></tr>
-        <tr><td><button class="finesse-link" type="button" data-overcall="wjo">6–10 HCP and a good 6-card suit (two of A, K, Q, J)</button></td><td><strong>Weak jump overcall</strong> at the 2-level: one level higher than needed (1${H} – 2${S}). A jump to the 3-level needs seven cards.</td></tr>
-        <tr><td><button class="finesse-link" type="button" data-overcall="pre">6–10 HCP and a good 7-card suit (two of A, K, Q, J)</button></td><td><strong>Preempt</strong> at the 3-level (1${C} – 3${H})</td></tr>
-        <tr><td><button class="finesse-link" type="button" data-overcall="pass">Anything else</button></td><td>Pass</td></tr>
-      </table>
-      <ul>
-        <li>When more than one row fits, a weak hand (6–10 HCP) with a 6- or 7-card suit makes the jump, not a simple overcall. A balanced 15–18 with a stopper prefers 1NT.</li>
-        <li>A <strong>good suit</strong> has at least two of the top honors (A, K, Q, J, 10). With fewer than 12 HCP, only overcall with a good suit, because partner will usually lead it.</li>
-        <li>A <strong>stopper</strong> is a holding that will win a trick in their suit: A, K-x, Q-x-x or J-x-x-x.</li>
-        <li>A <strong>takeout double</strong> doesn't mean "I think they'll go down". It asks partner to choose a trump suit, so partner must bid even with a weak hand.
+        <tr><td><button class="finesse-link" type="button" data-overcall="tox">12+ HCP, short in their suit, 3+ cards in every other suit</button></td><td><strong>Takeout double</strong>
           <details class="why-more">
             <summary class="btn secondary">💡 Responding to a takeout double</summary>
             <div class="why-body">
@@ -557,7 +546,18 @@ const LESSONS_EN = [
                 <tr><td>12+ points</td><td>A cue bid of their suit, or game</td></tr>
               </table>
             </div>
-          </details></li>
+          </details></td></tr>
+        <tr><td><button class="finesse-link" type="button" data-overcall="nt">15–18 HCP, balanced, with a stopper in their suit</button></td><td>1NT</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-overcall="strongx">17+ HCP, too strong to overcall</button></td><td>Double, then bid your suit or no-trump</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-overcall="wjo">6–10 HCP and a good 6-card suit (two of A, K, Q, J)</button></td><td><strong>Weak jump overcall</strong> at the 2-level: one level higher than needed (1${H} – 2${S}). A jump to the 3-level needs seven cards.</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-overcall="pre">6–10 HCP and a good 7-card suit (two of A, K, Q, J)</button></td><td><strong>Preempt</strong> at the 3-level (1${C} – 3${H})</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-overcall="pass">Anything else</button></td><td>Pass</td></tr>
+      </table>
+      <ul>
+        <li>When more than one row fits, a weak hand (6–10 HCP) with a 6- or 7-card suit makes the jump, not a simple overcall. A balanced 15–18 with a stopper prefers 1NT.</li>
+        <li>A <strong>good suit</strong> has at least two of the top honors (A, K, Q, J, 10). With fewer than 12 HCP, only overcall with a good suit, because partner will usually lead it.</li>
+        <li>A <strong>stopper</strong> is a holding that will win a trick in their suit: A, K-x, Q-x-x or J-x-x-x.</li>
+        <li>A <strong>takeout double</strong> doesn't mean "I think they'll go down". It asks partner to choose a trump suit, so partner must bid even with a weak hand.</li>
       </ul>
       <p><strong>When partner overcalls</strong>, raise with 3+ card support, just as you would after an opening bid.</p>`,
     tryIt: 'overcalls',
@@ -1125,18 +1125,7 @@ const LESSONS_HE = [
         <tr><th>היד שלכם</th><th>פעולה</th></tr>
         <tr><td><button class="finesse-link" type="button" data-overcall="o1">8-16 נק' וסדרה טובה של 5 קלפים ומעלה שאפשר להכריז ברמת 1</button></td><td>התערבות ברמת 1</td></tr>
         <tr><td><button class="finesse-link" type="button" data-overcall="o2">11-16 נק' וסדרה טובה של 5 קלפים ומעלה ברמת 2</button></td><td>התערבות ברמת 2</td></tr>
-        <tr><td><button class="finesse-link" type="button" data-overcall="tox">12 נק' ומעלה, קצר בסדרה שלהם, 3 קלפים ומעלה בכל סדרה אחרת</button></td><td><strong>כפל הוצאה</strong></td></tr>
-        <tr><td><button class="finesse-link" type="button" data-overcall="nt">15-18 נק', מאוזנת, עם עוצר בסדרה שלהם</button></td><td>1NT</td></tr>
-        <tr><td><button class="finesse-link" type="button" data-overcall="strongx">17 נק' ומעלה, חזקה מדי להתערבות</button></td><td>דאבל, ואחר כך הכריזו את הסדרה שלכם או ללא שליט</td></tr>
-        <tr><td><button class="finesse-link" type="button" data-overcall="wjo">6-10 נק' וסדרה טובה של 6 קלפים (שניים מ-A, K, Q, J)</button></td><td><strong>קפיצת התערבות חלשה</strong> ברמה 2: רמה אחת מעל הנדרש (<bdi dir="ltr">${B('1H')} – ${B('2S')}</bdi>). קפיצה לרמה 3 דורשת שבעה קלפים.</td></tr>
-        <tr><td><button class="finesse-link" type="button" data-overcall="pre">6-10 נק' וסדרה טובה של 7 קלפים (שניים מ-A, K, Q, J)</button></td><td><strong>הכרזת חסימה</strong> ברמה 3 (<bdi dir="ltr">${B('1C')} – ${B('3H')}</bdi>)</td></tr>
-        <tr><td><button class="finesse-link" type="button" data-overcall="pass">כל דבר אחר</button></td><td>פאס</td></tr>
-      </table>
-      <ul>
-        <li>כשיותר משורה אחת מתאימה, יד חלשה (6-10 נק') עם סדרה של 6 או 7 קלפים קופצת, ולא מתערבת התערבות פשוטה. יד מאוזנת של 15-18 עם עוצר מעדיפה 1NT.</li>
-        <li><strong>סדרה טובה</strong> כוללת לפחות שניים מהקלפים הגבוהים (A, K, Q, J, 10). עם פחות מ-12 נק', התערבו רק עם סדרה טובה, כי בדרך כלל השותף יוביל אותה.</li>
-        <li><strong>עוצר</strong> הוא החזקה שתזכה בלקיחה בסדרה שלהם: A, K-x, Q-x-x או J-x-x-x.</li>
-        <li><strong>כפל הוצאה</strong> לא אומר "אני חושב שהם ייפלו". הוא מבקש מהשותף לבחור סדרת שליט, ולכן השותף חייב להכריז גם עם יד חלשה.
+        <tr><td><button class="finesse-link" type="button" data-overcall="tox">12 נק' ומעלה, קצר בסדרה שלהם, 3 קלפים ומעלה בכל סדרה אחרת</button></td><td><strong>כפל הוצאה</strong>
           <details class="why-more">
             <summary class="btn secondary">💡 תשובה לכפל הוצאה</summary>
             <div class="why-body">
@@ -1164,7 +1153,18 @@ const LESSONS_HE = [
                 <tr><td>12 נקודות ומעלה</td><td>קיו-ביד בסדרה שלהם, או משחק מלא</td></tr>
               </table>
             </div>
-          </details></li>
+          </details></td></tr>
+        <tr><td><button class="finesse-link" type="button" data-overcall="nt">15-18 נק', מאוזנת, עם עוצר בסדרה שלהם</button></td><td>1NT</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-overcall="strongx">17 נק' ומעלה, חזקה מדי להתערבות</button></td><td>דאבל, ואחר כך הכריזו את הסדרה שלכם או ללא שליט</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-overcall="wjo">6-10 נק' וסדרה טובה של 6 קלפים (שניים מ-A, K, Q, J)</button></td><td><strong>קפיצת התערבות חלשה</strong> ברמה 2: רמה אחת מעל הנדרש (<bdi dir="ltr">${B('1H')} – ${B('2S')}</bdi>). קפיצה לרמה 3 דורשת שבעה קלפים.</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-overcall="pre">6-10 נק' וסדרה טובה של 7 קלפים (שניים מ-A, K, Q, J)</button></td><td><strong>הכרזת חסימה</strong> ברמה 3 (<bdi dir="ltr">${B('1C')} – ${B('3H')}</bdi>)</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-overcall="pass">כל דבר אחר</button></td><td>פאס</td></tr>
+      </table>
+      <ul>
+        <li>כשיותר משורה אחת מתאימה, יד חלשה (6-10 נק') עם סדרה של 6 או 7 קלפים קופצת, ולא מתערבת התערבות פשוטה. יד מאוזנת של 15-18 עם עוצר מעדיפה 1NT.</li>
+        <li><strong>סדרה טובה</strong> כוללת לפחות שניים מהקלפים הגבוהים (A, K, Q, J, 10). עם פחות מ-12 נק', התערבו רק עם סדרה טובה, כי בדרך כלל השותף יוביל אותה.</li>
+        <li><strong>עוצר</strong> הוא החזקה שתזכה בלקיחה בסדרה שלהם: A, K-x, Q-x-x או J-x-x-x.</li>
+        <li><strong>כפל הוצאה</strong> לא אומר "אני חושב שהם ייפלו". הוא מבקש מהשותף לבחור סדרת שליט, ולכן השותף חייב להכריז גם עם יד חלשה.</li>
       </ul>
       <p><strong>כשהשותף מתערב</strong>, תמכו בסדרה שלו עם 3 קלפים ומעלה, בדיוק כמו אחרי הכרזת פתיחה.</p>`,
     tryIt: 'overcalls',
