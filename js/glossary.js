@@ -180,9 +180,11 @@ const Glossary = (() => {
   const whole = words.map(w => new RegExp(`^(?:${w.forms.join('|')})$`, 'i'));
   const SKIP = 'h2, h3, button, a, summary, th, .eyebrow, .term';
 
-  // Marks the first use of each word in `root` (a lesson's text, before its pictures are added).
+  // Marks the first use of each word in `root` (a lesson's text, before its pictures are added),
+  // and also the first place it stands alone in bold ("A <strong>stopper</strong> is ..."), which
+  // is usually where the lesson explains it.
   function mark(root) {
-    const seen = new Set();
+    const seen = new Set(), seenBold = new Set();
     const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
       acceptNode: n => n.parentElement.closest(SKIP) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT,
     });
@@ -190,13 +192,17 @@ const Glossary = (() => {
     while (walker.nextNode()) nodes.push(walker.currentNode);
     for (const node of nodes) {
       const text = node.nodeValue;
+      const strong = node.parentElement.closest('strong');
+      const boldText = strong ? strong.textContent.trim().replace(/[.:]$/, '').toLowerCase() : null;
       const parts = [];
       let last = 0;
       for (const m of text.matchAll(finder)) {
         const prefix = L('', m[1]), word = L(m[1], m[2]);
         const i = whole.findIndex(re => re.test(word));
-        if (i < 0 || seen.has(i)) continue;
+        const bold = boldText === (prefix + word).toLowerCase();
+        if (i < 0 || (seen.has(i) && (!bold || seenBold.has(i)))) continue;
         seen.add(i);
+        if (bold) seenBold.add(i);
         const start = m.index + prefix.length;
         parts.push(document.createTextNode(text.slice(last, start)));
         const btn = document.createElement('button');
