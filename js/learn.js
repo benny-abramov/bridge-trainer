@@ -660,10 +660,11 @@ const LESSONS_EN = [
         <tr><td><button class="finesse-link" type="button" data-overcall="strongx">17+ HCP, too strong to overcall</button></td><td>Double, then bid your suit or no-trump</td></tr>
         <tr><td><button class="finesse-link" type="button" data-overcall="wjo">6–10 HCP and a good 6-card suit (two of A, K, Q, J)</button></td><td><strong>Weak jump overcall</strong> at the 2-level: one level higher than needed (1${H} – 2${S}). A jump to the 3-level needs seven cards.</td></tr>
         <tr><td><button class="finesse-link" type="button" data-overcall="pre">6–10 HCP and a good 7-card suit (two of A, K, Q, J)</button></td><td><strong>Preempt</strong> at the 3-level (1${C} – 3${H})</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-overcall="pre4">6–10 HCP and a good 8-card suit (two of A, K, Q, J)</button></td><td><strong>Preempt</strong> at the 4-level (1${C} – 4${H})</td></tr>
         <tr><td><button class="finesse-link" type="button" data-overcall="pass">Anything else</button></td><td>Pass</td></tr>
       </table>
       <ul>
-        <li>When more than one row fits, a weak hand (6–10 HCP) with a 6- or 7-card suit makes the jump, not a simple overcall. A balanced 15–18 with a stopper prefers 1NT.</li>
+        <li>When more than one row fits, a weak hand (6–10 HCP) with a 6-, 7- or 8-card suit makes the jump, not a simple overcall. A balanced 15–18 with a stopper prefers 1NT.</li>
         <li>A <strong>good suit</strong> has at least two of the top honors (A, K, Q, J, 10). With fewer than 12 HCP, only overcall with a good suit, because partner will usually lead it.</li>
         <li>A <strong>stopper</strong> is a holding that will win a trick in their suit: A, K-x, Q-x-x or J-x-x-x.</li>
         <li>A <strong>takeout double</strong> doesn't mean "I think they'll go down". It asks partner to choose a trump suit, so partner must bid even with a weak hand.</li>
@@ -1376,10 +1377,11 @@ const LESSONS_HE = [
         <tr><td><button class="finesse-link" type="button" data-overcall="strongx">17 נק' ומעלה, חזקה מדי להתערבות</button></td><td>דאבל, ואחר כך הכריזו את הסדרה שלכם או ללא שליט</td></tr>
         <tr><td><button class="finesse-link" type="button" data-overcall="wjo">6-10 נק' וסדרה טובה של 6 קלפים (שניים מ-A, K, Q, J)</button></td><td><strong>קפיצת התערבות חלשה</strong> ברמה 2: רמה אחת מעל הנדרש (<bdi dir="ltr">${B('1H')} – ${B('2S')}</bdi>). קפיצה לרמה 3 דורשת שבעה קלפים.</td></tr>
         <tr><td><button class="finesse-link" type="button" data-overcall="pre">6-10 נק' וסדרה טובה של 7 קלפים (שניים מ-A, K, Q, J)</button></td><td><strong>הכרזת חסימה</strong> ברמה 3 (<bdi dir="ltr">${B('1C')} – ${B('3H')}</bdi>)</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-overcall="pre4">6-10 נק' וסדרה טובה של 8 קלפים (שניים מ-A, K, Q, J)</button></td><td><strong>הכרזת חסימה</strong> ברמה 4 (<bdi dir="ltr">${B('1C')} – ${B('4H')}</bdi>)</td></tr>
         <tr><td><button class="finesse-link" type="button" data-overcall="pass">כל דבר אחר</button></td><td>פאס</td></tr>
       </table>
       <ul>
-        <li>כשיותר משורה אחת מתאימה, יד חלשה (6-10 נק') עם סדרה של 6 או 7 קלפים קופצת, ולא מתערבת התערבות פשוטה. יד מאוזנת של 15-18 עם עוצר מעדיפה 1NT.</li>
+        <li>כשיותר משורה אחת מתאימה, יד חלשה (6-10 נק') עם סדרה של 6, 7 או 8 קלפים קופצת, ולא מתערבת התערבות פשוטה. יד מאוזנת של 15-18 עם עוצר מעדיפה 1NT.</li>
         <li><strong>סדרה טובה</strong> כוללת לפחות שניים מהקלפים הגבוהים (A, K, Q, J, 10). עם פחות מ-12 נק', התערבו רק עם סדרה טובה, כי בדרך כלל השותף יוביל אותה.</li>
         <li><strong>עוצר</strong> הוא החזקה שתזכה בלקיחה בסדרה שלהם: A, K-x, Q-x-x או J-x-x-x.</li>
         <li><strong>כפל הוצאה</strong> לא אומר "אני חושב שהם ייפלו". הוא מבקש מהשותף לבחור סדרת שליט, ולכן השותף חייב להכריז גם עם יד חלשה.</li>
@@ -2189,7 +2191,8 @@ const OvercallExamples = (() => {
     nt: b => b === '1N',
     strongx: (b, open, hand) => b === 'X' && hcp(hand) >= 17,
     wjo: (b, open) => /^2[CDHS]$/.test(b) && rank(b[1]) < rank(open), // could have bid it at the 1-level: a jump
-    pre: b => /^[34][CDHS]$/.test(b),
+    pre: b => /^3[CDHS]$/.test(b),
+    pre4: b => /^4[CDHS]$/.test(b),
     pass: b => b === 'P',
   };
   let dialog, key, title;
