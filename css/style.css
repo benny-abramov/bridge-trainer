@@ -773,14 +773,14 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 .odds-table td { text-align: center; }
 .odds-table td[rowspan] { vertical-align: middle; }
 /* Finesse layouts: the "Play" button plays the suit out. The trick builds up in the middle of the
-   table; the winning card gets a green ring. */
-.fin-trick { --cw: 30px; grid-area: c; align-self: center; display: grid; grid-template-areas: ". n ." "w . e" ". s ."; gap: 2px; justify-items: center; min-height: calc(var(--cw) * 3.6); }
+   table at full size; when it's complete, the winning partnership's cards get a green ring and the others a red one. */
+.fin-trick { grid-area: c; align-self: center; display: grid; grid-template-areas: ". n ." "w . e" ". s ."; gap: 2px; justify-items: center; min-height: calc(var(--cw) * 3.6); }
 .fin-slot.n { grid-area: n; } .fin-slot.w { grid-area: w; } .fin-slot.e { grid-area: e; } .fin-slot.s { grid-area: s; }
-.fin-trick .card.won { box-shadow: 0 0 0 3px #2e9e4f, 0 4px 10px rgba(0, 0, 0, .35); }
-/* Played cards back in the hand: dimmed, the trick winner ringed green, the others red. */
-.fin-table .fin-hand .card.played { opacity: .55; }
-.fin-table .fin-hand .card.played.won { box-shadow: 0 0 0 3px #2e9e4f; opacity: .75; }
-.fin-table .fin-hand .card.played.lost { box-shadow: 0 0 0 2px #d32f2f; }
+.fin-trick .card.won, .fin-table .fin-hand .card.played.won { box-shadow: 0 0 0 4px #1f9d48, 0 4px 10px rgba(0, 0, 0, .35); }
+.fin-trick .card.lost, .fin-table .fin-hand .card.played.lost { box-shadow: 0 0 0 4px #e0332f, 0 4px 10px rgba(0, 0, 0, .35); }
+/* Played cards back in the hand keep their ring, dimmed by greying the face so the ring keeps its full color. */
+.fin-table .fin-hand .card.played { background: #d6d6d6; }
+.fin-table .fin-hand .card.played > * { opacity: .45; }
 .fin-play { margin-top: .5rem; }
 .fin-rounds { margin: .5rem 0 0; padding-inline-start: 1.3rem; font-size: .9rem; }
 .fin-rounds li { margin: .15rem 0; }

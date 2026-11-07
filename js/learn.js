@@ -2421,8 +2421,8 @@ const FinesseLayouts = (() => {
   }
 
   // The "Play" button: plays the case's rounds a card at a time in the middle of the table. After
-  // each trick its cards go back to their hands, dimmed, the winning card ringed in green and the
-  // others in red, and the list says whether your side won the trick.
+  // each trick its cards go back to their hands, dimmed: ringed in green for the partnership that
+  // won the trick and in red for the other one. The list says whether your side won it.
   function player(table, labels, start, rounds, k) {
     const wrap = document.createElement('div');
     wrap.className = 'fin-play';
@@ -2513,7 +2513,8 @@ const FinesseLayouts = (() => {
           const win = winner(plays, force);
           const good = (win.seat === 'n' || win.seat === 's') !== !!k.defense;
           if (good) ours++;
-          win.el.classList.add('won');
+          const side = seat => (seat === 'n' || seat === 's');
+          plays.forEach(p => p.el.classList.add(side(p.seat) === side(win.seat) ? 'won' : 'lost'));
           const lead = SEAT_NAMES[SEAT[plays[0].seat]], by = SEAT_NAMES[SEAT[win.seat]];
           const li = document.createElement('li');
           li.innerHTML = `${good ? '✅' : '❌'} ` + L(`${lead} leads; ${by} wins with ${cardHtml(win.card)}.`,
@@ -2521,7 +2522,7 @@ const FinesseLayouts = (() => {
           list.appendChild(li);
           r++;
           setTimeout(() => {
-            plays.filter(p => p.card).forEach(p => Object.assign(p.card, { inTrick: false, played: true, won: p === win }));
+            plays.filter(p => p.card).forEach(p => Object.assign(p.card, { inTrick: false, played: true, won: side(p.seat) === side(win.seat) }));
             trick.innerHTML = '';
             draw();
             setTimeout(nextRound, 300);
