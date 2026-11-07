@@ -614,6 +614,7 @@ const LESSONS_EN = [
       <p>When the opponent on your right opens one of a suit, find the row that fits your hand. Tap a row to see examples:</p>
       <table class="tbl">
         <tr><th>Your hand</th><th>Action</th></tr>
+        <tr class="tbl-section"><th colspan="2">Constructive overcalls: 8+ HCP, competing for the contract</th></tr>
         <tr><td><button class="finesse-link" type="button" data-overcall="o1">8–16 HCP and a good 5+ card suit you can bid at the 1-level</button></td><td>1-level overcall</td></tr>
         <tr><td><button class="finesse-link" type="button" data-overcall="o2">11–16 HCP and a good 5+ card suit at the 2-level</button></td><td>2-level overcall</td></tr>
         <tr><td><button class="finesse-link" type="button" data-overcall="tox">12+ HCP, short in their suit, 3+ cards in every other suit</button></td><td><strong>Takeout double</strong>
@@ -660,9 +661,11 @@ const LESSONS_EN = [
             </div>
           </details></td></tr>
         <tr><td><button class="finesse-link" type="button" data-overcall="strongx">17+ HCP, too strong to overcall</button></td><td>Double, then bid your suit or no-trump</td></tr>
+        <tr class="tbl-section destructive"><th colspan="2">Destructive overcalls: 6–10 HCP and a long suit, blocking the opponents</th></tr>
         <tr><td><button class="finesse-link" type="button" data-overcall="wjo">6–10 HCP and a good 6-card suit (two of A, K, Q, J)</button></td><td><strong>Weak jump overcall</strong> at the 2-level: one level higher than needed (1${H} – 2${S}). A jump to the 3-level needs seven cards.</td></tr>
         <tr><td><button class="finesse-link" type="button" data-overcall="pre">6–10 HCP and a good 7-card suit (two of A, K, Q, J)</button></td><td><strong>Preempt</strong> at the 3-level (1${C} – 3${H})</td></tr>
         <tr><td><button class="finesse-link" type="button" data-overcall="pre4">6–10 HCP and a good 8-card suit (two of A, K, Q, J)</button></td><td><strong>Preempt</strong> at the 4-level (1${C} – 4${H})</td></tr>
+        <tr class="tbl-section neutral"><th colspan="2">Otherwise</th></tr>
         <tr><td><button class="finesse-link" type="button" data-overcall="pass">Anything else</button></td><td>Pass</td></tr>
       </table>
       <ul>
@@ -1333,6 +1336,7 @@ const LESSONS_HE = [
       <p>כשהיריב מימינכם פותח באחת בסדרה, מצאו את השורה שמתאימה ליד שלכם. לחצו על שורה כדי לראות דוגמאות:</p>
       <table class="tbl">
         <tr><th>היד שלכם</th><th>פעולה</th></tr>
+        <tr class="tbl-section"><th colspan="2">הכרזות התערבות בונות: 8 נק' ומעלה, מתחרות על החוזה</th></tr>
         <tr><td><button class="finesse-link" type="button" data-overcall="o1">8-16 נק' וסדרה טובה של 5 קלפים ומעלה שאפשר להכריז ברמת 1</button></td><td>התערבות ברמת 1</td></tr>
         <tr><td><button class="finesse-link" type="button" data-overcall="o2">11-16 נק' וסדרה טובה של 5 קלפים ומעלה ברמת 2</button></td><td>התערבות ברמת 2</td></tr>
         <tr><td><button class="finesse-link" type="button" data-overcall="tox">12 נק' ומעלה, קצר בסדרה שלהם, 3 קלפים ומעלה בכל סדרה אחרת</button></td><td><strong>כפל הוצאה</strong>
@@ -1379,9 +1383,11 @@ const LESSONS_HE = [
             </div>
           </details></td></tr>
         <tr><td><button class="finesse-link" type="button" data-overcall="strongx">17 נק' ומעלה, חזקה מדי להתערבות</button></td><td>דאבל, ואחר כך הכריזו את הסדרה שלכם או ללא שליט</td></tr>
+        <tr class="tbl-section destructive"><th colspan="2">הכרזות התערבות הורסות: 6-10 נק' וסדרה ארוכה, חוסמות את היריבים</th></tr>
         <tr><td><button class="finesse-link" type="button" data-overcall="wjo">6-10 נק' וסדרה טובה של 6 קלפים (שניים מ-A, K, Q, J)</button></td><td><strong>קפיצת התערבות חלשה</strong> ברמה 2: רמה אחת מעל הנדרש (<bdi dir="ltr">${B('1H')} – ${B('2S')}</bdi>). קפיצה לרמה 3 דורשת שבעה קלפים.</td></tr>
         <tr><td><button class="finesse-link" type="button" data-overcall="pre">6-10 נק' וסדרה טובה של 7 קלפים (שניים מ-A, K, Q, J)</button></td><td><strong>הכרזת חסימה</strong> ברמה 3 (<bdi dir="ltr">${B('1C')} – ${B('3H')}</bdi>)</td></tr>
         <tr><td><button class="finesse-link" type="button" data-overcall="pre4">6-10 נק' וסדרה טובה של 8 קלפים (שניים מ-A, K, Q, J)</button></td><td><strong>הכרזת חסימה</strong> ברמה 4 (<bdi dir="ltr">${B('1C')} – ${B('4H')}</bdi>)</td></tr>
+        <tr class="tbl-section neutral"><th colspan="2">אחרת</th></tr>
         <tr><td><button class="finesse-link" type="button" data-overcall="pass">כל דבר אחר</button></td><td>פאס</td></tr>
       </table>
       <ul>

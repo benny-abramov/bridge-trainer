@@ -789,3 +789,4 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 /* A heading row that splits a table into sections, e.g. constructive and destructive openings. */
 .tbl tr.tbl-section th { background: var(--surface); color: var(--accent); border-top: 2px solid var(--accent); padding-top: .55rem; }
 .tbl tr.tbl-section.destructive th { color: var(--bad); border-top-color: var(--bad); }
+.tbl tr.tbl-section.neutral th { color: var(--muted); border-top-color: var(--border); }
