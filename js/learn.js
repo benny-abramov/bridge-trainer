@@ -472,7 +472,7 @@ const LESSONS_EN = [
             <tr><th>Combined points</th><th>What to do</th></tr>
             <tr><td>Game is out of reach</td><td><strong>Sign off</strong> at the lowest level: pass, give preference to opener's first suit, or bid your own 6-card suit at the 2-level. Opener usually passes.</td></tr>
             <tr><td>Game depends on opener's extras</td><td><strong>Invite</strong>: 2NT, or raise to the 3-level. Opener passes with a minimum and bids game with a maximum.</td></tr>
-            <tr><td>25+</td><td><strong>Bid game</strong> yourself.</td></tr>
+            <tr><td>25+ HCP</td><td><strong>Bid game</strong> yourself.</td></tr>
           </table>
           <p><strong>Preference is a signoff.</strong> 1${S} – 1NT – 2${H} – 2${S} only says which suit you prefer. It shows no extra strength, and opener usually passes.</p>
           <p><strong>When opener's rebid is forcing, you must not pass</strong>, even with only 6 HCP:</p>
@@ -486,7 +486,7 @@ const LESSONS_EN = [
       <p><strong>When partner invites game</strong> (for example 1${H} – 2${H} – 3${H}, or 1${S} – 1NT – 2NT):</p>
       <ul>
         <li>Accept with the top of your range (9–10 after a 6–10 response) by bidding game.</li>
-        <li>Decline with the bottom of your range (6–8) by passing.</li>
+        <li>Decline with the bottom of your range (6–8 HCP) by passing.</li>
       </ul>
       <details class="why-more">
         <summary class="btn secondary">💡 Examples</summary>
@@ -494,10 +494,10 @@ const LESSONS_EN = [
           <p>Partner's invitation asks you a question: "Do you have a minimum or more?" With a minimum, pass. With more than a minimum, accept and bid game.</p>
           <table class="tbl">
             <tr><th>Auction</th><th>Partner shows</th><th>Your hand</th><th>You bid</th></tr>
-            <tr><td rowspan="2" class="nowrap">1${H} – 2${H} – 3${H}</td><td rowspan="2">A medium opening (15–17), inviting game</td><td>6–8 (a minimum)</td><td>Pass</td></tr>
-            <tr><td>9+</td><td>4${H}</td></tr>
-            <tr><td rowspan="2" class="nowrap">1${C} – 1${S} – 3${S}</td><td rowspan="2">4-card spade support and a medium opening (15–17), inviting game</td><td>6–8 (a minimum)</td><td>Pass</td></tr>
-            <tr><td>9+</td><td>4${S}</td></tr>
+            <tr><td rowspan="2" class="nowrap">1${H} – 2${H} – 3${H}</td><td rowspan="2">A medium opening (15–17 HCP), inviting game</td><td>6–8 HCP (a minimum)</td><td>Pass</td></tr>
+            <tr><td>9+ HCP</td><td>4${H}</td></tr>
+            <tr><td rowspan="2" class="nowrap">1${C} – 1${S} – 3${S}</td><td rowspan="2">4-card spade support and a medium opening (15–17 HCP), inviting game</td><td>6–8 HCP (a minimum)</td><td>Pass</td></tr>
+            <tr><td>9+ HCP</td><td>4${S}</td></tr>
           </table>
         </div>
       </details>
@@ -511,20 +511,20 @@ const LESSONS_EN = [
       <details class="why-more">
         <summary class="btn secondary">💡 Examples</summary>
         <div class="why-body">
-          <p>Partner has shown a minimum (12–14). Add your points: with 6–10 game is out of reach, so stop low; with 11–12, invite; with 13+, bid game.</p>
+          <p>Partner has shown a minimum (12–14 HCP). Add your points: with 6–10 game is out of reach, so stop low; with 11–12, invite; with 13+, bid game.</p>
           <table class="tbl">
             <tr><th>Auction</th><th>Partner shows</th><th>Your hand</th><th>You bid</th></tr>
-            <tr><td rowspan="8" class="nowrap">1${C} – 1${S} – 1NT</td><td rowspan="8">A balanced minimum (12–14)</td><td>6–10</td><td>Pass</td></tr>
-            <tr><td>11–12</td><td>2NT, inviting game</td></tr>
-            <tr><td>13+</td><td>3NT</td></tr>
-            <tr><td>6–10 and 6 spades</td><td>2${S}</td></tr>
-            <tr><td>11–12 and 6 spades</td><td>3${S}, inviting game</td></tr>
-            <tr><td>13+ and 6 spades</td><td>4${S}</td></tr>
-            <tr><td>6–10, a second suit: 5 spades and 4 hearts</td><td>2${H}</td></tr>
-            <tr><td>11–12, a second suit: 5 spades and 4 hearts</td><td>3${H}</td></tr>
-            <tr><td rowspan="3" class="nowrap">1${C} – 1${S} – 2${S}</td><td rowspan="3">4-card spade support and a minimum (12–14)</td><td>6–10</td><td>Pass</td></tr>
-            <tr><td>11–12</td><td>3${S}, inviting game</td></tr>
-            <tr><td>13+</td><td>4${S}</td></tr>
+            <tr><td rowspan="8" class="nowrap">1${C} – 1${S} – 1NT</td><td rowspan="8">A balanced minimum (12–14 HCP)</td><td>6–10 HCP</td><td>Pass</td></tr>
+            <tr><td>11–12 HCP</td><td>2NT, inviting game</td></tr>
+            <tr><td>13+ HCP</td><td>3NT</td></tr>
+            <tr><td>6–10 HCP and 6 spades</td><td>2${S}</td></tr>
+            <tr><td>11–12 HCP and 6 spades</td><td>3${S}, inviting game</td></tr>
+            <tr><td>13+ HCP and 6 spades</td><td>4${S}</td></tr>
+            <tr><td>6–10 HCP, a second suit: 5 spades and 4 hearts</td><td>2${H}</td></tr>
+            <tr><td>11–12 HCP, a second suit: 5 spades and 4 hearts</td><td>3${H}</td></tr>
+            <tr><td rowspan="3" class="nowrap">1${C} – 1${S} – 2${S}</td><td rowspan="3">4-card spade support and a minimum (12–14 HCP)</td><td>6–10 HCP</td><td>Pass</td></tr>
+            <tr><td>11–12 HCP</td><td>3${S}, inviting game</td></tr>
+            <tr><td>13+ HCP</td><td>4${S}</td></tr>
           </table>
         </div>
       </details>
@@ -542,15 +542,15 @@ const LESSONS_EN = [
           <p>A second suit without a jump can still be as strong as 17 HCP, so pass it only with 6–7 HCP. With more, keep bidding: raise, give preference, or invite.</p>
           <table class="tbl">
             <tr><th>Auction</th><th>Partner shows</th><th>Your hand</th><th>You bid</th></tr>
-            <tr><td rowspan="3" class="nowrap">1${C} – 1${H} – 1${S}</td><td rowspan="3">4 spades and 3+ clubs (opened the better minor)</td><td>6–10 and 4 spades</td><td>2${S}</td></tr>
-            <tr><td>11–12 and 4 spades</td><td>3${S}, inviting game</td></tr>
-            <tr><td>13+ and 4 spades</td><td>4${S}</td></tr>
-            <tr><td rowspan="6" class="nowrap">1${D} – 1${H} – 2${C}</td><td rowspan="6">5+ diamonds and 4 clubs, up to 17 HCP</td><td>6–7 and 4 clubs</td><td>Pass</td></tr>
-            <tr><td>8–9 and 4 clubs</td><td>3${C}</td></tr>
-            <tr><td>6–10, preference for diamonds (prefer diamonds even with 2 diamonds and 3 clubs)</td><td>2${D}</td></tr>
-            <tr><td>11–12 and 3+ diamonds</td><td>3${D}, inviting game</td></tr>
-            <tr><td>11–12</td><td>2NT, inviting game</td></tr>
-            <tr><td>13+</td><td>3NT</td></tr>
+            <tr><td rowspan="3" class="nowrap">1${C} – 1${H} – 1${S}</td><td rowspan="3">4 spades and 3+ clubs (opened the better minor)</td><td>6–10 HCP and 4 spades</td><td>2${S}</td></tr>
+            <tr><td>11–12 HCP and 4 spades</td><td>3${S}, inviting game</td></tr>
+            <tr><td>13+ HCP and 4 spades</td><td>4${S}</td></tr>
+            <tr><td rowspan="6" class="nowrap">1${D} – 1${H} – 2${C}</td><td rowspan="6">5+ diamonds and 4 clubs, up to 17 HCP</td><td>6–7 HCP and 4 clubs</td><td>Pass</td></tr>
+            <tr><td>8–9 HCP and 4 clubs</td><td>3${C}</td></tr>
+            <tr><td>6–10 HCP, preference for diamonds (prefer diamonds even with 2 diamonds and 3 clubs)</td><td>2${D}</td></tr>
+            <tr><td>11–12 HCP and 3+ diamonds</td><td>3${D}, inviting game</td></tr>
+            <tr><td>11–12 HCP</td><td>2NT, inviting game</td></tr>
+            <tr><td>13+ HCP</td><td>3NT</td></tr>
           </table>
         </div>
       </details>
@@ -1188,7 +1188,7 @@ const LESSONS_HE = [
             <tr><th>נקודות משותפות</th><th>מה עושים</th></tr>
             <tr><td>משחק מלא לא בהישג יד</td><td><strong>עצירה</strong> ברמה הנמוכה ביותר: פאס, העדפה לסדרה הראשונה של הפותח, או הסדרה שלכם של 6 קלפים ברמת 2. הפותח בדרך כלל מכריז פאס.</td></tr>
             <tr><td>משחק מלא תלוי בתוספת של הפותח</td><td><strong>הזמנה</strong>: 2NT, או תמיכה ברמת 3. הפותח מכריז פאס עם מינימום ומשחק מלא עם מקסימום.</td></tr>
-            <tr><td>25 ומעלה</td><td><strong>משחק מלא</strong>: הכריזו אותו בעצמכם.</td></tr>
+            <tr><td>25 נק' ומעלה</td><td><strong>משחק מלא</strong>: הכריזו אותו בעצמכם.</td></tr>
           </table>
           <p><strong>העדפה היא הכרזת עצירה.</strong> <bdi dir="ltr">${B('1S')} – 1NT – ${B('2H')} – ${B('2S')}</bdi> רק אומר איזו סדרה אתם מעדיפים. היא לא מראה כוח נוסף, והפותח בדרך כלל מכריז פאס.</p>
           <p><strong>כשההכרזה החוזרת של הפותח מחייבת, אסור לכם להכריז פאס</strong>, גם עם 6 נק' בלבד:</p>
@@ -1202,7 +1202,7 @@ const LESSONS_HE = [
       <p><strong>כשהשותף מזמין למשחק מלא</strong> (למשל <bdi dir="ltr">${B('1H')} – ${B('2H')} – ${B('3H')}</bdi>, או <bdi dir="ltr">${B('1S')} – 1NT – 2NT</bdi>):</p>
       <ul>
         <li>קבלו את ההזמנה עם ראש הטווח שלכם (9-10 אחרי תשובה של 6-10) בהכרזת משחק מלא.</li>
-        <li>דחו אותה עם תחתית הטווח (6-8) בפאס.</li>
+        <li>דחו אותה עם תחתית הטווח (6-8 נק') בפאס.</li>
       </ul>
       <details class="why-more">
         <summary class="btn secondary">💡 דוגמאות</summary>
@@ -1210,10 +1210,10 @@ const LESSONS_HE = [
           <p>ההזמנה של השותף שואלת אתכם שאלה: "יש לך מינימום או יותר?" עם מינימום, הכריזו פאס. עם יותר ממינימום, קבלו את ההזמנה והכריזו משחק מלא.</p>
           <table class="tbl">
             <tr><th>המכרז</th><th>השותף מראה</th><th>היד שלכם</th><th>אתם מכריזים</th></tr>
-            <tr><td rowspan="2" class="nowrap"><bdi dir="ltr">${B('1H')} – ${B('2H')} – ${B('3H')}</bdi></td><td rowspan="2">פתיחה בינונית (15-17), הזמנה למשחק מלא</td><td>6-8 (מינימום)</td><td>פאס</td></tr>
-            <tr><td>9 ומעלה</td><td>${B('4H')}</td></tr>
-            <tr><td rowspan="2" class="nowrap"><bdi dir="ltr">${B('1C')} – ${B('1S')} – ${B('3S')}</bdi></td><td rowspan="2">תמיכה של 4 קלפים בספייד ופתיחה בינונית (15-17), הזמנה למשחק מלא</td><td>6-8 (מינימום)</td><td>פאס</td></tr>
-            <tr><td>9 ומעלה</td><td>${B('4S')}</td></tr>
+            <tr><td rowspan="2" class="nowrap"><bdi dir="ltr">${B('1H')} – ${B('2H')} – ${B('3H')}</bdi></td><td rowspan="2">פתיחה בינונית (15-17 נק'), הזמנה למשחק מלא</td><td>6-8 נק' (מינימום)</td><td>פאס</td></tr>
+            <tr><td>9 נק' ומעלה</td><td>${B('4H')}</td></tr>
+            <tr><td rowspan="2" class="nowrap"><bdi dir="ltr">${B('1C')} – ${B('1S')} – ${B('3S')}</bdi></td><td rowspan="2">תמיכה של 4 קלפים בספייד ופתיחה בינונית (15-17 נק'), הזמנה למשחק מלא</td><td>6-8 נק' (מינימום)</td><td>פאס</td></tr>
+            <tr><td>9 נק' ומעלה</td><td>${B('4S')}</td></tr>
           </table>
         </div>
       </details>
@@ -1227,20 +1227,20 @@ const LESSONS_HE = [
       <details class="why-more">
         <summary class="btn secondary">💡 דוגמאות</summary>
         <div class="why-body">
-          <p>השותף הראה מינימום (12-14). חברו את הנקודות שלכם: עם 6-10 משחק מלא לא בהישג יד, ולכן עצרו נמוך; עם 11-12, הזמינו; עם 13 ומעלה, הכריזו משחק מלא.</p>
+          <p>השותף הראה מינימום (12-14 נק'). חברו את הנקודות שלכם: עם 6-10 משחק מלא לא בהישג יד, ולכן עצרו נמוך; עם 11-12, הזמינו; עם 13 ומעלה, הכריזו משחק מלא.</p>
           <table class="tbl">
             <tr><th>המכרז</th><th>השותף מראה</th><th>היד שלכם</th><th>אתם מכריזים</th></tr>
-            <tr><td rowspan="8" class="nowrap"><bdi dir="ltr">${B('1C')} – ${B('1S')} – 1NT</bdi></td><td rowspan="8">מינימום מאוזן (12-14)</td><td>6-10</td><td>פאס</td></tr>
-            <tr><td>11-12</td><td>2NT, הזמנה למשחק מלא</td></tr>
-            <tr><td>13 ומעלה</td><td>3NT</td></tr>
-            <tr><td>6-10 ו-6 ספייד</td><td>${B('2S')}</td></tr>
-            <tr><td>11-12 ו-6 ספייד</td><td>${B('3S')}, הזמנה למשחק מלא</td></tr>
-            <tr><td>13 ומעלה ו-6 ספייד</td><td>${B('4S')}</td></tr>
-            <tr><td>6-10, סדרה שנייה: 5 ספייד ו-4 הארט</td><td>${B('2H')}</td></tr>
-            <tr><td>11-12, סדרה שנייה: 5 ספייד ו-4 הארט</td><td>${B('3H')}</td></tr>
-            <tr><td rowspan="3" class="nowrap"><bdi dir="ltr">${B('1C')} – ${B('1S')} – ${B('2S')}</bdi></td><td rowspan="3">תמיכה של 4 קלפים בספייד ומינימום (12-14)</td><td>6-10</td><td>פאס</td></tr>
-            <tr><td>11-12</td><td>${B('3S')}, הזמנה למשחק מלא</td></tr>
-            <tr><td>13 ומעלה</td><td>${B('4S')}</td></tr>
+            <tr><td rowspan="8" class="nowrap"><bdi dir="ltr">${B('1C')} – ${B('1S')} – 1NT</bdi></td><td rowspan="8">מינימום מאוזן (12-14 נק')</td><td>6-10 נק'</td><td>פאס</td></tr>
+            <tr><td>11-12 נק'</td><td>2NT, הזמנה למשחק מלא</td></tr>
+            <tr><td>13 נק' ומעלה</td><td>3NT</td></tr>
+            <tr><td>6-10 נק' ו-6 ספייד</td><td>${B('2S')}</td></tr>
+            <tr><td>11-12 נק' ו-6 ספייד</td><td>${B('3S')}, הזמנה למשחק מלא</td></tr>
+            <tr><td>13 נק' ומעלה ו-6 ספייד</td><td>${B('4S')}</td></tr>
+            <tr><td>6-10 נק', סדרה שנייה: 5 ספייד ו-4 הארט</td><td>${B('2H')}</td></tr>
+            <tr><td>11-12 נק', סדרה שנייה: 5 ספייד ו-4 הארט</td><td>${B('3H')}</td></tr>
+            <tr><td rowspan="3" class="nowrap"><bdi dir="ltr">${B('1C')} – ${B('1S')} – ${B('2S')}</bdi></td><td rowspan="3">תמיכה של 4 קלפים בספייד ומינימום (12-14 נק')</td><td>6-10 נק'</td><td>פאס</td></tr>
+            <tr><td>11-12 נק'</td><td>${B('3S')}, הזמנה למשחק מלא</td></tr>
+            <tr><td>13 נק' ומעלה</td><td>${B('4S')}</td></tr>
           </table>
         </div>
       </details>
@@ -1258,15 +1258,15 @@ const LESSONS_HE = [
           <p>סדרה שנייה בלי קפיצה יכולה להיות עם עד 17 נק', ולכן הכריזו עליה פאס רק עם 6-7 נק'. עם יותר, המשיכו להכריז: תמכו, תנו העדפה, או הזמינו.</p>
           <table class="tbl">
             <tr><th>המכרז</th><th>השותף מראה</th><th>היד שלכם</th><th>אתם מכריזים</th></tr>
-            <tr><td rowspan="3" class="nowrap"><bdi dir="ltr">${B('1C')} – ${B('1H')} – ${B('1S')}</bdi></td><td rowspan="3">4 ספייד ו-3 קלאב ומעלה (פתח בסדרת המיינור הטובה יותר)</td><td>6-10 ו-4 ספייד</td><td>${B('2S')}</td></tr>
-            <tr><td>11-12 ו-4 ספייד</td><td>${B('3S')}, הזמנה למשחק מלא</td></tr>
-            <tr><td>13 ומעלה ו-4 ספייד</td><td>${B('4S')}</td></tr>
-            <tr><td rowspan="6" class="nowrap"><bdi dir="ltr">${B('1D')} – ${B('1H')} – ${B('2C')}</bdi></td><td rowspan="6">5 דיאמונד ומעלה ו-4 קלאב, עד 17 נק'</td><td>6-7 ו-4 קלאב</td><td>פאס</td></tr>
-            <tr><td>8-9 ו-4 קלאב</td><td>${B('3C')}</td></tr>
-            <tr><td>6-10, העדפה לדיאמונד (העדיפו דיאמונד גם עם 2 דיאמונד ו-3 קלאב)</td><td>${B('2D')}</td></tr>
-            <tr><td>11-12 ו-3 דיאמונד ומעלה</td><td>${B('3D')}, הזמנה למשחק מלא</td></tr>
-            <tr><td>11-12</td><td>2NT, הזמנה למשחק מלא</td></tr>
-            <tr><td>13 ומעלה</td><td>3NT</td></tr>
+            <tr><td rowspan="3" class="nowrap"><bdi dir="ltr">${B('1C')} – ${B('1H')} – ${B('1S')}</bdi></td><td rowspan="3">4 ספייד ו-3 קלאב ומעלה (פתח בסדרת המיינור הטובה יותר)</td><td>6-10 נק' ו-4 ספייד</td><td>${B('2S')}</td></tr>
+            <tr><td>11-12 נק' ו-4 ספייד</td><td>${B('3S')}, הזמנה למשחק מלא</td></tr>
+            <tr><td>13 נק' ומעלה ו-4 ספייד</td><td>${B('4S')}</td></tr>
+            <tr><td rowspan="6" class="nowrap"><bdi dir="ltr">${B('1D')} – ${B('1H')} – ${B('2C')}</bdi></td><td rowspan="6">5 דיאמונד ומעלה ו-4 קלאב, עד 17 נק'</td><td>6-7 נק' ו-4 קלאב</td><td>פאס</td></tr>
+            <tr><td>8-9 נק' ו-4 קלאב</td><td>${B('3C')}</td></tr>
+            <tr><td>6-10 נק', העדפה לדיאמונד (העדיפו דיאמונד גם עם 2 דיאמונד ו-3 קלאב)</td><td>${B('2D')}</td></tr>
+            <tr><td>11-12 נק' ו-3 דיאמונד ומעלה</td><td>${B('3D')}, הזמנה למשחק מלא</td></tr>
+            <tr><td>11-12 נק'</td><td>2NT, הזמנה למשחק מלא</td></tr>
+            <tr><td>13 נק' ומעלה</td><td>3NT</td></tr>
           </table>
         </div>
       </details>
