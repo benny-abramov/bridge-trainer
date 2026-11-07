@@ -768,3 +768,4 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 .nowrap { white-space: nowrap; }
 /* Tables inside a "Why" box (the transfer follow-ups): a little tighter. */
 .why-body .tbl { margin: .4rem 0 .6rem; }
+.why-body .why-heading { margin: .8rem 0 0; font-size: 1.05em; }
