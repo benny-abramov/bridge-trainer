@@ -547,7 +547,20 @@ const LESSONS_EN = [
               </table>
             </div>
           </details></td></tr>
-        <tr><td><button class="finesse-link" type="button" data-overcall="nt">15–18 HCP, balanced, with a stopper in their suit</button></td><td>1NT</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-overcall="nt">15–18 HCP, balanced, with a stopper in their suit</button></td><td>1NT
+          <details class="why-more">
+            <summary class="btn secondary">💡 Responding to a 1NT overcall</summary>
+            <div class="why-body">
+              <p>Partner's 1NT overcall shows 15–18 HCP and a balanced hand with a stopper in opener's suit: almost the same hand as a 1NT opening.
+              So respond <strong>just as you would to a 1NT opening</strong>:</p>
+              <ul>
+                <li><strong>Basic responses:</strong> 0–7 HCP: pass. 8–9: 2NT, inviting game. 10–15: 3NT.</li>
+                <li><strong>Stayman (2${C}):</strong> with 8+ HCP and a 4-card major.</li>
+                <li><strong>Transfers (2${D}, 2${H}):</strong> with a 5+ card major, any strength.</li>
+              </ul>
+              <p>For more, see the <em>Partner opened 1NT</em> row in <em>Responding to partner</em>, and <em>Over partner's 1NT</em> in <em>Conventions</em>.</p>
+            </div>
+          </details></td></tr>
         <tr><td><button class="finesse-link" type="button" data-overcall="strongx">17+ HCP, too strong to overcall</button></td><td>Double, then bid your suit or no-trump</td></tr>
         <tr><td><button class="finesse-link" type="button" data-overcall="wjo">6–10 HCP and a good 6-card suit (two of A, K, Q, J)</button></td><td><strong>Weak jump overcall</strong> at the 2-level: one level higher than needed (1${H} – 2${S}). A jump to the 3-level needs seven cards.</td></tr>
         <tr><td><button class="finesse-link" type="button" data-overcall="pre">6–10 HCP and a good 7-card suit (two of A, K, Q, J)</button></td><td><strong>Preempt</strong> at the 3-level (1${C} – 3${H})</td></tr>
@@ -1154,7 +1167,20 @@ const LESSONS_HE = [
               </table>
             </div>
           </details></td></tr>
-        <tr><td><button class="finesse-link" type="button" data-overcall="nt">15-18 נק', מאוזנת, עם עוצר בסדרה שלהם</button></td><td>1NT</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-overcall="nt">15-18 נק', מאוזנת, עם עוצר בסדרה שלהם</button></td><td>1NT
+          <details class="why-more">
+            <summary class="btn secondary">💡 תשובה להכרזת התערבות של 1NT</summary>
+            <div class="why-body">
+              <p>הכרזת התערבות של 1NT מראה 15-18 נק' ויד מאוזנת עם עוצר בסדרה של הפותח: כמעט אותה יד כמו פתיחה ב-1NT.
+              לכן השיבו <strong>בדיוק כמו לפתיחה ב-1NT</strong>:</p>
+              <ul>
+                <li><strong>תשובות בסיסיות:</strong> 0-7 נק': פאס. 8-9: 2NT, הזמנה למשחק מלא. 10-15: 3NT.</li>
+                <li><strong>סטיימן (${B('2C')}):</strong> עם 8 נק' ומעלה וסדרת מייגור של 4 קלפים.</li>
+                <li><strong>טרנספר (${B('2D')}, ${B('2H')}):</strong> עם סדרת מייגור של 5 קלפים ומעלה, בכל כוח.</li>
+              </ul>
+              <p>להרחבה, ראו את השורה <em>השותף פתח 1NT</em> ב<em>תשובה לשותף</em>, ואת <em>מעל 1NT של השותף</em> ב<em>מוסכמות</em>.</p>
+            </div>
+          </details></td></tr>
         <tr><td><button class="finesse-link" type="button" data-overcall="strongx">17 נק' ומעלה, חזקה מדי להתערבות</button></td><td>דאבל, ואחר כך הכריזו את הסדרה שלכם או ללא שליט</td></tr>
         <tr><td><button class="finesse-link" type="button" data-overcall="wjo">6-10 נק' וסדרה טובה של 6 קלפים (שניים מ-A, K, Q, J)</button></td><td><strong>קפיצת התערבות חלשה</strong> ברמה 2: רמה אחת מעל הנדרש (<bdi dir="ltr">${B('1H')} – ${B('2S')}</bdi>). קפיצה לרמה 3 דורשת שבעה קלפים.</td></tr>
         <tr><td><button class="finesse-link" type="button" data-overcall="pre">6-10 נק' וסדרה טובה של 7 קלפים (שניים מ-A, K, Q, J)</button></td><td><strong>הכרזת חסימה</strong> ברמה 3 (<bdi dir="ltr">${B('1C')} – ${B('3H')}</bdi>)</td></tr>
