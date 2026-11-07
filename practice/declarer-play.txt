@@ -366,6 +366,22 @@ Note: Cash the ♣A now: West and East must each abandon a guard.
 Explanation: <p>When the <strong>♣A</strong> is led, both West and East are squeezed:</p> <ul><li>West discards first and must keep the ♥K to guard against dummy's ♥J, so West throws a spade. North then throws the ♥J, which is no longer needed.</li> <li>East must keep the ♦K to guard against your ♦Q, so East throws a spade too.</li></ul> <p>Now nobody guards spades: lead the ♠3 to dummy's ♠A, both spade honors fall, and dummy's small ♠9 becomes a winner. If a defender throws their red king instead, the card it guarded against wins.</p> <p>This is a <em>double squeeze</em>: each defender guards one suit alone, and both guard spades, so neither can keep the spade guard.</p>
 הסבר: <p>כשמובילים את <strong>♣A</strong>, גם מערב וגם מזרח נלחצים:</p> <ul><li>מערב משליך ראשון וחייב לשמור את ה-♥K מול ה-♥J של הדומם, ולכן הוא משליך ספייד. צפון משליך אז את ה-♥J, שכבר לא נחוץ.</li> <li>מזרח חייב לשמור את ה-♦K מול ה-♦Q שלכם, ולכן גם הוא משליך ספייד.</li></ul> <p>עכשיו אף אחד לא שומר על הספייד: הובילו את ה-♠3 ל-♠A של הדומם, שני ההונורים בספייד נופלים, וה-♠9 הקטן של הדומם הופך לזוכה. אם מגן משליך במקום זאת את המלך האדום שלו, הקלף שמולו הוא שמר זוכה.</p> <p>זהו <em>לחץ כפול</em>: כל מגן שומר לבדו על סדרה אחת, ושניהם שומרים על הספייד, ולכן אף אחד מהם לא יכול לשמור את השמירה בספייד.</p>
 
+Section: squeeze
+Title: Triple squeeze
+כותרת: הלחץ המשולש
+Contract: 3NT
+Leader: S
+Need: 6
+North: S AJ H AJ D xx
+East:  S xx H xx D xx
+South: S 3  H xx D AJ C A
+West:  S KQ  H KQ D KQ
+Note: Cash the ♣A now: West must unguard one of their three suits.
+הערה: ממשו עכשיו את ה-♣A: מערב חייב לוותר על השמירה באחת משלוש הסדרות שלו.
+Explanation: <p>When the <strong>♣A</strong> is led, West, who guards all three suits with K-Q and has no spare card, must unguard one of them. North throws a small diamond.</p> <ul><li>Cash the suit West gave up. For example, if West throws a spade, lead the ♠3 to dummy's ♠A, dropping the ♠K, and cash the ♠J.</li> <li>That last winner squeezes West again, now in the two suits left. Whichever guard West throws, cash that suit and finish with the other ace.</li></ul> <p>This is a <em>triple squeeze</em>: one defender guards three suits. Each squeeze card wins one extra trick, so here you take all six.</p>
+הסבר: <p>כשמובילים את <strong>♣A</strong>, מערב, ששומר על שלוש הסדרות עם K-Q ואין לו קלף מיותר, חייב לוותר על השמירה באחת מהן. צפון משליך דיאמונד קטן.</p> <ul><li>ממשו את הסדרה שמערב ויתר עליה. לדוגמה, אם מערב משליך ספייד, הובילו את ה-♠3 ל-♠A של הדומם, ה-♠K נופל, וממשו את ה-♠J.</li> <li>הזוכה האחרון הזה לוחץ את מערב שוב, עכשיו בשתי הסדרות שנשארו. על איזו שמירה שלא יוותר, ממשו את הסדרה הזו וסיימו עם האס האחר.</li></ul> <p>זהו <em>לחץ משולש</em>: מגן אחד שומר על שלוש סדרות. כל קלף לחץ זוכה בלקיחה נוספת אחת, ולכן כאן לוקחים את כל שש הלקיחות.</p>
+
+
 Section: endplay
 Title: The basic throw-in
 כותרת: הכנסה בסיסית

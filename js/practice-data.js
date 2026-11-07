@@ -1597,6 +1597,30 @@ const PRACTICE = {
    }
   },
   {
+   "section": "squeeze",
+   "contract": "3N",
+   "leader": 2,
+   "hands": [
+    "S:AJ H:AJ D:95",
+    "S:62 H:65 D:72",
+    "S:3 H:43 D:AJ C:A",
+    "S:KQ H:KQ D:KQ"
+   ],
+   "need": 6,
+   "why": {
+    "en": "<p>When the <strong>♣A</strong> is led, West, who guards all three suits with K-Q and has no spare card, must unguard one of them. North throws a small diamond.</p> <ul><li>Cash the suit West gave up. For example, if West throws a spade, lead the ♠3 to dummy's ♠A, dropping the ♠K, and cash the ♠J.</li> <li>That last winner squeezes West again, now in the two suits left. Whichever guard West throws, cash that suit and finish with the other ace.</li></ul> <p>This is a <em>triple squeeze</em>: one defender guards three suits. Each squeeze card wins one extra trick, so here you take all six.</p>",
+    "he": "<p>כשמובילים את <strong>♣A</strong>, מערב, ששומר על שלוש הסדרות עם K-Q ואין לו קלף מיותר, חייב לוותר על השמירה באחת מהן. צפון משליך דיאמונד קטן.</p> <ul><li>ממשו את הסדרה שמערב ויתר עליה. לדוגמה, אם מערב משליך ספייד, הובילו את ה-♠3 ל-♠A של הדומם, ה-♠K נופל, וממשו את ה-♠J.</li> <li>הזוכה האחרון הזה לוחץ את מערב שוב, עכשיו בשתי הסדרות שנשארו. על איזו שמירה שלא יוותר, ממשו את הסדרה הזו וסיימו עם האס האחר.</li></ul> <p>זהו <em>לחץ משולש</em>: מגן אחד שומר על שלוש סדרות. כל קלף לחץ זוכה בלקיחה נוספת אחת, ולכן כאן לוקחים את כל שש הלקיחות.</p>"
+   },
+   "note": {
+    "en": "Cash the ♣A now: West must unguard one of their three suits.",
+    "he": "ממשו עכשיו את ה-♣A: מערב חייב לוותר על השמירה באחת משלוש הסדרות שלו."
+   },
+   "title": {
+    "en": "Triple squeeze",
+    "he": "הלחץ המשולש"
+   }
+  },
+  {
    "section": "endplay",
    "contract": "4S",
    "leader": 2,

@@ -137,6 +137,7 @@ victim = קורבן
 rectifying the count = תיקון הספירה
 positional / automatic squeeze = לחץ מבוסס מיקום / אוטומטי
 double squeeze = לחץ כפול
+triple squeeze = לחץ משולש
 endplay = משחק סיום (אנדפליי)
 throw-in = הכנסה
 strip = ניקוי

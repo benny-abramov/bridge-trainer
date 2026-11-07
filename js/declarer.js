@@ -191,7 +191,11 @@ const DECLARER_SECTIONS = {
       <p>In a <strong>double squeeze</strong>, one card squeezes both defenders. Each defender guards one threat alone (West a threat in North, East a threat in South), and <em>both</em> guard a third suit.
       When you cash the squeeze card, each defender must keep their own guard, so both throw a card in the shared suit, and your last card in it wins.</p>
       <p>It needs three threats: one against each defender, and a shared threat that comes with its own winner and entry, such as ♠A-9 opposite a small spade.
-      West, who plays before North, is squeezed first. North then throws the threat it no longer needs, and East, who plays after North, is squeezed next.</p>`, `
+      West, who plays before North, is squeezed first. North then throws the threat it no longer needs, and East, who plays after North, is squeezed next.</p>
+      <h3>Triple squeeze</h3>
+      <p>In a <strong>triple squeeze</strong>, one defender guards <em>three</em> suits. The squeeze card forces them to give up one guard. Cash that suit, and its last winner squeezes them again in the two suits left.
+      So a triple squeeze can win <strong>two</strong> extra tricks.</p>
+      <p>It needs a threat in each of the three suits, and enough entries to cash whichever suit the defender gives up and still reach the last threat. Typical threats are A-J opposite a small card when the defender holds K-Q.</p>`, `
       <p><strong>לחץ</strong> (סקוויז) מייצר לקיחה יש מאין. אתם מממשים זוכה, ומגן ששומר על שתי סדרות נאלץ להשליך. על איזו שמירה שלא יוותר, אחד הקלפים שלכם הופך לזוכה.</p>
       <p>לחץ צריך ארבעה דברים:</p>
       <ul>
@@ -206,7 +210,11 @@ const DECLARER_SECTIONS = {
       <p>ב<strong>לחץ כפול</strong> קלף אחד לוחץ את שני המגינים. כל מגן שומר לבדו על איום אחד (מערב על איום בצפון, מזרח על איום בדרום), ו<em>שניהם</em> שומרים על סדרה שלישית.
       כשאתם מממשים את קלף הלחץ, כל מגן חייב לשמור את השמירה שלו, ולכן שניהם משליכים קלף בסדרה המשותפת, והקלף האחרון שלכם בה זוכה.</p>
       <p>צריך שלושה איומים: אחד נגד כל מגן, ואיום משותף שיש לו זוכה וכניסה משלו, כמו ♠A-9 מול ספייד קטן.
-      מערב, שמשחק לפני צפון, נלחץ ראשון. צפון משליך אז את האיום שכבר לא צריך, ומזרח, שמשחק אחרי צפון, נלחץ אחריו.</p>`),
+      מערב, שמשחק לפני צפון, נלחץ ראשון. צפון משליך אז את האיום שכבר לא צריך, ומזרח, שמשחק אחרי צפון, נלחץ אחריו.</p>
+      <h3>לחץ משולש</h3>
+      <p>ב<strong>לחץ משולש</strong> מגן אחד שומר על <em>שלוש</em> סדרות. קלף הלחץ מאלץ אותו לוותר על שמירה אחת. ממשו את הסדרה הזו, והזוכה האחרון בה לוחץ אותו שוב בשתי הסדרות שנשארו.
+      כך לחץ משולש יכול לזכות ב<strong>שתי</strong> לקיחות נוספות.</p>
+      <p>צריך איום בכל אחת משלוש הסדרות, ומספיק כניסות כדי לממש את הסדרה שהמגן ויתר עליה ועדיין להגיע לאיום האחרון. איומים טיפוסיים הם A-J מול קלף קטן כשלמגן יש K-Q.</p>`),
   },
   endplay: {
     label: L('Elimination and endplays', 'ניקוי ומשחקי סיום'),
