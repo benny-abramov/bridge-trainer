@@ -762,3 +762,6 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 .glossary-list { margin: 0; }
 .glossary-item { padding: .55rem 0; border-bottom: 1px solid var(--border); }
 .glossary-item dd { margin: .2rem 0 0; }
+/* The responding lesson's row for partner's 1NT: short steps, each with its "Why" box. */
+.nt-respond p { margin: 0 0 .4rem; }
+.nt-respond .why-more { margin: 0 0 .6rem; }

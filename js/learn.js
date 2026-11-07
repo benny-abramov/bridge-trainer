@@ -52,6 +52,63 @@ function contractChart() {
     </div>`;
 }
 
+// The "Why use ..." boxes for Stayman and transfers, shown in the Conventions lesson and in the
+// responding lesson's row for partner's 1NT.
+const WHY_STAYMAN = L(`
+  <details class="why-more">
+    <summary class="btn secondary">💡 Why use Stayman?</summary>
+    <div class="why-body">
+      <p><strong>A major fit plays better than no-trump.</strong> With eight trumps between you, the opponents can't run a long suit against you,
+      and you can ruff their winners. 4${H} or 4${S} often makes when 3NT fails.</p>
+      <p><strong>A balanced 1NT can hide a 4-card major.</strong> Opener doesn't show it, and you can't bid your own major naturally:
+      2${D} and 2${H} are transfers. Stayman asks the question directly.</p>
+      <p><strong>No fit? You are still fine.</strong> After 2${D} (or the other major), bid 2NT to invite with 8–9 HCP, or 3NT with 10+.
+      That is why Stayman needs about 8 HCP: you must be safe to bid again.</p>
+    </div>
+  </details>`, `
+  <details class="why-more">
+    <summary class="btn secondary">💡 למה להשתמש בסטיימן?</summary>
+    <div class="why-body">
+      <p><strong>התאמה במייגור משחקת טוב יותר מללא שליט.</strong> עם שמונה שליטים ביחד, היריבים לא יכולים להריץ נגדכם סדרה ארוכה,
+      ואתם יכולים לחתוך את הקלפים הזוכים שלהם. ${B('4H')} או ${B('4S')} מצליחים לעתים קרובות כש-3NT נכשל.</p>
+      <p><strong>יד 1NT מאוזנת יכולה להסתיר מייגור של 4.</strong> הפותח לא מראה אותו, ואתם לא יכולים להכריז את המייגור שלכם באופן טבעי:
+      ${B('2D')} ו-${B('2H')} הם טרנספר. סטיימן שואל את השאלה ישירות.</p>
+      <p><strong>אין התאמה? עדיין בסדר.</strong> אחרי ${B('2D')} (או המייגור האחר), הכריזו 2NT כדי להזמין עם 8-9 נק', או 3NT עם 10 ומעלה.
+      לכן סטיימן דורש בערך 8 נק': צריך להיות בטוח להכריז שוב.</p>
+    </div>
+  </details>`);
+const WHY_TRANSFERS = L(`
+  <details class="why-more">
+    <summary class="btn secondary">💡 Why use transfers?</summary>
+    <div class="why-body">
+      <p><strong>The strong hand is hidden.</strong> Partner bids your major first, so the 1NT opener becomes declarer. Their strong hand stays face-down,
+      and the opening lead comes <em>into</em> their honors (like A-Q) instead of through them.</p>
+      <p><strong>You get a second bid.</strong> Partner's answer is automatic, so you can bid again and show your strength:</p>
+      <ul>
+        <li><strong>Weak (0–7 HCP):</strong> transfer, then pass. You play in your long suit at the 2-level, safer than 1NT.</li>
+        <li><strong>Invitational (8–9 HCP):</strong> transfer, then 2NT with five cards or 3 of the major with six. Partner goes to game with a maximum.</li>
+        <li><strong>Game (10+ HCP):</strong> transfer, then 3NT with five cards (partner chooses 3NT or 4 of the major) or 4 of the major with six.</li>
+      </ul>
+      <p><strong>4-level transfers</strong> (<strong>Texas transfers</strong>, 4${D} and 4${H}) are for a 6+ card major, game values and no interest in slam. With slam interest, start with
+      a 2-level transfer and bid again after it.</p>
+    </div>
+  </details>`, `
+  <details class="why-more">
+    <summary class="btn secondary">💡 למה להשתמש בטרנספר?</summary>
+    <div class="why-body">
+      <p><strong>היד החזקה מוסתרת.</strong> השותף מכריז ראשון את סדרת המייגור שלכם, ולכן פותח ה-1NT הופך לכרוז. היד החזקה שלו נשארת סגורה,
+      וההובלה הראשונה מגיעה <em>אל</em> ההונורים שלו (כמו A-Q) במקום לעבור דרכם.</p>
+      <p><strong>מקבלים הכרזה שנייה.</strong> התשובה של השותף אוטומטית, ולכן אפשר להכריז שוב ולהראות את הכוח:</p>
+      <ul>
+        <li><strong>חלשה (0-7 נק'):</strong> טרנספר ואחר כך פאס. משחקים בסדרה הארוכה שלכם ברמת 2, בטוח יותר מ-1NT.</li>
+        <li><strong>מזמינה (8-9 נק'):</strong> טרנספר ואחר כך 2NT עם חמישה קלפים, או 3 בסדרת המייגור עם שישה. השותף עולה למשחק מלא עם מקסימום.</li>
+        <li><strong>משחק מלא (10 נק' ומעלה):</strong> טרנספר ואחר כך 3NT עם חמישה קלפים (השותף בוחר בין 3NT ל-4 במייגור), או 4 במייגור עם שישה.</li>
+      </ul>
+      <p><strong>טרנספר ברמת 4</strong> (<strong>טרנספר טקסס</strong>, ${B('4D')} ו-${B('4H')}) מתאים למייגור של 6 קלפים ומעלה, כוח למשחק מלא ובלי עניין בסלאם. עם עניין בסלאם, התחילו
+      בטרנספר ברמת 2 והכריזו שוב אחריו.</p>
+    </div>
+  </details>`);
+
 const LESSONS_EN = [
   {
     title: 'What is bridge?',
@@ -287,8 +344,13 @@ const LESSONS_EN = [
         <tr><td><button class="finesse-link" type="button" data-response="two">11+ HCP, a 4+ card lower-ranking suit (5+ for ${H})</button></td><td>New suit at the 2-level</td></tr>
         <tr><td><button class="finesse-link" type="button" data-response="nt2">11–12 HCP, none of the above</button></td><td>2NT, inviting game</td></tr>
         <tr><td><button class="finesse-link" type="button" data-response="nt3">13–15 HCP, none of the above</button></td><td>3NT, bidding game</td></tr>
-        <tr><td><button class="finesse-link" type="button" data-response="ntopen">Partner opened 1NT (15–17)</button></td><td>With a 5+ card major, a <em>transfer</em>: 2${D} for hearts, 2${H} for spades.
-          With a 4-card major and 8+ HCP, <em>Stayman</em> (2${C}). Otherwise pass with 0–7, 2NT with 8–9 (inviting) and 3NT with 10–15. See <em>Conventions</em>.</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-response="ntopen">Partner opened 1NT (15–17)</button></td><td class="nt-respond">
+          <p><strong>Basic responses:</strong> 0–7 HCP: pass. 8–9: 2NT, inviting game. 10–15: 3NT.</p>
+          <p><strong>Convention:</strong> with 8+ HCP and a 4-card major, bid 2${C} (<em>Stayman</em>), asking partner to bid a 4-card major.</p>
+          ${WHY_STAYMAN}
+          <p><strong>Advanced convention:</strong> with a 5+ card major and any strength, bid the suit below it, a <em>transfer</em>: 2${D} with hearts, 2${H} with spades. Partner must bid your suit.</p>
+          ${WHY_TRANSFERS}
+          <p>When more than one fits, a transfer comes first, then Stayman.</p></td></tr>
       </table>
       <h3>${S}${H} Supporting partner's major</h3>
       <table class="tbl support-table">
@@ -458,17 +520,7 @@ const LESSONS_EN = [
       <h3>Over partner's 1NT</h3>
       <ul>
         <li><strong>Stayman (2${C})</strong>: with 8+ HCP and a 4-card major, ask partner for a 4-card major. Partner bids 2${H} or 2${S} with one, or 2${D} with neither.
-          <details class="why-more">
-            <summary class="btn secondary">💡 Why use Stayman?</summary>
-            <div class="why-body">
-              <p><strong>A major fit plays better than no-trump.</strong> With eight trumps between you, the opponents can't run a long suit against you,
-              and you can ruff their winners. 4${H} or 4${S} often makes when 3NT fails.</p>
-              <p><strong>A balanced 1NT can hide a 4-card major.</strong> Opener doesn't show it, and you can't bid your own major naturally:
-              2${D} and 2${H} are transfers. Stayman asks the question directly.</p>
-              <p><strong>No fit? You are still fine.</strong> After 2${D} (or the other major), bid 2NT to invite with 8–9 HCP, or 3NT with 10+.
-              That is why Stayman needs about 8 HCP: you must be safe to bid again.</p>
-            </div>
-          </details></li>
+          ${WHY_STAYMAN}</li>
         <li><strong>Puppet Stayman (3${C})</strong>: with game values and a 3- or 4-card major, ask partner for a 4- or 5-card major. Partner bids 3${H} or 3${S} with five cards, 3${D} with a 4-card major, or 3NT with neither.
           After 3${D}, bid the major you <em>don't</em> have (3${H} shows four spades, 3${S} shows four hearts), so the strong hand plays the contract.
           <details class="why-more">
@@ -484,21 +536,7 @@ const LESSONS_EN = [
           </details></li>
         <li><strong>Jacoby transfers (2${D}, 2${H}, 4${D}, 4${H})</strong>: with 5+ cards in a major, bid the suit just below it. Partner must bid your major. Use them with any strength.
           With a 6+ card major and enough for game, transfer at the 4-level (<strong>Texas transfers</strong>): <strong>4${D}</strong> asks partner to bid 4${H}, and <strong>4${H}</strong> asks for 4${S}.
-          <details class="why-more">
-            <summary class="btn secondary">💡 Why use transfers?</summary>
-            <div class="why-body">
-              <p><strong>The strong hand is hidden.</strong> Partner bids your major first, so the 1NT opener becomes declarer. Their strong hand stays face-down,
-              and the opening lead comes <em>into</em> their honors (like A-Q) instead of through them.</p>
-              <p><strong>You get a second bid.</strong> Partner's answer is automatic, so you can bid again and show your strength:</p>
-              <ul>
-                <li><strong>Weak (0–7 HCP):</strong> transfer, then pass. You play in your long suit at the 2-level, safer than 1NT.</li>
-                <li><strong>Invitational (8–9 HCP):</strong> transfer, then 2NT with five cards or 3 of the major with six. Partner goes to game with a maximum.</li>
-                <li><strong>Game (10+ HCP):</strong> transfer, then 3NT with five cards (partner chooses 3NT or 4 of the major) or 4 of the major with six.</li>
-              </ul>
-              <p><strong>4-level transfers</strong> (<strong>Texas transfers</strong>, 4${D} and 4${H}) are for a 6+ card major, game values and no interest in slam. With slam interest, start with
-              a 2-level transfer and bid again after it.</p>
-            </div>
-          </details></li>
+          ${WHY_TRANSFERS}</li>
       </ul>
 
       <h3>Over partner's 2NT</h3>
@@ -885,8 +923,13 @@ const LESSONS_HE = [
         <tr><td><button class="finesse-link" type="button" data-response="two">11 נק' ומעלה, סדרה נמוכה יותר של 4 קלפים ומעלה (5 ומעלה ב-${H})</button></td><td>סדרה חדשה ברמת 2</td></tr>
         <tr><td><button class="finesse-link" type="button" data-response="nt2">11-12 נק', אף אחד מאלה</button></td><td>2NT, הזמנה למשחק מלא</td></tr>
         <tr><td><button class="finesse-link" type="button" data-response="nt3">13-15 נק', אף אחד מאלה</button></td><td>3NT, הכרזת משחק מלא</td></tr>
-        <tr><td><button class="finesse-link" type="button" data-response="ntopen">השותף פתח 1NT (15-17)</button></td><td>עם סדרת מייגור של 5 קלפים ומעלה, <em>טרנספר</em>: ${B('2D')} להארט, ${B('2H')} לספייד.
-          עם סדרת מייגור של 4 קלפים ו-8 נק' ומעלה, <em>סטיימן</em> (${B('2C')}). אחרת פאס עם 0-7, 2NT עם 8-9 (הזמנה) ו-3NT עם 10-15. ראו <em>מוסכמות</em>.</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-response="ntopen">השותף פתח 1NT (15-17)</button></td><td class="nt-respond">
+          <p><strong>תשובות בסיסיות:</strong> 0-7 נק': פאס. 8-9: 2NT, הזמנה למשחק מלא. 10-15: 3NT.</p>
+          <p><strong>מוסכמה:</strong> עם 8 נק' ומעלה וסדרת מייגור של 4 קלפים, הכריזו ${B('2C')} (<em>סטיימן</em>), כדי לבקש מהשותף להכריז סדרת מייגור של 4 קלפים.</p>
+          ${WHY_STAYMAN}
+          <p><strong>מוסכמה מתקדמת:</strong> עם סדרת מייגור של 5 קלפים ומעלה, בכל כוח, הכריזו את הסדרה שמתחתיה, <em>טרנספר</em>: ${B('2D')} עם הארט, ${B('2H')} עם ספייד. השותף חייב להכריז את הסדרה שלכם.</p>
+          ${WHY_TRANSFERS}
+          <p>כשמתאימה יותר מאפשרות אחת, טרנספר קודם, ואחריו סטיימן.</p></td></tr>
       </table>
       <h3>${S}${H} תמיכה בסדרת המייגור של השותף</h3>
       <table class="tbl support-table">
@@ -1056,17 +1099,7 @@ const LESSONS_HE = [
       <h3>מעל 1NT של השותף</h3>
       <ul>
         <li><strong>סטיימן (${B('2C')})</strong>: עם 8 נק' ומעלה וסדרת מייגור של 4 קלפים, שאלו את השותף אם יש לו סדרת מייגור של 4. השותף מכריז ${B('2H')} או ${B('2S')} עם סדרה כזו, או ${B('2D')} בלי.
-          <details class="why-more">
-            <summary class="btn secondary">💡 למה להשתמש בסטיימן?</summary>
-            <div class="why-body">
-              <p><strong>התאמה במייגור משחקת טוב יותר מללא שליט.</strong> עם שמונה שליטים ביחד, היריבים לא יכולים להריץ נגדכם סדרה ארוכה,
-              ואתם יכולים לחתוך את הקלפים הזוכים שלהם. ${B('4H')} או ${B('4S')} מצליחים לעתים קרובות כש-3NT נכשל.</p>
-              <p><strong>יד 1NT מאוזנת יכולה להסתיר מייגור של 4.</strong> הפותח לא מראה אותו, ואתם לא יכולים להכריז את המייגור שלכם באופן טבעי:
-              ${B('2D')} ו-${B('2H')} הם טרנספר. סטיימן שואל את השאלה ישירות.</p>
-              <p><strong>אין התאמה? עדיין בסדר.</strong> אחרי ${B('2D')} (או המייגור האחר), הכריזו 2NT כדי להזמין עם 8-9 נק', או 3NT עם 10 ומעלה.
-              לכן סטיימן דורש בערך 8 נק': צריך להיות בטוח להכריז שוב.</p>
-            </div>
-          </details></li>
+          ${WHY_STAYMAN}</li>
         <li><strong>פאפט סטיימן (${B('3C')})</strong>: עם כוח למשחק מלא וסדרת מייגור של 3 או 4 קלפים, שאלו את השותף אם יש לו סדרת מייגור של 4 או 5. השותף מכריז ${B('3H')} או ${B('3S')} עם חמישה קלפים, ${B('3D')} עם מייגור של 4, או 3NT בלי.
           אחרי ${B('3D')}, הכריזו את המייגור <em>שאין</em> לכם (${B('3H')} מראה ארבעה ספייד, ${B('3S')} מראה ארבעה הארט), כדי שהיד החזקה תשחק את החוזה.
           <details class="why-more">
@@ -1082,21 +1115,7 @@ const LESSONS_HE = [
           </details></li>
         <li><strong>טרנספר ג'ייקובי (${B('2D')}, ${B('2H')}, ${B('4D')}, ${B('4H')})</strong>: עם 5 קלפים ומעלה בסדרת מייגור, הכריזו את הסדרה שמתחתיה. השותף חייב להכריז את הסדרה שלכם. משתמשים בו עם כל כוח.
           עם מייגור של 6 קלפים ומעלה וכוח למשחק מלא, הכריזו טרנספר ברמת 4 (<strong>טרנספר טקסס</strong>): <strong>${B('4D')}</strong> מבקש מהשותף להכריז ${B('4H')}, ו-<strong>${B('4H')}</strong> מבקש ${B('4S')}.
-          <details class="why-more">
-            <summary class="btn secondary">💡 למה להשתמש בטרנספר?</summary>
-            <div class="why-body">
-              <p><strong>היד החזקה מוסתרת.</strong> השותף מכריז ראשון את סדרת המייגור שלכם, ולכן פותח ה-1NT הופך לכרוז. היד החזקה שלו נשארת סגורה,
-              וההובלה הראשונה מגיעה <em>אל</em> ההונורים שלו (כמו A-Q) במקום לעבור דרכם.</p>
-              <p><strong>מקבלים הכרזה שנייה.</strong> התשובה של השותף אוטומטית, ולכן אפשר להכריז שוב ולהראות את הכוח:</p>
-              <ul>
-                <li><strong>חלשה (0-7 נק'):</strong> טרנספר ואחר כך פאס. משחקים בסדרה הארוכה שלכם ברמת 2, בטוח יותר מ-1NT.</li>
-                <li><strong>מזמינה (8-9 נק'):</strong> טרנספר ואחר כך 2NT עם חמישה קלפים, או 3 בסדרת המייגור עם שישה. השותף עולה למשחק מלא עם מקסימום.</li>
-                <li><strong>משחק מלא (10 נק' ומעלה):</strong> טרנספר ואחר כך 3NT עם חמישה קלפים (השותף בוחר בין 3NT ל-4 במייגור), או 4 במייגור עם שישה.</li>
-              </ul>
-              <p><strong>טרנספר ברמת 4</strong> (<strong>טרנספר טקסס</strong>, ${B('4D')} ו-${B('4H')}) מתאים למייגור של 6 קלפים ומעלה, כוח למשחק מלא ובלי עניין בסלאם. עם עניין בסלאם, התחילו
-              בטרנספר ברמת 2 והכריזו שוב אחריו.</p>
-            </div>
-          </details></li>
+          ${WHY_TRANSFERS}</li>
       </ul>
 
       <h3>מעל 2NT של השותף</h3>
