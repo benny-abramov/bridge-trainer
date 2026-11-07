@@ -2190,7 +2190,10 @@ const OvercallExamples = (() => {
     tox: (b, open, hand) => b === 'X' && hcp(hand) < 17,
     nt: b => b === '1N',
     strongx: (b, open, hand) => b === 'X' && hcp(hand) >= 17,
-    wjo: (b, open) => /^2[CDHS]$/.test(b) && rank(b[1]) < rank(open), // could have bid it at the 1-level: a jump
+    // A jump, as it could have been bid at the 1-level. Not with a second 5-card suit: a 5-5 or 6-5
+    // hand is one for Michaels or the Unusual 2NT, which this lesson doesn't cover.
+    wjo: (b, open, hand) => /^2[CDHS]$/.test(b) && rank(b[1]) < rank(open)
+      && Object.values(suitLengths(hand)).filter(n => n >= 5).length < 2,
     pre: b => /^3[CDHS]$/.test(b),
     pre4: b => /^4[CDHS]$/.test(b),
     pass: b => b === 'P',
