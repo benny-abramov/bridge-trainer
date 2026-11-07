@@ -529,7 +529,35 @@ const LESSONS_EN = [
         <li>When more than one row fits, a weak hand (6–10 HCP) with a 6- or 7-card suit makes the jump, not a simple overcall. A balanced 15–18 with a stopper prefers 1NT.</li>
         <li>A <strong>good suit</strong> has at least two of the top honors (A, K, Q, J, 10). With fewer than 12 HCP, only overcall with a good suit, because partner will usually lead it.</li>
         <li>A <strong>stopper</strong> is a holding that will win a trick in their suit: A, K-x, Q-x-x or J-x-x-x.</li>
-        <li>A <strong>takeout double</strong> doesn't mean "I think they'll go down". It asks partner to choose a trump suit, so partner must bid even with a weak hand.</li>
+        <li>A <strong>takeout double</strong> doesn't mean "I think they'll go down". It asks partner to choose a trump suit, so partner must bid even with a weak hand.
+          <details class="why-more">
+            <summary class="btn secondary">💡 Responding to a takeout double</summary>
+            <div class="why-body">
+              <p>The examples use the auction 1${H} (opener) – Double (partner) – Pass – ? You are partner of the doubler.</p>
+              <p><strong>You must bid, even with 0 points.</strong> If you pass, partner's double becomes a penalty double, and the opponents play 1${H} doubled.
+              They have most of the strength and the trumps, so they will usually make it, often with overtricks, and score a lot. Bid your best suit: prefer an unbid major, then your longest suit.</p>
+              <p><strong>Pass only with a very good holding in opener's suit</strong>, such as five or more hearts with strong honors (K-Q-J-10-x). Then you expect to defeat 1${H} doubled: a <em>penalty pass</em>.</p>
+              <table class="tbl">
+                <tr><th>Your hand</th><th>Bid</th><th>Example</th></tr>
+                <tr><td>0–8 points</td><td>The cheapest bid in your best suit</td><td>1${S}, 2${C}, 2${D}</td></tr>
+                <tr><td>9–11 points</td><td>A jump in your best suit, inviting game</td><td>2${S}, 3${C}, 3${D}</td></tr>
+                <tr><td>12+ points and a 5+ card major</td><td>Jump to game in the major</td><td>4${S}</td></tr>
+                <tr><td>6–10, balanced, a stopper in opener's suit, no 4-card unbid major</td><td>1NT</td><td>1NT</td></tr>
+                <tr><td>11–12, balanced, a stopper in opener's suit</td><td>2NT, inviting game</td><td>2NT</td></tr>
+                <tr><td>13–16, balanced, a stopper in opener's suit</td><td>3NT</td><td>3NT</td></tr>
+                <tr><td>12+ points, not sure of the best suit</td><td><em>Cue bid</em> opener's suit: forcing, asks partner to describe the hand further</td><td>2${H}</td></tr>
+                <tr><td>Long, strong cards in opener's suit</td><td>Pass (penalty)</td><td>Pass</td></tr>
+              </table>
+              <p><strong>When opener's partner bids</strong> (1${H} – Double – 2${H} – ?), you are no longer forced: partner gets another turn. Any bid you make now is a <em>free bid</em> and promises some values:</p>
+              <table class="tbl">
+                <tr><th>Your hand</th><th>Bid</th></tr>
+                <tr><td>0–5 points</td><td>Pass</td></tr>
+                <tr><td>6–8 points</td><td>The cheapest bid in your best suit (a free bid)</td></tr>
+                <tr><td>9–11 points</td><td>A jump in your best suit, inviting game</td></tr>
+                <tr><td>12+ points</td><td>A cue bid of their suit, or game</td></tr>
+              </table>
+            </div>
+          </details></li>
       </ul>
       <p><strong>When partner overcalls</strong>, raise with 3+ card support, just as you would after an opening bid.</p>`,
     tryIt: 'overcalls',
@@ -1108,7 +1136,35 @@ const LESSONS_HE = [
         <li>כשיותר משורה אחת מתאימה, יד חלשה (6-10 נק') עם סדרה של 6 או 7 קלפים קופצת, ולא מתערבת התערבות פשוטה. יד מאוזנת של 15-18 עם עוצר מעדיפה 1NT.</li>
         <li><strong>סדרה טובה</strong> כוללת לפחות שניים מהקלפים הגבוהים (A, K, Q, J, 10). עם פחות מ-12 נק', התערבו רק עם סדרה טובה, כי בדרך כלל השותף יוביל אותה.</li>
         <li><strong>עוצר</strong> הוא החזקה שתזכה בלקיחה בסדרה שלהם: A, K-x, Q-x-x או J-x-x-x.</li>
-        <li><strong>כפל הוצאה</strong> לא אומר "אני חושב שהם ייפלו". הוא מבקש מהשותף לבחור סדרת שליט, ולכן השותף חייב להכריז גם עם יד חלשה.</li>
+        <li><strong>כפל הוצאה</strong> לא אומר "אני חושב שהם ייפלו". הוא מבקש מהשותף לבחור סדרת שליט, ולכן השותף חייב להכריז גם עם יד חלשה.
+          <details class="why-more">
+            <summary class="btn secondary">💡 תשובה לכפל הוצאה</summary>
+            <div class="why-body">
+              <p>הדוגמאות משתמשות במכרז <bdi dir="ltr">${B('1H')} – <bdi>דאבל</bdi> – <bdi>פאס</bdi> – ?</bdi> (הפותח, השותף שלכם, השותף של הפותח). אתם השותף של המכפיל.</p>
+              <p><strong>חובה להכריז, גם עם 0 נקודות.</strong> אם תכריזו פאס, הכפל של השותף הופך לכפל עונשין, והיריבים משחקים ${B('1H')} מוכפל.
+              לרוב הכוח והשליטים אצלם, ולכן בדרך כלל הם יבצעו את החוזה, לעתים קרובות עם לקיחות עודפות, ויקבלו הרבה נקודות. הכריזו את הסדרה הטובה ביותר שלכם: עדיפות לסדרת מייגור שלא הוכרזה, ואחר כך לסדרה הארוכה ביותר.</p>
+              <p><strong>פאס רק עם קלפים טובים מאוד בסדרה של הפותח</strong>, כמו חמישה הארט ומעלה עם הונורים חזקים (K-Q-J-10-x). אז אתם מצפים להפיל את ${B('1H')} המוכפל: <em>פאס עונשין</em>.</p>
+              <table class="tbl">
+                <tr><th>היד שלכם</th><th>הכרזה</th><th>דוגמה</th></tr>
+                <tr><td>0-8 נקודות</td><td>ההכרזה הזולה ביותר בסדרה הטובה ביותר שלכם</td><td>${B('1S')}, ${B('2C')}, ${B('2D')}</td></tr>
+                <tr><td>9-11 נקודות</td><td>קפיצה בסדרה הטובה ביותר שלכם, הזמנה למשחק מלא</td><td>${B('2S')}, ${B('3C')}, ${B('3D')}</td></tr>
+                <tr><td>12 נקודות ומעלה וסדרת מייגור של 5 קלפים ומעלה</td><td>קפיצה למשחק מלא בסדרת המייגור</td><td>${B('4S')}</td></tr>
+                <tr><td>6-10, מאוזנת, עוצר בסדרה של הפותח, בלי סדרת מייגור של 4 שלא הוכרזה</td><td>1NT</td><td>1NT</td></tr>
+                <tr><td>11-12, מאוזנת, עוצר בסדרה של הפותח</td><td>2NT, הזמנה למשחק מלא</td><td>2NT</td></tr>
+                <tr><td>13-16, מאוזנת, עוצר בסדרה של הפותח</td><td>3NT</td><td>3NT</td></tr>
+                <tr><td>12 נקודות ומעלה, בלי ודאות לגבי הסדרה הטובה ביותר</td><td><em>קיו-ביד</em> בסדרה של הפותח: מחייב, ומבקש מהשותף לתאר את היד שלו</td><td>${B('2H')}</td></tr>
+                <tr><td>קלפים ארוכים וחזקים בסדרה של הפותח</td><td>פאס (עונשין)</td><td>פאס</td></tr>
+              </table>
+              <p><strong>כשהשותף של הפותח מכריז</strong> (<bdi dir="ltr">${B('1H')} – <bdi>דאבל</bdi> – ${B('2H')} – ?</bdi>), אתם כבר לא חייבים להכריז: לשותף יש עוד תור. כל הכרזה שלכם עכשיו היא <em>הכרזה חופשית</em> ומבטיחה קצת כוח:</p>
+              <table class="tbl">
+                <tr><th>היד שלכם</th><th>הכרזה</th></tr>
+                <tr><td>0-5 נקודות</td><td>פאס</td></tr>
+                <tr><td>6-8 נקודות</td><td>ההכרזה הזולה ביותר בסדרה הטובה ביותר שלכם (הכרזה חופשית)</td></tr>
+                <tr><td>9-11 נקודות</td><td>קפיצה בסדרה הטובה ביותר שלכם, הזמנה למשחק מלא</td></tr>
+                <tr><td>12 נקודות ומעלה</td><td>קיו-ביד בסדרה שלהם, או משחק מלא</td></tr>
+              </table>
+            </div>
+          </details></li>
       </ul>
       <p><strong>כשהשותף מתערב</strong>, תמכו בסדרה שלו עם 3 קלפים ומעלה, בדיוק כמו אחרי הכרזת פתיחה.</p>`,
     tryIt: 'overcalls',

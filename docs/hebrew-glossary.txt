@@ -77,6 +77,9 @@ Rule of 20 = חוק ה-20
 overcall = הכרזת התערבות
 weak jump overcall = קפיצת התערבות חלשה
 takeout double = כפל הוצאה
+penalty pass = פאס עונשין
+free bid = הכרזה חופשית
+cue bid = קיו-ביד
 negative double = כפל שלילי
 
 # ---- Conventions ----
