@@ -186,7 +186,12 @@ const DECLARER_SECTIONS = {
         <li><strong>Entries.</strong> After the victim discards, you must still be able to reach the threat that has become a winner. Usually one threat comes with its own winner, such as ♥A-J.</li>
       </ul>
       <p>The last winner you cash is the <strong>squeeze card</strong>. A <em>positional</em> squeeze only works against the defender who discards <em>before</em> the hand holding the threats. An <em>automatic</em> squeeze works against either defender, because the hand opposite the squeeze card has a spare card to throw.</p>
-      <p>The rule of thumb is: <strong>cash your winners in the other suits first and keep the threats</strong>. Then watch what the victim throws.</p>`, `
+      <p>The rule of thumb is: <strong>cash your winners in the other suits first and keep the threats</strong>. Then watch what the victim throws.</p>
+      <h3>Double squeeze</h3>
+      <p>In a <strong>double squeeze</strong>, one card squeezes both defenders. Each defender guards one threat alone (West a threat in North, East a threat in South), and <em>both</em> guard a third suit.
+      When you cash the squeeze card, each defender must keep their own guard, so both throw a card in the shared suit, and your last card in it wins.</p>
+      <p>It needs three threats: one against each defender, and a shared threat that comes with its own winner and entry, such as ♠A-9 opposite a small spade.
+      West, who plays before North, is squeezed first. North then throws the threat it no longer needs, and East, who plays after North, is squeezed next.</p>`, `
       <p><strong>לחץ</strong> (סקוויז) מייצר לקיחה יש מאין. אתם מממשים זוכה, ומגן ששומר על שתי סדרות נאלץ להשליך. על איזו שמירה שלא יוותר, אחד הקלפים שלכם הופך לזוכה.</p>
       <p>לחץ צריך ארבעה דברים:</p>
       <ul>
@@ -196,7 +201,12 @@ const DECLARER_SECTIONS = {
         <li><strong>כניסות.</strong> אחרי שהקורבן משליך, אתם עדיין צריכים להגיע לאיום שהפך לזוכה. בדרך כלל לאחד האיומים יש זוכה משלו, כמו ♥A-J.</li>
       </ul>
       <p>הזוכה האחרון שאתם מממשים הוא <strong>קלף הלחץ</strong>. לחץ <em>מבוסס מיקום</em> עובד רק נגד המגן שמשליך <em>לפני</em> היד שמחזיקה את האיומים. לחץ <em>אוטומטי</em> עובד נגד כל אחד מהמגינים, כי ליד שמול קלף הלחץ יש קלף מיותר להשליך.</p>
-      <p>כלל האצבע: <strong>ממשו קודם את הזוכים בסדרות האחרות, ושמרו את האיומים</strong>. אחר כך הסתכלו מה הקורבן משליך.</p>`),
+      <p>כלל האצבע: <strong>ממשו קודם את הזוכים בסדרות האחרות, ושמרו את האיומים</strong>. אחר כך הסתכלו מה הקורבן משליך.</p>
+      <h3>לחץ כפול</h3>
+      <p>ב<strong>לחץ כפול</strong> קלף אחד לוחץ את שני המגינים. כל מגן שומר לבדו על איום אחד (מערב על איום בצפון, מזרח על איום בדרום), ו<em>שניהם</em> שומרים על סדרה שלישית.
+      כשאתם מממשים את קלף הלחץ, כל מגן חייב לשמור את השמירה שלו, ולכן שניהם משליכים קלף בסדרה המשותפת, והקלף האחרון שלכם בה זוכה.</p>
+      <p>צריך שלושה איומים: אחד נגד כל מגן, ואיום משותף שיש לו זוכה וכניסה משלו, כמו ♠A-9 מול ספייד קטן.
+      מערב, שמשחק לפני צפון, נלחץ ראשון. צפון משליך אז את האיום שכבר לא צריך, ומזרח, שמשחק אחרי צפון, נלחץ אחריו.</p>`),
   },
   endplay: {
     label: L('Elimination and endplays', 'ניקוי ומשחקי סיום'),

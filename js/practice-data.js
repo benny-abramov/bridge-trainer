@@ -1573,6 +1573,30 @@ const PRACTICE = {
    }
   },
   {
+   "section": "squeeze",
+   "contract": "3N",
+   "leader": 2,
+   "hands": [
+    "S:A9 H:J",
+    "S:JT D:K",
+    "S:3 D:Q C:A",
+    "S:KQ H:K"
+   ],
+   "need": 3,
+   "why": {
+    "en": "<p>When the <strong>♣A</strong> is led, both West and East are squeezed:</p> <ul><li>West discards first and must keep the ♥K to guard against dummy's ♥J, so West throws a spade. North then throws the ♥J, which is no longer needed.</li> <li>East must keep the ♦K to guard against your ♦Q, so East throws a spade too.</li></ul> <p>Now nobody guards spades: lead the ♠3 to dummy's ♠A, both spade honors fall, and dummy's small ♠9 becomes a winner. If a defender throws their red king instead, the card it guarded against wins.</p> <p>This is a <em>double squeeze</em>: each defender guards one suit alone, and both guard spades, so neither can keep the spade guard.</p>",
+    "he": "<p>כשמובילים את <strong>♣A</strong>, גם מערב וגם מזרח נלחצים:</p> <ul><li>מערב משליך ראשון וחייב לשמור את ה-♥K מול ה-♥J של הדומם, ולכן הוא משליך ספייד. צפון משליך אז את ה-♥J, שכבר לא נחוץ.</li> <li>מזרח חייב לשמור את ה-♦K מול ה-♦Q שלכם, ולכן גם הוא משליך ספייד.</li></ul> <p>עכשיו אף אחד לא שומר על הספייד: הובילו את ה-♠3 ל-♠A של הדומם, שני ההונורים בספייד נופלים, וה-♠9 הקטן של הדומם הופך לזוכה. אם מגן משליך במקום זאת את המלך האדום שלו, הקלף שמולו הוא שמר זוכה.</p> <p>זהו <em>לחץ כפול</em>: כל מגן שומר לבדו על סדרה אחת, ושניהם שומרים על הספייד, ולכן אף אחד מהם לא יכול לשמור את השמירה בספייד.</p>"
+   },
+   "note": {
+    "en": "Cash the ♣A now: West and East must each abandon a guard.",
+    "he": "ממשו עכשיו את ה-♣A: מערב ומזרח חייבים כל אחד לוותר על שמירה."
+   },
+   "title": {
+    "en": "Double squeeze",
+    "he": "הלחץ הכפול"
+   }
+  },
+  {
    "section": "endplay",
    "contract": "4S",
    "leader": 2,

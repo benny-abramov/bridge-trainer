@@ -351,6 +351,21 @@ Note: You need three of the last four tricks, and you have a spade loser. Should
 Explanation: <p>Lose the spade <strong>first</strong>: lead the ♠2. East wins the ♠A and has only clubs left to return. Your ♣A now squeezes West, who no longer has the ♠9 as a spare card.</p> <p>If you cash the ♣A straight away, West simply throws the ♠9 and keeps both red guards. A squeeze only works when you can win all the remaining tricks but one. Giving up your spare loser early to reach that point is called <em>rectifying the count</em>.</p>
 הסבר: <p>מסרו את הספייד <strong>קודם</strong>: הובילו את ה-♠2. מזרח זוכה ב-♠A ונשארו לו רק קלפי קלאב להחזיר. עכשיו ה-♣A שלכם לוחץ את מערב, שכבר אין לו את ה-♠9 כקלף מיותר.</p> <p>אם תממשו את ה-♣A מיד, מערב פשוט ישליך את ה-♠9 וישמור את שתי השמירות האדומות. לחץ עובד רק כשאתם יכולים לזכות בכל הלקיחות שנשארו פרט לאחת. מסירת המפסיד המיותר מוקדם כדי להגיע למצב הזה נקראת <em>תיקון הספירה</em>.</p>
 
+Section: squeeze
+Title: Double squeeze
+כותרת: הלחץ הכפול
+Contract: 3NT
+Leader: S
+Need: 3
+North: S A9 H J
+East:  S J10 D K
+South: S 3  D Q  C A
+West:  S KQ  H K
+Note: Cash the ♣A now: West and East must each abandon a guard.
+הערה: ממשו עכשיו את ה-♣A: מערב ומזרח חייבים כל אחד לוותר על שמירה.
+Explanation: <p>When the <strong>♣A</strong> is led, both West and East are squeezed:</p> <ul><li>West discards first and must keep the ♥K to guard against dummy's ♥J, so West throws a spade. North then throws the ♥J, which is no longer needed.</li> <li>East must keep the ♦K to guard against your ♦Q, so East throws a spade too.</li></ul> <p>Now nobody guards spades: lead the ♠3 to dummy's ♠A, both spade honors fall, and dummy's small ♠9 becomes a winner. If a defender throws their red king instead, the card it guarded against wins.</p> <p>This is a <em>double squeeze</em>: each defender guards one suit alone, and both guard spades, so neither can keep the spade guard.</p>
+הסבר: <p>כשמובילים את <strong>♣A</strong>, גם מערב וגם מזרח נלחצים:</p> <ul><li>מערב משליך ראשון וחייב לשמור את ה-♥K מול ה-♥J של הדומם, ולכן הוא משליך ספייד. צפון משליך אז את ה-♥J, שכבר לא נחוץ.</li> <li>מזרח חייב לשמור את ה-♦K מול ה-♦Q שלכם, ולכן גם הוא משליך ספייד.</li></ul> <p>עכשיו אף אחד לא שומר על הספייד: הובילו את ה-♠3 ל-♠A של הדומם, שני ההונורים בספייד נופלים, וה-♠9 הקטן של הדומם הופך לזוכה. אם מגן משליך במקום זאת את המלך האדום שלו, הקלף שמולו הוא שמר זוכה.</p> <p>זהו <em>לחץ כפול</em>: כל מגן שומר לבדו על סדרה אחת, ושניהם שומרים על הספייד, ולכן אף אחד מהם לא יכול לשמור את השמירה בספייד.</p>
+
 Section: endplay
 Title: The basic throw-in
 כותרת: הכנסה בסיסית

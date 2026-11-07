@@ -136,6 +136,7 @@ squeeze card = קלף הלחץ
 victim = קורבן
 rectifying the count = תיקון הספירה
 positional / automatic squeeze = לחץ מבוסס מיקום / אוטומטי
+double squeeze = לחץ כפול
 endplay = משחק סיום (אנדפליי)
 throw-in = הכנסה
 strip = ניקוי
