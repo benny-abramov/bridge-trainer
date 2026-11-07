@@ -769,3 +769,6 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 /* Tables inside a "Why" box (the transfer follow-ups): a little tighter. */
 .why-body .tbl { margin: .4rem 0 .6rem; }
 .why-body .why-heading { margin: .8rem 0 0; font-size: 1.05em; }
+/* The suit-split odds table in Declarer Play's Drawing trumps topic. */
+.odds-table td { text-align: center; }
+.odds-table td[rowspan] { vertical-align: middle; }

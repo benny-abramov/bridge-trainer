@@ -64,7 +64,34 @@ const DECLARER_SECTIONS = {
 
       <p>In a trump contract, the defenders' trumps are a danger: they can ruff your winners. <strong>Drawing trumps</strong> means leading trumps until the defenders have none left.</p>
       <ul>
-        <li><strong>Count the defenders' trumps.</strong> If you and dummy hold eight trumps, the defenders hold five. Keep track as they follow, and stop when they're all gone.</li>
+        <li><strong>Count the defenders' trumps.</strong> If you and dummy hold eight trumps, the defenders hold five. Keep track as they follow, and stop when they're all gone.
+          How the missing cards split between the two defenders is a matter of chance, and the odds depend on how many cards are missing.
+          With five missing, a 3-2 split is the most likely (68%), but 4-1 happens 28% of the time. An odd number of missing cards usually splits as evenly as it can;
+          an even number usually doesn't: with four missing, 3-1 is likelier than 2-2, and with six missing, 4-2 is likelier than 3-3. With two missing, 1-1 and 2-0 are close to even.
+          <details class="why-more">
+            <summary class="btn secondary">💡 Show the distribution probabilities</summary>
+            <div class="why-body">
+              <table class="tbl odds-table">
+                <tr><th>You hold</th><th>Defenders hold</th><th>Split</th><th>Chance</th></tr>
+                <tr><td rowspan="4">7</td><td rowspan="4">6</td><td>3-3</td><td>35.5%</td></tr>
+                <tr><td><strong>4-2</strong></td><td><strong>48.4%</strong></td></tr>
+                <tr><td>5-1</td><td>14.5%</td></tr>
+                <tr><td>6-0</td><td>1.5%</td></tr>
+                <tr><td rowspan="3">8</td><td rowspan="3">5</td><td><strong>3-2</strong></td><td><strong>67.8%</strong></td></tr>
+                <tr><td>4-1</td><td>28.3%</td></tr>
+                <tr><td>5-0</td><td>3.9%</td></tr>
+                <tr><td rowspan="3">9</td><td rowspan="3">4</td><td>2-2</td><td>40.7%</td></tr>
+                <tr><td><strong>3-1</strong></td><td><strong>49.7%</strong></td></tr>
+                <tr><td>4-0</td><td>9.6%</td></tr>
+                <tr><td rowspan="2">10</td><td rowspan="2">3</td><td><strong>2-1</strong></td><td><strong>78.0%</strong></td></tr>
+                <tr><td>3-0</td><td>22.0%</td></tr>
+                <tr><td rowspan="2">11</td><td rowspan="2">2</td><td><strong>1-1</strong></td><td><strong>52.0%</strong></td></tr>
+                <tr><td>2-0</td><td>48.0%</td></tr>
+                <tr><td>12</td><td>1</td><td>1-0</td><td>100%</td></tr>
+              </table>
+              <p>The chances are before any card is played. Each uneven split counts both ways: 4-1 means either defender may hold the four.</p>
+            </div>
+          </details></li>
         <li><strong>Draw trumps early</strong> when you don't need dummy's trumps for ruffing, so your side-suit winners can't be ruffed.</li>
         <li><strong>Don't draw trumps first</strong> when you need dummy's trumps to ruff your losers (see <em>Ruffing in dummy</em>).</li>
         <li>You don't have to draw a defender's top trump: leave it, and let them take it when they like.</li>
@@ -72,7 +99,34 @@ const DECLARER_SECTIONS = {
 
       <p>בחוזה בשליט, השליטים של המגינים הם סכנה: הם יכולים לחתוך את הזוכים שלכם. <strong>הוצאת שליטים</strong> פירושה להוביל שליטים עד שלמגינים לא נשאר אף שליט.</p>
       <ul>
-        <li><strong>ספרו את השליטים של המגינים.</strong> אם לכם ולדומם יש שמונה שליטים, למגינים יש חמישה. עקבו אחריהם כשהם משרתים, ועצרו כשהם נגמרו.</li>
+        <li><strong>ספרו את השליטים של המגינים.</strong> אם לכם ולדומם יש שמונה שליטים, למגינים יש חמישה. עקבו אחריהם כשהם משרתים, ועצרו כשהם נגמרו.
+          איך הקלפים החסרים מתחלקים בין שני המגינים תלוי במזל, והסיכויים תלויים במספר הקלפים החסרים.
+          כשחסרים חמישה, חלוקה של 3-2 היא הסבירה ביותר (68%), אבל 4-1 קורית ב-28% מהמקרים. מספר אי-זוגי של קלפים חסרים מתחלק בדרך כלל באופן הכי שווה שאפשר;
+          מספר זוגי בדרך כלל לא: כשחסרים ארבעה, 3-1 סבירה יותר מ-2-2, וכשחסרים שישה, 4-2 סבירה יותר מ-3-3. כשחסרים שניים, 1-1 ו-2-0 קרובות לסיכוי שווה.
+          <details class="why-more">
+            <summary class="btn secondary">💡 הצגת הסתברויות החלוקה</summary>
+            <div class="why-body">
+              <table class="tbl odds-table">
+                <tr><th>יש לכם</th><th>למגינים יש</th><th>חלוקה</th><th>סיכוי</th></tr>
+                <tr><td rowspan="4">7</td><td rowspan="4">6</td><td>3-3</td><td>35.5%</td></tr>
+                <tr><td><strong>4-2</strong></td><td><strong>48.4%</strong></td></tr>
+                <tr><td>5-1</td><td>14.5%</td></tr>
+                <tr><td>6-0</td><td>1.5%</td></tr>
+                <tr><td rowspan="3">8</td><td rowspan="3">5</td><td><strong>3-2</strong></td><td><strong>67.8%</strong></td></tr>
+                <tr><td>4-1</td><td>28.3%</td></tr>
+                <tr><td>5-0</td><td>3.9%</td></tr>
+                <tr><td rowspan="3">9</td><td rowspan="3">4</td><td>2-2</td><td>40.7%</td></tr>
+                <tr><td><strong>3-1</strong></td><td><strong>49.7%</strong></td></tr>
+                <tr><td>4-0</td><td>9.6%</td></tr>
+                <tr><td rowspan="2">10</td><td rowspan="2">3</td><td><strong>2-1</strong></td><td><strong>78.0%</strong></td></tr>
+                <tr><td>3-0</td><td>22.0%</td></tr>
+                <tr><td rowspan="2">11</td><td rowspan="2">2</td><td><strong>1-1</strong></td><td><strong>52.0%</strong></td></tr>
+                <tr><td>2-0</td><td>48.0%</td></tr>
+                <tr><td>12</td><td>1</td><td>1-0</td><td>100%</td></tr>
+              </table>
+              <p>הסיכויים הם לפני שמשחקים קלף כלשהו. כל חלוקה לא שווה כוללת את שני הכיוונים: 4-1 פירושו שכל אחד מהמגינים יכול להחזיק את הארבעה.</p>
+            </div>
+          </details></li>
         <li><strong>הוציאו שליטים מוקדם</strong> כשאתם לא צריכים את השליטים של הדומם לחיתוך, כדי שהזוכים שלכם בסדרות הצדדיות לא ייחתכו.</li>
         <li><strong>אל תוציאו שליטים קודם</strong> כשאתם צריכים את השליטים של הדומם כדי לחתוך את המפסידים שלכם (ראו <em>חיתוך בדומם</em>).</li>
         <li>לא חייבים להוציא את השליט הגבוה של מגן: השאירו אותו, ותנו לו לקחת אותו מתי שירצה.</li>
