@@ -556,6 +556,21 @@ const LESSONS_EN = [
       </details>
       <p><strong>When partner shows a big hand</strong> (a 2NT rebid with 18–19, or a jump shift with 18+), bid game: 3NT, or 4 of a major when you have a fit.
       A <strong>reverse</strong> (16+) is forcing for one round: with a minimum, rebid a 5-card suit or give preference.</p>
+      <details class="why-more">
+        <summary class="btn secondary">💡 Examples</summary>
+        <div class="why-body">
+          <p>Partner's big hand means game is close even when you have a minimum, so don't pass: a jump shift is forcing to game, and a reverse is forcing for one round.</p>
+          <table class="tbl">
+            <tr><th>Auction</th><th>Partner shows</th><th>Your hand</th><th>You bid</th></tr>
+            <tr><td rowspan="2" class="nowrap">1${S} – 1NT – 3${H}</td><td rowspan="2">A jump shift: 18+ HCP with 5+ spades and 4 hearts, forcing to game</td><td>6+ and 4 hearts</td><td>4${H}</td></tr>
+            <tr><td>6+ and fewer than 4 hearts</td><td>3NT</td></tr>
+            <tr><td rowspan="4" class="nowrap">1${D} – 1${S} – 2${H}</td><td rowspan="4">A reverse: 16+ HCP with 5+ diamonds and 4 hearts, forcing for one round</td><td>6+ and 5+ spades</td><td>2${S}</td></tr>
+            <tr><td>6–7, no support for diamonds or hearts</td><td>2NT</td></tr>
+            <tr><td>6+ and 3+ diamonds</td><td>3${D}</td></tr>
+            <tr><td>8+, no support for hearts or diamonds</td><td>3NT</td></tr>
+          </table>
+        </div>
+      </details>
       <p>The drill uses hands of 6–12 HCP. Hands with 13+ often need further bidding tools, so they aren't included.</p>
       <h3>Fourth suit forcing</h3>
       <p>When three suits have been bid, as in 1${D} – 1${H} – 1${S}, a bid in the fourth suit (here 2${C}) is <strong>fourth suit forcing</strong>.
@@ -1255,6 +1270,21 @@ const LESSONS_HE = [
       </details>
       <p><strong>כשהשותף מראה יד גדולה</strong> (הכרזה חוזרת של 2NT עם 18-19, או קפיצה בסדרה חדשה עם 18 ומעלה), הכריזו משחק מלא: 3NT, או 4 בסדרת מייגור כשיש התאמה.
       <strong>ריברס</strong> (16 ומעלה) מחייב לסיבוב אחד: עם מינימום, חזרו על סדרה של 5 קלפים או תנו העדפה.</p>
+      <details class="why-more">
+        <summary class="btn secondary">💡 דוגמאות</summary>
+        <div class="why-body">
+          <p>היד הגדולה של השותף פירושה שמשחק מלא קרוב גם כשיש לכם מינימום, ולכן אל תכריזו פאס: קפיצה בסדרה חדשה מחייבת עד משחק מלא, וריברס מחייב לסיבוב אחד.</p>
+          <table class="tbl">
+            <tr><th>המכרז</th><th>השותף מראה</th><th>היד שלכם</th><th>אתם מכריזים</th></tr>
+            <tr><td rowspan="2" class="nowrap"><bdi dir="ltr">${B('1S')} – 1NT – ${B('3H')}</bdi></td><td rowspan="2">קפיצה בסדרה חדשה: 18 נק' ומעלה עם 5 ספייד ומעלה ו-4 הארט, מחייבת עד משחק מלא</td><td>6 ומעלה ו-4 הארט</td><td>${B('4H')}</td></tr>
+            <tr><td>6 ומעלה ופחות מ-4 הארט</td><td>3NT</td></tr>
+            <tr><td rowspan="4" class="nowrap"><bdi dir="ltr">${B('1D')} – ${B('1S')} – ${B('2H')}</bdi></td><td rowspan="4">ריברס: 16 נק' ומעלה עם 5 דיאמונד ומעלה ו-4 הארט, מחייב לסיבוב אחד</td><td>6 ומעלה ו-5 ספייד ומעלה</td><td>${B('2S')}</td></tr>
+            <tr><td>6-7, בלי תמיכה בדיאמונד או בהארט</td><td>2NT</td></tr>
+            <tr><td>6 ומעלה ו-3 דיאמונד ומעלה</td><td>${B('3D')}</td></tr>
+            <tr><td>8 ומעלה, בלי תמיכה בהארט או בדיאמונד</td><td>3NT</td></tr>
+          </table>
+        </div>
+      </details>
       <p>התרגול משתמש בידיים של 6-12 נק'. ידיים של 13 ומעלה דורשות לעיתים קרובות כלי הכרזה נוספים, ולכן הן לא כלולות.</p>
       <h3>סדרה רביעית מחייבת</h3>
       <p>אחרי שהוכרזו שלוש סדרות, כמו <bdi dir="ltr">${B('1D')} – ${B('1H')} – ${B('1S')}</bdi>, הכרזה בסדרה הרביעית (כאן ${B('2C')}) היא <strong>סדרה רביעית מחייבת</strong>.

@@ -3,7 +3,8 @@
 //
 // Each word has its name and explanation in English and Hebrew, and the forms to look for in the
 // lessons: `en` is a list of regular expressions (matched as whole words, any case), `he` a list of
-// spellings, which may have a one- or two-letter Hebrew prefix (ה, ו, ב, ל, מ, ש, כ).
+// spellings, which may have a one- or two-letter Hebrew prefix (ה, ו, ב, ל, מ, ש, כ). A word with
+// `every: true` is marked every time it appears, not just the first time.
 
 const GLOSSARY = [
   { name: ['Suit', 'סדרה'], en: ['(?<!hands )suits?'], he: ['סדרה', 'סדרות', 'סדרת'],
@@ -18,7 +19,7 @@ const GLOSSARY = [
   { name: ['Honor', 'הונור'], en: ['honou?rs?'], he: ['הונור', 'הונורים'],
     def: ['The ace, king, queen, jack and ten of a suit.',
       'האס, המלך, המלכה, הנסיך והעשר של סדרה.'] },
-  { name: ['High-card points (HCP)', 'נקודות גבוהות (נק\')'], en: ['high-card points', 'HCP'], he: ['נקודות גבוהות', 'נק\''],
+  { name: ['HCP (high-card points)', 'נקודות גבוהות (נק"ג, נק\')'], en: ['high-card points', 'HCP'], he: ['נקודות גבוהות', 'נק"ג', 'נק\''], every: true,
     def: ['A count of a hand\'s strength: ace 4, king 3, queen 2, jack 1. The deck has 40, so an average hand has 10.',
       'ספירה של כוח היד: אס 4, מלך 3, מלכה 2, נסיך 1. בחפיסה יש 40, כך שביד ממוצעת יש 10.'] },
   { name: ['Singleton', 'סינגלטון'], en: ['singletons?'], he: ['סינגלטון', 'סינגלטונים'],
@@ -175,13 +176,13 @@ const GLOSSARY = [
 
 const Glossary = (() => {
   // In Hebrew, the English name is shown too, for reading English books and sites.
-  const words = GLOSSARY.map(w => ({ name: L(...w.name), other: L('', w.name[0]), def: L(...w.def), forms: L(w.en, w.he) }));
+  const words = GLOSSARY.map(w => ({ name: L(...w.name), other: L('', w.name[0]), def: L(...w.def), forms: L(w.en, w.he), every: !!w.every }));
   const heb = '\\u05D0-\\u05EA';
   // Longer forms first, so "follow suit" is found before "suit".
   const all = words.flatMap((w, i) => w.forms.map(f => ({ f, i }))).sort((a, b) => b.f.length - a.f.length);
   const finder = new RegExp(L('\\b', `(?<![${heb}])([והבלמשכ]{0,2})`) + `(${all.map(x => x.f).join('|')})` + L('\\b', `(?![${heb}])`), L('gi', 'g'));
   const whole = words.map(w => new RegExp(`^(?:${w.forms.join('|')})$`, 'i'));
-  const SKIP = 'h2, h3, button, a, summary, th, .eyebrow, .term';
+  const SKIP = 'h2, h3, button, a, summary, .eyebrow, .term';
 
   // Marks the first use of each word in `root` (a lesson's text, before its pictures are added),
   // and also the first place it stands alone in bold ("A <strong>stopper</strong> is ..."), which
@@ -203,7 +204,7 @@ const Glossary = (() => {
         const prefix = L('', m[1]), word = L(m[1], m[2]);
         const i = whole.findIndex(re => re.test(word));
         const bold = boldText === (prefix + word).toLowerCase();
-        if (i < 0 || (seen.has(i) && (!bold || seenBold.has(i)))) continue;
+        if (i < 0 || (!words[i].every && seen.has(i) && (!bold || seenBold.has(i)))) continue;
         seen.add(i);
         if (bold) seenBold.add(i);
         const start = m.index + prefix.length;
