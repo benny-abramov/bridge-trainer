@@ -238,7 +238,7 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 .fin-case.part { border-color: var(--hint); }
 .fin-case p { margin: .5rem 0 0; font-size: .92rem; }
 .fin-head { font-weight: 600; margin-bottom: .4rem; }
-.fin-table { --cw: 40px; direction: ltr; display: grid; grid-template-areas: "n n" "w e" "s s"; gap: .3rem 1rem; justify-items: center; padding: .4rem; border-radius: 10px; background: radial-gradient(ellipse at center, var(--felt) 55%, var(--felt-edge)); color: var(--felt-text); }
+.fin-table { --cw: 40px; direction: ltr; display: grid; grid-template-areas: "n n n" "w c e" "s s s"; grid-template-columns: auto minmax(0, 1fr) auto; gap: .3rem 1rem; justify-items: center; padding: .4rem; border-radius: 10px; background: radial-gradient(ellipse at center, var(--felt) 55%, var(--felt-edge)); color: var(--felt-text); }
 .fin-hand { display: flex; flex-direction: column; align-items: center; gap: .15rem; }
 .fin-hand.n { grid-area: n; } .fin-hand.w { grid-area: w; justify-self: start; } .fin-hand.e { grid-area: e; justify-self: end; } .fin-hand.s { grid-area: s; }
 .fin-label { font-size: .75rem; }
@@ -772,3 +772,13 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 /* The suit-split odds table in Declarer Play's Drawing trumps topic. */
 .odds-table td { text-align: center; }
 .odds-table td[rowspan] { vertical-align: middle; }
+/* Finesse layouts: the "Play" button plays the suit out. The trick builds up in the middle of the
+   table; the winning card gets a green ring when your side wins it, red when it loses. */
+.fin-trick { --cw: 30px; grid-area: c; align-self: center; display: grid; grid-template-areas: ". n ." "w . e" ". s ."; gap: 2px; justify-items: center; min-height: calc(var(--cw) * 3.6); }
+.fin-slot.n { grid-area: n; } .fin-slot.w { grid-area: w; } .fin-slot.e { grid-area: e; } .fin-slot.s { grid-area: s; }
+.fin-trick .card.won { box-shadow: 0 0 0 3px #2e9e4f, 0 4px 10px rgba(0, 0, 0, .35); }
+.fin-trick .card.lost { box-shadow: 0 0 0 3px #d32f2f, 0 4px 10px rgba(0, 0, 0, .35); }
+.fin-play { margin-top: .5rem; }
+.fin-rounds { margin: .5rem 0 0; padding-inline-start: 1.3rem; font-size: .9rem; }
+.fin-rounds li { margin: .15rem 0; }
+.fin-sum { margin: .3rem 0 0; font-size: .92rem; }

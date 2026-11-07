@@ -2278,6 +2278,59 @@ const FinesseLayouts = (() => {
     },
   };
 
+  // The "Play" button plays each case out, one round of the suit at a time, in the order of
+  // `cases`. A round lists the cards in the order played, as seat:card; the first card is the lead.
+  // A card is a rank plus an optional suit (spades if left out), so xH is a small heart; '-' is a
+  // discard from a suit that isn't shown. A round's leader is whoever needs the lead (entries in
+  // other suits are assumed). Equal small cards: the first one played wins, unless =seat says who.
+  const ROUNDS = {
+    simple: [
+      ['S:x W:x N:Q E:x', 'N:A E:x S:x W:K'],
+      ['S:x W:x N:Q E:K', 'E:x S:x W:x N:A'],
+    ],
+    toward: [
+      ['N:x E:x S:K W:x', 'S:x W:x N:x E:A'],
+      ['N:x E:x S:K W:A', 'W:x N:x E:x S:x'],
+    ],
+    queen: [
+      ['S:x W:x N:J E:x', 'N:A E:x S:x W:x', 'N:K E:x S:x W:Q'],
+      ['S:x W:x N:J E:Q', 'E:x S:x W:x N:A', 'N:K E:x S:x W:x'],
+    ],
+    kj: [
+      ['S:x W:x N:J E:x', 'S:x W:Q N:K E:x', 'N:x E:x S:x W:A'],
+      ['S:x W:x N:J E:Q', 'S:x W:x N:K E:x', 'N:x E:x S:x W:A'],
+      ['S:x W:x N:J E:A', 'S:x W:x N:K E:x', 'N:x E:x S:x W:Q'],
+      ['S:x W:x N:J E:Q', 'S:x W:x N:K E:A', 'E:x S:x W:x N:x'],
+    ],
+    double: [
+      ['S:x W:x N:T E:x', 'S:x W:J N:Q E:x', 'N:A E:x S:x W:K'],
+      ['S:x W:x N:T E:J', 'S:x W:x N:Q E:x', 'N:A E:x S:x W:K'],
+      ['S:x W:x N:T E:K', 'S:x W:x N:Q E:x', 'N:A E:x S:x W:J'],
+      ['S:x W:x N:T E:J', 'S:x W:x N:Q E:K', 'N:A E:x S:x W:x'],
+    ],
+    ruffing: [
+      ['N:Q E:K S:xH W:x', 'N:J E:x S:- W:x', 'N:A E:x S:- W:x'],
+      ['N:Q E:x S:- W:K', 'N:J E:x S:- W:x', 'N:A E:x S:- W:x'],
+    ],
+    second: [
+      ['S:x W:x N:Q E:x', 'S:K W:A N:x E:x', 'W:x N:x E:J S:x'],
+      ['S:x W:A N:x E:x', 'W:x N:Q E:T S:x', 'N:x E:J S:K W:x'],
+    ],
+    third: [
+      ['W:x N:x E:K S:A', 'E:x S:J W:Q N:x', 'W:T N:x E:x S:x'],
+      ['W:x N:x E:x S:J', 'S:A W:x N:x E:x', 'S:x W:Q N:x E:K'],
+    ],
+    cover: [
+      ['S:Q W:K N:A E:x', 'N:x E:J S:x W:x', 'E:T S:x W:x N:x'],
+      ['S:Q W:x N:x E:x', 'S:x W:x N:A E:T', 'N:x E:J S:x W:K'],
+    ],
+    return: [
+      ['W:5 N:x E:A S:x', 'E:x S:J W:Q N:x', 'W:K N:x E:xH S:x', 'W:7 N:xH E:xH S:KH', 'W:2 N:xH E:xH S:AH'],
+    ],
+  };
+  const SEAT = { n: 0, e: 1, s: 2, w: 3 };
+  const ORDER = 'x23456789TJQKA';
+
   const t = pair => L(pair[0], pair[1]);
   let dialog;
 
@@ -2316,29 +2369,150 @@ const FinesseLayouts = (() => {
     table.className = 'fin-table';
     const led = seat => (k.lead && k.lead[0] === seat ? k.lead[1] : -1);
     const pick = seat => (c.play && c.play[0] === seat ? { index: c.play[1], tone: tone === 'good' ? 'right' : 'wrong' } : null);
-    if (k.defense) {
-      const you = k.you || 'w';
-      const west = you === 'w' ? L('West (you)', 'מערב (אתם)') : L('West (partner)', 'מערב (השותף)');
-      const east = you === 'e' ? L('East (you)', 'מזרח (אתם)') : L('East (partner)', 'מזרח (השותף)');
-      table.append(
-        hand('n', L('North (dummy)', 'צפון (דומם)'), k.hands.n, null, led('n')),
-        hand('w', west, k.hands.w, null, led('w'), pick('w')),
-        hand('e', east, k.hands.e, null, led('e'), pick('e')),
-        hand('s', L('South (declarer)', 'דרום (הכרוז)'), k.hands.s, null, led('s')));
-    } else {
-      // The defenders' honors, filled out with small cards to the length of your longer hand.
-      const len = Math.max(k.north.length, k.south.length);
-      const defender = honors => (honors + 'x'.repeat(len)).slice(0, len);
-      table.append(
-        hand('n', L('North (dummy)', 'צפון (דומם)'), k.north, null, led('n')),
-        hand('w', L('West', 'מערב'), defender(c.w)),
-        hand('e', L('East', 'מזרח'), defender(c.e)),
-        hand('s', L('South (you)', 'דרום (אתם)'), k.south, k.trump, led('s')));
-    }
+    const you = k.you || 'w';
+    const labels = k.defense
+      ? { n: L('North (dummy)', 'צפון (דומם)'), s: L('South (declarer)', 'דרום (הכרוז)'),
+        w: you === 'w' ? L('West (you)', 'מערב (אתם)') : L('West (partner)', 'מערב (השותף)'),
+        e: you === 'e' ? L('East (you)', 'מזרח (אתם)') : L('East (partner)', 'מזרח (השותף)') }
+      : { n: L('North (dummy)', 'צפון (דומם)'), w: L('West', 'מערב'), e: L('East', 'מזרח'), s: L('South (you)', 'דרום (אתם)') };
+    // The defenders' honors, filled out with small cards to the length of your longer hand.
+    const len = k.defense ? 0 : Math.max(k.north.length, k.south.length);
+    const defender = honors => (honors + 'x'.repeat(len)).slice(0, len);
+    const drawStart = () => {
+      table.innerHTML = '';
+      if (k.defense) {
+        table.append(
+          hand('n', labels.n, k.hands.n, null, led('n')),
+          hand('w', labels.w, k.hands.w, null, led('w'), pick('w')),
+          hand('e', labels.e, k.hands.e, null, led('e'), pick('e')),
+          hand('s', labels.s, k.hands.s, null, led('s')));
+      } else {
+        table.append(
+          hand('n', labels.n, k.north, null, led('n')),
+          hand('w', labels.w, defender(c.w)),
+          hand('e', labels.e, defender(c.e)),
+          hand('s', labels.s, k.south, k.trump, led('s')));
+      }
+    };
+    drawStart();
     const text = document.createElement('p');
     text.innerHTML = t(c.text);
     box.append(table, text);
+    const rounds = (ROUNDS[dialog.dataset.kind] || [])[k.cases.indexOf(c)];
+    if (rounds) {
+      const toCards = ranks => Object.entries(typeof ranks === 'string' ? { S: ranks } : ranks)
+        .flatMap(([suit, r]) => [...r].map(rank => ({ suit, rank })));
+      const start = k.defense
+        ? { n: toCards(k.hands.n), e: toCards(k.hands.e), s: toCards(k.hands.s), w: toCards(k.hands.w) }
+        : { n: toCards(k.north), e: toCards(defender(c.e)), w: toCards(defender(c.w)),
+          s: k.south ? toCards(k.south) : k.trump ? [{ suit: k.trump, rank: 'x' }] : [] };
+      box.append(player(table, labels, start, rounds, k, drawStart));
+    }
     return box;
+  }
+
+  // The "Play" button: plays the case's rounds a card at a time in the middle of the table, marks
+  // each trick's winning card, and lists the tricks as won or lost for your side.
+  function player(table, labels, start, rounds, k, drawStart) {
+    const wrap = document.createElement('div');
+    wrap.className = 'fin-play';
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'btn secondary';
+    btn.textContent = L('▶ Play', '▶ שחקו');
+    const list = document.createElement('ol');
+    list.className = 'fin-rounds';
+    const sum = document.createElement('p');
+    sum.className = 'fin-sum';
+    wrap.append(btn, list, sum);
+
+    const parse = round => {
+      let force = null;
+      const plays = [];
+      for (const tok of round.split(' ')) {
+        if (tok[0] === '=') { force = tok[1].toLowerCase(); continue; }
+        const [seat, spec] = tok.split(':');
+        plays.push({ seat: seat.toLowerCase(), card: spec === '-' ? { discard: true } : { rank: spec[0], suit: spec[1] || 'S' } });
+      }
+      return { plays, force };
+    };
+    // The highest trump if one was played, otherwise the highest card of the suit led; between
+    // equal small cards, the first one played.
+    const winner = ({ plays, force }) => {
+      if (force) return plays.find(p => p.seat === force);
+      const suit = k.trump && plays.some(p => p.card.suit === k.trump) ? k.trump : plays[0].card.suit;
+      return plays.reduce((best, p) => (p.card.suit === suit && ORDER.indexOf(p.card.rank) > ORDER.indexOf(best.card.rank) ? p : best),
+        plays.find(p => p.card.suit === suit));
+    };
+
+    btn.addEventListener('click', () => {
+      btn.disabled = true;
+      list.innerHTML = '';
+      sum.textContent = '';
+      const hands = Object.fromEntries(Object.entries(start).map(([seat, cards]) => [seat, cards.slice()]));
+      const trick = document.createElement('div');
+      trick.className = 'fin-trick';
+      const draw = () => {
+        table.innerHTML = '';
+        for (const seat of ['n', 'w', 'e', 's']) {
+          const box = document.createElement('div');
+          box.className = 'fin-hand ' + seat;
+          box.innerHTML = `<span class="fin-label" dir="auto">${labels[seat]}</span>`;
+          if (hands[seat].length) renderFan(box, hands[seat]);
+          else box.insertAdjacentHTML('beforeend', '<span class="fin-void">—</span>');
+          table.appendChild(box);
+        }
+        table.appendChild(trick);
+      };
+      let r = 0, ours = 0;
+      const nextRound = () => {
+        if (r === rounds.length) {
+          const theirs = rounds.length - ours;
+          sum.innerHTML = k.defense
+            ? L(`Declarer took <strong>${theirs}</strong>, your side <strong>${ours}</strong>.`, `הכרוז לקח <strong>${theirs}</strong>, הצד שלכם <strong>${ours}</strong>.`)
+            : L(`You took <strong>${ours}</strong>, the defenders <strong>${theirs}</strong>.`, `לקחתם <strong>${ours}</strong>, המגינים <strong>${theirs}</strong>.`);
+          drawStart();
+          btn.disabled = false;
+          btn.textContent = L('↻ Play again', '↻ שחקו שוב');
+          return;
+        }
+        const round = parse(rounds[r]);
+        trick.innerHTML = '';
+        let i = 0;
+        const step = () => {
+          if (i < round.plays.length) {
+            const { seat, card } = round.plays[i++];
+            if (!card.discard) {
+              const at = hands[seat].findIndex(h => h.suit === card.suit && h.rank === card.rank);
+              if (at >= 0) hands[seat].splice(at, 1);
+            }
+            draw();
+            const slot = document.createElement('div');
+            slot.className = 'fin-slot ' + seat;
+            card.el = createCardEl(card, { faceDown: !!card.discard });
+            slot.appendChild(card.el);
+            trick.appendChild(slot);
+            setTimeout(step, 600);
+            return;
+          }
+          const win = winner(round);
+          const good = (win.seat === 'n' || win.seat === 's') !== !!k.defense;
+          if (good) ours++;
+          win.card.el.classList.add(good ? 'won' : 'lost');
+          const lead = SEAT_NAMES[SEAT[round.plays[0].seat]], by = SEAT_NAMES[SEAT[win.seat]];
+          const li = document.createElement('li');
+          li.innerHTML = `${good ? '✅' : '❌'} ` + L(`${lead} leads; ${by} wins with ${cardHtml(win.card)}.`,
+            `${lead} מוביל; ${by} זוכה עם ${cardHtml(win.card)}.`);
+          list.appendChild(li);
+          r++;
+          setTimeout(nextRound, 1200);
+        };
+        step();
+      };
+      draw();
+      nextRound();
+    });
+    return wrap;
   }
 
   function show(kind) {
