@@ -505,7 +505,35 @@ const LESSONS_EN = [
       </ul>
       <p><strong>When partner shows a big hand</strong> (a 2NT rebid with 18–19, or a jump shift with 18+), bid game: 3NT, or 4 of a major when you have a fit.
       A <strong>reverse</strong> (16+) is forcing for one round: with a minimum, rebid a 5-card suit or give preference.</p>
-      <p>The drill uses hands of 6–12 HCP. Hands with 13+ often need further bidding tools, so they aren't included.</p>`,
+      <p>The drill uses hands of 6–12 HCP. Hands with 13+ often need further bidding tools, so they aren't included.</p>
+      <h3>Fourth suit forcing</h3>
+      <p>When three suits have been bid, as in 1${D} – 1${H} – 1${S}, a bid in the fourth suit (here 2${C}) is <strong>fourth suit forcing</strong>.
+      It is <em>artificial</em>: it says nothing about clubs. It says "I have 13+ points, so we are going to game, but I don't know where yet", and it is forcing to game.</p>
+      <p>Use it when you have game values but don't know the final strain: no 8-card fit has been found, and you can't bid 3NT yourself because you have no stopper in the fourth suit.
+      Opener then describes the hand further:</p>
+      <ul>
+        <li>With a stopper in the fourth suit, opener bids no-trump.</li>
+        <li>With 3-card support for your major, opener raises it.</li>
+        <li>Otherwise opener rebids a long suit.</li>
+      </ul>
+      <details class="why-more">
+        <summary class="btn secondary">💡 Examples</summary>
+        <div class="why-body">
+          <p><strong>1.</strong> 1${D} – 1${H} – 1${S} – ? You hold ${S}K4 ${H}AQJ63 ${D}K52 ${C}762: 13 HCP, so you want game. There's no spade fit, partner may have only four hearts,
+          and you can't bid 3NT with no club stopper. Bid <strong>2${C}</strong>, fourth suit forcing. Opener's answers:</p>
+          <table class="tbl">
+            <tr><th>Opener bids</th><th>Meaning</th><th>Then you bid</th></tr>
+            <tr><td>2${H}</td><td>3-card heart support</td><td>4${H}</td></tr>
+            <tr><td>2NT</td><td>A club stopper</td><td>3NT</td></tr>
+            <tr><td>2${D} or 3${D}</td><td>Long diamonds, no club stopper, no heart support</td><td>Keep looking: 3${D} or 3${H}, and partner bids 3NT with a club stopper</td></tr>
+          </table>
+          <p><strong>2.</strong> 1${C} – 1${H} – 1${S} – ? You hold ${S}A3 ${H}KQJ65 ${D}764 ${C}K82: 13 HCP, no stopper in diamonds. Bid <strong>2${D}</strong>, fourth suit forcing.
+          Partner bids 2NT with a diamond stopper (you raise to 3NT) or 2${H} with three hearts (you bid 4${H}).</p>
+          <p><strong>3.</strong> 1${D} – 1${S} – 2${C} – ? You hold ${S}AQ752 ${H}843 ${D}A4 ${C}K93: 13 HCP, and hearts are unguarded. Bid <strong>2${H}</strong>, fourth suit forcing,
+          to ask partner about a heart stopper or three spades.</p>
+          <p>With a stopper of your own in the fourth suit, you don't need the convention: just bid 3NT (or 2NT with 11–12, to invite).</p>
+        </div>
+      </details>`,
     tryIt: 'rrebid',
   },
   {
@@ -1125,7 +1153,35 @@ const LESSONS_HE = [
       </ul>
       <p><strong>כשהשותף מראה יד גדולה</strong> (הכרזה חוזרת של 2NT עם 18-19, או קפיצה בסדרה חדשה עם 18 ומעלה), הכריזו משחק מלא: 3NT, או 4 בסדרת מייגור כשיש התאמה.
       <strong>ריברס</strong> (16 ומעלה) מחייב לסיבוב אחד: עם מינימום, חזרו על סדרה של 5 קלפים או תנו העדפה.</p>
-      <p>התרגול משתמש בידיים של 6-12 נק'. ידיים של 13 ומעלה דורשות לעיתים קרובות כלי הכרזה נוספים, ולכן הן לא כלולות.</p>`,
+      <p>התרגול משתמש בידיים של 6-12 נק'. ידיים של 13 ומעלה דורשות לעיתים קרובות כלי הכרזה נוספים, ולכן הן לא כלולות.</p>
+      <h3>סדרה רביעית מחייבת</h3>
+      <p>אחרי שהוכרזו שלוש סדרות, כמו <bdi dir="ltr">${B('1D')} – ${B('1H')} – ${B('1S')}</bdi>, הכרזה בסדרה הרביעית (כאן ${B('2C')}) היא <strong>סדרה רביעית מחייבת</strong>.
+      היא <em>מלאכותית</em>: היא לא אומרת כלום על הקלאב. היא אומרת "יש לי 13 נקודות ומעלה, ולכן אנחנו הולכים למשחק מלא, אבל אני עוד לא יודע איפה", והיא מחייבת עד משחק מלא.</p>
+      <p>השתמשו בה כשיש לכם כוח למשחק מלא אבל אתם לא יודעים מה יהיה סוג ההכרזה הסופי: לא נמצאה התאמה של 8 קלפים, ואתם לא יכולים להכריז 3NT בעצמכם כי אין לכם עוצר בסדרה הרביעית.
+      הפותח מתאר אז את היד שלו:</p>
+      <ul>
+        <li>עם עוצר בסדרה הרביעית, הפותח מכריז ללא שליט.</li>
+        <li>עם תמיכה של 3 קלפים בסדרת המייגור שלכם, הפותח תומך בה.</li>
+        <li>אחרת הפותח חוזר על סדרה ארוכה.</li>
+      </ul>
+      <details class="why-more">
+        <summary class="btn secondary">💡 דוגמאות</summary>
+        <div class="why-body">
+          <p><strong>1.</strong> <bdi dir="ltr">${B('1D')} – ${B('1H')} – ${B('1S')} – ?</bdi> יש לכם <bdi dir="ltr">${S}K4 ${H}AQJ63 ${D}K52 ${C}762</bdi>: 13 נק', ולכן אתם רוצים משחק מלא. אין התאמה בספייד, לשותף אולי רק ארבעה הארט,
+          ואי אפשר להכריז 3NT בלי עוצר בקלאב. הכריזו <strong>${B('2C')}</strong>, סדרה רביעית מחייבת. התשובות של הפותח:</p>
+          <table class="tbl">
+            <tr><th>הפותח מכריז</th><th>משמעות</th><th>ואז אתם מכריזים</th></tr>
+            <tr><td>${B('2H')}</td><td>תמיכה של 3 קלפים בהארט</td><td>${B('4H')}</td></tr>
+            <tr><td>2NT</td><td>עוצר בקלאב</td><td>3NT</td></tr>
+            <tr><td>${B('2D')} או ${B('3D')}</td><td>דיאמונד ארוך, בלי עוצר בקלאב ובלי תמיכה בהארט</td><td>ממשיכים לחפש: ${B('3D')} או ${B('3H')}, והשותף מכריז 3NT עם עוצר בקלאב</td></tr>
+          </table>
+          <p><strong>2.</strong> <bdi dir="ltr">${B('1C')} – ${B('1H')} – ${B('1S')} – ?</bdi> יש לכם <bdi dir="ltr">${S}A3 ${H}KQJ65 ${D}764 ${C}K82</bdi>: 13 נק', בלי עוצר בדיאמונד. הכריזו <strong>${B('2D')}</strong>, סדרה רביעית מחייבת.
+          השותף מכריז 2NT עם עוצר בדיאמונד (ואתם עולים ל-3NT), או ${B('2H')} עם שלושה הארט (ואתם מכריזים ${B('4H')}).</p>
+          <p><strong>3.</strong> <bdi dir="ltr">${B('1D')} – ${B('1S')} – ${B('2C')} – ?</bdi> יש לכם <bdi dir="ltr">${S}AQ752 ${H}843 ${D}A4 ${C}K93</bdi>: 13 נק', וההארט לא שמור. הכריזו <strong>${B('2H')}</strong>, סדרה רביעית מחייבת,
+          כדי לשאול את השותף על עוצר בהארט או על שלושה ספייד.</p>
+          <p>עם עוצר משלכם בסדרה הרביעית לא צריך את המוסכמה: פשוט הכריזו 3NT (או 2NT עם 11-12, כהזמנה).</p>
+        </div>
+      </details>`,
     tryIt: 'rrebid',
   },
   {
