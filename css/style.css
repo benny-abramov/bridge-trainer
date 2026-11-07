@@ -785,3 +785,4 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 .fin-rounds { margin: .5rem 0 0; padding-inline-start: 1.3rem; font-size: .9rem; }
 .fin-rounds li { margin: .15rem 0; }
 .fin-sum { margin: .3rem 0 0; font-size: .92rem; }
+.why-body .tbl td[rowspan] { vertical-align: middle; }

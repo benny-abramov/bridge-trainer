@@ -488,6 +488,19 @@ const LESSONS_EN = [
         <li>Accept with the top of your range (9–10 after a 6–10 response) by bidding game.</li>
         <li>Decline with the bottom of your range (6–8) by passing.</li>
       </ul>
+      <details class="why-more">
+        <summary class="btn secondary">💡 Examples</summary>
+        <div class="why-body">
+          <p>Partner's invitation asks you a question: "Do you have a minimum or more?" With a minimum, pass. With more than a minimum, accept and bid game.</p>
+          <table class="tbl">
+            <tr><th>Auction</th><th>Partner shows</th><th>Your hand</th><th>You bid</th></tr>
+            <tr><td rowspan="2" class="nowrap">1${H} – 2${H} – 3${H}</td><td rowspan="2">A medium opening (15–17), inviting game</td><td>6–8 (a minimum)</td><td>Pass</td></tr>
+            <tr><td>9+</td><td>4${H}</td></tr>
+            <tr><td rowspan="2" class="nowrap">1${C} – 1${S} – 3${S}</td><td rowspan="2">4-card spade support and a medium opening (15–17), inviting game</td><td>6–8 (a minimum)</td><td>Pass</td></tr>
+            <tr><td>9+</td><td>4${S}</td></tr>
+          </table>
+        </div>
+      </details>
       <p><strong>When partner shows a minimum</strong> (a 1NT rebid, a simple raise, or rebidding their suit at the 2-level):</p>
       <ul>
         <li>With 6–10, pass, or sign off at the 2-level in your own 6-card suit.</li>
@@ -1136,6 +1149,19 @@ const LESSONS_HE = [
         <li>קבלו את ההזמנה עם ראש הטווח שלכם (9-10 אחרי תשובה של 6-10) בהכרזת משחק מלא.</li>
         <li>דחו אותה עם תחתית הטווח (6-8) בפאס.</li>
       </ul>
+      <details class="why-more">
+        <summary class="btn secondary">💡 דוגמאות</summary>
+        <div class="why-body">
+          <p>ההזמנה של השותף שואלת אתכם שאלה: "יש לך מינימום או יותר?" עם מינימום, הכריזו פאס. עם יותר ממינימום, קבלו את ההזמנה והכריזו משחק מלא.</p>
+          <table class="tbl">
+            <tr><th>המכרז</th><th>השותף מראה</th><th>היד שלכם</th><th>אתם מכריזים</th></tr>
+            <tr><td rowspan="2" class="nowrap"><bdi dir="ltr">${B('1H')} – ${B('2H')} – ${B('3H')}</bdi></td><td rowspan="2">פתיחה בינונית (15-17), הזמנה למשחק מלא</td><td>6-8 (מינימום)</td><td>פאס</td></tr>
+            <tr><td>9 ומעלה</td><td>${B('4H')}</td></tr>
+            <tr><td rowspan="2" class="nowrap"><bdi dir="ltr">${B('1C')} – ${B('1S')} – ${B('3S')}</bdi></td><td rowspan="2">תמיכה של 4 קלפים בספייד ופתיחה בינונית (15-17), הזמנה למשחק מלא</td><td>6-8 (מינימום)</td><td>פאס</td></tr>
+            <tr><td>9 ומעלה</td><td>${B('4S')}</td></tr>
+          </table>
+        </div>
+      </details>
       <p><strong>כשהשותף מראה מינימום</strong> (הכרזה חוזרת של 1NT, תמיכה פשוטה, או חזרה על הסדרה שלו ברמת 2):</p>
       <ul>
         <li>עם 6-10, פאס, או עצירה ברמת 2 בסדרה של 6 קלפים משלכם.</li>
