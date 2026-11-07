@@ -287,6 +287,8 @@ const LESSONS_EN = [
         <tr><td><button class="finesse-link" type="button" data-response="two">11+ HCP, a 4+ card lower-ranking suit (5+ for ${H})</button></td><td>New suit at the 2-level</td></tr>
         <tr><td><button class="finesse-link" type="button" data-response="nt2">11–12 HCP, none of the above</button></td><td>2NT, inviting game</td></tr>
         <tr><td><button class="finesse-link" type="button" data-response="nt3">13–15 HCP, none of the above</button></td><td>3NT, bidding game</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-response="ntopen">Partner opened 1NT (15–17)</button></td><td>With a 5+ card major, a <em>transfer</em>: 2${D} for hearts, 2${H} for spades.
+          With a 4-card major and 8+ HCP, <em>Stayman</em> (2${C}). Otherwise pass with 0–7, 2NT with 8–9 (inviting) and 3NT with 10–15. See <em>Conventions</em>.</td></tr>
       </table>
       <h3>${S}${H} Supporting partner's major</h3>
       <table class="tbl support-table">
@@ -883,6 +885,8 @@ const LESSONS_HE = [
         <tr><td><button class="finesse-link" type="button" data-response="two">11 נק' ומעלה, סדרה נמוכה יותר של 4 קלפים ומעלה (5 ומעלה ב-${H})</button></td><td>סדרה חדשה ברמת 2</td></tr>
         <tr><td><button class="finesse-link" type="button" data-response="nt2">11-12 נק', אף אחד מאלה</button></td><td>2NT, הזמנה למשחק מלא</td></tr>
         <tr><td><button class="finesse-link" type="button" data-response="nt3">13-15 נק', אף אחד מאלה</button></td><td>3NT, הכרזת משחק מלא</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-response="ntopen">השותף פתח 1NT (15-17)</button></td><td>עם סדרת מייגור של 5 קלפים ומעלה, <em>טרנספר</em>: ${B('2D')} להארט, ${B('2H')} לספייד.
+          עם סדרת מייגור של 4 קלפים ו-8 נק' ומעלה, <em>סטיימן</em> (${B('2C')}). אחרת פאס עם 0-7, 2NT עם 8-9 (הזמנה) ו-3NT עם 10-15. ראו <em>מוסכמות</em>.</td></tr>
       </table>
       <h3>${S}${H} תמיכה בסדרת המייגור של השותף</h3>
       <table class="tbl support-table">
@@ -1954,6 +1958,7 @@ const ResponseExamples = (() => {
     two: (b, open) => /^2[CDH]$/.test(b) && rank(b[1]) > rank(open), // a lower suit: the cheapest level
     nt2: b => b === '2N',
     nt3: b => b === '3N',
+    ntopen: () => true, // partner opened 1NT: any answer
   };
   let dialog, key, title;
 
@@ -1961,6 +1966,10 @@ const ResponseExamples = (() => {
     for (let i = 0; i < 30000; i++) {
       const hands = dealHands();
       const open = openingBid(hands[0]).bid;
+      if (key === 'ntopen') {
+        if (open !== '1N' || hcp(hands[2]) > 15) continue;
+        return { hand: hands[2], open, r: respondTo1NT(hands[2]) };
+      }
       if (!/^1[CDHS]$/.test(open) || hcp(hands[2]) > 15) continue;
       const r = responseBid(hands[2], open[1]);
       if (ROWS[key](r.bid, open[1])) return { hand: hands[2], open, r };
