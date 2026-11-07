@@ -297,11 +297,13 @@ const LESSONS_EN = [
       <table class="tbl">
         <tr><th>Your hand</th><th>Open</th></tr>
         <tr><td><button class="finesse-link" type="button" data-opening="pass">Fewer than 12 HCP (and no long suit)</button></td><td>Pass</td></tr>
+        <tr class="tbl-section"><th colspan="2">Constructive openings: 12+ HCP, describing your hand</th></tr>
         <tr><td><button class="finesse-link" type="button" data-opening="major">12–22 HCP with a 5+ card major</button></td><td>1${H} or 1${S} (longer major; spades with 5${S}-5${H})</td></tr>
         <tr><td><button class="finesse-link" type="button" data-opening="minor">12–22 HCP, no 5-card major</button></td><td>1${C} or 1${D} (longer minor; 1${C} with 3${C}-3${D}, 1${D} with 4${D}-4${C})</td></tr>
         <tr><td><button class="finesse-link" type="button" data-opening="nt1">15–17 HCP, balanced</button></td><td>1NT <button class="btn secondary balanced-btn" type="button" data-balanced>All balanced ranges</button></td></tr>
         <tr><td><button class="finesse-link" type="button" data-opening="nt2">20–22 HCP, balanced</button></td><td>2NT</td></tr>
         <tr><td><button class="finesse-link" type="button" data-opening="c2">23+ HCP, any shape</button></td><td>2${C} (strong and artificial)</td></tr>
+        <tr class="tbl-section destructive"><th colspan="2">Destructive openings: 5–10 HCP and a long suit, blocking the opponents</th></tr>
         <tr><td><button class="finesse-link" type="button" data-opening="weak2">5–10 HCP with a good 6-card ${D}, ${H} or ${S} suit</button></td><td>Weak two: 2${D}, 2${H} or 2${S}</td></tr>
         <tr><td><button class="finesse-link" type="button" data-opening="pre3">5–10 HCP with a good 7-card suit</button></td><td>Preempt at the 3-level</td></tr>
         <tr><td><button class="finesse-link" type="button" data-opening="pre4">5–10 HCP with a good 8-card suit</button></td><td>Preempt at the 4-level</td></tr>
@@ -1013,11 +1015,13 @@ const LESSONS_HE = [
       <table class="tbl">
         <tr><th>היד שלכם</th><th>פתיחה</th></tr>
         <tr><td><button class="finesse-link" type="button" data-opening="pass">פחות מ-12 נק' (ואין סדרה ארוכה)</button></td><td>פאס</td></tr>
+        <tr class="tbl-section"><th colspan="2">פתיחות בונות: 12 נק' ומעלה, מתארות את היד</th></tr>
         <tr><td><button class="finesse-link" type="button" data-opening="major">12-22 נק' עם סדרת מייגור של 5 קלפים ומעלה</button></td><td>${B('1H')} או ${B('1S')} (סדרת המייגור הארוכה יותר; ספייד עם ${ltr(`5${S}-5${H}`)})</td></tr>
         <tr><td><button class="finesse-link" type="button" data-opening="minor">12-22 נק', בלי סדרת מייגור של 5</button></td><td>${B('1C')} או ${B('1D')} (סדרת המיינור הארוכה יותר; ${B('1C')} עם ${ltr(`3${C}-3${D}`)}, ${B('1D')} עם ${ltr(`4${D}-4${C}`)})</td></tr>
         <tr><td><button class="finesse-link" type="button" data-opening="nt1">15-17 נק', מאוזנת</button></td><td>1NT <button class="btn secondary balanced-btn" type="button" data-balanced>כל הטווחים של יד מאוזנת</button></td></tr>
         <tr><td><button class="finesse-link" type="button" data-opening="nt2">20-22 נק', מאוזנת</button></td><td>2NT</td></tr>
         <tr><td><button class="finesse-link" type="button" data-opening="c2">23 נק' ומעלה, כל חלוקה</button></td><td>${B('2C')} (חזקה ומלאכותית)</td></tr>
+        <tr class="tbl-section destructive"><th colspan="2">פתיחות הורסות: 5-10 נק' וסדרה ארוכה, חוסמות את היריבים</th></tr>
         <tr><td><button class="finesse-link" type="button" data-opening="weak2">5-10 נק' עם סדרה טובה של 6 קלפים ב-${D}, ${H} או ${S}</button></td><td>הכרזת שתיים חלשה: ${B('2D')}, ${B('2H')} או ${B('2S')}</td></tr>
         <tr><td><button class="finesse-link" type="button" data-opening="pre3">5-10 נק' עם סדרה טובה של 7 קלפים</button></td><td>הכרזת חסימה ברמת 3</td></tr>
         <tr><td><button class="finesse-link" type="button" data-opening="pre4">5-10 נק' עם סדרה טובה של 8 קלפים</button></td><td>הכרזת חסימה ברמת 4</td></tr>
