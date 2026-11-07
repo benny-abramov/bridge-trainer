@@ -441,7 +441,7 @@ const LESSONS_EN = [
       <p><strong>Unbalanced hands:</strong></p>
       <ul>
         <li>With a <strong>6-card suit</strong>, rebid it: at the 2-level with a minimum (12–15), or jump to the 3-level with 16–17. Count 1 extra point for each card beyond four. With 18+, bid game in a major, or 3NT, or jump in a second suit.</li>
-        <li>With a <strong>lower-ranking second suit</strong> (4+ cards), bid it at the 2-level. With 18+, jump in it instead: a <em>jump shift</em>, forcing to game.</li>
+        <li>With a <strong>lower-ranking second suit</strong> (4+ cards), bid it at the 2-level. This shows 5+ cards in your first suit and 4+ in the second. With 5-5 in the two suits, bid the second suit again at your next turn to show the fifth card. With 18+, jump in it instead: a <em>jump shift</em>, forcing to game.</li>
         <li>Bidding a <strong>higher-ranking second suit</strong> at the 2-level, as in 1${D} – 1${S} – 2${H}, is a <em>reverse</em>. It needs 16+ HCP.</li>
         <li>With none of these, rebid your own suit at the 2-level.</li>
       </ul>
@@ -1157,7 +1157,7 @@ const LESSONS_HE = [
       <p><strong>ידיים לא מאוזנות:</strong></p>
       <ul>
         <li>עם <strong>סדרה של 6 קלפים</strong>, הכריזו אותה שוב: ברמת 2 עם מינימום (12-15), או בקפיצה לרמת 3 עם 16-17. ספרו נקודה נוספת על כל קלף מעבר לארבעה. עם 18 ומעלה, הכריזו משחק מלא בסדרת מייגור, או 3NT, או קפיצה בסדרה שנייה.</li>
-        <li>עם <strong>סדרה שנייה נמוכה יותר</strong> (4 קלפים ומעלה), הכריזו אותה ברמת 2. עם 18 ומעלה, קפצו בה: <em>קפיצה בסדרה חדשה</em> (ג'אמפ שיפט), שמחייבת עד משחק מלא.</li>
+        <li>עם <strong>סדרה שנייה נמוכה יותר</strong> (4 קלפים ומעלה), הכריזו אותה ברמת 2. זה מראה 5 קלפים ומעלה בסדרה הראשונה ו-4 ומעלה בשנייה. עם 5-5 בשתי הסדרות, הכריזו שוב את הסדרה השנייה בתור הבא שלכם כדי להראות את הקלף החמישי. עם 18 ומעלה, קפצו בה: <em>קפיצה בסדרה חדשה</em> (ג'אמפ שיפט), שמחייבת עד משחק מלא.</li>
         <li>הכרזה של <strong>סדרה שנייה גבוהה יותר</strong> ברמת 2, כמו <bdi dir="ltr">${B('1D')} – ${B('1S')} – ${B('2H')}</bdi>, נקראת <em>ריברס</em>. היא דורשת 16 נק' ומעלה.</li>
         <li>אם אף אחד מאלה לא מתאים, הכריזו שוב את הסדרה שלכם ברמת 2.</li>
       </ul>
