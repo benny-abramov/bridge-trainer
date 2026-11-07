@@ -251,7 +251,8 @@ const DECLARER_SECTIONS = {
       <h3>Triple squeeze</h3>
       <p>In a <strong>triple squeeze</strong>, one defender guards <em>three</em> suits. The squeeze card forces them to give up one guard. Cash that suit, and its last winner squeezes them again in the two suits left.
       So a triple squeeze can win <strong>two</strong> extra tricks.</p>
-      <p>It needs a threat in each of the three suits, and enough entries to cash whichever suit the defender gives up and still reach the last threat. Typical threats are A-J opposite a small card when the defender holds K-Q.</p>`, `
+      <p>It needs a threat in each of the three suits, and enough entries to cash whichever suit the defender gives up and still reach the last threat. Typical threats are A-J opposite a small card when the defender holds K-Q.</p>
+      <p><button class="btn secondary" type="button" data-squeeze-diagram="triple">Example</button></p>`, `
       <p><strong>לחץ</strong> (סקוויז) מייצר לקיחה יש מאין. אתם מממשים זוכה, ומגן ששומר על שתי סדרות נאלץ להשליך. על איזו שמירה שלא יוותר, אחד הקלפים שלכם הופך לזוכה.</p>
       <p>לחץ צריך ארבעה דברים:</p>
       <ul>
@@ -272,7 +273,8 @@ const DECLARER_SECTIONS = {
       <h3>לחץ משולש</h3>
       <p>ב<strong>לחץ משולש</strong> מגן אחד שומר על <em>שלוש</em> סדרות. קלף הלחץ מאלץ אותו לוותר על שמירה אחת. ממשו את הסדרה הזו, והזוכה האחרון בה לוחץ אותו שוב בשתי הסדרות שנשארו.
       כך לחץ משולש יכול לזכות ב<strong>שתי</strong> לקיחות נוספות.</p>
-      <p>צריך איום בכל אחת משלוש הסדרות, ומספיק כניסות כדי לממש את הסדרה שהמגן ויתר עליה ועדיין להגיע לאיום האחרון. איומים טיפוסיים הם A-J מול קלף קטן כשלמגן יש K-Q.</p>`),
+      <p>צריך איום בכל אחת משלוש הסדרות, ומספיק כניסות כדי לממש את הסדרה שהמגן ויתר עליה ועדיין להגיע לאיום האחרון. איומים טיפוסיים הם A-J מול קלף קטן כשלמגן יש K-Q.</p>
+      <p><button class="btn secondary" type="button" data-squeeze-diagram="triple">דוגמה</button></p>`),
   },
   endplay: {
     label: L('Elimination and endplays', 'ניקוי ומשחקי סיום'),
@@ -362,6 +364,20 @@ const SqueezeDiagram = (() => {
       ו<strong>שניהם</strong> שומרים על הספייד מול ה-${sym('S')}9 של הדומם: מערב עם ה-${sym('S')}K-Q, מזרח עם ה-${sym('S')}J-10.</p>
       <p>הובילו את ה-${sym('C')}A, קלף הלחץ. מערב חייב לשמור את ה-${sym('H')}K, ולכן הוא משליך ספייד; צפון משליך אז את ה-${sym('H')}J, שכבר לא נחוץ.
       מזרח חייב לשמור את ה-${sym('D')}K, ולכן גם הוא משליך ספייד. עכשיו אף אחד לא שומר על הספייד: ה-${sym('S')}3 ל-${sym('S')}A מפיל את שני ההונורים, וה-${sym('S')}9 זוכה.</p>`,
+    ],
+  };
+  DIAGRAMS.triple = {
+    title: ['The triple squeeze', 'הלחץ המשולש'],
+    hands: { n: { S: 'AJ', H: 'AJ', D: '95' }, e: { S: '62', H: '65', D: '72' }, s: { S: '3', H: '43', D: 'AJ', C: 'A' }, w: { S: 'KQ', H: 'KQ', D: 'KQ' } },
+    tags: { nS: 'threat', nH: 'threat', sD: 'threat', wS: 'guard', wH: 'guard', wD: 'guard', sC: 'free' },
+    arrows: [['nS', 'wS'], ['nH', 'wH'], ['sD', 'wD']],
+    text: [
+      `<p>West alone guards all three suits with K-Q: spades and hearts against dummy's jacks, and diamonds against your ${sym('D')}J. West has no spare card.</p>
+      <p>Lead the ${sym('C')}A, the squeeze card. West must give up one guard. Cash that suit: for example, if West throws a spade, play the ${sym('S')}3 to the ${sym('S')}A, dropping the ${sym('S')}K, and cash the ${sym('S')}J.
+      That last winner squeezes West again in the two suits left, so you take all six tricks.</p>`,
+      `<p>מערב לבדו שומר על שלוש הסדרות עם K-Q: על הספייד וההארט מול הנסיכים של הדומם, ועל הדיאמונד מול ה-${sym('D')}J שלכם. אין למערב קלף מיותר.</p>
+      <p>הובילו את ה-${sym('C')}A, קלף הלחץ. מערב חייב לוותר על שמירה אחת. ממשו את הסדרה הזו: לדוגמה, אם מערב משליך ספייד, שחקו את ה-${sym('S')}3 ל-${sym('S')}A, ה-${sym('S')}K נופל, וממשו את ה-${sym('S')}J.
+      הזוכה האחרון הזה לוחץ את מערב שוב בשתי הסדרות שנשארו, ולכן אתם לוקחים את כל שש הלקיחות.</p>`,
     ],
   };
   const TAG = { threat: ['Threat', 'איום'], guard: ['Guard', 'שמירה'], free: ['Free suit', 'סדרה חופשית'], shared: ['Threat vs both', 'איום על שניהם'] };
