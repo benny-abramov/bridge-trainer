@@ -36,6 +36,8 @@ opponents = יריבים
 declarer = כרוז
 dummy = דומם
 defenders = מגינים
+offense = התקפה
+defense = הגנה
 opener = הפותח
 responder = המשיב
 
