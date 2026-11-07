@@ -83,7 +83,7 @@ const WHY_TRANSFERS = L(`
     <div class="why-body">
       <p><strong>The strong hand is hidden.</strong> Partner bids your major first, so the 1NT opener becomes declarer. Their strong hand stays face-down,
       and the opening lead comes <em>into</em> their honors (like A-Q) instead of through them.</p>
-      <p><strong>You get a second bid.</strong> Partner's answer is automatic, so you can bid again and show your strength:</p>
+      <p><strong>You get a second bid.</strong> Partner's answer is automatic, so you can bid again and show your strength and suit lengths:</p>
       <ul>
         <li><strong>Weak (0–7 HCP):</strong> transfer, then pass. You play in your long suit at the 2-level, safer than 1NT.</li>
         <li><strong>Invitational (8–9 HCP):</strong> transfer, then invite game. For example, with hearts, after <span class="nowrap">1NT – 2${D} – 2${H}</span>:
@@ -109,7 +109,7 @@ const WHY_TRANSFERS = L(`
     <div class="why-body">
       <p><strong>היד החזקה מוסתרת.</strong> השותף מכריז ראשון את סדרת המייגור שלכם, ולכן פותח ה-1NT הופך לכרוז. היד החזקה שלו נשארת סגורה,
       וההובלה הראשונה מגיעה <em>אל</em> ההונורים שלו (כמו A-Q) במקום לעבור דרכם.</p>
-      <p><strong>מקבלים הכרזה שנייה.</strong> התשובה של השותף אוטומטית, ולכן אפשר להכריז שוב ולהראות את הכוח:</p>
+      <p><strong>מקבלים הכרזה שנייה.</strong> התשובה של השותף אוטומטית, ולכן אפשר להכריז שוב ולהראות את הכוח ואת אורכי הסדרות:</p>
       <ul>
         <li><strong>חלשה (0-7 נק'):</strong> טרנספר ואחר כך פאס. משחקים בסדרה הארוכה שלכם ברמת 2, בטוח יותר מ-1NT.</li>
         <li><strong>מזמינה (8-9 נק'):</strong> טרנספר ואחר כך הזמנה למשחק מלא. לדוגמה, עם הארט, אחרי <bdi dir="ltr" class="nowrap">1NT – ${B('2D')} – ${B('2H')}</bdi>:
