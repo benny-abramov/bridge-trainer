@@ -2134,7 +2134,7 @@ const FinesseLayouts = (() => {
   // `lead: [seat, index]` raises the card that is led: the index-th card of that seat's holding.
   const KINDS = {
     simple: {
-      title: ['Simple finesse: A-Q', 'עקיפה פשוטה: A-Q'], north: 'AQ', south: 'xx', lead: ['s', 0],
+      title: ['Simple finesse: A-Q', 'עקיפה פשוטה: A-Q'], north: 'AQ', south: 'xx', lead: ['s', 1],
       cases: [
         { w: 'K', e: '', tricks: 2, title: ['King with West (on your left)', 'המלך אצל מערב (משמאלכם)'],
           text: ['Lead low toward the queen. If West plays low, the queen wins; if West plays the king, the ace takes it and the queen is high.',
@@ -2146,7 +2146,7 @@ const FinesseLayouts = (() => {
       chance: ['Two tricks whenever West has the king: about 50%.', 'שתי לקיחות בכל פעם שהמלך אצל מערב: בערך 50%.'],
     },
     toward: {
-      title: ['Leading toward an honor: K-x', 'הובלה לעבר הונור: K-x'], north: 'xx', south: 'Kx', lead: ['n', 0],
+      title: ['Leading toward an honor: K-x', 'הובלה לעבר הונור: K-x'], north: 'xx', south: 'Kx', lead: ['n', 1],
       cases: [
         { w: '', e: 'A', tricks: 1, title: ['Ace with East (on your right)', 'האס אצל מזרח (מימינכם)'],
           text: ['Lead low from dummy. If East plays low, the king wins; if East takes the ace, the king is high later.',
@@ -2159,7 +2159,7 @@ const FinesseLayouts = (() => {
         'לקיחה אחת בכל פעם שהאס אצל מזרח: בערך 50%. הובלת המלך בעצמכם אף פעם לא זוכה.'],
     },
     queen: {
-      title: ['Finesse against the queen: A-K-J', 'עקיפה נגד המלכה: A-K-J'], north: 'AKJ', south: 'xxx', lead: ['s', 0],
+      title: ['Finesse against the queen: A-K-J', 'עקיפה נגד המלכה: A-K-J'], north: 'AKJ', south: 'xxx', lead: ['s', 2],
       cases: [
         { w: 'Q', e: '', tricks: 3, title: ['Queen with West (on your left)', 'המלכה אצל מערב (משמאלכם)'],
           text: ['Lead low toward dummy. If West plays low, the jack wins; if West plays the queen, win and the jack is high.',
@@ -2170,7 +2170,7 @@ const FinesseLayouts = (() => {
       chance: ['Three tricks whenever West has the queen: about 50%.', 'שלוש לקיחות בכל פעם שהמלכה אצל מערב: בערך 50%.'],
     },
     kj: {
-      title: ['Leading toward K-J', 'הובלה לעבר K-J'], north: 'KJx', south: 'xxx', lead: ['s', 0],
+      title: ['Leading toward K-J', 'הובלה לעבר K-J'], north: 'KJx', south: 'xxx', lead: ['s', 2],
       cases: [
         { w: 'AQ', e: '', tricks: 2, title: ['Ace and queen with West', 'האס והמלכה אצל מערב'],
           text: ['Lead low and play the jack: it wins. Lead low again and the king wins too.',
@@ -2188,7 +2188,7 @@ const FinesseLayouts = (() => {
       chance: ['Two tricks about 25% of the time, at least one about 75%.', 'שתי לקיחות בערך ב-25% מהמקרים, לפחות אחת בערך ב-75%.'],
     },
     double: {
-      title: ['Double finesse: A-Q-10', 'עקיפה כפולה: A-Q-10'], north: 'AQT', south: 'xxx', lead: ['s', 0],
+      title: ['Double finesse: A-Q-10', 'עקיפה כפולה: A-Q-10'], north: 'AQT', south: 'xxx', lead: ['s', 2],
       cases: [
         { w: 'KJ', e: '', tricks: 3, title: ['King and jack with West', 'המלך והנסיך אצל מערב'],
           text: ['Lead low and play the 10: it wins. Lead low again and play the queen: it wins too.',
@@ -2280,9 +2280,9 @@ const FinesseLayouts = (() => {
 
   // The "Play" button plays each case out, one round of the suit at a time, in the order of
   // `cases`. A round lists the cards in the order played, as seat:card; the first card is the lead.
-  // A card is a rank plus an optional suit (spades if left out), so xH is a small heart; '-' is a
-  // discard from a suit that isn't shown. A round's leader is whoever needs the lead (entries in
-  // other suits are assumed). Equal small cards: the first one played wins, unless =seat says who.
+  // A card is a rank plus an optional suit (spades if left out), so xH is a small heart and x the
+  // lowest small card left; '-' is a discard from a suit that isn't shown. A round's leader is
+  // whoever needs the lead (entries in other suits are assumed); =seat overrides the winner.
   const ROUNDS = {
     simple: [
       ['S:x W:x N:Q E:x', 'N:A E:x S:x W:K'],
@@ -2313,7 +2313,7 @@ const FinesseLayouts = (() => {
       ['N:Q E:x S:- W:K', 'N:J E:x S:- W:x', 'N:A E:x S:- W:x'],
     ],
     second: [
-      ['S:x W:x N:Q E:x', 'S:K W:A N:x E:x', 'W:x N:x E:J S:x'],
+      ['S:x W:x N:Q E:x', 'S:K W:A N:x E:T', 'W:x N:x E:J S:x'],
       ['S:x W:A N:x E:x', 'W:x N:Q E:T S:x', 'N:x E:J S:K W:x'],
     ],
     third: [
@@ -2329,26 +2329,51 @@ const FinesseLayouts = (() => {
     ],
   };
   const SEAT = { n: 0, e: 1, s: 2, w: 3 };
-  const ORDER = 'x23456789TJQKA';
+  const ORDER = '23456789TJQKA';
+  const SPOT_ORDER = ['w', 'n', 's', 'e'];
 
   const t = pair => L(pair[0], pair[1]);
   let dialog;
 
   // `ranks` is a spade holding, or an object such as { S: 'Jxx', H: 'AK' } for a hand with more
   // than one suit. `led` is the index of the card led from this hand, or -1.
-  function hand(cls, label, ranks, trump, led = -1, pick = null) {
+  // The layouts write small cards as x. Each x gets a real spot card: the lowest ranks not already
+  // in that suit, dealt highest first to West, North, South and East in turn, so the defenders'
+  // small cards beat declarer's. `hands` maps each seat to a holding such as { S: 'AQx' }; the
+  // result has the same shape, each card marked `small` when it was an x.
+  function spots(hands) {
+    const out = Object.fromEntries(Object.keys(hands).map(seat => [seat, []]));
+    const suits = [...new Set(Object.values(hands).flatMap(h => Object.keys(h)))];
+    for (const suit of suits) {
+      const held = Object.fromEntries(Object.keys(hands).map(seat => [seat, [...(hands[seat][suit] || '')]]));
+      const used = Object.values(held).flat();
+      const pool = [...'23456789T'].filter(r => !used.includes(r)).slice(0, used.filter(r => r === 'x').length).reverse();
+      const cards = Object.fromEntries(Object.entries(held).map(([seat, rs]) => [seat, rs.map(rank => ({ suit, rank, small: rank === 'x' }))]));
+      while (pool.length) {
+        for (const seat of SPOT_ORDER) {
+          const next = (cards[seat] || []).find(c => c.rank === 'x');
+          if (next && pool.length) next.rank = pool.shift();
+        }
+      }
+      Object.entries(cards).forEach(([seat, cs]) => out[seat].push(...cs));
+    }
+    return out;
+  }
+
+  // `cards` is the hand's cards in order. With no spades, the hand shows "void" and any other
+  // cards it holds (a trump to ruff with). `led` is the index of the card led from this hand, or -1.
+  function hand(cls, label, cards, led = -1, pick = null) {
     const box = document.createElement('div');
     box.className = 'fin-hand ' + cls;
     box.innerHTML = `<span class="fin-label" dir="auto">${label}</span>`;
-    if (!ranks) {
+    if (!cards.some(c => c.suit === 'S')) {
       const row = document.createElement('div');
       row.className = 'fin-row';
       row.innerHTML = `<span class="fin-void">${ltr(suitHtml('S'))}&nbsp;${L('void', 'חוסר')}</span>`;
-      if (trump) renderFan(row, [{ suit: trump, rank: 'x' }]);
+      if (cards.length) renderFan(row, cards);
       box.appendChild(row);
     } else {
-      const suits = typeof ranks === 'string' ? { S: ranks } : ranks;
-      const fan = renderFan(box, Object.entries(suits).flatMap(([suit, r]) => [...r].map(rank => ({ suit, rank }))));
+      const fan = renderFan(box, cards);
       if (led >= 0) fan.children[led].classList.add('led');
       if (pick) [].concat(pick.index).forEach(i => fan.children[i].classList.add('pick', pick.tone)); // the cards you play: green right, red wrong
     }
@@ -2375,45 +2400,30 @@ const FinesseLayouts = (() => {
         w: you === 'w' ? L('West (you)', 'מערב (אתם)') : L('West (partner)', 'מערב (השותף)'),
         e: you === 'e' ? L('East (you)', 'מזרח (אתם)') : L('East (partner)', 'מזרח (השותף)') }
       : { n: L('North (dummy)', 'צפון (דומם)'), w: L('West', 'מערב'), e: L('East', 'מזרח'), s: L('South (you)', 'דרום (אתם)') };
-    // The defenders' honors, filled out with small cards to the length of your longer hand.
+    // The defenders' honors, filled out with small cards to the length of your longer hand; a void
+    // South holds a small trump when the play needs one.
     const len = k.defense ? 0 : Math.max(k.north.length, k.south.length);
     const defender = honors => (honors + 'x'.repeat(len)).slice(0, len);
-    const drawStart = () => {
-      table.innerHTML = '';
-      if (k.defense) {
-        table.append(
-          hand('n', labels.n, k.hands.n, null, led('n')),
-          hand('w', labels.w, k.hands.w, null, led('w'), pick('w')),
-          hand('e', labels.e, k.hands.e, null, led('e'), pick('e')),
-          hand('s', labels.s, k.hands.s, null, led('s')));
-      } else {
-        table.append(
-          hand('n', labels.n, k.north, null, led('n')),
-          hand('w', labels.w, defender(c.w)),
-          hand('e', labels.e, defender(c.e)),
-          hand('s', labels.s, k.south, k.trump, led('s')));
-      }
-    };
-    drawStart();
+    const holding = h => (typeof h === 'string' ? { S: h } : h);
+    const cards = spots(k.defense
+      ? Object.fromEntries(Object.entries(k.hands).map(([seat, h]) => [seat, holding(h)]))
+      : { n: { S: k.north }, e: { S: defender(c.e) }, w: { S: defender(c.w) },
+        s: k.south ? { S: k.south } : k.trump ? { [k.trump]: 'x' } : {} });
+    for (const seat of ['n', 'w', 'e', 's']) {
+      table.appendChild(hand(seat, labels[seat], cards[seat], led(seat), pick(seat)));
+    }
     const text = document.createElement('p');
     text.innerHTML = t(c.text);
     box.append(table, text);
     const rounds = (ROUNDS[dialog.dataset.kind] || [])[k.cases.indexOf(c)];
-    if (rounds) {
-      const toCards = ranks => Object.entries(typeof ranks === 'string' ? { S: ranks } : ranks)
-        .flatMap(([suit, r]) => [...r].map(rank => ({ suit, rank })));
-      const start = k.defense
-        ? { n: toCards(k.hands.n), e: toCards(k.hands.e), s: toCards(k.hands.s), w: toCards(k.hands.w) }
-        : { n: toCards(k.north), e: toCards(defender(c.e)), w: toCards(defender(c.w)),
-          s: k.south ? toCards(k.south) : k.trump ? [{ suit: k.trump, rank: 'x' }] : [] };
-      box.append(player(table, labels, start, rounds, k, drawStart));
-    }
+    if (rounds) box.append(player(table, labels, cards, rounds, k));
     return box;
   }
 
-  // The "Play" button: plays the case's rounds a card at a time in the middle of the table, marks
-  // each trick's winning card, and lists the tricks as won or lost for your side.
-  function player(table, labels, start, rounds, k, drawStart) {
+  // The "Play" button: plays the case's rounds a card at a time in the middle of the table. After
+  // each trick its cards go back to their hands, dimmed, the winning card ringed in green and the
+  // others in red, and the list says whether your side won the trick.
+  function player(table, labels, start, rounds, k) {
     const wrap = document.createElement('div');
     wrap.className = 'fin-play';
     const btn = document.createElement('button');
@@ -2432,34 +2442,40 @@ const FinesseLayouts = (() => {
       for (const tok of round.split(' ')) {
         if (tok[0] === '=') { force = tok[1].toLowerCase(); continue; }
         const [seat, spec] = tok.split(':');
-        plays.push({ seat: seat.toLowerCase(), card: spec === '-' ? { discard: true } : { rank: spec[0], suit: spec[1] || 'S' } });
+        plays.push({ seat: seat.toLowerCase(), spec: spec === '-' ? null : { rank: spec[0], suit: spec[1] || 'S' } });
       }
       return { plays, force };
     };
-    // The highest trump if one was played, otherwise the highest card of the suit led; between
-    // equal small cards, the first one played.
-    const winner = ({ plays, force }) => {
+    // The card a seat plays: the named card, or for x its lowest small card left in the suit.
+    const take = (hand, spec) => {
+      const left = hand.filter(c => !c.played && c.suit === spec.suit);
+      if (spec.rank !== 'x') return left.find(c => c.rank === spec.rank);
+      return left.filter(c => c.small).sort((a, b) => ORDER.indexOf(a.rank) - ORDER.indexOf(b.rank))[0];
+    };
+    // The highest trump if one was played, otherwise the highest card of the suit led.
+    const winner = (plays, force) => {
       if (force) return plays.find(p => p.seat === force);
-      const suit = k.trump && plays.some(p => p.card.suit === k.trump) ? k.trump : plays[0].card.suit;
-      return plays.reduce((best, p) => (p.card.suit === suit && ORDER.indexOf(p.card.rank) > ORDER.indexOf(best.card.rank) ? p : best),
-        plays.find(p => p.card.suit === suit));
+      const real = plays.filter(p => p.card);
+      const suit = k.trump && real.some(p => p.card.suit === k.trump) ? k.trump : real[0].card.suit;
+      return real.filter(p => p.card.suit === suit)
+        .reduce((best, p) => (ORDER.indexOf(p.card.rank) > ORDER.indexOf(best.card.rank) ? p : best));
     };
 
     btn.addEventListener('click', () => {
       btn.disabled = true;
       list.innerHTML = '';
       sum.textContent = '';
-      const hands = Object.fromEntries(Object.entries(start).map(([seat, cards]) => [seat, cards.slice()]));
+      const hands = Object.fromEntries(Object.entries(start).map(([seat, cs]) => [seat, cs.map(c => ({ ...c }))]));
       const trick = document.createElement('div');
       trick.className = 'fin-trick';
       const draw = () => {
         table.innerHTML = '';
         for (const seat of ['n', 'w', 'e', 's']) {
-          const box = document.createElement('div');
-          box.className = 'fin-hand ' + seat;
-          box.innerHTML = `<span class="fin-label" dir="auto">${labels[seat]}</span>`;
-          if (hands[seat].length) renderFan(box, hands[seat]);
-          else box.insertAdjacentHTML('beforeend', '<span class="fin-void">—</span>');
+          const shown = hands[seat].filter(c => !c.inTrick);
+          const box = hand(seat, labels[seat], shown);
+          box.querySelectorAll('.card').forEach((el, i) => {
+            if (shown[i].played) el.classList.add('played', shown[i].won ? 'won' : 'lost');
+          });
           table.appendChild(box);
         }
         table.appendChild(trick);
@@ -2471,41 +2487,45 @@ const FinesseLayouts = (() => {
           sum.innerHTML = k.defense
             ? L(`Declarer took <strong>${theirs}</strong>, your side <strong>${ours}</strong>.`, `הכרוז לקח <strong>${theirs}</strong>, הצד שלכם <strong>${ours}</strong>.`)
             : L(`You took <strong>${ours}</strong>, the defenders <strong>${theirs}</strong>.`, `לקחתם <strong>${ours}</strong>, המגינים <strong>${theirs}</strong>.`);
-          drawStart();
           btn.disabled = false;
           btn.textContent = L('↻ Play again', '↻ שחקו שוב');
           return;
         }
-        const round = parse(rounds[r]);
+        const { plays, force } = parse(rounds[r]);
         trick.innerHTML = '';
         let i = 0;
         const step = () => {
-          if (i < round.plays.length) {
-            const { seat, card } = round.plays[i++];
-            if (!card.discard) {
-              const at = hands[seat].findIndex(h => h.suit === card.suit && h.rank === card.rank);
-              if (at >= 0) hands[seat].splice(at, 1);
+          if (i < plays.length) {
+            const play = plays[i++];
+            if (play.spec) {
+              play.card = take(hands[play.seat], play.spec);
+              play.card.inTrick = true;
             }
             draw();
             const slot = document.createElement('div');
-            slot.className = 'fin-slot ' + seat;
-            card.el = createCardEl(card, { faceDown: !!card.discard });
-            slot.appendChild(card.el);
+            slot.className = 'fin-slot ' + play.seat;
+            play.el = createCardEl(play.card || {}, { faceDown: !play.card });
+            slot.appendChild(play.el);
             trick.appendChild(slot);
             setTimeout(step, 600);
             return;
           }
-          const win = winner(round);
+          const win = winner(plays, force);
           const good = (win.seat === 'n' || win.seat === 's') !== !!k.defense;
           if (good) ours++;
-          win.card.el.classList.add(good ? 'won' : 'lost');
-          const lead = SEAT_NAMES[SEAT[round.plays[0].seat]], by = SEAT_NAMES[SEAT[win.seat]];
+          win.el.classList.add('won');
+          const lead = SEAT_NAMES[SEAT[plays[0].seat]], by = SEAT_NAMES[SEAT[win.seat]];
           const li = document.createElement('li');
           li.innerHTML = `${good ? '✅' : '❌'} ` + L(`${lead} leads; ${by} wins with ${cardHtml(win.card)}.`,
             `${lead} מוביל; ${by} זוכה עם ${cardHtml(win.card)}.`);
           list.appendChild(li);
           r++;
-          setTimeout(nextRound, 1200);
+          setTimeout(() => {
+            plays.filter(p => p.card).forEach(p => Object.assign(p.card, { inTrick: false, played: true, won: p === win }));
+            trick.innerHTML = '';
+            draw();
+            setTimeout(nextRound, 300);
+          }, 1200);
         };
         step();
       };
