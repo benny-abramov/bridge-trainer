@@ -790,3 +790,22 @@ button:focus-visible, input:focus-visible, .card:focus-visible { outline: 3px so
 .tbl tr.tbl-section th { background: var(--surface); color: var(--accent); border-top: 2px solid var(--accent); padding-top: .55rem; }
 .tbl tr.tbl-section.obstructive th { color: var(--bad); border-top-color: var(--bad); }
 .tbl tr.tbl-section.neutral th { color: var(--muted); border-top-color: var(--border); }
+/* Squeeze "Example" drawings: the ending suit by suit, labels for threats, guards and the free
+   suit, and curved arrows from each threat to its guard. */
+.sq-diagram { position: relative; direction: ltr; display: grid; grid-template-areas: ". n ." "w c e" ". s ."; grid-template-columns: 1fr auto 1fr; gap: 1.2rem .8rem; align-items: center; justify-items: center; padding: 1rem .6rem; margin: .4rem 0 .8rem; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); }
+.sq-hand { font-size: 1.1rem; }
+.sq-hand.n { grid-area: n; } .sq-hand.w { grid-area: w; } .sq-hand.e { grid-area: e; } .sq-hand.s { grid-area: s; }
+.sq-label { font-size: .75rem; color: var(--muted); margin-bottom: .2rem; }
+.sq-row { display: flex; align-items: center; gap: .45rem; min-height: 1.7rem; white-space: nowrap; }
+.sq-suit { display: inline-block; width: 1.1em; text-align: center; }
+.sq-ranks { font-weight: 700; min-width: 1.4em; }
+.sq-tag { font-size: .68rem; font-weight: 700; letter-spacing: .03em; text-transform: uppercase; padding: .05rem .45rem; border-radius: 999px; border: 1.5px solid; }
+.sq-tag.threat { color: var(--accent); }
+.sq-tag.guard { color: var(--bad); }
+.sq-tag.free { color: #a86b00; }
+.sq-table { grid-area: c; width: 3.4rem; height: 3.4rem; border: 2px solid var(--muted); border-radius: 6px; }
+.sq-arrows { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+.sq-arrows .sq-arrow { fill: none; stroke: var(--accent); stroke-width: 2; }
+.sq-arrows marker path { fill: var(--accent); }
+.sq-text { text-align: start; }
+.sq-text p { margin: .4rem 0; }

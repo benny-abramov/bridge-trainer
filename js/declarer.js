@@ -239,6 +239,7 @@ const DECLARER_SECTIONS = {
         <li><strong>The count.</strong> You must be able to win all the remaining tricks but one before the squeeze starts. If you have two losers, give one up first (<em>rectifying the count</em>), so the victim has no spare card to throw.</li>
         <li><strong>Entries.</strong> After the victim discards, you must still be able to reach the threat that has become a winner. Usually one threat comes with its own winner, such as ♥A-J.</li>
       </ul>
+      <p><button class="btn secondary" type="button" data-squeeze-diagram="simple">Example</button></p>
       <p>The last winner you cash is the <strong>squeeze card</strong>. A <em>positional</em> squeeze only works against the defender who discards <em>before</em> the hand holding the threats. An <em>automatic</em> squeeze works against either defender, because the hand opposite the squeeze card has a spare card to throw.</p>
       <p>The rule of thumb is: <strong>cash your winners in the other suits first and keep the threats</strong>. Then watch what the victim throws.</p>
       <h3>Double squeeze</h3>
@@ -258,6 +259,7 @@ const DECLARER_SECTIONS = {
         <li><strong>הספירה.</strong> לפני שהלחץ מתחיל, אתם צריכים להיות מסוגלים לזכות בכל הלקיחות שנשארו פרט לאחת. אם יש לכם שני מפסידים, מסרו אחד קודם (<em>תיקון הספירה</em>), כדי שלקורבן לא יהיה קלף מיותר להשליך.</li>
         <li><strong>כניסות.</strong> אחרי שהקורבן משליך, אתם עדיין צריכים להגיע לאיום שהפך לזוכה. בדרך כלל לאחד האיומים יש זוכה משלו, כמו ♥A-J.</li>
       </ul>
+      <p><button class="btn secondary" type="button" data-squeeze-diagram="simple">דוגמה</button></p>
       <p>הזוכה האחרון שאתם מממשים הוא <strong>קלף הלחץ</strong>. לחץ <em>מבוסס מיקום</em> עובד רק נגד המגן שמשליך <em>לפני</em> היד שמחזיקה את האיומים. לחץ <em>אוטומטי</em> עובד נגד כל אחד מהמגינים, כי ליד שמול קלף הלחץ יש קלף מיותר להשליך.</p>
       <p>כלל האצבע: <strong>ממשו קודם את הזוכים בסדרות האחרות, ושמרו את האיומים</strong>. אחר כך הסתכלו מה הקורבן משליך.</p>
       <h3>לחץ כפול</h3>
@@ -319,3 +321,98 @@ const DECLARER_TOPICS = (() => {
 })();
 
 const DeclarerPlay = makePuzzleSection('dp', DECLARER_TOPICS, DECLARER_GROUPS);
+
+// The "Example" drawings in the Squeeze topic: the ending laid out suit by suit, with the threats,
+// the guards and the free suit labelled, and an arrow from each threat to the card that guards it.
+const SqueezeDiagram = (() => {
+  const sym = suitHtml;
+  // `hands` gives each seat's holding by suit; `tags` labels a seat's suit (seat letter + suit);
+  // `arrows` join a threat to its guard.
+  const DIAGRAMS = {
+    simple: {
+      title: ['The simple squeeze', 'הלחץ הפשוט'],
+      hands: { n: { H: 'AJ', D: 'Q' }, e: { C: '987' }, s: { H: '3', C: 'A2' }, w: { H: 'KQ', D: 'K' } },
+      tags: { nH: 'threat', nD: 'threat', wH: 'guard', wD: 'guard', sC: 'free' },
+      arrows: [['nH', 'wH'], ['nD', 'wD']],
+      text: [
+        `<p>West alone guards both red suits: the ${sym('H')}K-Q stop your ${sym('H')}J, and the ${sym('D')}K stops your ${sym('D')}Q.
+        Your clubs are the <strong>free suit</strong>: a winner you can cash at any moment, forcing West to discard. The ${sym('C')}A is the squeeze card.</p>
+        <p>Lead the ${sym('C')}A. West has to discard before North and can't keep both guards: if West throws the ${sym('D')}K, your ${sym('D')}Q is high;
+        if West throws a heart, your ${sym('H')}A drops the other honor and the ${sym('H')}J wins.</p>`,
+        `<p>מערב לבדו שומר על שתי הסדרות האדומות: ה-${sym('H')}K-Q עוצרים את ה-${sym('H')}J שלכם, וה-${sym('D')}K עוצר את ה-${sym('D')}Q שלכם.
+        הקלאב שלכם הוא <strong>הסדרה החופשית</strong>: זוכה שאפשר לממש בכל רגע, ומאלץ את מערב להשליך. ה-${sym('C')}A הוא קלף הלחץ.</p>
+        <p>הובילו את ה-${sym('C')}A. מערב חייב להשליך לפני צפון ולא יכול לשמור את שתי השמירות: אם מערב משליך את ה-${sym('D')}K, ה-${sym('D')}Q שלכם גבוהה;
+        אם מערב משליך הארט, ה-${sym('H')}A שלכם מפיל את ההונור השני וה-${sym('H')}J זוכה.</p>`,
+      ],
+    },
+  };
+  const TAG = { threat: ['Threat', 'איום'], guard: ['Guard', 'שמירה'], free: ['Free suit', 'סדרה חופשית'] };
+  const LABEL = { n: ['North (dummy)', 'צפון (דומם)'], e: ['East', 'מזרח'], s: ['South (you)', 'דרום (אתם)'], w: ['West', 'מערב'] };
+  let dialog, current;
+
+  function handHtml(d, seat) {
+    const rows = SUITS.map(suit => {
+      const ranks = (d.hands[seat][suit] || '').split('').map(rankLabel).join(' ');
+      const tag = d.tags[seat + suit];
+      return `<div class="sq-row" data-row="${seat}${suit}"><span class="sq-suit">${sym(suit)}</span>`
+        + `<span class="sq-ranks">${ranks}</span>${tag ? `<span class="sq-tag ${tag}">${L(...TAG[tag])}</span>` : ''}</div>`;
+    }).join('');
+    return `<div class="sq-hand ${seat}"><div class="sq-label">${L(...LABEL[seat])}</div>${rows}</div>`;
+  }
+
+  // Curved arrows from the threat's cards to the guard's label, redrawn whenever the size changes.
+  function drawArrows() {
+    const box = dialog.querySelector('.sq-diagram');
+    const svg = box.querySelector('svg');
+    const base = box.getBoundingClientRect();
+    svg.setAttribute('viewBox', `0 0 ${base.width} ${base.height}`);
+    svg.querySelectorAll('path.sq-arrow').forEach(p => p.remove());
+    for (const [from, to] of current.arrows) {
+      const a = box.querySelector(`[data-row="${from}"] .sq-suit`).getBoundingClientRect();
+      const tagEl = box.querySelector(`[data-row="${to}"] .sq-tag`) || box.querySelector(`[data-row="${to}"] .sq-ranks`);
+      const b = tagEl.getBoundingClientRect();
+      const x1 = a.left - base.left - 6, y1 = a.top + a.height / 2 - base.top;
+      const x2 = b.right - base.left + 6, y2 = b.top + b.height / 2 - base.top;
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('class', 'sq-arrow');
+      path.setAttribute('d', `M${x1},${y1} Q${x2 + (x1 - x2) * 0.15},${y1} ${x2},${y2}`);
+      path.setAttribute('marker-end', 'url(#sq-head)');
+      svg.appendChild(path);
+    }
+  }
+
+  function show(key) {
+    current = DIAGRAMS[key];
+    if (!current) return;
+    if (!dialog) {
+      dialog = document.createElement('dialog');
+      dialog.className = 'finesse-dialog sq-dialog';
+      dialog.addEventListener('click', e => { if (e.target === dialog) dialog.close(); }); // the backdrop
+      document.body.appendChild(dialog);
+      window.addEventListener('resize', () => { if (dialog.open) drawArrows(); });
+    }
+    dialog.innerHTML = `<h3>${L(...current.title)}</h3>
+      <div class="sq-diagram">
+        ${['n', 'w', 'e', 's'].map(seat => handHtml(current, seat)).join('')}
+        <div class="sq-table" aria-hidden="true"></div>
+        <svg class="sq-arrows" aria-hidden="true"><defs><marker id="sq-head" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z"/></marker></defs></svg>
+      </div>
+      <div class="sq-text">${L(...current.text)}</div>`;
+    const close = document.createElement('button');
+    close.className = 'btn';
+    close.type = 'button';
+    close.textContent = L('Close', 'סגירה');
+    close.addEventListener('click', () => dialog.close());
+    dialog.appendChild(close);
+    if (!dialog.open) dialog.showModal();
+    dialog.scrollTop = 0;
+    requestAnimationFrame(drawArrows);
+  }
+
+  document.addEventListener('click', e => {
+    const btn = e.target.closest('[data-squeeze-diagram]');
+    if (btn) show(btn.dataset.squeezeDiagram);
+  });
+
+  return { show };
+})();
