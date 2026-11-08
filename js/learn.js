@@ -363,7 +363,7 @@ const LESSONS_EN = [
       <p>With 6+ HCP, choose the <strong>first</strong> of these that fits your hand. Tap a hand type to see an example:</p>
       <table class="tbl">
         <tr><th>Your hand</th><th>Respond</th></tr>
-        <tr><td><button class="finesse-link" type="button" data-response="mraise">3+ cards in partner's major</button></td><td>Raise partner's major: see <em>Supporting partner's major</em> below</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-response="mraise">3+ cards in partner's major</button></td><td>Raise partner's major: see <em>Supporting partner's major</em> below. A major opening promises 5+ cards, so 3 cards are enough for an 8-card fit.</td></tr>
         <tr><td><button class="finesse-link" type="button" data-response="new1">A 4+ card suit you can bid at the 1-level</button></td><td>Bid it (majors before diamonds; hearts first with 4-4 in the majors)</td></tr>
         <tr><td><button class="finesse-link" type="button" data-response="minraise">Support for partner's minor (4+ ${D} or 5+ ${C})</button></td><td>Raise: 2 of the minor with 6–10 support points, 3 with 11–12 and five cards (with only four, 2NT)</td></tr>
         <tr><td><button class="finesse-link" type="button" data-response="nt1">6–10 HCP, none of the above</button></td><td>1NT</td></tr>
@@ -1102,7 +1102,7 @@ const LESSONS_HE = [
       <p>עם 6 נק' ומעלה, בחרו את <strong>הראשונה</strong> מבין האפשרויות הבאות שמתאימה ליד. לחצו על סוג יד כדי לראות דוגמה:</p>
       <table class="tbl">
         <tr><th>היד שלכם</th><th>תשובה</th></tr>
-        <tr><td><button class="finesse-link" type="button" data-response="mraise">3 קלפים ומעלה בסדרת המייגור של השותף</button></td><td>תמכו בסדרת המייגור של השותף: ראו <em>תמיכה בסדרת המייגור של השותף</em> בהמשך</td></tr>
+        <tr><td><button class="finesse-link" type="button" data-response="mraise">3 קלפים ומעלה בסדרת המייגור של השותף</button></td><td>תמכו בסדרת המייגור של השותף: ראו <em>תמיכה בסדרת המייגור של השותף</em> בהמשך. פתיחה בסדרת מייגור מבטיחה 5 קלפים ומעלה, ולכן 3 קלפים מספיקים להתאמה של 8 קלפים.</td></tr>
         <tr><td><button class="finesse-link" type="button" data-response="new1">סדרה של 4 קלפים ומעלה שאפשר להכריז ברמת 1</button></td><td>הכריזו אותה (סדרות מייגור לפני דיאמונד; הארט קודם עם 4-4 בסדרות המייגור)</td></tr>
         <tr><td><button class="finesse-link" type="button" data-response="minraise">תמיכה בסדרת המיינור של השותף (4 ומעלה ב-${D} או 5 ומעלה ב-${C})</button></td><td>תמיכה: ל-2 עם 6-10 נקודות תמיכה, ל-3 עם 11-12 וחמישה קלפים (עם ארבעה בלבד, 2NT)</td></tr>
         <tr><td><button class="finesse-link" type="button" data-response="nt1">6-10 נק', אף אחד מאלה</button></td><td>1NT</td></tr>
