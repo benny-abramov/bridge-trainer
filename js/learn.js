@@ -485,7 +485,7 @@ const LESSONS_EN = [
           <p>Opener's new lower suit without a jump (1${H} – 1${S} – 2${C}) is not forcing: pass when that suit makes a longer fit, otherwise give preference.</p>
         </div>
       </details>
-      <p><strong>When partner invites game</strong> (for example 1${H} – 2${H} – 3${H}, or 1${S} – 1NT – 2NT):</p>
+      <p><strong>When partner invites game</strong> (for example 1${H} – 2${H} – 3${H}, or 1${C} – 1${S} – 3${S}):</p>
       <ul>
         <li>Accept with the top of your range (9–10 after a 6–10 response) by bidding game.</li>
         <li>Decline with the bottom of your range (6–8 HCP) by passing.</li>
@@ -1224,7 +1224,7 @@ const LESSONS_HE = [
           <p>סדרה חדשה נמוכה יותר של הפותח בלי קפיצה (<bdi dir="ltr">${B('1H')} – ${B('1S')} – ${B('2C')}</bdi>) לא מחייבת: הכריזו פאס כשהסדרה הזו יוצרת התאמה ארוכה יותר, ואחרת תנו העדפה.</p>
         </div>
       </details>
-      <p><strong>כשהשותף מזמין למשחק מלא</strong> (למשל <bdi dir="ltr">${B('1H')} – ${B('2H')} – ${B('3H')}</bdi>, או <bdi dir="ltr">${B('1S')} – 1NT – 2NT</bdi>):</p>
+      <p><strong>כשהשותף מזמין למשחק מלא</strong> (למשל <bdi dir="ltr">${B('1H')} – ${B('2H')} – ${B('3H')}</bdi>, או <bdi dir="ltr">${B('1C')} – ${B('1S')} – ${B('3S')}</bdi>):</p>
       <ul>
         <li>קבלו את ההזמנה עם ראש הטווח שלכם (9-10 אחרי תשובה של 6-10) בהכרזת משחק מלא.</li>
         <li>דחו אותה עם תחתית הטווח (6-8 נק') בפאס.</li>
