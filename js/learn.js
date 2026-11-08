@@ -141,8 +141,12 @@ const LESSONS_EN = [
       Players are named after compass points: <strong>North and South</strong> are partners against
       <strong>East and West</strong>. Partners sit opposite each other.</p>
       <div class="compass" aria-hidden="true">
-        <span class="n">North</span><span class="w">West</span><span class="e">East</span><span class="s">South</span>
-        <span class="mid">table</span>
+        <div class="compass-table"><div class="compass-felt">
+          <span class="line ns"></span><span class="line ew"></span>
+          <span class="mark tl">♠</span><span class="mark tr">♡</span><span class="mark bl">♢</span><span class="mark br">♣</span>
+          <span class="mid">Bridge<br>table</span>
+        </div></div>
+        <span class="seat n">North</span><span class="seat w">West</span><span class="seat e">East</span><span class="seat s">South</span>
       </div>
       <p>Bridge uses a standard deck of <strong>52 cards</strong>: four suits of 13 cards each, ranked from the ace (highest) down to the 2.</p>
       <div class="deck-figure" role="img" aria-label="The 52 cards: spades, hearts, diamonds and clubs, each from the ace down to the 2"></div>
@@ -880,8 +884,12 @@ const LESSONS_HE = [
       <p>ברידג' הוא משחק קלפים ל<strong>ארבעה שחקנים בשני זוגות</strong>.
       השחקנים נקראים על שם כיווני המצפן: <strong>צפון ודרום</strong> הם שותפים מול <strong>מזרח ומערב</strong>. השותפים יושבים זה מול זה.</p>
       <div class="compass" aria-hidden="true">
-        <span class="n">צפון</span><span class="w">מערב</span><span class="e">מזרח</span><span class="s">דרום</span>
-        <span class="mid">שולחן</span>
+        <div class="compass-table"><div class="compass-felt">
+          <span class="line ns"></span><span class="line ew"></span>
+          <span class="mark tl">♠</span><span class="mark tr">♡</span><span class="mark bl">♢</span><span class="mark br">♣</span>
+          <span class="mid">שולחן<br>ברידג'</span>
+        </div></div>
+        <span class="seat n">צפון</span><span class="seat w">מערב</span><span class="seat e">מזרח</span><span class="seat s">דרום</span>
       </div>
       <p>בברידג' משחקים עם חפיסה רגילה של <strong>52 קלפים</strong>: ארבע סדרות של 13 קלפים כל אחת, מהאס (הגבוה ביותר) ועד ה-2.</p>
       <div class="deck-figure" role="img" aria-label="52 הקלפים: ספייד, הארט, דיאמונד וקלאב, כל סדרה מהאס ועד ה-2"></div>
