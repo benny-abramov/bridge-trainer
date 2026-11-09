@@ -297,6 +297,18 @@ const LESSONS_EN = [
     body: `
       <p>The first bid is the <strong>opening bid</strong>. This app teaches a simplified <em>Standard American</em> system. Open your <strong>longest suit</strong>, but a major (${H} or ${S}) needs at least <strong>5 cards</strong>.</p>
       <p>Because a major needs 5 cards, you will often hold a hand whose longest suit is a 4-card major (which you cannot open), or a balanced hand. Then you open a <strong>minor</strong> (${C} or ${D}), even if it is only 3 cards long.</p>
+      <details class="why-more">
+        <summary class="btn secondary">💡 The goals of the bidding</summary>
+        <div class="why-body">
+          <p><strong>Exchange information.</strong> You and partner can't see each other's cards, so each bid tells partner something about your hand.
+          Together you find out the combined strength of your two hands, and use it to choose the final contract.</p>
+          <p><strong>Decide between game and a part score.</strong> Bidding and making a game earns a much bigger bonus, so try to bid game when you have the strength for it.
+          Otherwise settle for a part score, and stop at the lowest level you can: every part score earns the same bonus, so bidding higher only adds risk.</p>
+          <p><strong>Choose trumps or no-trump.</strong> To play in a trump suit, your side should hold most of the trumps, more than the opponents.
+          You always have at least one suit with 7 cards between you, but you usually want an <strong>8-card fit</strong> before choosing it as trumps.</p>
+          <p>That is why a major opening needs 5 cards: if partner has 3 cards in it, you already know about an 8-card fit early in the bidding.</p>
+        </div>
+      </details>
       <p>Tap a hand type to see an example:</p>
       <table class="tbl">
         <tr><th>Your hand</th><th>Open</th></tr>
@@ -1039,6 +1051,18 @@ const LESSONS_HE = [
     body: `
       <p>ההכרזה הראשונה היא <strong>הכרזת הפתיחה</strong>. האפליקציה מלמדת גרסה פשוטה של <em>השיטה האמריקאית הסטנדרטית</em>. פתחו ב<strong>סדרה הארוכה ביותר</strong> שלכם, אבל סדרת מייגור (${H} או ${S}) דורשת לפחות <strong>5 קלפים</strong>.</p>
       <p>מכיוון שמייגור דורש 5 קלפים, לעתים קרובות תחזיקו יד שהסדרה הארוכה ביותר בה היא מייגור של 4 קלפים (שבו אי אפשר לפתוח), או יד מאוזנת. אז פותחים ב<strong>מיינור</strong> (${C} או ${D}), גם אם יש בו רק 3 קלפים.</p>
+      <details class="why-more">
+        <summary class="btn secondary">💡 המטרות של המכרז</summary>
+        <div class="why-body">
+          <p><strong>להעביר מידע.</strong> אתם והשותף לא רואים את הקלפים זה של זה, ולכן כל הכרזה מספרת לשותף משהו על היד שלכם.
+          יחד אתם מגלים את הכוח המשותף של שתי הידיים, ובעזרתו בוחרים את החוזה הסופי.</p>
+          <p><strong>להחליט בין משחק מלא לחוזה חלקי.</strong> הכרזה וביצוע של משחק מלא מזכים בבונוס גדול בהרבה, ולכן נסו להכריז משחק מלא כשיש לכם מספיק כוח.
+          אחרת הסתפקו בחוזה חלקי, ועצרו ברמה הנמוכה ביותר שאפשר: כל חוזה חלקי מזכה באותו בונוס, ולכן הכרזה גבוהה יותר רק מוסיפה סיכון.</p>
+          <p><strong>לבחור בין שליט לבין ללא שליט.</strong> כדי לשחק עם סדרת שליט, לצד שלכם צריכים להיות רוב קלפי השליט, יותר מאשר ליריבים.
+          תמיד יש לכם לפחות סדרה אחת עם 7 קלפים ביחד, אבל בדרך כלל רוצים <strong>התאמה של 8 קלפים</strong> לפני שבוחרים בה כשליט.</p>
+          <p>לכן פתיחה בסדרת מייגור דורשת 5 קלפים: אם לשותף יש בה 3 קלפים, כבר בתחילת המכרז ידוע שיש התאמה של 8 קלפים.</p>
+        </div>
+      </details>
       <p>לחצו על סוג יד כדי לראות דוגמה:</p>
       <table class="tbl">
         <tr><th>היד שלכם</th><th>פתיחה</th></tr>
