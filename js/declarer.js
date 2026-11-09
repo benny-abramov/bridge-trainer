@@ -46,7 +46,9 @@ const DECLARER_SECTIONS = {
         <tr><td>Double finesse</td><td>A-Q-10 / x-x-x</td><td>Finesse the 10 first, then the queen</td><td>The king and jack are both with the player before dummy (or the jack alone is)</td></tr>
         <tr><td>Ruffing finesse</td><td>A-Q-J / void (with trumps)</td><td>Lead the queen; ruff if covered, otherwise throw a loser</td><td>The king is with the player after dummy</td></tr>
       </table>
-      <p>A finesse is a roughly 50% chance in real play. In these puzzles you can see every card, so the job is to take the finesse the right way, and to keep the entries you need to repeat it.</p>`, `
+      <p>A finesse is a roughly 50% chance in real play. In these puzzles you can see every card, so the job is to take the finesse the right way, and to keep the entries you need to repeat it.</p>
+      <p><strong>Start from the right hand.</strong> If you are already on lead in the hand opposite your honor, lead toward the honor and take the finesse.
+      If not, first cross to that hand with an <strong>entry</strong>, a winner in another suit, and then lead toward the honor.</p>`, `
       <p><strong>עקיפה</strong> מנסה לזכות בלקיחה עם קלף שאינו הגבוה ביותר, בתקווה שההונור החסר נמצא במקום הנכון. כלל הזהב: <strong>הובילו מהיד שממול <em>לעבר</em> הקלף שאתם מקווים שיזכה.</strong> כך המגן שמחזיק את ההונור החסר חייב לשחק לפני שאתם מחליטים.</p>
       <table class="tbl">
         <tr><th>סוג</th><th>החזקה (דומם / אתם)</th><th>איך</th><th>עובדת כאשר</th></tr>
@@ -56,7 +58,9 @@ const DECLARER_SECTIONS = {
         <tr><td>עקיפה כפולה</td><td>A-Q-10 / x-x-x</td><td>עקפו קודם עם ה-10, אחר כך עם המלכה</td><td>המלך והנסיך שניהם אצל השחקן שלפני הדומם (או רק הנסיך)</td></tr>
         <tr><td>עקיפת חיתוך</td><td>A-Q-J / חוסר (עם שליטים)</td><td>הובילו את המלכה; חתכו אם מכסים אותה, אחרת השליכו מפסיד</td><td>המלך אצל השחקן שאחרי הדומם</td></tr>
       </table>
-      <p>במשחק אמיתי לעקיפה יש סיכוי של בערך 50%. בחידות האלה רואים את כל הקלפים, כך שהמשימה היא לבצע את העקיפה בדרך הנכונה, ולשמור את הכניסות שצריך כדי לחזור עליה.</p>`),
+      <p>במשחק אמיתי לעקיפה יש סיכוי של בערך 50%. בחידות האלה רואים את כל הקלפים, כך שהמשימה היא לבצע את העקיפה בדרך הנכונה, ולשמור את הכניסות שצריך כדי לחזור עליה.</p>
+      <p><strong>התחילו מהיד הנכונה.</strong> אם אתם כבר בהובלה ביד שממול ההונור שלכם, הובילו לעבר ההונור ובצעו את העקיפה.
+      אם לא, עברו קודם ליד הזו עם <strong>כניסה</strong>, קלף זוכה בסדרה אחרת, ורק אז הובילו לעבר ההונור.</p>`),
   },
   draw: {
     label: L('Drawing trumps', 'הוצאת שליטים'),

@@ -313,6 +313,8 @@ function makePuzzleSection(prefix, topics, groups) {
     const t = topics[topic];
     $('topic-title').textContent = t.label;
     $('intro').innerHTML = colorSuits(t.intro);
+    Glossary.hide();
+    Glossary.mark($('intro'));
     const n = t.puzzles.length;
     $('practice').hidden = !n;
     $('practice').textContent = L(`Practice hands (${n}) →`, `ידיים לתרגול (${n}) ←`);
