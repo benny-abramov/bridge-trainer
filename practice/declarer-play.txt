@@ -117,14 +117,14 @@ Title: The double finesse
 Contract: 3NT
 Leader: S
 Need: 4
-North: D AQ10  C 2
-East:  D 98  C KQ
-South: S 2  D 43  C A
-West:  H 9  D KJ5
+North: D AQ10  C x
+East:  D xxx  C K
+South: D xxx  C A
+West:  D KJ5 C x
 Note: You're missing the ♦K and ♦J, and West has both. You'll need to lead toward dummy twice.
 הערה: חסרים לכם ה-♦K וה-♦J, ושניהם אצל מערב. תצטרכו להוביל לעבר הדומם פעמיים.
-Explanation: <p>Lead a diamond and <strong>finesse the 10</strong> first: it wins. Return to hand with the <strong>♣A</strong> and lead another diamond, finessing the queen. Finally, the ace captures West's king.</p> <p>Use your one entry to hand wisely. If you lead the ♣2 to your ace too early, or finesse the queen first, West's jack or king takes a trick.</p>
-הסבר: <p>הובילו דיאמונד ו<strong>עקפו קודם עם ה-10</strong>: הוא זוכה. חזרו ליד עם ה-<strong>♣A</strong> והובילו עוד דיאמונד, הפעם עקיפה עם המלכה. בסוף האס תופס את המלך של מערב.</p> <p>השתמשו בחוכמה בכניסה היחידה שלכם ליד. אם תובילו את ה-♣2 לאס שלכם מוקדם מדי, או תעקפו קודם עם המלכה, הנסיך או המלך של מערב ייקחו לקיחה.</p>
+Explanation: <p>Lead a diamond and <strong>finesse the 10</strong> first: it wins. Return to hand with the <strong>♣A</strong> and lead another diamond, finessing the queen. Finally, the ace captures West's king.</p> <p>Use your one entry to hand wisely. If you lead a club to your ace too early, or finesse the queen first, West's jack or king takes a trick.</p>
+הסבר: <p>הובילו דיאמונד ו<strong>עקפו קודם עם ה-10</strong>: הוא זוכה. חזרו ליד עם ה-<strong>♣A</strong> והובילו עוד דיאמונד, הפעם עקיפה עם המלכה. בסוף האס תופס את המלך של מערב.</p> <p>השתמשו בחוכמה בכניסה היחידה שלכם ליד. אם תובילו קלאב לאס שלכם מוקדם מדי, או תעקפו קודם עם המלכה, הנסיך או המלך של מערב ייקחו לקיחה.</p>
 
 Section: finesse
 Title: The two way finesse

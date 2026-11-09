@@ -1193,15 +1193,15 @@ const PRACTICE = {
    "contract": "3N",
    "leader": 2,
    "hands": [
-    "D:AQT C:2",
-    "D:98 C:KQ",
-    "S:2 D:43 C:A",
-    "H:9 D:KJ5"
+    "D:AQT C:4",
+    "D:976 C:K",
+    "D:843 C:A",
+    "D:KJ5 C:2"
    ],
    "need": 4,
    "why": {
-    "en": "<p>Lead a diamond and <strong>finesse the 10</strong> first: it wins. Return to hand with the <strong>♣A</strong> and lead another diamond, finessing the queen. Finally, the ace captures West's king.</p> <p>Use your one entry to hand wisely. If you lead the ♣2 to your ace too early, or finesse the queen first, West's jack or king takes a trick.</p>",
-    "he": "<p>הובילו דיאמונד ו<strong>עקפו קודם עם ה-10</strong>: הוא זוכה. חזרו ליד עם ה-<strong>♣A</strong> והובילו עוד דיאמונד, הפעם עקיפה עם המלכה. בסוף האס תופס את המלך של מערב.</p> <p>השתמשו בחוכמה בכניסה היחידה שלכם ליד. אם תובילו את ה-♣2 לאס שלכם מוקדם מדי, או תעקפו קודם עם המלכה, הנסיך או המלך של מערב ייקחו לקיחה.</p>"
+    "en": "<p>Lead a diamond and <strong>finesse the 10</strong> first: it wins. Return to hand with the <strong>♣A</strong> and lead another diamond, finessing the queen. Finally, the ace captures West's king.</p> <p>Use your one entry to hand wisely. If you lead a club to your ace too early, or finesse the queen first, West's jack or king takes a trick.</p>",
+    "he": "<p>הובילו דיאמונד ו<strong>עקפו קודם עם ה-10</strong>: הוא זוכה. חזרו ליד עם ה-<strong>♣A</strong> והובילו עוד דיאמונד, הפעם עקיפה עם המלכה. בסוף האס תופס את המלך של מערב.</p> <p>השתמשו בחוכמה בכניסה היחידה שלכם ליד. אם תובילו קלאב לאס שלכם מוקדם מדי, או תעקפו קודם עם המלכה, הנסיך או המלך של מערב ייקחו לקיחה.</p>"
    },
    "note": {
     "en": "You're missing the ♦K and ♦J, and West has both. You'll need to lead toward dummy twice.",
