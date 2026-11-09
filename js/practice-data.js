@@ -1121,10 +1121,10 @@ const PRACTICE = {
    "contract": "3N",
    "leader": 0,
    "hands": [
-    "D:AQ C:2",
-    "D:8 C:KQ",
+    "D:AQ C:7",
+    "D:87 C:K",
     "D:32 C:A",
-    "H:9 D:K5"
+    "D:K5 C:8"
    ],
    "need": 3,
    "why": {

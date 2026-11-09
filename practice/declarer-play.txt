@@ -72,10 +72,10 @@ Title: The simple finesse
 Contract: 3NT
 Leader: N
 Need: 3
-North: D AQ  C 2
-East:  D 8  C KQ
+North: D AQ  C x
+East:  D xx  C K
 South: D 32  C A
-West:  H 9  D K5
+West:  D K5 C x
 Note: West has the ♦K. Dummy is on lead with the ♦A-Q.
 הערה: למערב יש את ה-♦K. הדומם מוביל, ויש לו ♦A-Q.
 Explanation: <p>Cross to your hand with the <strong>♣A</strong>, then lead a diamond <em>toward</em> dummy's A-Q. When West plays low, play the queen. It wins, because the king has to be played before the queen or not at all. The ace then captures West's king.</p> <p>Leading the queen (or the ace and then the queen) from dummy just lets West win the king.</p>
