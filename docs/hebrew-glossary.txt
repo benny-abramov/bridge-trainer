@@ -149,4 +149,5 @@ endplay = משחק סיום (אנדפליי)
 throw-in = הכנסה
 strip = ניקוי
 ruff-sluff = חיתוך והשלכה
-unblocking = השלכת קלף גובה
+unblocking = שחרור חסימה (של הכרוז) / השלכת קלף גובה (של המגן)
+overtaking = זכייה מעל
