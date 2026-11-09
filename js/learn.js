@@ -869,6 +869,26 @@ const LESSONS_EN = [
         <tr><td><button class="finesse-link" type="button" data-finesse="double">Double finesse</button></td><td>A-Q-10 / x-x-x</td><td>Finesse the 10 first, then the queen</td></tr>
         <tr><td><button class="finesse-link" type="button" data-finesse="ruffing">Ruffing finesse</button></td><td>A-Q-J / void</td><td>Lead the queen; ruff if covered, otherwise throw a loser</td></tr>
       </table>
+      <h3>Managing entries</h3>
+      <p><strong>Entries</strong> to the right hand are what let you carry out your plan, so plan them from the first trick.</p>
+      <details class="why-more">
+        <summary class="btn secondary">💡 Why entries matter, and how to manage them</summary>
+        <div class="why-body">
+          <p>Before you play a card at trick one, count your winners or losers and ask: <strong>do I have the entries to carry out my plan?</strong> You mainly need entries to:</p>
+          <ul>
+            <li><strong>Take finesses.</strong> You usually need to be in a particular hand to lead toward a high card in the other hand. If the finesse works, you often need another entry to go back and repeat it.</li>
+            <li><strong>Cash established suits.</strong> A long, strong suit in dummy is useless if, once the opponents' high cards are gone, you have no winner in dummy to reach it.</li>
+            <li><strong>Ruff losers.</strong> In a trump contract you often need to cross back and forth to ruff your losers in dummy.</li>
+          </ul>
+          <table class="tbl">
+            <tr><th>Technique</th><th>How it works</th><th>Why you do it</th></tr>
+            <tr><td>Unblocking</td><td>Play the high cards from the short side of a suit first.</td><td>So you don't get stuck in the wrong hand and block your own long suit.</td></tr>
+            <tr><td>Overtaking</td><td>Win a trick already won by your other hand, with a slightly higher card.</td><td>It uses up a high card on purpose to move the lead into the hand you need.</td></tr>
+            <tr><td>Ducking</td><td>Lose an early trick in a suit even though you hold winners.</td><td>It keeps a low card that links the two hands, so you can cross later.</td></tr>
+            <tr><td>Creating entries</td><td>Drive out an opponent's high card to promote a lower card.</td><td>It turns an ordinary card (like a jack or an 8) into an entry later in the hand.</td></tr>
+          </table>
+        </div>
+      </details>
       <p>The Declarer Play tab covers these and more (drawing trumps, cross ruff, hold up, ducking, safety plays), each with practice hands.</p>`,
     tryIt: 'declarer',
   },
@@ -1627,6 +1647,26 @@ const LESSONS_HE = [
         <tr><td><button class="finesse-link" type="button" data-finesse="double">עקיפה כפולה</button></td><td>A-Q-10 / x-x-x</td><td>עקפו קודם עם ה-10, אחר כך עם המלכה</td></tr>
         <tr><td><button class="finesse-link" type="button" data-finesse="ruffing">עקיפת חיתוך</button></td><td>A-Q-J / חוסר</td><td>הובילו את המלכה; חתכו אם מכסים אותה, אחרת השליכו מפסיד</td></tr>
       </table>
+      <h3>ניהול כניסות</h3>
+      <p><strong>כניסות</strong> ליד הנכונה הן מה שמאפשר לכם לבצע את התוכנית, ולכן תכננו אותן כבר מהלקיחה הראשונה.</p>
+      <details class="why-more">
+        <summary class="btn secondary">💡 למה כניסות חשובות, ואיך לנהל אותן</summary>
+        <div class="why-body">
+          <p>לפני שאתם משחקים קלף בלקיחה הראשונה, ספרו את הזוכים או המפסידים ושאלו: <strong>האם יש לי את הכניסות כדי לבצע את התוכנית?</strong> צריך כניסות בעיקר כדי:</p>
+          <ul>
+            <li><strong>לבצע עקיפות.</strong> בדרך כלל צריך להיות ביד מסוימת כדי להוביל לעבר קלף גבוה ביד השנייה. אם העקיפה מצליחה, לעתים קרובות צריך עוד כניסה כדי לחזור ולבצע אותה שוב.</li>
+            <li><strong>לממש סדרות מבוססות.</strong> סדרה ארוכה וחזקה בדומם לא שווה כלום אם, אחרי שהקלפים הגבוהים של היריבים יצאו, אין לכם זוכה בדומם כדי להגיע אליה.</li>
+            <li><strong>לחתוך מפסידים.</strong> בחוזה בשליט צריך לעתים קרובות לעבור הלוך ושוב בין הידיים כדי לחתוך את המפסידים בדומם.</li>
+          </ul>
+          <table class="tbl">
+            <tr><th>טכניקה</th><th>איך זה עובד</th><th>למה עושים את זה</th></tr>
+            <tr><td>שחרור חסימה</td><td>משחקים קודם את הקלפים הגבוהים מהצד הקצר של הסדרה.</td><td>כדי לא להיתקע ביד הלא נכונה ולחסום את הסדרה הארוכה שלכם.</td></tr>
+            <tr><td>זכייה מעל</td><td>זוכים בלקיחה שהיד השנייה שלכם כבר זוכה בה, עם קלף קצת יותר גבוה.</td><td>מבזבזים קלף גבוה בכוונה כדי להעביר את ההובלה ליד שצריך.</td></tr>
+            <tr><td>ויתור (דאק)</td><td>מפסידים לקיחה מוקדמת בסדרה, למרות שיש לכם זוכים.</td><td>כך נשאר קלף נמוך שמחבר בין הידיים, כדי שאפשר יהיה לעבור מאוחר יותר.</td></tr>
+            <tr><td>יצירת כניסות</td><td>מוציאים קלף גבוה של היריבים כדי לקדם קלף נמוך יותר.</td><td>הופכים קלף רגיל (כמו נסיך או 8) לכניסה בהמשך המשחק.</td></tr>
+          </table>
+        </div>
+      </details>
       <p>בלשונית "משחק הכרוז" יש את אלה ועוד (הוצאת שליטים, חיתוך צולב, השהיה, ויתור, משחקי ביטחון), עם ידיים לתרגול לכל אחד.</p>`,
     tryIt: 'declarer',
   },
