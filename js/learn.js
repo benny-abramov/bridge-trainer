@@ -856,7 +856,10 @@ const LESSONS_EN = [
         <li>Ruff <strong>before</strong> drawing trumps, or dummy's trumps disappear. Draw trumps once the ruffs are done.</li>
       </ul>
       <h3>Finesses</h3>
-      <p>A finesse wins a trick with a card that isn't the highest. The rule is: <strong>lead from the opposite hand toward the card you hope will win</strong>. Tap a kind to see where the missing cards can be.</p>
+      <p>A finesse wins a trick with a card that isn't the highest. The rule is: <strong>lead from the opposite hand toward the card you hope will win</strong>.</p>
+      <p><strong>Start from the right hand.</strong> If you are already on lead in the hand opposite your honor, lead toward the honor and take the finesse.
+      If not, first cross to that hand with an <strong>entry</strong>, a winner in another suit, and then lead toward the honor.</p>
+      <p>Tap a kind to see where the missing cards can be.</p>
       <table class="tbl">
         <tr><th>Kind</th><th>Holding (dummy / you)</th><th>How</th></tr>
         <tr><td><button class="finesse-link" type="button" data-finesse="simple">Simple finesse</button></td><td>A-Q / x-x</td><td>Lead toward A-Q and play the queen</td></tr>
@@ -1611,7 +1614,10 @@ const LESSONS_HE = [
         <li>חתכו <strong>לפני</strong> שאתם מוציאים שליטים, אחרת השליטים של הדומם ייעלמו. הוציאו שליטים אחרי שסיימתם לחתוך.</li>
       </ul>
       <h3>עקיפות</h3>
-      <p>עקיפה זוכה בלקיחה עם קלף שאינו הגבוה ביותר. הכלל: <strong>הובילו מהיד שממול לעבר הקלף שאתם מקווים שיזכה</strong>. לחצו על סוג כדי לראות היכן יכולים להיות הקלפים החסרים.</p>
+      <p>עקיפה זוכה בלקיחה עם קלף שאינו הגבוה ביותר. הכלל: <strong>הובילו מהיד שממול לעבר הקלף שאתם מקווים שיזכה</strong>.</p>
+      <p><strong>התחילו מהיד הנכונה.</strong> אם אתם כבר בהובלה ביד שממול ההונור שלכם, הובילו לעבר ההונור ובצעו את העקיפה.
+      אם לא, עברו קודם ליד הזו עם <strong>כניסה</strong>, קלף זוכה בסדרה אחרת, ורק אז הובילו לעבר ההונור.</p>
+      <p>לחצו על סוג כדי לראות היכן יכולים להיות הקלפים החסרים.</p>
       <table class="tbl">
         <tr><th>סוג</th><th>החזקה (דומם / אתם)</th><th>איך</th></tr>
         <tr><td><button class="finesse-link" type="button" data-finesse="simple">עקיפה פשוטה</button></td><td>A-Q / x-x</td><td>הובילו לעבר A-Q ושחקו את המלכה</td></tr>
