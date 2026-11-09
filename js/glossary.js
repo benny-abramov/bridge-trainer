@@ -198,9 +198,10 @@ const Glossary = (() => {
 
   // Marks the first use of each word in `root` (a lesson's text, before its pictures are added),
   // and also the first place it stands alone in bold ("A <strong>stopper</strong> is ..."), which
-  // is usually where the lesson explains it.
+  // is usually where the lesson explains it. Each collapsible box counts on its own, since it is
+  // read when opened, apart from the text around it.
   function mark(root) {
-    const seen = new Set(), seenBold = new Set();
+    const scopes = new Map();
     const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
       acceptNode: n => n.parentElement.closest(SKIP) ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT,
     });
@@ -208,6 +209,9 @@ const Glossary = (() => {
     while (walker.nextNode()) nodes.push(walker.currentNode);
     for (const node of nodes) {
       const text = node.nodeValue;
+      const scope = node.parentElement.closest('.why-body') || root;
+      if (!scopes.has(scope)) scopes.set(scope, { seen: new Set(), seenBold: new Set() });
+      const { seen, seenBold } = scopes.get(scope);
       const strong = node.parentElement.closest('strong');
       const boldText = strong ? strong.textContent.trim().replace(/[.:]$/, '').toLowerCase() : null;
       const parts = [];
